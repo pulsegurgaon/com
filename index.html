@@ -1,125 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>PulseGurgaon</title>
 
 <style>
 
 body{
-font-family: Arial, sans-serif;
 margin:0;
-background:#f4f6f9;
+font-family:Arial;
+background:#f6f6f6;
 }
 
 header{
-background:#1f4fa3;
-color:white;
+background:white;
 padding:15px;
-font-size:26px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+
+.logo{
 font-weight:bold;
+font-size:22px;
+color:#e11d48;
 }
 
-nav{
+.search{
+padding:8px;
+border-radius:20px;
+border:1px solid #ccc;
+width:40%;
+}
+
+.admin{
+background:#ff7a18;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:20px;
+}
+
+.categories{
+display:flex;
+gap:15px;
+padding:10px;
 background:white;
-padding:12px;
-border-bottom:1px solid #ddd;
+overflow-x:auto;
 }
 
-nav a{
-margin-right:20px;
-text-decoration:none;
-color:#333;
-font-weight:bold;
+.categories span{
+color:#555;
+font-size:14px;
 }
 
-.searchbar{
-padding:25px;
-background:white;
+.breaking{
+background:red;
+color:white;
+padding:6px;
+font-size:13px;
 text-align:center;
 }
 
-.searchbar input{
-width:80%;
-padding:16px;
-font-size:18px;
-border-radius:6px;
-border:1px solid #ccc;
+.hero{
+margin:20px;
+border-radius:12px;
+overflow:hidden;
+background:white;
 }
 
-.timeline{
-background:#eef2f7;
+.hero img{
+width:100%;
+height:220px;
+object-fit:cover;
+}
+
+.hero h1{
 padding:15px;
-font-size:14px;
-border-bottom:1px solid #ddd;
+margin:0;
 }
 
 .container{
-display:flex;
-padding:20px;
-}
-
-.left{
-width:70%;
-}
-
-.right{
-width:30%;
-padding-left:20px;
-}
-
-.section{
-background:white;
-margin-bottom:20px;
 padding:15px;
-border-radius:6px;
-}
-
-.cards{
-display:flex;
+display:grid;
+grid-template-columns:1fr 1fr;
 gap:15px;
 }
 
 .card{
-background:#fafafa;
-padding:10px;
-border-radius:6px;
-width:33%;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
 }
 
 .card img{
 width:100%;
-border-radius:5px;
+height:120px;
+object-fit:cover;
 }
 
-.ad{
-background:#e3e6ec;
-padding:25px;
-text-align:center;
-margin:15px 0;
-border-radius:6px;
-font-weight:bold;
+.card h3{
+padding:10px;
+margin:0;
+font-size:16px;
 }
 
-.blog{
-display:flex;
-margin-bottom:12px;
-}
-
-.blog img{
-width:70px;
-height:70px;
-margin-right:10px;
-border-radius:6px;
+.card p{
+padding:0 10px 10px;
+font-size:13px;
+color:#555;
 }
 
 footer{
-text-align:center;
-padding:20px;
 background:#111;
 color:white;
+padding:30px;
 margin-top:30px;
+text-align:center;
 }
 
 </style>
@@ -128,139 +130,80 @@ margin-top:30px;
 <body>
 
 <header>
-PulseGurgaon
+
+<div class="logo">PulseGurgaon</div>
+
+<input class="search" placeholder="Search news...">
+
+<button class="admin">ADMIN</button>
+
 </header>
 
-<nav>
-<a href="#">Gurgaon</a>
-<a href="#">Finance</a>
-<a href="#">World</a>
-<a href="#">Blogs</a>
-</nav>
+<div class="categories">
 
-<div class="searchbar">
-<input type="text" placeholder="Search cities, companies, topics or world news...">
-</div>
-
-<div class="timeline">
-09:00 Gurgaon rain alert issued | 09:30 Delhi-Gurgaon traffic slows | 10:05 Stock market opens positive
-</div>
-
-<div class="container">
-
-<div class="left">
-
-<div class="section">
-<h2>Gurgaon News</h2>
-
-<div class="cards">
-
-<div class="card">
-<img src="https://picsum.photos/400/200">
-<p>Major Traffic Disruption in Gurgaon due to heavy rain</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/401/200">
-<p>Haryana CM announces new development initiatives</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/402/200">
-<p>Police launch anti drunk driving campaign</p>
-</div>
-
-</div>
-</div>
-
-<div class="ad">Advertise Here</div>
-
-<div class="section">
-<h2>Finance</h2>
-
-<div class="cards">
-
-<div class="card">
-<img src="https://picsum.photos/403/200">
-<p>Stock market hits record high</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/404/200">
-<p>RBI announces new interest rates</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/405/200">
-<p>Government introduces tax benefits</p>
-</div>
-
-</div>
-</div>
-
-<div class="ad">Advertise Here</div>
-
-<div class="section">
-<h2>World</h2>
-
-<div class="cards">
-
-<div class="card">
-<img src="https://picsum.photos/406/200">
-<p>UN climate meeting begins</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/407/200">
-<p>Global markets react to inflation data</p>
-</div>
-
-<div class="card">
-<img src="https://picsum.photos/408/200">
-<p>New tech regulations announced</p>
-</div>
-
-</div>
-</div>
+<span>All</span>
+<span>Gurgaon</span>
+<span>India</span>
+<span>World</span>
+<span>Finance</span>
+<span>Technology</span>
 
 </div>
 
-<div class="right">
+<div class="breaking">
 
-<div class="section">
-<h3>Trending Blogs</h3>
-
-<div class="blog">
-<img src="https://picsum.photos/200">
-<p>Top 30 Things To Do in Gurgaon</p>
-</div>
-
-<div class="blog">
-<img src="https://picsum.photos/201">
-<p>Best Cafes in Gurgaon for Work</p>
-</div>
-
-<div class="blog">
-<img src="https://picsum.photos/202">
-<p>How to Invest ₹1000 in Stock Market</p>
-</div>
-
-<div class="blog">
-<img src="https://picsum.photos/203">
-<p>Hidden Places in Gurgaon Locals Love</p>
-</div>
+Breaking: AI powered news from Gurgaon now live
 
 </div>
 
-<div class="ad">Advertise Here</div>
+<div class="hero" id="hero"></div>
 
-</div>
-
-</div>
+<div class="container" id="news"></div>
 
 <footer>
-PulseGurgaon © 2026
+
+PulseGurgaon • AI Powered Local News
+
 </footer>
+
+<script>
+
+fetch("articles.json")
+.then(res => res.json())
+.then(data => {
+
+const hero = document.getElementById("hero")
+const news = document.getElementById("news")
+
+const articles = data.articles
+
+if(articles.length>0){
+
+hero.innerHTML = `
+<img src="${articles[0].image}">
+<h1>${articles[0].title}</h1>
+`
+
+}
+
+articles.slice(1).forEach(a => {
+
+const card = document.createElement("div")
+card.className="card"
+
+card.innerHTML=`
+<img src="${a.image}">
+<h3>${a.title}</h3>
+<p>${a.summary}</p>
+`
+
+news.appendChild(card)
+
+})
+
+})
+
+</script>
 
 </body>
 </html>
