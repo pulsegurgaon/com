@@ -3,125 +3,150 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
-background:#f6f6f6;
+font-family:Inter,Arial;
+background:#f5f5f7;
 }
 
 header{
 background:white;
-padding:15px;
 display:flex;
-align-items:center;
 justify-content:space-between;
-box-shadow:0 2px 6px rgba(0,0,0,0.1);
+align-items:center;
+padding:15px 20px;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
 .logo{
-font-weight:bold;
+font-weight:700;
 font-size:22px;
 color:#e11d48;
 }
 
 .search{
-padding:8px;
-border-radius:20px;
-border:1px solid #ccc;
+border:1px solid #ddd;
+border-radius:25px;
+padding:8px 14px;
 width:40%;
 }
 
 .admin{
-background:#ff7a18;
-color:white;
+background:linear-gradient(90deg,#ff512f,#ff7a18);
 border:none;
+color:white;
 padding:8px 14px;
 border-radius:20px;
 }
 
 .categories{
 display:flex;
-gap:15px;
-padding:10px;
+gap:20px;
 background:white;
+padding:10px 20px;
+border-bottom:1px solid #eee;
 overflow-x:auto;
 }
 
 .categories span{
-color:#555;
 font-size:14px;
+color:#666;
 }
 
 .breaking{
-background:red;
+background:#e11d48;
 color:white;
-padding:6px;
+padding:8px;
 font-size:13px;
-text-align:center;
 }
 
 .hero{
 margin:20px;
-border-radius:12px;
+border-radius:14px;
 overflow:hidden;
-background:white;
+position:relative;
 }
 
 .hero img{
 width:100%;
-height:220px;
+height:280px;
 object-fit:cover;
 }
 
-.hero h1{
-padding:15px;
-margin:0;
+.heroText{
+position:absolute;
+bottom:0;
+color:white;
+padding:20px;
+background:linear-gradient(transparent,rgba(0,0,0,0.8));
+width:100%;
 }
 
-.container{
-padding:15px;
+.heroText h1{
+margin:0;
+font-size:28px;
+}
+
+.grid{
+padding:20px;
 display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
 }
 
 .card{
 background:white;
-border-radius:10px;
+border-radius:12px;
 overflow:hidden;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+transition:transform .2s;
+}
+
+.card:hover{
+transform:translateY(-4px);
 }
 
 .card img{
 width:100%;
-height:120px;
+height:150px;
 object-fit:cover;
 }
 
-.card h3{
-padding:10px;
+.cardContent{
+padding:15px;
+}
+
+.cardContent h3{
 margin:0;
 font-size:16px;
 }
 
-.card p{
-padding:0 10px 10px;
+.cardContent p{
 font-size:13px;
-color:#555;
+color:#666;
+}
+
+.ad{
+margin:20px;
+padding:20px;
+border-radius:12px;
+background:linear-gradient(90deg,#ff512f,#ff7a18);
+color:white;
+text-align:center;
+font-weight:bold;
 }
 
 footer{
 background:#111;
 color:white;
 padding:30px;
-margin-top:30px;
 text-align:center;
+margin-top:30px;
 }
 
 </style>
@@ -133,7 +158,7 @@ text-align:center;
 
 <div class="logo">PulseGurgaon</div>
 
-<input class="search" placeholder="Search news...">
+<input class="search" placeholder="Search news, topics...">
 
 <button class="admin">ADMIN</button>
 
@@ -151,50 +176,55 @@ text-align:center;
 </div>
 
 <div class="breaking">
-
-Breaking: AI powered news from Gurgaon now live
-
+Breaking • Gurgaon startup raises $120M • India's GDP grows 7.2%
 </div>
 
 <div class="hero" id="hero"></div>
 
-<div class="container" id="news"></div>
+<div class="ad">Sponsored • Luxury Homes in Gurgaon</div>
+
+<div class="grid" id="news"></div>
 
 <footer>
 
-PulseGurgaon • AI Powered Local News
+PulseGurgaon © 2026
 
 </footer>
 
 <script>
 
 fetch("articles.json")
-.then(res => res.json())
-.then(data => {
+.then(r=>r.json())
+.then(data=>{
 
-const hero = document.getElementById("hero")
-const news = document.getElementById("news")
+const hero=document.getElementById("hero")
+const news=document.getElementById("news")
 
-const articles = data.articles
+const articles=data.articles
 
 if(articles.length>0){
 
-hero.innerHTML = `
+hero.innerHTML=`
 <img src="${articles[0].image}">
+<div class="heroText">
 <h1>${articles[0].title}</h1>
+<p>${articles[0].summary}</p>
+</div>
 `
 
 }
 
-articles.slice(1).forEach(a => {
+articles.slice(1).forEach(a=>{
 
-const card = document.createElement("div")
+const card=document.createElement("div")
 card.className="card"
 
 card.innerHTML=`
 <img src="${a.image}">
+<div class="cardContent">
 <h3>${a.title}</h3>
 <p>${a.summary}</p>
+</div>
 `
 
 news.appendChild(card)
