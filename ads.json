@@ -1,8 +1,9 @@
-[
 {
-"id":1,
-"title":"Advertise with PulseGurgaon",
-"image":"https://via.placeholder.com/728x90",
-"link":"https://example.com"
+ "ads":[
+  {
+   "title":"Luxury Apartments Gurgaon",
+   "image":"https://images.unsplash.com/photo-1560518883-ce09059eeffa",
+   "link":"https://example.com"
+  }
+ ]
 }
-]
