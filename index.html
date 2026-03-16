@@ -1,14 +1,10 @@
 <!DOCTYPE html><html>
-<head><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>PulseGurgaon</title><style>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseGurgaon</title><style>
 
-body{
-margin:0;
-font-family:Arial;
-background:#f4f4f6;
-}
-
-/* HEADER */
+body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
 display:flex;
@@ -16,214 +12,94 @@ justify-content:space-between;
 align-items:center;
 padding:15px 25px;
 background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.08);
+box-shadow:0 2px 10px rgba(0,0,0,0.08)
 }
 
-.logo{
-font-size:22px;
-font-weight:bold;
-color:#e11d48;
-cursor:pointer;
-}
+.logo{font-size:22px;font-weight:bold;color:#e11d48;cursor:pointer}
 
-.search{
-border:1px solid #ddd;
-padding:8px 14px;
-border-radius:20px;
-width:35%;
-}
+.search{border:1px solid #ddd;padding:8px 14px;border-radius:20px;width:35%}
 
-.admin{
-background:#ff7a18;
-border:none;
-color:white;
-padding:8px 14px;
-border-radius:20px;
-cursor:pointer;
-}
-
-/* CATEGORIES */
+.admin{background:#ff7a18;border:none;color:white;padding:8px 14px;border-radius:20px;cursor:pointer}
 
 .categories{
-display:flex;
-gap:20px;
-padding:10px 25px;
-background:white;
-border-bottom:1px solid #eee;
+display:flex;gap:20px;padding:10px 25px;background:white;border-bottom:1px solid #eee
 }
 
-.categories span{
-font-size:14px;
-color:#555;
-cursor:pointer;
-}
-
-/* BREAKING */
+.categories span{cursor:pointer;font-size:14px;color:#555}
 
 .breaking{
-background:#e11d48;
-color:white;
-padding:8px 25px;
-font-size:13px;
+background:#e11d48;color:white;overflow:hidden
 }
 
-/* TOP AD */
+.ticker{
+display:inline-block;
+white-space:nowrap;
+padding:8px 0;
+animation:scroll 15s linear infinite
+}
 
-.topAd{
-margin:15px 25px;
-padding:15px;
+@keyframes scroll{
+0%{transform:translateX(100%)}
+100%{transform:translateX(-100%)}
+}
+
+.topAd img{
+width:100%;
 border-radius:10px;
-background:linear-gradient(90deg,#ff512f,#f09819);
-color:white;
-font-weight:bold;
+cursor:pointer
 }
-
-/* LAYOUT */
 
 .layout{
 display:grid;
 grid-template-columns:3fr 1fr;
 gap:20px;
-padding:20px;
+padding:20px
 }
-
-/* HERO */
 
 .hero{
-position:relative;
-border-radius:12px;
-overflow:hidden;
-margin-bottom:20px;
+position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px
 }
 
-.hero img{
-width:100%;
-height:300px;
-object-fit:cover;
-}
+.hero img{width:100%;height:300px;object-fit:cover}
 
 .heroOverlay{
-position:absolute;
-bottom:0;
-left:0;
-right:0;
-padding:25px;
-color:white;
-background:linear-gradient(transparent,rgba(0,0,0,0.8));
+position:absolute;bottom:0;left:0;right:0;padding:25px;color:white;
+background:linear-gradient(transparent,rgba(0,0,0,0.8))
 }
-
-/* SECTION TITLE */
-
-.sectionTitle{
-font-size:20px;
-margin:10px 0 20px 5px;
-}
-
-/* CARDS */
 
 .cards{
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:20px;
+gap:20px
 }
 
 .card{
-background:white;
-border-radius:12px;
-overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
-cursor:pointer;
-transition:transform .2s;
+background:white;border-radius:12px;overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);cursor:pointer
 }
 
-.card:hover{
-transform:translateY(-4px);
-}
+.card img{width:100%;height:160px;object-fit:cover}
 
-.card img{
-width:100%;
-height:160px;
-object-fit:cover;
-}
-
-.cardText{
-padding:12px;
-}
+.cardText{padding:12px}
 
 .badge{
-font-size:11px;
-background:#e11d48;
-color:white;
-padding:3px 8px;
-border-radius:20px;
-display:inline-block;
-margin-bottom:5px;
+font-size:11px;background:#e11d48;color:white;
+padding:3px 8px;border-radius:20px
 }
 
-/* SIDEBAR */
-
-.sidebar{
-background:white;
-padding:15px;
-border-radius:10px;
-height:fit-content;
-}
-
-.sidebar h3{
-margin-top:0;
-}
+.sidebar{background:white;padding:15px;border-radius:10px}
 
 .blog{
-display:flex;
-gap:10px;
-margin-bottom:12px;
-align-items:center;
+display:flex;gap:10px;margin-bottom:12px;cursor:pointer
 }
 
-.blog img{
-width:60px;
-height:50px;
-object-fit:cover;
-border-radius:5px;
-}
-
-.ad{
-background:#e5e5e5;
-padding:25px;
-text-align:center;
-border-radius:10px;
-margin-top:15px;
-}
-
-/* FOOTER */
+.blog img{width:60px;height:50px;object-fit:cover;border-radius:5px}
 
 footer{
-background:#111;
-color:white;
-text-align:center;
-padding:25px;
-margin-top:40px;
+background:#111;color:white;text-align:center;padding:25px;margin-top:40px
 }
 
-/* MOBILE */
-
-@media(max-width:900px){
-
-.layout{
-grid-template-columns:1fr;
-}
-
-.cards{
-grid-template-columns:1fr;
-}
-
-.search{
-display:none;
-}
-
-}
-
-</style></head><body><header><div class="logo" onclick="location.reload()">PulseGurgaon</div><input id="searchInput" class="search" placeholder="Search news..."><button class="admin" onclick="openAdmin()">ADMIN</button>
+</style></head><body><header><div class="logo">PulseGurgaon</div><input id="searchInput" class="search" placeholder="Search news..."><button class="admin" onclick="location.href='admin.html'">ADMIN</button>
 
 </header><div class="categories"><span onclick="filterCategory('All')">All</span>
 <span onclick="filterCategory('Gurgaon')">Gurgaon</span>
@@ -233,56 +109,38 @@ display:none;
 <span onclick="filterCategory('Technology')">Technology</span>
 
 </div><div class="breaking">
-Breaking • PulseGurgaon AI News System Live
-</div><div class="topAd">
-Sponsored • Advertise With PulseGurgaon
-</div><div class="layout"><div><div class="hero" id="hero"></div><h2 class="sectionTitle">Latest Headlines</h2><div class="cards" id="news"></div></div><div class="sidebar"><h3>Trending Blogs</h3><div class="blog">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
-<span>Top 30 Things to Do in Gurgaon</span>
-</div><div class="blog">
-<img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7">
-<span>Best Cafes for Work</span>
-</div><div class="blog">
-<img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
-<span>How to Invest ₹1000</span>
-</div><div class="ad">
-Advertise Here
-</div></div></div><footer>
+<div class="ticker" id="ticker"></div>
+</div><div class="topAd" id="ad"></div><div class="layout"><div><div class="hero" id="hero"></div><h2>Latest Headlines</h2><div class="cards" id="news"></div></div><div class="sidebar"><h3>Trending Blogs</h3><div id="blogs"></div></div></div><footer>
 PulseGurgaon • AI Powered Local News
 </footer><script>
 
-function openAdmin(){
-window.location.href="admin.html"
-}
-
 let allArticles=[]
+let visible=6
 
 fetch("articles.json")
-.then(res=>res.json())
+.then(r=>r.json())
 .then(data=>{
-
 allArticles=data.articles
-
-renderArticles(allArticles)
-
+render()
+updateTicker()
 })
 
-function renderArticles(articles){
+function render(){
 
 const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
-news.innerHTML=""
-
 hero.innerHTML=`
-<img src="${articles[0].image}">
+<img src="${allArticles[0].image}">
 <div class="heroOverlay">
-<h2>${articles[0].title}</h2>
-<p>${articles[0].summary}</p>
+<h2>${allArticles[0].title}</h2>
+<p>${allArticles[0].summary}</p>
 </div>
 `
 
-articles.slice(1).forEach(a=>{
+news.innerHTML=""
+
+allArticles.slice(1,visible).forEach(a=>{
 
 const card=document.createElement("div")
 
@@ -297,7 +155,10 @@ card.innerHTML=`
 </div>
 `
 
-card.onclick=()=>openArticlePage(a)
+card.onclick=()=>{
+localStorage.setItem("currentArticle",JSON.stringify(a))
+location.href="article.html"
+}
 
 news.appendChild(card)
 
@@ -305,44 +166,69 @@ news.appendChild(card)
 
 }
 
-function filterCategory(category){
-
-if(category==="All"){
-
-renderArticles(allArticles)
-
-}else{
-
-const filtered=allArticles.filter(a=>a.category===category)
-
-renderArticles(filtered)
-
+window.onscroll=()=>{
+if((window.innerHeight+window.scrollY)>=document.body.offsetHeight-200){
+visible+=4
+render()
 }
+}
+
+function filterCategory(cat){
+
+if(cat==="All"){render();return}
+
+const filtered=allArticles.filter(a=>a.category===cat)
+
+allArticles=filtered
+visible=6
+render()
 
 }
 
 document.getElementById("searchInput").addEventListener("input",function(){
 
-const term=this.value.toLowerCase()
+const q=this.value.toLowerCase()
 
 const filtered=allArticles.filter(a=>
-
-a.title.toLowerCase().includes(term) ||
-a.summary.toLowerCase().includes(term)
-
+a.title.toLowerCase().includes(q)||
+a.summary.toLowerCase().includes(q)
 )
 
-renderArticles(filtered)
+allArticles=filtered
+visible=6
+render()
 
 })
 
-function openArticlePage(article){
+function updateTicker(){
 
-localStorage.setItem("currentArticle", JSON.stringify(article))
+const headlines=allArticles.map(a=>a.title).join(" • ")
 
-window.location.href="article.html"
+document.getElementById("ticker").innerText=headlines
 
 }
+
+fetch("ads.json")
+.then(r=>r.json())
+.then(data=>{
+const ad=data.ads[0]
+document.getElementById("ad").innerHTML=
+`<a href="${ad.link}" target="_blank"><img src="${ad.image}"></a>`
+})
+
+fetch("blogs.json")
+.then(r=>r.json())
+.then(data=>{
+const blogBox=document.getElementById("blogs")
+
+data.blogs.forEach(b=>{
+blogBox.innerHTML+=`
+<div class="blog">
+<img src="${b.image}">
+<span>${b.title}</span>
+</div>`
+})
+})
 
 </script></body>
 </html>
