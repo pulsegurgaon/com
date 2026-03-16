@@ -1,14 +1,9 @@
-[
 {
-"id":1,
-"title_en":"Cyber Hub Expansion Planned in Gurgaon",
-"title_hi":"गुरुग्राम में साइबर हब विस्तार की योजना",
-"summary_en":"Major companies plan to expand offices in Gurgaon Cyber Hub.",
-"summary_hi":"गुरुग्राम साइबर हब में कंपनियां अपने कार्यालयों का विस्तार करने की योजना बना रही हैं।",
-"content_en":"Several major companies have announced plans to expand their operations in Gurgaon Cyber Hub. This development is expected to create new employment opportunities and strengthen the local economy.",
-"content_hi":"कई बड़ी कंपनियों ने गुरुग्राम साइबर हब में अपने संचालन का विस्तार करने की योजना बनाई है। इससे नए रोजगार अवसर पैदा होंगे और स्थानीय अर्थव्यवस्था मजबूत होगी।",
-"image":"https://source.unsplash.com/800x500/?gurgaon,city",
-"category":"Gurgaon",
-"time":"2026-03-16"
+  "articles": [
+    {
+      "title": "PulseGurgaon Launches",
+      "date": "Today",
+      "content": "PulseGurgaon is now live. This AI powered news platform will automatically publish news from Gurgaon and India."
+    }
+  ]
 }
-]
