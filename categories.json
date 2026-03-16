@@ -1,7 +1,9 @@
-[
-"Gurgaon",
-"India",
-"World",
-"Finance",
-"Blogs"
-]
+{
+ "categories":[
+  "Gurgaon",
+  "India",
+  "World",
+  "Finance",
+  "Technology"
+ ]
+}
