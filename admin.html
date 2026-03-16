@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<title>PulseGurgaon Admin</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f4f6;
+}
+
+.box{
+max-width:400px;
+margin:150px auto;
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+}
+
+input{
+padding:10px;
+width:90%;
+margin-bottom:10px;
+}
+
+button{
+padding:10px 20px;
+background:#ff7a18;
+border:none;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>Admin Login</h2>
+
+<input id="pass" type="password" placeholder="Password">
+
+<button onclick="login()">Login</button>
+
+<p id="error" style="color:red"></p>
+
+</div>
+
+<script>
+
+function login(){
+
+if(document.getElementById("pass").value=="hello@123"){
+
+alert("Welcome Admin")
+
+}else{
+
+document.getElementById("error").innerText="Wrong password"
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
