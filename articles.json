@@ -1,19 +1,25 @@
 {
- "articles":[
-  {
-   "title":"Gurgaon Metro Expansion to Connect New Sectors by 2026",
-   "image":"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-   "summary":"Delhi Metro Rail Corporation has announced a major expansion plan connecting several sectors in Gurgaon."
-  },
-  {
-   "title":"India's Startup Ecosystem Hits Record Funding",
-   "image":"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-   "summary":"Indian startups raised billions this quarter led by Gurgaon based companies."
-  },
-  {
-   "title":"Quantum Computing Breakthrough Announced",
-   "image":"https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-   "summary":"Scientists from IIT Delhi report a major milestone in quantum computing."
-  }
- ]
+  "articles":[
+    {
+      "title":"Gurgaon Metro Expansion Approved",
+      "summary":"Haryana government approved a major metro expansion project connecting new sectors of Gurgaon.",
+      "image":"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+      "category":"Gurgaon",
+      "content":"The Haryana government has approved the expansion of the Gurgaon metro network to connect emerging sectors and improve connectivity. The project aims to reduce traffic congestion and provide a faster commute for residents."
+    },
+    {
+      "title":"India Startup Ecosystem Hits New Record",
+      "summary":"Indian startups raised record investments this quarter driven by AI and fintech companies.",
+      "image":"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+      "category":"India",
+      "content":"India's startup ecosystem continues to grow rapidly as investors pour billions into technology companies focused on artificial intelligence, financial services and digital platforms."
+    },
+    {
+      "title":"Global Markets React to AI Boom",
+      "summary":"Technology companies around the world are seeing major stock gains due to AI innovation.",
+      "image":"https://images.unsplash.com/photo-1492724441997-5dc865305da7",
+      "category":"World",
+      "content":"Global stock markets surged after several technology companies announced major artificial intelligence breakthroughs and investment plans."
+    }
+  ]
 }
