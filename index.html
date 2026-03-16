@@ -58,7 +58,7 @@ color:#555;
 cursor:pointer;
 }
 
-/* BREAKING BAR */
+/* BREAKING */
 
 .breaking{
 background:#e11d48;
@@ -78,7 +78,7 @@ color:white;
 font-weight:bold;
 }
 
-/* MAIN LAYOUT */
+/* LAYOUT */
 
 .layout{
 display:grid;
@@ -119,15 +119,13 @@ font-size:20px;
 margin:10px 0 20px 5px;
 }
 
-/* NEWS GRID */
+/* CARDS */
 
 .cards{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:20px;
 }
-
-/* CARD */
 
 .card{
 background:white;
@@ -225,14 +223,14 @@ display:none;
 
 }
 
-</style></head><body><header><div class="logo" onclick="location.reload()">PulseGurgaon</div><input class="search" placeholder="Search news..."><button class="admin" onclick="openAdmin()">ADMIN</button>
+</style></head><body><header><div class="logo" onclick="location.reload()">PulseGurgaon</div><input id="searchInput" class="search" placeholder="Search news..."><button class="admin" onclick="openAdmin()">ADMIN</button>
 
-</header><div class="categories"><span>All</span>
-<span>Gurgaon</span>
-<span>India</span>
-<span>World</span>
-<span>Finance</span>
-<span>Technology</span>
+</header><div class="categories"><span onclick="filterCategory('All')">All</span>
+<span onclick="filterCategory('Gurgaon')">Gurgaon</span>
+<span onclick="filterCategory('India')">India</span>
+<span onclick="filterCategory('World')">World</span>
+<span onclick="filterCategory('Finance')">Finance</span>
+<span onclick="filterCategory('Technology')">Technology</span>
 
 </div><div class="breaking">
 Breaking • PulseGurgaon AI News System Live
@@ -257,14 +255,24 @@ function openAdmin(){
 window.location.href="admin.html"
 }
 
+let allArticles=[]
+
 fetch("articles.json")
 .then(res=>res.json())
 .then(data=>{
 
+allArticles=data.articles
+
+renderArticles(allArticles)
+
+})
+
+function renderArticles(articles){
+
 const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
-const articles=data.articles
+news.innerHTML=""
 
 hero.innerHTML=`
 <img src="${articles[0].image}">
@@ -277,12 +285,13 @@ hero.innerHTML=`
 articles.slice(1).forEach(a=>{
 
 const card=document.createElement("div")
+
 card.className="card"
 
 card.innerHTML=`
 <img src="${a.image}">
 <div class="cardText">
-<span class="badge">${a.category || "News"}</span>
+<span class="badge">${a.category}</span>
 <h3>${a.title}</h3>
 <p>${a.summary}</p>
 </div>
@@ -293,6 +302,37 @@ card.onclick=()=>openArticlePage(a)
 news.appendChild(card)
 
 })
+
+}
+
+function filterCategory(category){
+
+if(category==="All"){
+
+renderArticles(allArticles)
+
+}else{
+
+const filtered=allArticles.filter(a=>a.category===category)
+
+renderArticles(filtered)
+
+}
+
+}
+
+document.getElementById("searchInput").addEventListener("input",function(){
+
+const term=this.value.toLowerCase()
+
+const filtered=allArticles.filter(a=>
+
+a.title.toLowerCase().includes(term) ||
+a.summary.toLowerCase().includes(term)
+
+)
+
+renderArticles(filtered)
 
 })
 
