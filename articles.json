@@ -1,9 +1,19 @@
 {
-  "articles": [
-    {
-      "title": "PulseGurgaon Launches",
-      "date": "Today",
-      "content": "PulseGurgaon is now live. This AI powered news platform will automatically publish news from Gurgaon and India."
-    }
-  ]
+ "articles":[
+  {
+   "title":"Gurgaon Metro Expansion to Connect New Sectors by 2026",
+   "image":"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+   "summary":"Delhi Metro Rail Corporation has announced a major expansion plan connecting several sectors in Gurgaon."
+  },
+  {
+   "title":"India's Startup Ecosystem Hits Record Funding",
+   "image":"https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+   "summary":"Indian startups raised billions this quarter led by Gurgaon based companies."
+  },
+  {
+   "title":"Quantum Computing Breakthrough Announced",
+   "image":"https://images.unsplash.com/photo-1492724441997-5dc865305da7",
+   "summary":"Scientists from IIT Delhi report a major milestone in quantum computing."
+  }
+ ]
 }
