@@ -334,6 +334,12 @@ function closeArticle(){
 
 document.getElementById("modal").style.display="none"
 
+}function openArticlePage(article){
+
+localStorage.setItem("currentArticle", JSON.stringify(article))
+
+window.location.href="article.html"
+
 }
 
 </script></body>
