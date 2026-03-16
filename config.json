@@ -1,6 +1,4 @@
 {
-"name":"PulseGurgaon",
-"tagline":"AI Powered News from Gurgaon & India",
-"languages":["en","hi"],
-"auto_update":true
+ "site":"PulseGurgaon",
+ "adminPassword":"hello@123"
 }
