@@ -10,6 +10,41 @@ const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
+// 🧠 SMART CATEGORY DETECTOR
+function detectCategory(text = "") {
+  text = text.toLowerCase();
+
+  if (text.includes("india") || text.includes("delhi") || text.includes("gurgaon"))
+    return "India";
+
+  if (text.includes("tech") || text.includes("ai") || text.includes("software"))
+    return "Technology";
+
+  if (text.includes("stock") || text.includes("market") || text.includes("finance"))
+    return "Finance";
+
+  if (text.includes("world") || text.includes("usa") || text.includes("china"))
+    return "World";
+
+  if (text.includes("startup") || text.includes("business"))
+    return "Finance";
+
+  return "General";
+}
+
+
+// ✨ SIMPLE AI HEADLINE IMPROVER
+function rewriteTitle(title = "") {
+  return title
+    .replace("India", "🇮🇳 India")
+    .replace("AI", "🤖 AI")
+    .replace("crash", "💥 crash")
+    .replace("surge", "📈 surge")
+    .replace("war", "⚠️ war")
+    .slice(0, 120);
+}
+
+
 // 🧠 FETCH FROM MULTIPLE SOURCES
 async function getNews() {
   try {
@@ -17,27 +52,21 @@ async function getNews() {
 
     let allArticles = [];
 
-    // 🔥 SOURCE 1 — TOP HEADLINES INDIA
+    // 🔥 SOURCE 1
     const topRes = await fetch(
       `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
     );
     const topData = await topRes.json();
+    if (topData.articles) allArticles.push(...topData.articles);
 
-    if (topData.articles) {
-      allArticles.push(...topData.articles);
-    }
-
-    // 🔥 SOURCE 2 — EVERYTHING INDIA SEARCH
+    // 🔥 SOURCE 2
     const searchRes = await fetch(
-      `https://newsapi.org/v2/everything?q=india OR gurgaon OR delhi&sortBy=publishedAt&pageSize=50&apiKey=${NEWS_API_KEY}`
+      `https://newsapi.org/v2/everything?q=india OR gurgaon OR delhi OR startup OR tech&sortBy=publishedAt&pageSize=50&apiKey=${NEWS_API_KEY}`
     );
     const searchData = await searchRes.json();
+    if (searchData.articles) allArticles.push(...searchData.articles);
 
-    if (searchData.articles) {
-      allArticles.push(...searchData.articles);
-    }
-
-    // 🔥 SOURCE 3 — GUARDIAN API (NO KEY REQUIRED)
+    // 🔥 SOURCE 3 (Guardian)
     const guardianRes = await fetch(
       `https://content.guardianapis.com/search?q=india&show-fields=thumbnail&order-by=newest&api-key=test`
     );
@@ -50,7 +79,6 @@ async function getNews() {
         urlToImage: a.fields?.thumbnail || "",
         publishedAt: a.webPublicationDate
       }));
-
       allArticles.push(...guardianArticles);
     }
 
@@ -59,29 +87,32 @@ async function getNews() {
       return [];
     }
 
-    console.log(`🔥 Total raw articles: ${allArticles.length}`);
+    console.log(`🔥 Raw articles: ${allArticles.length}`);
 
-    // 🧹 CLEAN + FILTER + UNIQUE
+    // 🧹 CLEAN + UNIQUE + AI UPGRADE
     const unique = [];
-    const titles = new Set();
+    const seen = new Set();
 
     for (let a of allArticles) {
-      if (!a.title || titles.has(a.title)) continue;
+      if (!a.title || seen.has(a.title)) continue;
 
-      titles.add(a.title);
+      seen.add(a.title);
+
+      const improvedTitle = rewriteTitle(a.title);
+      const category = detectCategory(a.title + " " + a.description);
 
       unique.push({
-        title: a.title,
+        title: improvedTitle,
         summary: a.description || "No summary available",
         image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
-        category: "General",
+        category,
         publishedAt: a.publishedAt || new Date().toISOString()
       });
     }
 
     console.log(`✅ Clean articles: ${unique.length}`);
 
-    return unique.slice(0, 100); // limit
+    return unique.slice(0, 120);
 
   } catch (err) {
     console.log("❌ News fetch error:", err);
@@ -107,14 +138,12 @@ async function updateGitHub(newArticles) {
       Buffer.from(data.content, "base64").toString()
     );
 
-    // merge + sort newest first
     const merged = [...newArticles, ...content.articles];
 
     merged.sort(
       (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
     );
 
-    // limit size
     content.articles = merged.slice(0, 300);
 
     await fetch(url, {
@@ -124,7 +153,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🔥 Multi-source news update",
+        message: "🔥 AI powered news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
