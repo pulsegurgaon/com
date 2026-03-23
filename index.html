@@ -17,7 +17,7 @@ background:white;
 box-shadow:0 2px 10px rgba(0,0,0,0.08)
 }
 
-.logo{font-size:22px;font-weight:bold;color:#e11d48;cursor:pointer}
+.logo{font-size:22px;font-weight:bold;color:#e11d48}
 
 .search{border:1px solid #ddd;padding:8px 14px;border-radius:20px;width:35%}
 
@@ -37,18 +37,12 @@ background:#e11d48;color:white;overflow:hidden
 display:inline-block;
 white-space:nowrap;
 padding:8px 0;
-animation:scroll 15s linear infinite
+animation:scroll 30s linear infinite;
 }
 
 @keyframes scroll{
 0%{transform:translateX(100%)}
 100%{transform:translateX(-100%)}
-}
-
-.topAd img{
-width:100%;
-border-radius:10px;
-cursor:pointer
 }
 
 .layout{
@@ -58,10 +52,7 @@ gap:20px;
 padding:20px
 }
 
-.hero{
-position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px
-}
-
+.hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px}
 .hero img{width:100%;height:300px;object-fit:cover}
 
 .heroOverlay{
@@ -81,7 +72,6 @@ box-shadow:0 5px 15px rgba(0,0,0,0.08);cursor:pointer
 }
 
 .card img{width:100%;height:160px;object-fit:cover}
-
 .cardText{padding:12px}
 
 .badge{
@@ -100,8 +90,28 @@ display:flex;gap:10px;margin-bottom:12px;cursor:pointer
 footer{
 background:#111;color:white;text-align:center;padding:25px;margin-top:40px
 }
-</style>
 
+/* PAGINATION */
+#pagination{
+text-align:center;
+margin:20px;
+}
+
+#pagination button{
+margin:5px;
+padding:8px 12px;
+border:none;
+background:#eee;
+cursor:pointer;
+border-radius:6px;
+}
+
+#pagination button.active{
+background:#e11d48;
+color:white;
+}
+
+</style>
 </head>
 
 <body>
@@ -125,13 +135,15 @@ background:#111;color:white;text-align:center;padding:25px;margin-top:40px
 <div class="ticker" id="ticker"></div>
 </div>
 
-<div class="topAd" id="ad"></div>
-
 <div class="layout">
 <div>
 <div class="hero" id="hero"></div>
 <h2>Latest Headlines</h2>
 <div class="cards" id="news"></div>
+
+<!-- PAGINATION -->
+<div id="pagination"></div>
+
 </div>
 
 <div class="sidebar">
@@ -148,38 +160,52 @@ PulseGurgaon • AI Powered Local News
 
 let allArticles=[]
 let originalArticles=[]
+let currentPage = 1
+const perPage = 10
 
 // FETCH NEWS
 fetch("articles.json")
 .then(r=>r.json())
 .then(data=>{
-allArticles=data.articles
 originalArticles=data.articles
+
+// SORT NEWEST FIRST
+originalArticles.sort((a,b)=> new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))
+
+allArticles=[...originalArticles]
+
 render()
 updateTicker()
 })
 
-// RENDER FUNCTION
+// RENDER
 function render(){
+
+if(allArticles.length === 0) return
 
 const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
-if(allArticles.length === 0) return
-
 // HERO
+const first = allArticles[0]
+
 hero.innerHTML=`
-<img src="${allArticles[0].image}">
+<img src="${first.image}">
 <div class="heroOverlay">
-<h2>${allArticles[0].title}</h2>
-<p>${allArticles[0].summary}</p>
+<h2>${first.title}</h2>
+<p>${first.summary}</p>
 </div>
 `
 
+// PAGINATION LOGIC
+const start = (currentPage-1)*perPage
+const end = start + perPage
+
+const pageArticles = allArticles.slice(start+1, end+1)
+
 news.innerHTML=""
 
-// SHOW ALL ARTICLES (🔥 FIXED)
-allArticles.slice(1).forEach(a=>{
+pageArticles.forEach(a=>{
 
 const card=document.createElement("div")
 card.className="card"
@@ -202,25 +228,55 @@ news.appendChild(card)
 
 })
 
+renderPagination()
 }
 
-// CATEGORY FILTER
+// PAGINATION UI
+function renderPagination(){
+
+const totalPages = Math.ceil(allArticles.length / perPage)
+const container = document.getElementById("pagination")
+
+container.innerHTML=""
+
+for(let i=1;i<=totalPages;i++){
+
+const btn=document.createElement("button")
+btn.innerText=i
+
+if(i===currentPage) btn.classList.add("active")
+
+btn.onclick=()=>{
+currentPage=i
+render()
+window.scrollTo(0,0)
+}
+
+container.appendChild(btn)
+
+}
+}
+
+// FILTER
 function filterCategory(cat){
+
+currentPage=1
 
 if(cat==="All"){
 allArticles=[...originalArticles]
-render()
-return
-}
-
+}else{
 allArticles = originalArticles.filter(a=>a.category===cat)
+}
+
 render()
 }
 
-// SEARCH FIXED
+// SEARCH
 document.getElementById("searchInput").addEventListener("input",function(){
 
 const q=this.value.toLowerCase()
+
+currentPage=1
 
 allArticles = originalArticles.filter(a=>
 a.title.toLowerCase().includes(q)||
@@ -236,15 +292,6 @@ function updateTicker(){
 const headlines=originalArticles.map(a=>a.title).join(" • ")
 document.getElementById("ticker").innerText=headlines
 }
-
-// ADS
-fetch("ads.json")
-.then(r=>r.json())
-.then(data=>{
-const ad=data.ads[0]
-document.getElementById("ad").innerHTML=
-`<a href="${ad.link}" target="_blank"><img src="${ad.image}"></a>`
-})
 
 // BLOGS
 fetch("blogs.json")
