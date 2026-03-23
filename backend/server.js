@@ -10,24 +10,48 @@ const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
-// 🧠 FETCH MORE NEWS (100+)
+// 🧠 FETCH FROM MULTIPLE SOURCES
 async function getNews() {
   try {
-    console.log("⏳ Fetching fresh news...");
+    console.log("⏳ Fetching news from multiple sources...");
 
     let allArticles = [];
 
-    // Fetch 2 pages (50 + 50 = 100 news)
-    for (let page = 1; page <= 2; page++) {
-      const res = await fetch(
-        `https://newsapi.org/v2/everything?q=india&language=en&pageSize=50&page=${page}&apiKey=${NEWS_API_KEY}`
-      );
+    // 🔥 SOURCE 1 — TOP HEADLINES INDIA
+    const topRes = await fetch(
+      `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
+    );
+    const topData = await topRes.json();
 
-      const data = await res.json();
+    if (topData.articles) {
+      allArticles.push(...topData.articles);
+    }
 
-      if (data.articles) {
-        allArticles = [...allArticles, ...data.articles];
-      }
+    // 🔥 SOURCE 2 — EVERYTHING INDIA SEARCH
+    const searchRes = await fetch(
+      `https://newsapi.org/v2/everything?q=india OR gurgaon OR delhi&sortBy=publishedAt&pageSize=50&apiKey=${NEWS_API_KEY}`
+    );
+    const searchData = await searchRes.json();
+
+    if (searchData.articles) {
+      allArticles.push(...searchData.articles);
+    }
+
+    // 🔥 SOURCE 3 — GUARDIAN API (NO KEY REQUIRED)
+    const guardianRes = await fetch(
+      `https://content.guardianapis.com/search?q=india&show-fields=thumbnail&order-by=newest&api-key=test`
+    );
+    const guardianData = await guardianRes.json();
+
+    if (guardianData.response?.results) {
+      const guardianArticles = guardianData.response.results.map(a => ({
+        title: a.webTitle,
+        description: "Latest update from Guardian",
+        urlToImage: a.fields?.thumbnail || "",
+        publishedAt: a.webPublicationDate
+      }));
+
+      allArticles.push(...guardianArticles);
     }
 
     if (allArticles.length === 0) {
@@ -35,14 +59,29 @@ async function getNews() {
       return [];
     }
 
-    console.log(`🔥 ${allArticles.length} articles fetched`);
+    console.log(`🔥 Total raw articles: ${allArticles.length}`);
 
-    return allArticles.map(a => ({
-      title: a.title,
-      summary: a.description || "No summary available",
-      image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
-      category: "General"
-    }));
+    // 🧹 CLEAN + FILTER + UNIQUE
+    const unique = [];
+    const titles = new Set();
+
+    for (let a of allArticles) {
+      if (!a.title || titles.has(a.title)) continue;
+
+      titles.add(a.title);
+
+      unique.push({
+        title: a.title,
+        summary: a.description || "No summary available",
+        image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
+        category: "General",
+        publishedAt: a.publishedAt || new Date().toISOString()
+      });
+    }
+
+    console.log(`✅ Clean articles: ${unique.length}`);
+
+    return unique.slice(0, 100); // limit
 
   } catch (err) {
     console.log("❌ News fetch error:", err);
@@ -51,7 +90,7 @@ async function getNews() {
 }
 
 
-// 🚀 UPDATE GITHUB FILE
+// 🚀 UPDATE GITHUB
 async function updateGitHub(newArticles) {
   try {
     const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -68,8 +107,15 @@ async function updateGitHub(newArticles) {
       Buffer.from(data.content, "base64").toString()
     );
 
-    // limit total articles to avoid huge file
-    content.articles = [...newArticles, ...content.articles].slice(0, 300);
+    // merge + sort newest first
+    const merged = [...newArticles, ...content.articles];
+
+    merged.sort(
+      (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
+    );
+
+    // limit size
+    content.articles = merged.slice(0, 300);
 
     await fetch(url, {
       method: "PUT",
@@ -78,7 +124,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🔥 Auto news update",
+        message: "🔥 Multi-source news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
@@ -96,7 +142,7 @@ async function updateGitHub(newArticles) {
 
 // 🤖 MAIN BOT
 async function runBot() {
-  console.log("🚀 Running news bot...");
+  console.log("🚀 Running AI news engine...");
 
   const news = await getNews();
 
@@ -106,14 +152,12 @@ async function runBot() {
 }
 
 
-// run immediately
+// RUN
 runBot();
-
-// run every 30 minutes
 setInterval(runBot, 30 * 60 * 1000);
 
 
-// 🌐 SERVER (RENDER NEEDS THIS)
+// 🌐 SERVER
 app.get("/", (req, res) => {
   res.send("PulseGurgaon backend running 🚀");
 });
