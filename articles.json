@@ -1,6 +1,412 @@
 {
   "articles": [
     {
+      "title": "Middle East crisis live: Trump postpones military strikes on Iranian power plants for a five day period ",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/f02404be17e7d001bc39fd2b68ef923a6f93e0ad/230_0_5000_4000/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T14:54:19Z"
+    },
+    {
+      "title": "Wall Street joins market rally as Trump postpones power plant strikes after ‘very good and productive’ talks with Iran – business live",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/5db646df639397971732cd3b96a0005134b523ac/685_0_5000_4000/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T14:43:04Z"
+    },
+    {
+      "title": "‘In 20 years most of the world could be racist dictatorships’: Ibram X Kendi on book bans and far-right fear-mongering",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/f72cd52674bbfb0df43fb8cd8494e0ad61de7e55/2216_139_5770_4616/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T05:00:42Z"
+    },
+    {
+      "title": "US warns Americans worldwide to show ‘increased caution’ – as it happened",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/f75d3557be841045422b143e3a6006441c0ab7a9/129_0_1320_1056/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T03:11:45Z"
+    },
+    {
+      "title": "Iran vows to destroy Middle East water and energy facilities if US attacks power plants ",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/37b74926b19c04b1d1b24dcd0517e0bac22f61bd/2063_192_4703_3762/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T23:35:53Z"
+    },
+    {
+      "title": "Realising solar power’s potential for energy security",
+      "summary": "Decentralised solar’s potential can be best realised by pushing localised consumption in the form of EV charging stations",
+      "image": "https://bl-i.thgim.com/public/incoming/ofdji7/article70772853.ece/alternates/LANDSCAPE_1200/BESCOM-seeks-BeGTKFN13HK.3.jpg.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:53:13Z"
+    },
+    {
+      "title": "Virat Kohli reacts to viral ‘chartered London flights’ rumour ahead of IPL 2026",
+      "summary": "Virat Kohli has debunked rumors about requesting chartered flights for travel between India and the UK during IPL 2026. The RCB icon dismissed the speculation with laughing emojis on Instagram. The IPL 2026 season begins March 28, with RCB defending their tit…",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:45:00Z"
+    },
+    {
+      "title": "U.S. CISA adds Apple, Laravel Livewire and Craft CMS flaws to its Known Exploited Vulnerabilities catalog",
+      "summary": "U.S. Cybersecurity and Infrastructure Security Agency (CISA) adds Apple, Laravel Livewire and Craft CMS flaws to its Known Exploited Vulnerabilities catalog. The U.S. Cybersecurity and Infrastructure Security Agency (CISA) added Apple, Laravel Livewire and Cr…",
+      "image": "https://securityaffairs.com/wp-content/uploads/2020/07/CISA.jpeg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:40:01Z"
+    },
+    {
+      "title": "Assam Assembly Elections 2026: Congress rolls out fifth list, names seven candidates ahead of April 9 polls",
+      "summary": "The Indian National Congress has announced its fifth list of candidates for the upcoming Assam Assembly elections in 2026. Seven nominees have been named for constituencies including Gossaigaon and Bijni. This move signals intensified preparations as the part…",
+      "image": "https://img.etimg.com/thumb/msid-129734451,width-1200,height-630,imgsize-108036,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:40:01Z"
+    },
+    {
+      "title": "Arsenal vs. Man City live score: Carabao Cup final result, updates, stats from Wembley",
+      "summary": "Arsenal and Manchester City clash for the first major domestic honour of the English football season in Sunday's Carabao Cup final.",
+      "image": "https://s.yimg.com/os/en/the_sporting_news_articles_584/b4f44f9773420bf96271cbae541caeab",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:34:11Z"
+    },
+    {
+      "title": "Hana-Kimi Anime Gets 2nd Season",
+      "summary": "Season 1 ended on Sunday // The anime of late manga creator Hisaya Nakajo's Hana-Kimi manga ended its first season on Sunday with an announcement of the second...",
+      "image": "https://www.animenewsnetwork.com/thumbnails/crop600x315gOQ/cms/news.9/235604/hanakimi-visual2.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:33:26Z"
+    },
+    {
+      "title": "The Indian Ocean base targeted by Iran is ‘an all but indispensable platform’ for U.S. security operations in the Mideast, South Asia and East Africa",
+      "summary": "Home to about 2,500 mostly American personnel, it has supported U.S. military operations from Vietnam to Iraq and Afghanistan.",
+      "image": "https://fortune.com/img-assets/wp-content/uploads/2026/03/AP26080467004763.jpg?resize=1200,600",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:31:58Z"
+    },
+    {
+      "title": "Sports Nutrition and Supplement Market Expansion Strategies and Key Drivers",
+      "summary": "Sports Nutrition and Supplement Market Expansion Strategies and Key Driverslinkedin.com",
+      "image": "https://media.licdn.com/dms/image/v2/D4D12AQGAAOwn2f00Cw/article-cover_image-shrink_180_320/B4DZ0RTNHqHEAc-/0/1774111740838?e=2147483647&v=beta&t=iJmbGX15LKMGN-jxbDv-TfbH00iUnOTvNJ5c0NS-E4Y",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:31:55Z"
+    },
+    {
+      "title": "Facing a ‘crisis’, EU millers seek safeguard duties on rice",
+      "summary": "EU millers seek safeguard duties on rice imports, including from India, to protect the struggling domestic rice industry amidst a crisis.",
+      "image": "https://bl-i.thgim.com/public/incoming/iibpgt/article70772660.ece/alternates/LANDSCAPE_1200/WTO-face-off_-UG9CF772AB.4.jpg.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:20:25Z"
+    },
+    {
+      "title": "Centre eases airline stress; lifts fare caps, weighs cut in airport charges",
+      "summary": "The Centre lifts airfare caps and considers reducing airport fees to ease financial strain on airlines amid rising fuel costs.",
+      "image": "https://bl-i.thgim.com/public/incoming/fpddmv/article70772705.ece/alternates/LANDSCAPE_1200/IndiGo-cancels-GATFHPCJT.3.jpg.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:17:53Z"
+    },
+    {
+      "title": "NRAI National Coaches Course Concludes in Jamshedpur",
+      "summary": "The National Rifle Association of India (NRAI) has concluded a seven-day National Coaches Course in Jamshedpur, aimed at strengthening grassroots coaching and building a scientifically driven shooting ecosystem in India.",
+      "image": "https://im.rediff.com/1200-630/sports/2026/jan/08shooting.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:14:17Z"
+    },
+    {
+      "title": "India will rise to tackle global challenges, support emerging economies: Dharmendra Pradhan",
+      "summary": "India is poised to champion the cause of emerging economies, as emphasized by Union Education Minister Dharmendra Pradhan. The nation is ready to tackle global challenges and extend its support to the Global South. A cohort of innovative deep-tech startups wi…",
+      "image": "https://img.etimg.com/thumb/msid-129734126,width-1200,height-630,imgsize-24310,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:13:53Z"
+    },
+    {
+      "title": "El escenario del conflicto en Irán que preocupa a EE.UU. e Israel y tratan de evitar",
+      "summary": "\"Si los hutíes entran en el conflicto, la situación se complica enormemente\", advierte el experto Adam Baron, citado por WSJ.",
+      "image": "https://mfes.b37m.ru/actualidad/public_images/2026.03/article/69bfcc16e9ff715b7f4862a1.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:13:04Z"
+    },
+    {
+      "title": "Naidu to lay foundation stone for ₹1.5 lakh cr AM/NS steel plant at Anakapalli on March 23",
+      "summary": "Andhra Pradesh CM Naidu to inaugurate ₹1.5 lakh crore steel plant in Anakapalli, creating 100,000 jobs and boosting industry.",
+      "image": "https://bl-i.thgim.com/public/incoming/mbqotm/article70772135.ece/alternates/LANDSCAPE_1200/PTI02_20_2026_000108B.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:10:49Z"
+    },
+    {
+      "title": "Air India Express drops Hindon from its network",
+      "summary": "Air India Express website shows flights from Hindon to Bengaluru and Mumbai are available for sale only until March 27 which is the last day of winter schedule.",
+      "image": "https://bl-i.thgim.com/public/incoming/kstvlq/article70772312.ece/alternates/LANDSCAPE_1200/2026-03-02T104628Z_1330775828_RC2GK5ALD0IO_RTRMADP_3_AIR-INDIA-EXP-MOVES.JPG",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:09:18Z"
+    },
+    {
+      "title": "Yamaha Music India announces AR Rahman as new brand ambassador",
+      "summary": "At the event, Rahman highlighted Yamaha’s role in his own musical journey and said the company’s products will be a part of his musical school in Chennai.",
+      "image": "https://bl-i.thgim.com/public/incoming/i64h8z/article70772327.ece/alternates/LANDSCAPE_1200/yamaha.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:08:30Z"
+    },
+    {
+      "title": "UPSC Key: Iran’s bid to target Diego Garcia, Antimicrobial resistance, and Jal Jeevan Mission",
+      "summary": "How is knowing about antimicrobial resistance relevant to the UPSC exam? What significance do topics such as the tariff, use of IRBMs by Tehran, and the Jal Jeevan mission hold for both the Preliminary and Mains examinations? You can learn more by reading the…",
+      "image": "https://images.indianexpress.com/2026/03/UPSC-Key-Use-of-IRBMs-by-Tehran-Antibiotic-resistance-and-Jal-Jeevan-Mission-.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:01:13Z"
+    },
+    {
+      "title": "Amid global uncertainty, TVS doubles down on customer-centric strategy: Gaurav Gupta",
+      "summary": "Against this backdrop, the company, which entered the electric two-wheeler market in January 2020, has for the first time crossed 300,000 units in annual retail sales",
+      "image": "https://bl-i.thgim.com/public/incoming/y7z4gh/article70772455.ece/alternates/LANDSCAPE_1200/IMG_1393.JPG.jpeg",
+      "category": "General",
+      "publishedAt": "2026-03-22T14:01:02Z"
+    },
+    {
+      "title": "Is a DMK return on the cards in Tamil Nadu? What 2024 Lok Sabha poll results say about the contest",
+      "summary": "An analysis of the 2024 Lok Sabha results shows the DMK alliance led in 223 Assembly segments, well over the Assembly’s majority mark of 118 seats.",
+      "image": "https://images.indianexpress.com/2026/03/dmk.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:59:56Z"
+    },
+    {
+      "title": "Former JD (U) leader KC Tyagi joins RLD",
+      "summary": "Former JD(U) leader KC Tyagi has joined the Rashtriya Lok Dal. Tyagi stated that both parties follow the ideals of Chaudhary Charan Singh and Ram Manohar Lohia. He aims to help RLD chief Jayant Chaudhary emulate his grandfather, Chaudhary Charan Singh. Tyagi …",
+      "image": "https://img.etimg.com/thumb/msid-129733910,width-1200,height-630,imgsize-142932,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:57:07Z"
+    },
+    {
+      "title": "95% projects in West Asia are progressing as usual: L&T",
+      "summary": "L&amp;T always had a contingency plan for a war-like situation in the oil-rich region, says deputy managing director Subramanian Sarma.",
+      "image": "https://www.livemint.com/lm-img/img/2026/03/22/1600x900/logo/Larsen---Toubro-is-an-Indian-multinational-engaged_1683778066784_1774187157974.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:53:06Z"
+    },
+    {
+      "title": "Dame Jenni Murray obituary",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/57891a812b4712c0aaa9a7becf9e3ffc6baf551a/2_0_6141_4912/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:52:57Z"
+    },
+    {
+      "title": "Assisi, si conclude la venerazione pubblica delle spoglie mortali di San Francesco",
+      "summary": "Sono oltre 370mila i pellegrini che in una settimana hanno portato il saluto al Santo. Centinaia i volontari che hanno reso possibile l’evento",
+      "image": "https://i2.res.24o.it/images2010/S24/Documenti/2026/03/23/Immagini/Ritagli/Fermo_Immagine-U85764642343pEO-1440x752@IlSole24Ore-Web.jpg?r=1170x507",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:51:00Z"
+    },
+    {
+      "title": "Union Minister Piyush Goyal to finalise seat-sharing talks on March 23: Tamil Nadu BJP",
+      "summary": "Union Minister Piyush Goyal will arrive in Chennai on Monday to finalize seat-sharing talks for the upcoming Tamil Nadu assembly polls. State President Nainar Nagenthran stated that election manifesto and alliance specifics will be announced after high-level …",
+      "image": "https://img.etimg.com/thumb/msid-129733785,width-1200,height-630,imgsize-91714,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:45:47Z"
+    },
+    {
+      "title": "Trump med 48 timers frist til Iran: – Viser desperasjon",
+      "summary": "Analytikere frykter stigende oljepriser etter trusselen fra den amerikanske presidenten.",
+      "image": "https://akamai.vgc.no/v2/images/d8537135-0bf7-4416-871e-0619449f3b55?format=auto&w=1080&s=8abecc426bb6f1452b6c240bfddc138bf11e04e9",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:44:07Z"
+    },
+    {
+      "title": "mcp-india-stack 0.1.1",
+      "summary": "MCP server exposing Indian financial and government APIs — GSTIN, IFSC, PAN, UPI, pincode, HSN/SAC — for AI agents. Zero auth. Offline-first.",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:43:09Z"
+    },
+    {
+      "title": "Oil crisis: Russian crude tanker docks near Mangaluru port",
+      "summary": "A Russian oil tanker, MT Aqua Titan, has arrived in India. This comes as global energy supplies face disruption due to the West Asia conflict. Another cargo ship carrying LPG from the United States also reached Mangaluru. Indian ports are waiving charges for …",
+      "image": "https://img.etimg.com/thumb/msid-129733755,width-1200,height-630,imgsize-20836,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:43:04Z"
+    },
+    {
+      "title": "Another brick in the (fire)wall",
+      "summary": "Exploring the ineffectiveness of social media bans for children and the deeper issues surrounding adolescent mental health and digital engagement.",
+      "image": "https://bl-i.thgim.com/public/incoming/raqvkq/article70772555.ece/alternates/LANDSCAPE_1200/BL2303_Brand_Shubho_image.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:42:21Z"
+    },
+    {
+      "title": "Komoly arculcsapás érheti Moszkvát: kútba eshet az hatalmas Szu-57-es vadászgépüzlet",
+      "summary": "India 2018-ban hivatalosan is kilépett az Oroszországgal közös Szu–57-es vadászgépprogramból. A döntést akkor azzal indokolták, hogy a repülőgép nem felel meg az ötödik generációs harci repülőgépekkel szemben támasztott követelményeknek, Moszkva viszont kitar…",
+      "image": "https://pcdn.hu/articles/images-xl/s/z/u/szu-57-felon-vadaszbombazo-stock-576236.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:42:00Z"
+    },
+    {
+      "title": "Consumer-tech player Nothing bets big on offline, targets to add 5,000 touchpoints by year-end in India",
+      "summary": "The response has been so strong that the company now expects the store to turn profitable within its first year, well ahead of its expectations",
+      "image": "https://bl-i.thgim.com/public/incoming/i58lmg/article70772290.ece/alternates/LANDSCAPE_1200/Akis850%201.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:39:55Z"
+    },
+    {
+      "title": "Myanmar’s Elections and the Future of India’s Act East Strategy",
+      "summary": "Myanmar held its first nationwide elections since the February 2021 military coup on January 25, 2026. Despite ongoing conflict and a boycott campaign led by the National Unity Government (NUG) and allied armed groups, voting was conducted in 265 of the count…",
+      "image": "https://www.fairobserver.com/wp-content/uploads/2026/03/voting.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:39:51Z"
+    },
+    {
+      "title": "Apple CEO praises China partners as Beijing applies pressure",
+      "summary": "Cook, speaking at the China Development Forum in Beijing on Sunday, praised the innovations of Chinese developers and the automation at the country’s manufacturing facilities. He said Apple and China share common goals, including in green development and carb…",
+      "image": "https://img.etimg.com/thumb/width-1200,height-900,imgsize-23722,resizemode-75,msid-129733725/tech/technology/apple-ceo-praises-china-partners-as-beijing-applies-pressure.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:38:50Z"
+    },
+    {
+      "title": "Fandom economy",
+      "summary": "Explore India's booming fandom economy, projected to reach $10 billion by 2028, influencing culture and consumer behavior.",
+      "image": "https://bl-i.thgim.com/public/incoming/sbuwef/article70772467.ece/alternates/LANDSCAPE_1200/BL2303_Brand_Nugget_Fandom.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:38:21Z"
+    },
+    {
+      "title": "RBI veteran Jose Kattoor appointed South Indian Bank’s Non-Executive Part-Time Chairman",
+      "summary": "In his new role, Kattoor will work closely with the Board and senior management to further strengthen governance standards and help drive the Bank’s long-term strategic vision",
+      "image": "https://bl-i.thgim.com/public/incoming/gptvlp/article70772530.ece/alternates/LANDSCAPE_1200/IMG_south_indian_bank_2_1_MPFN4L0R.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:33:28Z"
+    },
+    {
+      "title": "India to focus on core priorities amid WTO reform push at MC14 this week",
+      "summary": "Some developed members have questioned consensus-based decisions, MFN and S&DT, but many developing countries see them as vital to WTO’s survival",
+      "image": "https://bl-i.thgim.com/public/todays-paper/tp-others/tp-variety/iy742/article70767296.ece/alternates/LANDSCAPE_1200/WTO-market-acceGJDFO4P0F.7.jpg.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:31:03Z"
+    },
+    {
+      "title": "Arsenal vs Man City Free Streams: How to watch Carabao Cup Final 2025/26 online from anywhere",
+      "summary": "All the ways to watch Arsenal vs Man City live streams, as the Premier League's top two meet in the Carabao Cup final at Wembley Stadium.",
+      "image": "https://cdn.mos.cms.futurecdn.net/Cj7Kek7iu8M6HAcmp2gwAM-2560-80.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:30:00Z"
+    },
+    {
+      "title": "CMA CGM’s PEARL service to offer direct India–US West Coast link via China; cuts transshipment costs",
+      "summary": "The service aims to lessen reliance on traditional transshipment hubs like Colombo and Singapore, where containers are usually offloaded and reloaded onto long-haul vessels",
+      "image": "https://bl-i.thgim.com/public/news/gocz9r/article70771834.ece/alternates/LANDSCAPE_1200/image%203.png",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:20:24Z"
+    },
+    {
+      "title": "The best seafood restaurant in every state, according to Yelp",
+      "summary": "Yelp picked the best seafood restaurant in every state based on customer reviews.",
+      "image": "https://i.insider.com/69bcb9b9ebc245a53a812212?width=1000&format=jpeg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:19:01Z"
+    },
+    {
+      "title": "Sustainability, spirituality and a good sleep",
+      "summary": "Discover GRT Hotels and Resorts, where sustainability, spirituality, and storytelling create unique guest experiences across southern India.",
+      "image": "https://bl-i.thgim.com/public/incoming/x5xmar/article70772426.ece/alternates/LANDSCAPE_1200/BL2303_Brand_Lead_Vikram%20Cotah.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:17:36Z"
+    },
+    {
+      "title": "Россиянка выжила при крушении катера на Мальдивах",
+      "summary": "Среди пассажиров перевернувшейся скоростной лодки на Мальдивах находилась россиянка, которая не пострадала и не обращалась в генконсульство за помощью, сообщил генеральный консул РФ в Мале Алексей Идамкин. Скоростная лодка с семью пассажирами перевернулась у …",
+      "image": "https://img.vz.ru/upimg/soc/soc_1404181.png",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:17:18Z"
+    },
+    {
+      "title": "From Iran to Cuba, Trump’s Sanctions Have Hurt People More Than Governments",
+      "summary": "The US says “sanctions” are about regime change, but in practice they are economic warfare against entire populations.",
+      "image": "https://truthout.org/app/uploads/2026/03/GettyImages-2267048717.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:17:09Z"
+    },
+    {
+      "title": "West Asia turmoil: L&T backs government to back capex, flags need for deficit headroom",
+      "summary": "Larsen & Toubro advises the Indian government to maintain capital expenditure, even if it means a wider fiscal deficit. The company suggests increased borrowing to fund infrastructure projects. This spending is crucial for achieving Viksit Bharat 2047 goals. …",
+      "image": "https://img.etimg.com/thumb/msid-129733517,width-1200,height-630,imgsize-87552,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:15:39Z"
+    },
+    {
+      "title": "Premier De Wever eist hardere Europese aanpak tegen oneerlijke Chinese handel",
+      "summary": "Key takeaways De Belgische premier Bart De Wever dringt er bij de EU op aan een krachtiger standpunt in te nemen tegen de oneerlijke handelspraktijken van China. De Wever waarschuwt dat de dominantie van China in de toeleveringsketens aanzienlijke economische…",
+      "image": "https://media.businessam.be/Bart-De-Wever-micro-EU-top-Sommet-europeen-maart-2026-1.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:14:00Z"
+    },
+    {
+      "title": "Spykar’s cut",
+      "summary": "Blockbuster release Dhurandhar:The Revenge carried the weight of advertising this fortnight with some 70 brands piggybacking on the movie through campaigns and activations. Beyond that Ugadi campaigns caught the eye, showing how brands are now upping their re…",
+      "image": "https://bl-i.thgim.com/public/incoming/6pi4lc/article70772409.ece/alternates/LANDSCAPE_1200/BL2303_Brand_Campaign_Spykar.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:07:51Z"
+    },
+    {
+      "title": "La astronauta cordobesa Mariló Torres lidera una misión espacial análoga en el desierto de Utah",
+      "summary": "La piloto cordobesa y candidata a astronauta comercial Mariló Torres ha completado su sexta misión espacial análoga, esta vez en la Mars Desert Research Station, ubicada en el desierto americano de Utah. En la misión científica 'Crew 328', la han acompañado u…",
+      "image": "https://s1.abcstatics.com/abc/www/multimedia/espana/2026/03/22/astronauta-marte-cordoba-k2d--1200x630@diario_abc.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:05:33Z"
+    },
+    {
+      "title": "Did Iran launch missiles at US-UK base on Diego Garcia? Here’s what to know",
+      "summary": "UK condemns what it says is Iranian attack on airbase in Indian Ocean, but Tehran denies it carried out the launches.",
+      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AFP__20241003__36J347X__v1__MidRes__FilesMauritiusUsAttacks-1774168717.jpg?resize=1200%2C675",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:03:57Z"
+    },
+    {
+      "title": "Is history on the verge of dramatic change?",
+      "summary": "The author argues that there won’t be any European country among the world’s three largest economies by 2030",
+      "image": "https://bl-i.thgim.com/public/books/99l8ni/article70765873.ece/alternates/LANDSCAPE_1200/Books-DC-India.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T13:01:04Z"
+    },
+    {
+      "title": "DSSSB recruitment 2026 registration ends soon check direct link fees how to apply for 911 vacancies last date",
+      "summary": "The Delhi Subordinate Services Selection Board is opening applications for 911 positions. The registration window closes on March 25, 2026. Interested candidates can apply online for roles like Legal Assistant and Engineer. Selection will be based on a writte…",
+      "image": "https://img.etimg.com/thumb/msid-129733365,width-1200,height-630,imgsize-63136,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T12:57:24Z"
+    },
+    {
+      "title": "Middle East war at 'perilous stage' with strikes around nuclear sites: WHO",
+      "summary": "Tensions in the Middle East have escalated dramatically, with recent strikes aimed at nuclear facilities in both Iran and Israel. The World Health Organization is calling on all parties to exercise utmost caution. These attacks threaten not only public health…",
+      "image": "https://img.etimg.com/thumb/msid-129733334,width-1200,height-630,imgsize-99678,overlay-economictimes/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T12:54:42Z"
+    },
+    {
+      "title": "Energy shock talk grabs headlines but the Iran war is also driving the world towards a food crisis | Heather Stewart",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/d95d168c6dcede414acee9c4ee94ed51a844cedc/4068_2717_2833_2268/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T12:53:50Z"
+    },
+    {
+      "title": "England’s McCullum told to improve relations with counties after Ashes review",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/ac1f09925bff361cdd7601c7183678a7186cd44f/715_190_4761_3809/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T11:42:12Z"
+    },
+    {
+      "title": "Projectile strikes vessel off coast of UAE - as it happened",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/925f0eb4035965a937744c23d22a7e807e88a573/121_0_1320_1056/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T03:17:20Z"
+    },
+    {
+      "title": "Six fuel ships bound for Australia cancelled as Bowen concedes ‘flow of oil to Asian refineries has slowed’",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/4923050baf3d54d988655b284f09e9f3b4d70ce7/178_0_6457_5169/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T02:22:30Z"
+    },
+    {
       "title": "Superb India crush New Zealand to defend T20 title",
       "summary": "India banish the ghosts of 2023 by emphatically beating New Zealand by 96 runs in Ahmedabad to defend their T20 World Cup title.",
       "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/ca07/live/1f19fea0-1b10-11f1-b048-c9424b2cf5fd.jpg",
@@ -1450,354 +1856,6 @@
       "title": "How budget fast fashion is taking small-town India by storm",
       "summary": "More Indians in small towns are now shopping for affordable brands instead of unlabelled goods in the bazaars.",
       "image": "https://ichef.bbci.co.uk/news/1024/branded_news/df1c/live/5c7b0a30-0d9d-11f1-8168-03d32f3820eb.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Why is WhatsApp's privacy policy facing a legal challenge in India?",
-      "summary": "A 2021 policy update requires users to share data with Meta for ads purposes to continue using the app.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/1ebd/live/e1219080-1246-11f1-b145-71f828aa3547.jpg",
-      "category": "General"
-    },
-    {
-      "title": "A 'delicate' balance for Canada and a 'win-win' for Modi as Carney visits India",
-      "summary": "The two countries are repairing a strained relationship as they also seek to reduce their trade reliance on the US.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/5afc/live/0c738cc0-1404-11f1-8e3a-e7cecfbdc12f.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Sam Altman: Know What Else Used a Lot of Energy? Human Civilization",
-      "summary": "The OpenAI CEO, very smart, brushed away concerns about AI's environmental impact with one hell of a take.",
-      "image": "https://gizmodo.com/app/uploads/2023/12/4ff1b0f784c6143efba708457fe531b2.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Sunil Puri, Rockford developer and philanthropist, dies at 65",
-      "summary": "Sunil Puri, a prominent Rockford developer and philanthropist, died at 65 after a cancer battle.",
-      "image": "https://s.yimg.com/ny/api/res/1.2/CjA0dcCXeYGdgLtlpBwbqw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03Mjk7Y2Y9d2VicA--/https://media.zenfs.com/en/rockford-register-star/64852a09c28de8b35430c36db74b393e",
-      "category": "General"
-    },
-    {
-      "title": "India preparing fresh manufacturing incentives as Apple shifts more iPhone production",
-      "summary": "As India’s current phone manufacturing incentive program is about to expire, the country is planning fresh incentives to keep production growing. Here are the details.\n\n\n\n more…",
-      "image": "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2026/02/apple-india-investment.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1",
-      "category": "General"
-    },
-    {
-      "title": "I quit my dream job at Apple to launch a startup with my dad. I have no regrets.",
-      "summary": "Akshat Prakash left his job at Apple in 2022 to start his own business. His father gave him more credibility at first, then came on as the actual CEO.",
-      "image": "https://i.insider.com/69b9803e75bee4e0ee55d48f?width=1024&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Airlines are being squeezed into this sliver of sky as much of the Middle East joins Russia on the airspace no-fly list",
-      "summary": "Flightradar24 shows flights being funneled into narrow corridors north of Iran, or forced into longer detours over Saudi Arabia and other regions.",
-      "image": "https://i.insider.com/69a5f4ab1fb3fcb42648c388?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Apple Pay set for biggest ever expansion, likely to boost iPhone sales",
-      "summary": "Apple Pay has reportedly grown to become the second largest payment processing service in the world after Visa, handling 9.5 trillion transactions for more than 800 million customers. \n\n\n\nThose numbers now look set for a significant boost as Apple prepares fo…",
-      "image": "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2026/02/Apple-Pay-set-for-biggest-ever-expansion.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1",
-      "category": "General"
-    },
-    {
-      "title": "Lucky number seven? Samsung drops yet another Galaxy S25 One UI 8.5 beta",
-      "summary": "Samsung was spotted pushing a seventh One UI 8.5 beta to its year-old flagships overseas.",
-      "image": "https://cdn.mos.cms.futurecdn.net/xWNKtwfwBxmw69wGtikRAh-2048-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Here's When You Can Pre-Order the iPhone 17e, New Studio Displays and More in Every Time Zone",
-      "summary": "Apple is going to be accepting pre-orders for a slew of new devices starting tomorrow, with orders set to begin at 6:15 a.m. Pacific Time. To give users around the world an idea of when pre-orders will be accepted in their time zone, we've compiled a list of …",
-      "image": "https://images.macrumors.com/t/XenDcFdWlKKSGqUipGVYBMWDKiU=/2500x/article-new/2026/03/Apple-Experience-Pre-Orders-Feature.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Ma+rs designs thatched wildlife retreat in India as \"a quiet observer\"",
-      "summary": "Indian studio Ma+rs has completed Serenity, a wildlife retreat in Tamil Nadu crowned by a cluster of thatched roofs intended to blend in with the distant Anamalai mountain range. Read more",
-      "image": "https://static.dezeen.com/uploads/2026/02/serenity-ma-rs-architecture-wildlife-retreat-india-residential_dezeen_2364_sq.jpg",
-      "category": "General"
-    },
-    {
-      "title": "A drone strike near Dubai's airport has unleashed a fresh round of travel chaos, with multiple flights being diverted",
-      "summary": "Emirates said in a notice on X that flights from Dubai International Airport were temporarily suspended.",
-      "image": "https://i.insider.com/69b78f44a96e437d6eb858c0?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "T20 Cricket World Cup 2026 Final Livestream: How to Watch India vs. New Zealand From Anywhere for Free",
-      "summary": "The Black Caps stand in the way of the hosts lifting the trophy for a third time.",
-      "image": "https://www.cnet.com/a/img/resize/295018e914da8a0378c721528c70543c59ddd0c4/hub/2026/03/06/f040b59e-2195-46bf-a5bc-3f8c12061cb5/gettyimages-2254206668.jpg?auto=webp&fit=crop&height=675&width=1200",
-      "category": "General"
-    },
-    {
-      "title": "Strikes on Iran have disrupted one of the world's busiest flight corridors",
-      "summary": "Following US and Israeli strikes, Iran and neighbor nations closed airspace, impacting airlines like Qatar Airways and Emirates.",
-      "image": "https://i.insider.com/69a2c155d3e2f1aef369bbb7?width=1124&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "The company behind one of Trump's oft-worn shoe brands is suing his administration over tariffs",
-      "summary": "Florsheim Shoe Company makes Oxford shoes that Trump often wears. Weyco Group, its parent, is suing over Trump's tariffs and seeking a refund.",
-      "image": "https://i.insider.com/69af2a14441e48aec3a1c3ae?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "The $100,000 fee for H-1Bs is causing all sorts of problems",
-      "summary": "Last fall, President Donald Trump's executive order raising the fee for H-1B visas to $100,000 - like many of his immigration policies - led to near-immediate chaos. Thousands of workers who had flown overseas to renew their visas ended up stranded abroad. De…",
-      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/268403_The_100000_fee_for_H-1Bs_six_months_later_CVirginia2.jpg?quality=90&strip=all&crop=0%2C10.732984293194%2C100%2C78.534031413613&w=1200",
-      "category": "General"
-    },
-    {
-      "title": "Dezeen Agenda features sports district to be built around world's largest stadium",
-      "summary": "The latest edition of our weekly Dezeen Agenda newsletter features plans for a sports district in India, which will be built around the world's largest stadium. Subscribe to Dezeen Agenda now. Read more",
-      "image": "https://static.dezeen.com/uploads/2026/02/dezeen-agenda-sardar-vallabhbhai-patel-sports-enclave-bdp-cox-architecture-collage-design_dezeen_2364_col_4-1704x959-1.png",
-      "category": "General"
-    },
-    {
-      "title": "Sam Altman Is Marketing OpenAI as America’s Wartime AI Company Whether He Intends to or Not",
-      "summary": "At the outbreak of a new war, Altman is closer than ever to the Pentagon.",
-      "image": "https://gizmodo.com/app/uploads/2025/05/Sam-Altman-1200x675.jpg",
-      "category": "General"
-    },
-    {
-      "title": "When lit up at night, this badminton academy in...",
-      "summary": "When lit up at night, this badminton academy in Bhubaneswar, India looks like a shuttlecock.",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Canada's Carney arrives in Australia for meeting of 'middle powers'",
-      "summary": "By Alasdair Pal SYDNEY, March 3 (Reuters) - Canadian Prime Minister Mark Carney arrived in Australia on Tuesday, aiming to bolster relations between the two ...",
-      "image": "https://s.yimg.com/os/en/reuters.com/23f7da41b77a7d8795c068c4dfac9fef",
-      "category": "General"
-    },
-    {
-      "title": "Good news for Samsung fans: One UI 8.5 could land on Galaxy S24 and FE phones soon",
-      "summary": "If this happens, FE users are finally getting treated like flagships.",
-      "image": "https://cdn.mos.cms.futurecdn.net/7P2ErZCEHSc73umEzHChMN-2048-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Source: India issued a blocking order on February 24 to restrict access to developer database service Supabase; the government did not publicly cite a reason (Jagmeet Singh/TechCrunch)",
-      "summary": "Jagmeet Singh / TechCrunch:\nSource: India issued a blocking order on February 24 to restrict access to developer database service Supabase; the government did not publicly cite a reason  —  Supabase, a popular developer database platform, is facing disruption…",
-      "image": "https://techcrunch.com/wp-content/uploads/2026/02/supabase.jpg?resize=1200,800",
-      "category": "General"
-    },
-    {
-      "title": "National statistics are in crisis around the world — and the impacts will be severe",
-      "summary": "Some researchers are sounding the alarm over the official data sets that track crucial aspects of life in the United States, Argentina, the United Kingdom and India.",
-      "image": "https://media.nature.com/lw1200/magazine-assets/d41586-026-00699-2/d41586-026-00699-2_52151824.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Building Better Country Selects",
-      "summary": "A practical UX critique of the standard country dropdown, with guidance for better search, ordering, labeling, and implementation.",
-      "image": "https://talysto.com/img/talysto-og-2.png",
-      "category": "General"
-    },
-    {
-      "title": "Atlassian CEO: AI doesn't replace people here, but we're firing them anyway",
-      "summary": "AI should not replace people at Atlassian, says CEO Cannon-Brookes. But they still have to lay off 1,600 people to have money for AI investments.",
-      "image": "https://heise.cloudimg.io/bound/1200x1200/q85.png-lossy-85.webp-lossy-85.foil1/_www-heise-de_/imgs/18/5/0/4/4/2/0/9/shutterstock_1225785334-22b9792981850e08.jpg",
-      "category": "General"
-    },
-    {
-      "title": "T20 World Cup teams stuck in India because of Middle East travel chaos",
-      "summary": "West Indies and Zimbabwe remain in India, along with the semifinalists at the India and Sri Lanka-cohosted World Cup.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/2026-03-01T150921Z_1182932212_UP1EM31163KK8_RTRMADP_3_CRICKET-T20-WORLDCUP-IND-WIN-1772537077.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "Australia thrash India in Healy's final match",
-      "summary": "Alyssa Healy captains Australia to a 10-wicket Test victory against India in her final match before retirement.",
-      "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/049b/live/80877430-1af0-11f1-af70-e98c0b43db96.jpg",
-      "category": "General"
-    },
-    {
-      "title": "AI is now part of the culture wars — and real wars",
-      "summary": "Hello and welcome to Regulator, the newsletter for Verge subscribers that goes inside Washington's increasingly existential clashes between tech and politics. If this was forwarded to you, can I interest you in a full-fledged subscription to The Verge for onl…",
-      "image": "https://platform.theverge.com/wp-content/uploads/sites/2/2026/03/gettyimages-2263868498.jpg?quality=90&strip=all&crop=0%2C10.726456111031%2C100%2C78.547087777937&w=1200",
-      "category": "General"
-    },
-    {
-      "title": "Hunter sentenced to prison after airport officials discover what was in his luggage: 'He listed [what] he carried falsely'",
-      "summary": "\"He should have got 10 years and a $250,000 fine.\"",
-      "image": "https://s.yimg.com/ny/api/res/1.2/XXFy6Rm2O4jdPSUNNvEV_w--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD04MDA7Y2Y9d2VicA--/https://media.zenfs.com/en/the_cool_down_737/9596e8f43885dac9038dc6df2a8a82d2",
-      "category": "General"
-    },
-    {
-      "title": "How India Became an Artisanal Menswear Powerhouse",
-      "summary": "The \"next era of India Fashion\" nearly spans a continent, with one throughline: gorgeous, wearable clothing with an adherence to domestic craft.",
-      "image": "https://www.highsnobiety.com/static-assets/dato/1772733767-itoh-clothing-brand-32.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Protests across India against Khamenei’s killing",
-      "summary": "Protests erupt across India after Ayatollah Ali Khamenei is killed in US-Israeli air strikes on Iran.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/2026-03-01T122308Z_385742015_RC2LVJARRUZE_RTRMADP_3_IRAN-CRISIS-INDIA-PROTEST-1772440782.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "Why are israel and india getting closer?",
-      "summary": "India’s Prime Minister Narendra Modi is heading to Israel, where he’s set to meet Benjamin Netanyahu.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/image-1771849677.jpg?resize=1920%2C1080&quality=80",
-      "category": "General"
-    },
-    {
-      "title": "LIVE: India vs Zimbabwe – T20 World Cup",
-      "summary": "Follow our live build-up, toss and team news, score, photo updates and text commentary stream from the Super 8 match.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/AP26053473662501-1771766123.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "Search Central Live Asia Pacific 2026: Get Ready for Sydney and more!",
-      "summary": "It's that time of the year again! Let's talk about the Search Central Live (SCL) schedule for\n the Asia Pacific (APAC) region.",
-      "image": "https://developers.google.com/static/search/blog/images/search-central-live-apac/2026/search-central-live-sydney-2026-social.png",
-      "category": "General"
-    },
-    {
-      "title": "3 digital nomads in Bali share the career journeys that led them to the tropical paradise",
-      "summary": "Three entrepreneurs — a consultant, supplements founder, and content creator — outline the global career twists that led them to Bali.",
-      "image": "https://i.insider.com/698b8b5fd3c7faef0ece036b?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "India beat Zimbabwe to keep title defence alive",
-      "summary": "Defending champions India pile on 256-4 as they eliminate Zimbabwe from the T20 World Cup with victory in Chennai.",
-      "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/90d4/live/d3fd2df0-1337-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "India outclass New Zealand to retain T20 World Cup",
-      "summary": "India put on a show with bat and ball on their way to a dominant 96-run win over New Zealand, as the host nation retain their ICC Men's T20 World Cup title at the Narendra Modi Stadium in Ahmedabad.",
-      "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/f7d0/live/8f2be660-1b18-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "UEFA Secures Pirate Site Blocking and (Global) Domain Suspension Order in India",
-      "summary": "UEFA has obtained a broad blocking injunction at the High Court of Delhi, targeting 79 pirate streaming domains that reportedly attracted two billion annual visits. Obtained in cooperation with anti-piracy coalition ACE, the order compels Indian ISPs and glob…",
-      "image": "https://torrentfreak.com/images/grass-soccer.jpg",
-      "category": "General"
-    },
-    {
-      "title": "19th Century Photographic Survey of India Far Sells for Nearly $57,000",
-      "summary": "An eight-volume Victorian-era photographic survey of the Indian subcontinent has dramatically exceeded expectations at auction, selling for £42,000 (approximately $56,825 at current exchange rates), far above pre-sale estimates of £4,000 to £6,000\n[Read More]",
-      "image": "https://petapixel.com/assets/uploads/2026/02/Lot-50-Watson-John-Forbes-John-William-Kaye.-The-People-of-India-A-Series-of-Photographic-Illustrations.of-the-Races-and-Tribes-of-Hindustan-Image-Cover.jpg",
-      "category": "General"
-    },
-    {
-      "title": "I used this SSD flash drive to solve my Pixel 10 Pro XL storage problems",
-      "summary": "TeamGroup's X2 Max looks like any other flash drive. But what you don't realize is that it has a custom 1TB external SSD.",
-      "image": "https://cdn.mos.cms.futurecdn.net/oszUTreuy3XHRzrhvy863g-2560-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Android's March update is all about finding people, apps, and your missing bags",
-      "summary": "Google’s March Pixel Drop adds in-chat live location sharing, Play Store app previews, custom Calling Cards, kids’ games on Android Auto, and a smarter way to track lost luggage.",
-      "image": "https://cdn.mos.cms.futurecdn.net/qH5fdXGbaGx5Gc7zkBs29X-2048-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "I used the Xiaomi Pad 8 for a month — these four features make the half-priced iPad Air clone the best mid-range Android tablet",
-      "summary": "The Pad 8 has a bigger battery, and it's just better to use than its predecessors. And with Xiaomi rolling out productivity-focused accessories, this is a fabulous alternative to the iPad Air that costs half as much.",
-      "image": "https://cdn.mos.cms.futurecdn.net/wRE6Kyhu9f9NwY9V5JLdpY-2560-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Xiaomi 17 series and Pad 8 to debut in India next week",
-      "summary": "Following the global debut of the Xiaomi 17 series and the Pad 8 last week, the company has now announced their launch date in India. \n\nIn a post on X, Xiaomi India confirmed that the Xiaomi 17 series, comprising the standard Xiaomi 17 and the Xiaomi 17 Ultra…",
-      "image": "https://fdn.gsmarena.com/imgroot/news/26/03/xiaomi-17-ultra-pad-8-india-launch/-952x498w6/gsmarena_000.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Can You Run ChatGPT on a Dumb Phone? It Turns Out Yes, but With Caveats",
-      "summary": "Think AI is just for smartphones? Think again.",
-      "image": "https://www.cnet.com/a/img/resize/83e65395df2905e9c5f79f8a6aef59976c47d2dd/hub/2026/03/06/00e30a1f-c1af-44e7-85b4-48ebae8cf204/img-5490.jpg?auto=webp&fit=crop&height=675&width=1200",
-      "category": "General"
-    },
-    {
-      "title": "India reach T20 World Cup final as England fall short",
-      "summary": "Defending champions India are through to the T20 World Cup final after England fall short, missing out by seven runs.",
-      "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/ac5e/live/6a1052a0-18c3-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "How to Watch India vs. England T20 World Cup Cricket Match Online In the U.S.",
-      "summary": "For a third-straight T20 World Cup, India and England will clash in the semifinals. Here’s where to stream the match online",
-      "image": "https://www.rollingstone.com/wp-content/uploads/2026/03/GettyImages-2264231932.jpg?w=1600&h=900&crop=1",
-      "category": "General"
-    },
-    {
-      "title": "Samson brings up 'magnificent' half century against England",
-      "summary": "Sanju Samson brings up his half century in 26 balls for India against England.",
-      "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/65b7/live/28a8cfc0-189d-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Climate change and geopolitics threaten water supplies — but disaster is not inevitable",
-      "summary": "The Indus Waters Treaty withstood several armed conflicts and a huge loss of glaciers. It should serve as a blueprint for others.",
-      "image": "https://media.nature.com/lw1200/magazine-assets/d41586-026-00659-w/d41586-026-00659-w_51991022.jpg",
-      "category": "General"
-    },
-    {
-      "title": "What people in India are saying about Modi’s Israel visit",
-      "summary": "‘We should not support a country that is committing genocide.’",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/image-1771944122.jpg?resize=1920%2C1080&quality=80",
-      "category": "General"
-    },
-    {
-      "title": "Who is really safe in India and Israel?",
-      "summary": "Not even all Hindus and Jews find safety in the countries supposedly built to protect them.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/epa_69a04dee8981-1772113390.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "LIVE: India vs New Zealand – T20 World Cup final",
-      "summary": "Follow our live build-up, with full toss and team news coverage, before our text commentary stream of the 2026 final.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AFP__20260305__A24K3RU__v1__MidRes__CricketIccMensT20Wc2026IndEng-1772880502.jpg?resize=1200%2C630",
-      "category": "General"
-    },
-    {
-      "title": "LIVE: India vs England – T20 World Cup semifinal",
-      "summary": "Follow our live build up, with full toss and team news coverage, ahead of our live text commentary stream.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AP26060528217759-1772649666.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "Superb India crush New Zealand to defend T20 title",
-      "summary": "India banish the ghosts of 2023 by emphatically beating New Zealand by 96 runs in Ahmedabad to defend their T20 World Cup title.",
-      "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/ca07/live/1f19fea0-1b10-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "India and Canada reset ties with 'landmark' nuclear energy deal",
-      "summary": "A host of deals, including one to supply India with uranium, is unveiled as Mark Carney meets Narendra Modi in Delhi.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/b355/live/9a5a8070-1616-11f1-9697-634d5add2261.jpg",
-      "category": "General"
-    },
-    {
-      "title": "The nearly-forgotten cricketer who became India's T20 World Cup hero",
-      "summary": "Sanju Samson lit up the T20 World Cup with 321 runs and impactful innings that helped India retain the title.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8f40/live/cc30a130-1b87-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Gas shortage caused by Iran war may push India back to dirtier fuels",
-      "summary": "Reports from across India point to rising sales of biomass fuels like firewood and cow dung cakes.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/08ee/live/9ec5bb60-235f-11f1-a79a-77e93010d956.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Celebrating Holi - the Hindu festival brings its array of colours to India and elsewhere",
-      "summary": "The Hindu festival, which celebrates the victory of good over evil, also marks the end of winter.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8a31/live/91a31190-16de-11f1-8420-a53022a9aaa5.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Fact-checking Trump's longest ever State of the Union",
-      "summary": "President Donald Trump said the US \"is winning again\" - making a series of claims about his record in a speech which lasted almost two hours.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/2ea4/live/e2517fa0-1233-11f1-801d-ed3cff6bf876.png",
       "category": "General"
     }
   ]
