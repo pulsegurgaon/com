@@ -94,3 +94,10 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+setInterval(async () => {
+  console.log("⏳ Fetching fresh news...");
+  await updateNews();
+}, 1800000); // 30 minutes
+
+// run once immediately also
+updateNews();
