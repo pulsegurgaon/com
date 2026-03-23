@@ -94,6 +94,26 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
+async function updateNews() {
+  const articles = await getNews();
+
+  const formatted = articles.map(a => ({
+    title: a.title,
+    summary: a.description || "No summary available",
+    image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
+    category: "General"
+  }));
+
+  const fs = await import("fs");
+
+  fs.writeFileSync(
+    "articles.json",
+    JSON.stringify({ articles: formatted }, null, 2)
+  );
+
+  console.log("✅ News updated");
+}
 setInterval(async () => {
   console.log("⏳ Fetching fresh news...");
   await updateNews();
