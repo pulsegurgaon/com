@@ -1,9 +1,11 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PulseGurgaon</title><style>
+<title>PulseGurgaon</title>
 
+<style>
 body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
@@ -98,38 +100,74 @@ display:flex;gap:10px;margin-bottom:12px;cursor:pointer
 footer{
 background:#111;color:white;text-align:center;padding:25px;margin-top:40px
 }
+</style>
 
-</style></head><body><header><div class="logo">PulseGurgaon</div><input id="searchInput" class="search" placeholder="Search news..."><button class="admin" onclick="location.href='admin.html'">ADMIN</button>
+</head>
 
-</header><div class="categories"><span onclick="filterCategory('All')">All</span>
+<body>
+
+<header>
+<div class="logo">PulseGurgaon</div>
+<input id="searchInput" class="search" placeholder="Search news...">
+<button class="admin" onclick="location.href='admin.html'">ADMIN</button>
+</header>
+
+<div class="categories">
+<span onclick="filterCategory('All')">All</span>
 <span onclick="filterCategory('Gurgaon')">Gurgaon</span>
 <span onclick="filterCategory('India')">India</span>
 <span onclick="filterCategory('World')">World</span>
 <span onclick="filterCategory('Finance')">Finance</span>
 <span onclick="filterCategory('Technology')">Technology</span>
+</div>
 
-</div><div class="breaking">
+<div class="breaking">
 <div class="ticker" id="ticker"></div>
-</div><div class="topAd" id="ad"></div><div class="layout"><div><div class="hero" id="hero"></div><h2>Latest Headlines</h2><div class="cards" id="news"></div></div><div class="sidebar"><h3>Trending Blogs</h3><div id="blogs"></div></div></div><footer>
+</div>
+
+<div class="topAd" id="ad"></div>
+
+<div class="layout">
+<div>
+<div class="hero" id="hero"></div>
+<h2>Latest Headlines</h2>
+<div class="cards" id="news"></div>
+</div>
+
+<div class="sidebar">
+<h3>Trending Blogs</h3>
+<div id="blogs"></div>
+</div>
+</div>
+
+<footer>
 PulseGurgaon • AI Powered Local News
-</footer><script>
+</footer>
+
+<script>
 
 let allArticles=[]
-let visible=6
+let originalArticles=[]
 
+// FETCH NEWS
 fetch("articles.json")
 .then(r=>r.json())
 .then(data=>{
 allArticles=data.articles
+originalArticles=data.articles
 render()
 updateTicker()
 })
 
+// RENDER FUNCTION
 function render(){
 
 const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
+if(allArticles.length === 0) return
+
+// HERO
 hero.innerHTML=`
 <img src="${allArticles[0].image}">
 <div class="heroOverlay">
@@ -140,10 +178,10 @@ hero.innerHTML=`
 
 news.innerHTML=""
 
-allArticles.slice(1,visible).forEach(a=>{
+// SHOW ALL ARTICLES (🔥 FIXED)
+allArticles.slice(1).forEach(a=>{
 
 const card=document.createElement("div")
-
 card.className="card"
 
 card.innerHTML=`
@@ -166,48 +204,40 @@ news.appendChild(card)
 
 }
 
-window.onscroll=()=>{
-if((window.innerHeight+window.scrollY)>=document.body.offsetHeight-200){
-visible+=4
-render()
-}
-}
-
+// CATEGORY FILTER
 function filterCategory(cat){
 
-if(cat==="All"){render();return}
-
-const filtered=allArticles.filter(a=>a.category===cat)
-
-allArticles=filtered
-visible=6
+if(cat==="All"){
+allArticles=[...originalArticles]
 render()
-
+return
 }
 
+allArticles = originalArticles.filter(a=>a.category===cat)
+render()
+}
+
+// SEARCH FIXED
 document.getElementById("searchInput").addEventListener("input",function(){
 
 const q=this.value.toLowerCase()
 
-const filtered=allArticles.filter(a=>
+allArticles = originalArticles.filter(a=>
 a.title.toLowerCase().includes(q)||
 a.summary.toLowerCase().includes(q)
 )
 
-allArticles=filtered
-visible=6
 render()
 
 })
 
+// TICKER
 function updateTicker(){
-
-const headlines=allArticles.map(a=>a.title).join(" • ")
-
+const headlines=originalArticles.map(a=>a.title).join(" • ")
 document.getElementById("ticker").innerText=headlines
-
 }
 
+// ADS
 fetch("ads.json")
 .then(r=>r.json())
 .then(data=>{
@@ -216,6 +246,7 @@ document.getElementById("ad").innerHTML=
 `<a href="${ad.link}" target="_blank"><img src="${ad.image}"></a>`
 })
 
+// BLOGS
 fetch("blogs.json")
 .then(r=>r.json())
 .then(data=>{
@@ -230,5 +261,7 @@ blogBox.innerHTML+=`
 })
 })
 
-</script></body>
+</script>
+
+</body>
 </html>
