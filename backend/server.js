@@ -9,16 +9,38 @@ const NEWS_API_KEY = process.env.NEWS_API_KEY;
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
-// ✅ SAFE NEWS FETCH
+
+// 🧠 FETCH MORE NEWS (100+)
 async function getNews() {
   try {
-    const res = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=${NEWS_API_KEY}`);
-    const data = await res.json();
+    console.log("⏳ Fetching fresh news...");
 
-    return data.articles.slice(0, 5).map(a => ({
+    let allArticles = [];
+
+    // Fetch 2 pages (50 + 50 = 100 news)
+    for (let page = 1; page <= 2; page++) {
+      const res = await fetch(
+        `https://newsapi.org/v2/everything?q=india&language=en&pageSize=50&page=${page}&apiKey=${NEWS_API_KEY}`
+      );
+
+      const data = await res.json();
+
+      if (data.articles) {
+        allArticles = [...allArticles, ...data.articles];
+      }
+    }
+
+    if (allArticles.length === 0) {
+      console.log("⚠️ No news fetched");
+      return [];
+    }
+
+    console.log(`🔥 ${allArticles.length} articles fetched`);
+
+    return allArticles.map(a => ({
       title: a.title,
       summary: a.description || "No summary available",
-      image: a.urlToImage || "https://via.placeholder.com/300",
+      image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
       category: "General"
     }));
 
@@ -28,7 +50,8 @@ async function getNews() {
   }
 }
 
-// ✅ UPDATE GITHUB
+
+// 🚀 UPDATE GITHUB FILE
 async function updateGitHub(newArticles) {
   try {
     const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -41,9 +64,12 @@ async function updateGitHub(newArticles) {
 
     const data = await res.json();
 
-    let content = JSON.parse(Buffer.from(data.content, "base64").toString());
+    let content = JSON.parse(
+      Buffer.from(data.content, "base64").toString()
+    );
 
-    content.articles = [...newArticles, ...content.articles];
+    // limit total articles to avoid huge file
+    content.articles = [...newArticles, ...content.articles].slice(0, 300);
 
     await fetch(url, {
       method: "PUT",
@@ -52,8 +78,10 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "Auto news update",
-        content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
+        message: "🔥 Auto news update",
+        content: Buffer.from(
+          JSON.stringify(content, null, 2)
+        ).toString("base64"),
         sha: data.sha
       })
     });
@@ -65,7 +93,8 @@ async function updateGitHub(newArticles) {
   }
 }
 
-// ✅ MAIN LOOP
+
+// 🤖 MAIN BOT
 async function runBot() {
   console.log("🚀 Running news bot...");
 
@@ -73,51 +102,24 @@ async function runBot() {
 
   if (news.length > 0) {
     await updateGitHub(news);
-  } else {
-    console.log("⚠️ No news fetched");
   }
 }
 
-// run once on start
+
+// run immediately
 runBot();
 
-// run every 30 min
+// run every 30 minutes
 setInterval(runBot, 30 * 60 * 1000);
 
-// ✅ KEEP SERVER ALIVE
+
+// 🌐 SERVER (RENDER NEEDS THIS)
 app.get("/", (req, res) => {
   res.send("PulseGurgaon backend running 🚀");
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
-
-async function updateNews() {
-  const articles = await getNews();
-
-  const formatted = articles.map(a => ({
-    title: a.title,
-    summary: a.description || "No summary available",
-    image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
-    category: "General"
-  }));
-
-  const fs = await import("fs");
-
-  fs.writeFileSync(
-    "articles.json",
-    JSON.stringify({ articles: formatted }, null, 2)
-  );
-
-  console.log("✅ News updated");
-}
-setInterval(async () => {
-  console.log("⏳ Fetching fresh news...");
-  await updateNews();
-}, 1800000); // 30 minutes
-
-// run once immediately also
-updateNews();
