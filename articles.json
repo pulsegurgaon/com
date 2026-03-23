@@ -403,6 +403,12 @@
       "category": "General"
     },
     {
+      "title": "The best seafood restaurant in every state, according to Yelp",
+      "summary": "Yelp picked the best seafood restaurant in every state based on customer reviews.",
+      "image": "https://i.insider.com/69bcb9b9ebc245a53a812212?width=1000&format=jpeg",
+      "category": "General"
+    },
+    {
       "title": "Source: India issued a blocking order on February 24 to restrict access to developer database service Supabase; the government did not publicly cite a reason (Jagmeet Singh/TechCrunch)",
       "summary": "Jagmeet Singh / TechCrunch:\nSource: India issued a blocking order on February 24 to restrict access to developer database service Supabase; the government did not publicly cite a reason  —  Supabase, a popular developer database platform, is facing disruption…",
       "image": "https://techcrunch.com/wp-content/uploads/2026/02/supabase.jpg?resize=1200,800",
@@ -580,12 +586,6 @@
       "title": "LIVE: India vs New Zealand – T20 World Cup final",
       "summary": "Follow our live build-up, with full toss and team news coverage, before our text commentary stream of the 2026 final.",
       "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AFP__20260305__A24K3RU__v1__MidRes__CricketIccMensT20Wc2026IndEng-1772880502.jpg?resize=1200%2C630",
-      "category": "General"
-    },
-    {
-      "title": "LIVE: India vs England – T20 World Cup semifinal",
-      "summary": "Follow our live build up, with full toss and team news coverage, ahead of our live text commentary stream.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AP26060528217759-1772649666.jpg?resize=1920%2C1440",
       "category": "General"
     },
     {
@@ -1765,25 +1765,40 @@
       "category": "General"
     },
     {
-      "title": "Gurgaon Metro Expansion Approved",
-      "summary": "Haryana government approved a major metro expansion project connecting new sectors of Gurgaon.",
-      "image": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
-      "category": "Gurgaon",
-      "content": "The Haryana government has approved the expansion of the Gurgaon metro network to connect emerging sectors and improve connectivity. The project aims to reduce traffic congestion and provide a faster commute for residents."
+      "title": "Superb India crush New Zealand to defend T20 title",
+      "summary": "India banish the ghosts of 2023 by emphatically beating New Zealand by 96 runs in Ahmedabad to defend their T20 World Cup title.",
+      "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/ca07/live/1f19fea0-1b10-11f1-b048-c9424b2cf5fd.jpg",
+      "category": "General"
     },
     {
-      "title": "India Startup Ecosystem Hits New Record",
-      "summary": "Indian startups raised record investments this quarter driven by AI and fintech companies.",
-      "image": "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
-      "category": "India",
-      "content": "India's startup ecosystem continues to grow rapidly as investors pour billions into technology companies focused on artificial intelligence, financial services and digital platforms."
+      "title": "India and Canada reset ties with 'landmark' nuclear energy deal",
+      "summary": "A host of deals, including one to supply India with uranium, is unveiled as Mark Carney meets Narendra Modi in Delhi.",
+      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/b355/live/9a5a8070-1616-11f1-9697-634d5add2261.jpg",
+      "category": "General"
     },
     {
-      "title": "Global Markets React to AI Boom",
-      "summary": "Technology companies around the world are seeing major stock gains due to AI innovation.",
-      "image": "https://images.unsplash.com/photo-1492724441997-5dc865305da7",
-      "category": "World",
-      "content": "Global stock markets surged after several technology companies announced major artificial intelligence breakthroughs and investment plans."
+      "title": "The nearly-forgotten cricketer who became India's T20 World Cup hero",
+      "summary": "Sanju Samson lit up the T20 World Cup with 321 runs and impactful innings that helped India retain the title.",
+      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8f40/live/cc30a130-1b87-11f1-b048-c9424b2cf5fd.jpg",
+      "category": "General"
+    },
+    {
+      "title": "Gas shortage caused by Iran war may push India back to dirtier fuels",
+      "summary": "Reports from across India point to rising sales of biomass fuels like firewood and cow dung cakes.",
+      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/08ee/live/9ec5bb60-235f-11f1-a79a-77e93010d956.jpg",
+      "category": "General"
+    },
+    {
+      "title": "Celebrating Holi - the Hindu festival brings its array of colours to India and elsewhere",
+      "summary": "The Hindu festival, which celebrates the victory of good over evil, also marks the end of winter.",
+      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8a31/live/91a31190-16de-11f1-8420-a53022a9aaa5.jpg",
+      "category": "General"
+    },
+    {
+      "title": "Fact-checking Trump's longest ever State of the Union",
+      "summary": "President Donald Trump said the US \"is winning again\" - making a series of claims about his record in a speech which lasted almost two hours.",
+      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/2ea4/live/e2517fa0-1233-11f1-801d-ed3cff6bf876.png",
+      "category": "General"
     }
   ]
 }
