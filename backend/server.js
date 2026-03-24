@@ -11,21 +11,17 @@ const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
-// 🧠 CATEGORY DETECTOR
+// 🧠 STRONG CATEGORY DETECTOR
 function detectCategory(text = "") {
   text = text.toLowerCase();
 
-  if (text.includes("india") || text.includes("delhi") || text.includes("gurgaon"))
-    return "India";
+  if (text.match(/india|delhi|gurgaon|mumbai|kolkata/)) return "India";
 
-  if (text.includes("tech") || text.includes("ai"))
-    return "Technology";
+  if (text.match(/tech|ai|software|google|microsoft|apple|startup/)) return "Technology";
 
-  if (text.includes("stock") || text.includes("market") || text.includes("finance"))
-    return "Finance";
+  if (text.match(/stock|market|finance|economy|bank|money|share/)) return "Finance";
 
-  if (text.includes("world") || text.includes("usa") || text.includes("china"))
-    return "World";
+  if (text.match(/usa|china|russia|world|europe|uk|war/)) return "World";
 
   return "General";
 }
@@ -36,9 +32,9 @@ function rewriteTitleEN(title = "") {
   return title.slice(0, 120);
 }
 
-// ✨ TITLE HINDI (simple translation style)
+// ✨ TITLE HINDI (clean)
 function rewriteTitleHI(title = "") {
-  return "📰 " + title + " (हिंदी में अपडेट)";
+  return title + " (हिंदी)";
 }
 
 
@@ -53,28 +49,28 @@ function rewriteSummaryEN(text = "") {
 }
 
 
-// ✨ SUMMARY HINDI
+// ✨ SUMMARY HINDI (REAL HINDI)
 function rewriteSummaryHI(text = "") {
-  if (!text) return "यह एक ताज़ा अपडेट है, विवरण जल्द आएंगे।";
+  if (!text) return "यह एक ताज़ा समाचार है।";
 
   text = text.replace(/<[^>]*>?/gm, "");
   let short = text.split(".")[0];
 
-  return short + ". यह एक महत्वपूर्ण खबर है।";
+  return short + "। यह एक महत्वपूर्ण समाचार है और स्थिति तेजी से बदल रही है।";
 }
 
 
-// 🖼️ IMAGE FIX
+// 🖼️ IMAGE FIX (no blanks)
 function getValidImage(img, seed = "") {
-  if (!img || img.includes("null") || img === "") {
-    const num = Math.abs(seed.length * 37) % 1000;
+  if (!img || img === "" || img.includes("null")) {
+    const num = Math.abs(seed.length * 13) % 1000;
     return `https://picsum.photos/800/400?random=${num}`;
   }
   return img;
 }
 
 
-// 🌊 RSS FETCHER
+// 🌊 RSS FETCHER (safe)
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -97,21 +93,22 @@ async function fetchRSS(url) {
 }
 
 
-// 🧠 MAIN FETCH
+// 🧠 MAIN FETCH ENGINE
 async function getNews() {
   try {
-    console.log("🚀 Fetching from API + RSS...");
+    console.log("🚀 Fetching news...");
 
     let allArticles = [];
 
-    // NEWS API
+    // 🔥 NEWS API
     const apiRes = await fetch(
       `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
     );
     const apiData = await apiRes.json();
+
     if (apiData.articles) allArticles.push(...apiData.articles);
 
-    // RSS
+    // 🌊 RSS SOURCES
     const rssSources = [
       "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
       "https://feeds.bbci.co.uk/news/world/rss.xml",
@@ -125,14 +122,17 @@ async function getNews() {
 
     console.log(`🔥 Raw articles: ${allArticles.length}`);
 
+    // 🧹 REMOVE DUPLICATES (IMPORTANT FIX)
     const unique = [];
     const seen = new Set();
 
     for (let a of allArticles) {
 
-      if (!a.title || seen.has(a.title)) continue;
+      const cleanTitle = a.title?.toLowerCase().trim();
 
-      seen.add(a.title);
+      if (!cleanTitle || seen.has(cleanTitle)) continue;
+
+      seen.add(cleanTitle);
 
       unique.push({
         title_en: rewriteTitleEN(a.title),
@@ -149,7 +149,7 @@ async function getNews() {
       });
     }
 
-    console.log(`✅ Clean articles: ${unique.length}`);
+    console.log(`✅ Clean unique articles: ${unique.length}`);
 
     return unique.slice(0, 150);
 
@@ -177,6 +177,7 @@ async function updateGitHub(newArticles) {
 
     const merged = [...newArticles, ...content.articles];
 
+    // 🔥 SORT NEWEST FIRST
     merged.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 
     content.articles = merged.slice(0, 300);
@@ -188,7 +189,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🌍 Multi-language news update",
+        message: "🔥 Clean AI news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
@@ -204,13 +205,18 @@ async function updateGitHub(newArticles) {
 }
 
 
-// 🤖 BOT
+// 🤖 BOT LOOP
 async function runBot() {
   console.log("🤖 Running news engine...");
   const news = await getNews();
-  if (news.length > 0) await updateGitHub(news);
+
+  if (news.length > 0) {
+    await updateGitHub(news);
+  }
 }
 
+
+// RUN
 runBot();
 setInterval(runBot, 30 * 60 * 1000);
 
