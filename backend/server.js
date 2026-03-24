@@ -1,5 +1,6 @@
 import express from "express";
 import fetch from "node-fetch";
+import { parseStringPromise } from "xml2js";
 
 const app = express();
 
@@ -10,14 +11,14 @@ const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
-// 🧠 SMART CATEGORY DETECTOR
+// 🧠 CATEGORY DETECTOR
 function detectCategory(text = "") {
   text = text.toLowerCase();
 
   if (text.includes("india") || text.includes("delhi") || text.includes("gurgaon"))
     return "India";
 
-  if (text.includes("tech") || text.includes("ai") || text.includes("software"))
+  if (text.includes("tech") || text.includes("ai"))
     return "Technology";
 
   if (text.includes("stock") || text.includes("market") || text.includes("finance"))
@@ -26,70 +27,83 @@ function detectCategory(text = "") {
   if (text.includes("world") || text.includes("usa") || text.includes("china"))
     return "World";
 
-  if (text.includes("startup") || text.includes("business"))
-    return "Finance";
-
   return "General";
 }
 
 
-// ✨ SIMPLE AI HEADLINE IMPROVER
+// ✨ TITLE IMPROVER
 function rewriteTitle(title = "") {
   return title
     .replace("India", "🇮🇳 India")
     .replace("AI", "🤖 AI")
-    .replace("crash", "💥 crash")
-    .replace("surge", "📈 surge")
-    .replace("war", "⚠️ war")
     .slice(0, 120);
 }
 
 
-// 🧠 FETCH FROM MULTIPLE SOURCES
+// ✨ SUMMARY AI
+function rewriteSummary(text = "") {
+  if (!text) return "Yeh ek fresh update hai, details jaldi aayengi.";
+
+  text = text.replace(/<[^>]*>?/gm, "");
+  let short = text.split(".")[0];
+
+  return short + ". Yeh news kaafi important hai aur situation fast change ho rahi hai.";
+}
+
+
+// 🌊 RSS FETCHER
+async function fetchRSS(url) {
+  try {
+    const res = await fetch(url);
+    const xml = await res.text();
+
+    const parsed = await parseStringPromise(xml);
+
+    const items = parsed.rss.channel[0].item;
+
+    return items.map(item => ({
+      title: item.title[0],
+      description: item.description?.[0] || "",
+      urlToImage: item.enclosure?.[0]?.$.url || "",
+      publishedAt: item.pubDate?.[0] || new Date().toISOString()
+    }));
+
+  } catch (err) {
+    console.log("❌ RSS error:", err);
+    return [];
+  }
+}
+
+
+// 🧠 MAIN FETCH
 async function getNews() {
   try {
-    console.log("⏳ Fetching news from multiple sources...");
+    console.log("🚀 Fetching from API + RSS...");
 
     let allArticles = [];
 
-    // 🔥 SOURCE 1
-    const topRes = await fetch(
+    // 🔥 NEWS API
+    const apiRes = await fetch(
       `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
     );
-    const topData = await topRes.json();
-    if (topData.articles) allArticles.push(...topData.articles);
+    const apiData = await apiRes.json();
+    if (apiData.articles) allArticles.push(...apiData.articles);
 
-    // 🔥 SOURCE 2
-    const searchRes = await fetch(
-      `https://newsapi.org/v2/everything?q=india OR gurgaon OR delhi OR startup OR tech&sortBy=publishedAt&pageSize=50&apiKey=${NEWS_API_KEY}`
-    );
-    const searchData = await searchRes.json();
-    if (searchData.articles) allArticles.push(...searchData.articles);
+    // 🌊 RSS SOURCES
+    const rssSources = [
+      "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+      "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "https://www.thehindu.com/news/national/feeder/default.rss"
+    ];
 
-    // 🔥 SOURCE 3 (Guardian)
-    const guardianRes = await fetch(
-      `https://content.guardianapis.com/search?q=india&show-fields=thumbnail&order-by=newest&api-key=test`
-    );
-    const guardianData = await guardianRes.json();
-
-    if (guardianData.response?.results) {
-      const guardianArticles = guardianData.response.results.map(a => ({
-        title: a.webTitle,
-        description: "Latest update from Guardian",
-        urlToImage: a.fields?.thumbnail || "",
-        publishedAt: a.webPublicationDate
-      }));
-      allArticles.push(...guardianArticles);
-    }
-
-    if (allArticles.length === 0) {
-      console.log("⚠️ No news fetched");
-      return [];
+    for (let url of rssSources) {
+      const rssData = await fetchRSS(url);
+      allArticles.push(...rssData);
     }
 
     console.log(`🔥 Raw articles: ${allArticles.length}`);
 
-    // 🧹 CLEAN + UNIQUE + AI UPGRADE
+    // 🧹 CLEAN + AI
     const unique = [];
     const seen = new Set();
 
@@ -98,24 +112,21 @@ async function getNews() {
 
       seen.add(a.title);
 
-      const improvedTitle = rewriteTitle(a.title);
-      const category = detectCategory(a.title + " " + a.description);
-
       unique.push({
-        title: improvedTitle,
-        summary: a.description || "No summary available",
+        title: rewriteTitle(a.title),
+        summary: rewriteSummary(a.description),
         image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
-        category,
+        category: detectCategory(a.title + " " + a.description),
         publishedAt: a.publishedAt || new Date().toISOString()
       });
     }
 
     console.log(`✅ Clean articles: ${unique.length}`);
 
-    return unique.slice(0, 120);
+    return unique.slice(0, 150);
 
   } catch (err) {
-    console.log("❌ News fetch error:", err);
+    console.log("❌ Fetch error:", err);
     return [];
   }
 }
@@ -127,9 +138,7 @@ async function updateGitHub(newArticles) {
     const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
     const res = await fetch(url, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
+      headers: { Authorization: `token ${GITHUB_TOKEN}` }
     });
 
     const data = await res.json();
@@ -140,9 +149,7 @@ async function updateGitHub(newArticles) {
 
     const merged = [...newArticles, ...content.articles];
 
-    merged.sort(
-      (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)
-    );
+    merged.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
 
     content.articles = merged.slice(0, 300);
 
@@ -153,7 +160,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🔥 AI powered news update",
+        message: "🔥 RSS + API news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
@@ -169,19 +176,13 @@ async function updateGitHub(newArticles) {
 }
 
 
-// 🤖 MAIN BOT
+// 🤖 BOT
 async function runBot() {
-  console.log("🚀 Running AI news engine...");
-
+  console.log("🤖 Running news engine...");
   const news = await getNews();
-
-  if (news.length > 0) {
-    await updateGitHub(news);
-  }
+  if (news.length > 0) await updateGitHub(news);
 }
 
-
-// RUN
 runBot();
 setInterval(runBot, 30 * 60 * 1000);
 
