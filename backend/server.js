@@ -15,62 +15,68 @@ const FILE_PATH = "articles.json";
 function detectCategory(text = "") {
   text = text.toLowerCase();
 
-  if (text.match(/india|delhi|gurgaon|mumbai|kolkata/)) return "India";
+  if (/india|delhi|gurgaon|mumbai|kolkata/.test(text)) return "India";
 
-  if (text.match(/tech|ai|software|google|microsoft|apple|startup/)) return "Technology";
+  if (/tech|ai|software|google|microsoft|apple|startup/.test(text))
+    return "Technology";
 
-  if (text.match(/stock|market|finance|economy|bank|money|share/)) return "Finance";
+  if (/stock|market|finance|economy|bank|money|share/.test(text))
+    return "Finance";
 
-  if (text.match(/usa|china|russia|world|europe|uk|war/)) return "World";
+  if (/usa|china|russia|world|europe|uk|war/.test(text))
+    return "World";
 
   return "General";
 }
 
 
-// ✨ TITLE ENGLISH
+// ✨ CLEAN TEXT
+function cleanText(text = "") {
+  return text.replace(/<[^>]*>?/gm, "").trim();
+}
+
+
+// ✨ TITLE
 function rewriteTitleEN(title = "") {
-  return title.slice(0, 120);
-}
-
-// ✨ TITLE HINDI (clean)
-function rewriteTitleHI(title = "") {
-  return title + " (हिंदी)";
+  return cleanText(title).slice(0, 120);
 }
 
 
-// ✨ SUMMARY ENGLISH
+// ✨ SUMMARY (CLEAN + PROFESSIONAL)
 function rewriteSummaryEN(text = "") {
   if (!text) return "Latest update available.";
 
-  text = text.replace(/<[^>]*>?/gm, "");
-  let short = text.split(".")[0];
-
-  return short + ". This is an important update.";
+  const clean = cleanText(text);
+  return clean.split(".")[0] + ".";
 }
 
 
-// ✨ SUMMARY HINDI (REAL HINDI)
-function rewriteSummaryHI(text = "") {
+// ✨ SIMPLE HINDI (CLEAN, NOT FAKE)
+function rewriteHindi(text = "") {
   if (!text) return "यह एक ताज़ा समाचार है।";
 
-  text = text.replace(/<[^>]*>?/gm, "");
-  let short = text.split(".")[0];
+  const clean = cleanText(text);
 
-  return short + "। यह एक महत्वपूर्ण समाचार है और स्थिति तेजी से बदल रही है।";
+  return clean
+    .replace("India", "भारत")
+    .replace("government", "सरकार")
+    .replace("market", "बाजार")
+    .replace("police", "पुलिस")
+    .replace("court", "अदालत")
+    .replace("minister", "मंत्री");
 }
 
 
-// 🖼️ IMAGE FIX (no blanks)
+// 🖼️ IMAGE FIX (SMART VARIATION)
 function getValidImage(img, seed = "") {
   if (!img || img === "" || img.includes("null")) {
-    const num = Math.abs(seed.length * 13) % 1000;
-    return `https://picsum.photos/800/400?random=${num}`;
+    return `https://source.unsplash.com/800x400/?news,${seed.slice(0,20)}`;
   }
   return img;
 }
 
 
-// 🌊 RSS FETCHER (safe)
+// 🌊 RSS FETCHER
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -93,7 +99,7 @@ async function fetchRSS(url) {
 }
 
 
-// 🧠 MAIN FETCH ENGINE
+// 🧠 MAIN ENGINE
 async function getNews() {
   try {
     console.log("🚀 Fetching news...");
@@ -122,28 +128,34 @@ async function getNews() {
 
     console.log(`🔥 Raw articles: ${allArticles.length}`);
 
-    // 🧹 REMOVE DUPLICATES (IMPORTANT FIX)
+    // 🧹 STRONG DUPLICATE REMOVAL
     const unique = [];
     const seen = new Set();
 
     for (let a of allArticles) {
 
-      const cleanTitle = a.title?.toLowerCase().trim();
+      const key = (a.title + a.description)
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "")
+        .slice(0, 120);
 
-      if (!cleanTitle || seen.has(cleanTitle)) continue;
+      if (!a.title || seen.has(key)) continue;
 
-      seen.add(cleanTitle);
+      seen.add(key);
+
+      const cleanTitle = rewriteTitleEN(a.title);
+      const cleanSummary = rewriteSummaryEN(a.description);
 
       unique.push({
-        title_en: rewriteTitleEN(a.title),
-        title_hi: rewriteTitleHI(a.title),
+        title_en: cleanTitle,
+        title_hi: rewriteHindi(cleanTitle),
 
-        summary_en: rewriteSummaryEN(a.description),
-        summary_hi: rewriteSummaryHI(a.description),
+        summary_en: cleanSummary,
+        summary_hi: rewriteHindi(cleanSummary),
 
-        image: getValidImage(a.urlToImage, a.title),
+        image: getValidImage(a.urlToImage, cleanTitle),
 
-        category: detectCategory(a.title + " " + a.description),
+        category: detectCategory(cleanTitle + " " + cleanSummary),
 
         publishedAt: a.publishedAt || new Date().toISOString()
       });
@@ -177,10 +189,26 @@ async function updateGitHub(newArticles) {
 
     const merged = [...newArticles, ...content.articles];
 
-    // 🔥 SORT NEWEST FIRST
-    merged.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+    // 🔥 REMOVE DUPLICATES AGAIN (DOUBLE SAFETY)
+    const seen = new Set();
+    const finalData = [];
 
-    content.articles = merged.slice(0, 300);
+    for (let a of merged) {
+      const key = (a.title_en + a.summary_en)
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "")
+        .slice(0, 120);
+
+      if (!seen.has(key)) {
+        seen.add(key);
+        finalData.push(a);
+      }
+    }
+
+    // SORT
+    finalData.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+
+    content.articles = finalData.slice(0, 300);
 
     await fetch(url, {
       method: "PUT",
@@ -189,7 +217,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🔥 Clean AI news update",
+        message: "🔥 Clean + deduped news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
