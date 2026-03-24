@@ -9,11 +9,8 @@
 body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:15px 25px;
-background:white;
+display:flex;justify-content:space-between;align-items:center;
+padding:15px 25px;background:white;
 box-shadow:0 2px 10px rgba(0,0,0,0.08)
 }
 
@@ -23,21 +20,13 @@ box-shadow:0 2px 10px rgba(0,0,0,0.08)
 
 .admin{background:#ff7a18;border:none;color:white;padding:8px 14px;border-radius:20px;cursor:pointer}
 
-.categories{
-display:flex;gap:20px;padding:10px 25px;background:white;border-bottom:1px solid #eee
-}
-
+.categories{display:flex;gap:20px;padding:10px 25px;background:white;border-bottom:1px solid #eee}
 .categories span{cursor:pointer;font-size:14px;color:#555}
 
-.breaking{
-background:#e11d48;color:white;overflow:hidden
-}
-
+.breaking{background:#e11d48;color:white;overflow:hidden}
 .ticker{
-display:inline-block;
-white-space:nowrap;
-padding:8px 0;
-animation:scroll 30s linear infinite;
+display:inline-block;white-space:nowrap;padding:8px 0;
+animation:scroll 50s linear infinite;
 }
 
 @keyframes scroll{
@@ -46,10 +35,8 @@ animation:scroll 30s linear infinite;
 }
 
 .layout{
-display:grid;
-grid-template-columns:3fr 1fr;
-gap:20px;
-padding:20px
+display:grid;grid-template-columns:3fr 1fr;
+gap:20px;padding:20px
 }
 
 .hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px}
@@ -60,11 +47,7 @@ position:absolute;bottom:0;left:0;right:0;padding:25px;color:white;
 background:linear-gradient(transparent,rgba(0,0,0,0.8))
 }
 
-.cards{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px
-}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 
 .card{
 background:white;border-radius:12px;overflow:hidden;
@@ -81,36 +64,19 @@ padding:3px 8px;border-radius:20px
 
 .sidebar{background:white;padding:15px;border-radius:10px}
 
-.blog{
-display:flex;gap:10px;margin-bottom:12px;cursor:pointer
-}
-
+.blog{display:flex;gap:10px;margin-bottom:12px;cursor:pointer}
 .blog img{width:60px;height:50px;object-fit:cover;border-radius:5px}
 
-footer{
-background:#111;color:white;text-align:center;padding:25px;margin-top:40px
-}
+footer{background:#111;color:white;text-align:center;padding:25px;margin-top:40px}
 
-/* PAGINATION */
-#pagination{
-text-align:center;
-margin:20px;
-}
-
+#pagination{text-align:center;margin:20px}
 #pagination button{
-margin:5px;
-padding:8px 12px;
-border:none;
-background:#eee;
-cursor:pointer;
-border-radius:6px;
+margin:5px;padding:8px 12px;border:none;
+background:#eee;cursor:pointer;border-radius:6px;
 }
-
 #pagination button.active{
-background:#e11d48;
-color:white;
+background:#e11d48;color:white;
 }
-
 </style>
 </head>
 
@@ -124,7 +90,6 @@ color:white;
 
 <div class="categories">
 <span onclick="filterCategory('All')">All</span>
-<span onclick="filterCategory('Gurgaon')">Gurgaon</span>
 <span onclick="filterCategory('India')">India</span>
 <span onclick="filterCategory('World')">World</span>
 <span onclick="filterCategory('Finance')">Finance</span>
@@ -140,10 +105,7 @@ color:white;
 <div class="hero" id="hero"></div>
 <h2>Latest Headlines</h2>
 <div class="cards" id="news"></div>
-
-<!-- PAGINATION -->
 <div id="pagination"></div>
-
 </div>
 
 <div class="sidebar">
@@ -158,36 +120,42 @@ PulseGurgaon • AI Powered Local News
 
 <script>
 
-let allArticles=[]
 let originalArticles=[]
-let currentPage = 1
-const perPage = 10
+let filteredArticles=[]
+let currentPage=1
+const perPage=10
 
-// FETCH NEWS
+// FETCH
 fetch("articles.json")
 .then(r=>r.json())
 .then(data=>{
-originalArticles=data.articles
 
-// SORT NEWEST FIRST
-originalArticles.sort((a,b)=> new Date(b.publishedAt || 0) - new Date(a.publishedAt || 0))
+originalArticles = data.articles || []
 
-allArticles=[...originalArticles]
+// SORT LATEST FIRST
+originalArticles.sort((a,b)=> new Date(b.publishedAt||0)-new Date(a.publishedAt||0))
+
+filteredArticles=[...originalArticles]
 
 render()
 updateTicker()
+
 })
 
 // RENDER
 function render(){
 
-if(allArticles.length === 0) return
-
 const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
-// HERO
-const first = allArticles[0]
+if(filteredArticles.length===0){
+hero.innerHTML=""
+news.innerHTML="<p>No news available</p>"
+return
+}
+
+// HERO ALWAYS FIRST
+const first = filteredArticles[0]
 
 hero.innerHTML=`
 <img src="${first.image}">
@@ -197,16 +165,15 @@ hero.innerHTML=`
 </div>
 `
 
-// PAGINATION LOGIC
-const start = (currentPage-1)*perPage
-const end = start + perPage
+// PAGINATION FIX
+const start=(currentPage-1)*perPage
+const end=start+perPage
 
-const pageArticles = allArticles.slice(start+1, end+1)
+const pageData = filteredArticles.slice(start+1,end+1)
 
 news.innerHTML=""
 
-pageArticles.forEach(a=>{
-
+pageData.forEach(a=>{
 const card=document.createElement("div")
 card.className="card"
 
@@ -225,22 +192,20 @@ location.href="article.html"
 }
 
 news.appendChild(card)
-
 })
 
 renderPagination()
 }
 
-// PAGINATION UI
+// PAGINATION
 function renderPagination(){
 
-const totalPages = Math.ceil(allArticles.length / perPage)
-const container = document.getElementById("pagination")
+const totalPages = Math.ceil(filteredArticles.length / perPage)
+const container=document.getElementById("pagination")
 
 container.innerHTML=""
 
 for(let i=1;i<=totalPages;i++){
-
 const btn=document.createElement("button")
 btn.innerText=i
 
@@ -253,43 +218,40 @@ window.scrollTo(0,0)
 }
 
 container.appendChild(btn)
-
 }
 }
 
-// FILTER
+// CATEGORY FIX
 function filterCategory(cat){
 
 currentPage=1
 
 if(cat==="All"){
-allArticles=[...originalArticles]
+filteredArticles=[...originalArticles]
 }else{
-allArticles = originalArticles.filter(a=>a.category===cat)
+filteredArticles = originalArticles.filter(a=>a.category===cat)
 }
 
 render()
 }
 
-// SEARCH
+// SEARCH FIX
 document.getElementById("searchInput").addEventListener("input",function(){
 
 const q=this.value.toLowerCase()
-
 currentPage=1
 
-allArticles = originalArticles.filter(a=>
+filteredArticles = originalArticles.filter(a=>
 a.title.toLowerCase().includes(q)||
 a.summary.toLowerCase().includes(q)
 )
 
 render()
-
 })
 
-// TICKER
+// SMOOTH TICKER
 function updateTicker(){
-const headlines=originalArticles.map(a=>a.title).join(" • ")
+const headlines = originalArticles.slice(0,15).map(a=>a.title).join(" • ")
 document.getElementById("ticker").innerText=headlines
 }
 
@@ -298,7 +260,6 @@ fetch("blogs.json")
 .then(r=>r.json())
 .then(data=>{
 const blogBox=document.getElementById("blogs")
-
 data.blogs.forEach(b=>{
 blogBox.innerHTML+=`
 <div class="blog">
