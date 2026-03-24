@@ -20,13 +20,23 @@ box-shadow:0 2px 10px rgba(0,0,0,0.08)
 
 .admin{background:#ff7a18;border:none;color:white;padding:8px 14px;border-radius:20px;cursor:pointer}
 
+.lang{
+margin-left:10px;
+padding:8px 12px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:#111;
+color:white;
+}
+
 .categories{display:flex;gap:20px;padding:10px 25px;background:white;border-bottom:1px solid #eee}
 .categories span{cursor:pointer;font-size:14px;color:#555}
 
 .breaking{background:#e11d48;color:white;overflow:hidden}
 .ticker{
 display:inline-block;white-space:nowrap;padding:8px 0;
-animation:scroll 50s linear infinite;
+animation:scroll 60s linear infinite;
 }
 
 @keyframes scroll{
@@ -84,8 +94,14 @@ background:#e11d48;color:white;
 
 <header>
 <div class="logo">PulseGurgaon</div>
+
 <input id="searchInput" class="search" placeholder="Search news...">
+
+<div>
 <button class="admin" onclick="location.href='admin.html'">ADMIN</button>
+<button class="lang" onclick="toggleLang()">EN / HI</button>
+</div>
+
 </header>
 
 <div class="categories">
@@ -124,6 +140,7 @@ let originalArticles=[]
 let filteredArticles=[]
 let currentPage=1
 const perPage=10
+let lang="en"
 
 // FETCH
 fetch("articles.json")
@@ -132,7 +149,6 @@ fetch("articles.json")
 
 originalArticles = data.articles || []
 
-// SORT LATEST FIRST
 originalArticles.sort((a,b)=> new Date(b.publishedAt||0)-new Date(a.publishedAt||0))
 
 filteredArticles=[...originalArticles]
@@ -141,6 +157,22 @@ render()
 updateTicker()
 
 })
+
+// LANGUAGE SWITCH
+function toggleLang(){
+lang = lang === "en" ? "hi" : "en"
+render()
+updateTicker()
+}
+
+// GET TEXT
+function getTitle(a){
+return a["title_"+lang] || a.title_en || a.title
+}
+
+function getSummary(a){
+return a["summary_"+lang] || a.summary_en || a.summary
+}
 
 // RENDER
 function render(){
@@ -154,18 +186,16 @@ news.innerHTML="<p>No news available</p>"
 return
 }
 
-// HERO ALWAYS FIRST
 const first = filteredArticles[0]
 
 hero.innerHTML=`
 <img src="${first.image}">
 <div class="heroOverlay">
-<h2>${first.title}</h2>
-<p>${first.summary}</p>
+<h2>${getTitle(first)}</h2>
+<p>${getSummary(first)}</p>
 </div>
 `
 
-// PAGINATION FIX
 const start=(currentPage-1)*perPage
 const end=start+perPage
 
@@ -181,8 +211,8 @@ card.innerHTML=`
 <img src="${a.image}">
 <div class="cardText">
 <span class="badge">${a.category}</span>
-<h3>${a.title}</h3>
-<p>${a.summary}</p>
+<h3>${getTitle(a)}</h3>
+<p>${getSummary(a)}</p>
 </div>
 `
 
@@ -221,7 +251,7 @@ container.appendChild(btn)
 }
 }
 
-// CATEGORY FIX
+// CATEGORY
 function filterCategory(cat){
 
 currentPage=1
@@ -235,23 +265,24 @@ filteredArticles = originalArticles.filter(a=>a.category===cat)
 render()
 }
 
-// SEARCH FIX
+// SEARCH
 document.getElementById("searchInput").addEventListener("input",function(){
 
 const q=this.value.toLowerCase()
 currentPage=1
 
 filteredArticles = originalArticles.filter(a=>
-a.title.toLowerCase().includes(q)||
-a.summary.toLowerCase().includes(q)
+getTitle(a).toLowerCase().includes(q)||
+getSummary(a).toLowerCase().includes(q)
 )
 
 render()
+
 })
 
-// SMOOTH TICKER
+// TICKER
 function updateTicker(){
-const headlines = originalArticles.slice(0,15).map(a=>a.title).join(" • ")
+const headlines = originalArticles.slice(0,15).map(a=>getTitle(a)).join(" • ")
 document.getElementById("ticker").innerText=headlines
 }
 
