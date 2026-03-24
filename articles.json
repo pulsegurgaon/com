@@ -1,6 +1,55 @@
 {
   "articles": [
     {
+      "title": "Australia news live: Australia Post hikes delivery companies’ fuel surcharge; more service stations affected by fuel sho",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/9b0f84f8d36a1e8f17a4996cd9767c743fb8ab70/2617_1563_4681_3745/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-24T06:55:16Z"
+    },
+    {
+      "title": "Exhibition to tell story of Punjabi princess and pioneering suffragette Sophia Duleep Singh",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/12dd88e7fc1f8fff568932c49b85ddb696722879/0_86_1000_799/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-24T06:00:11Z"
+    },
+    {
+      "title": "Strike in Iraq reportedly kills seven fighters – as it happened",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/646da485954475915b1e91e9a3b9bb1f2fc3f813/0_0_4020_3216/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-24T03:36:41Z"
+    },
+    {
+      "title": "‘We consider every mile we drive’: how fuel shortages are affecting readers worldwide",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/8f377f2d072a48425756d11ad250cdee40a3872e/505_0_5806_4647/500.jpg",
+      "category": "World",
+      "publishedAt": "2026-03-24T00:17:30Z"
+    },
+    {
+      "title": "Dow Jones Industrial Average posts best day since early February as hopes of Middle East de-escalation lift markets – as",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/35ad997eec25846f85e9c22955ca14540edc359a/442_0_2211_1769/500.jpg",
+      "category": "Finance",
+      "publishedAt": "2026-03-23T20:17:23Z"
+    },
+    {
+      "title": "ECB has taken a risk keeping McCullum and Key – who must now placate the public | Ali Martin",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/16edc7cd8720534a8cd5d3c7acd6f7380bddcda9/717_229_4040_3232/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T20:00:58Z"
+    },
+    {
+      "title": "Blades of glory (or not): what makes a chef’s knife truly great?",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/d1778cc775ef7f1a2310253f9fd0f9789bb51171/0_1703_5354_4281/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T15:00:52Z"
+    },
+    {
       "title": "Middle East crisis live: Trump postpones military strikes on Iranian power plants for a five day period ",
       "summary": "Latest update from Guardian",
       "image": "https://media.guim.co.uk/f02404be17e7d001bc39fd2b68ef923a6f93e0ad/230_0_5000_4000/500.jpg",
@@ -15,6 +64,335 @@
       "publishedAt": "2026-03-23T14:43:04Z"
     },
     {
+      "title": "Two 🇮🇳 Indian LPG carriers transit Strait of Hormuz amid LPG crisis",
+      "summary": "Amid geopolitical whirlwinds, two LPG cargo ships from India are traversing the pivotal Strait of Hormuz, coming dangerously close to the Iranian coastline. These vessels are en route to alleviate India's pressing LPG deficit, which has heightened recently. T…",
+      "image": "https://img.etimg.com/thumb/msid-129745269,width-1200,height-630,imgsize-92620,overlay-economictimes/articleshow.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:56:56Z"
+    },
+    {
+      "title": "Nikhil Kamath, Quant MF & Bank of 🇮🇳 India back Swan Defence’s OFS; estimated ₹500 cr raised",
+      "summary": "Nikhil Kamath and Bank of India back Swan Defence's successful ₹500 crore OFS, showcasing strong investor confidence in the company.",
+      "image": "https://bl-i.thgim.com/public/incoming/27jl97/article70774660.ece/alternates/LANDSCAPE_1200/IMG_bl14_coin_stack_2_1_K69TTG72.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:55:13Z"
+    },
+    {
+      "title": "Mule account suspicion: Karnataka school teacher denied anticipatory bail in Rs 3.6-crore cyber fraud case",
+      "summary": "Despite the accused teacher's defence that he was busy with exam preparations, the Bengaluru court noted his failure to submit bank statements and the necessity of police custody.",
+      "image": "https://images.indianexpress.com/2026/03/Bengaluru-teacher-mule.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:54:59Z"
+    },
+    {
+      "title": "7kg or 10kg switch in the offing? LPG dealers ⚠️ wary, consumers worried",
+      "summary": "India Business News: KOLKATA: Mounting uncertainties over global energy supply amid tensions in West Asia have prompted the Centre to explore fresh measures to manage dome.",
+      "image": "https://static.toiimg.com/thumb/msid-129745287,width-1280,height-720,imgsize-73544,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:54:46Z"
+    },
+    {
+      "title": "The phygital turn: How tech-enabled advisors are reshaping health insurance access",
+      "summary": "India’s health insurance journeys are increasingly “phygital”: customers research and apply online, but still rely on human advisors at critical decision and claim moments. We trace how tech-enabled advisors, especially outside metros, use digital tools and l…",
+      "image": "https://img.etimg.com/thumb/width-1200,height-900,imgsize-1451893,resizemode-75,msid-129744410/wealth/insure/health-insurance/the-phygital-turn-how-tech-enabled-advisors-are-reshaping-health-insurance-access.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:54:27Z"
+    },
+    {
+      "title": "🇮🇳 India's Archery Squad Announced for Asia Cup Stage 1",
+      "summary": "India is set to begin the international archery season with a mix of young talent and experienced archers at the Asia Cup Stage 1 in Bangkok, opting to test their squad depth ahead of the Asian Games.",
+      "image": "https://im.rediff.com/1200-630/sports/2025/may/10archery.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:54:21Z"
+    },
+    {
+      "title": "Bihar Board 12th result 2026: How to check your scores on TOI portal",
+      "summary": "Bihar Board Class 12 results are out today, March 23rd, at 1:30 PM, ending the wait for countless students. Education Minister Sunil Kumar will announce the outcomes. For a smooth experience, check your marks on the Times of India website, a reliable alternat…",
+      "image": "https://static.toiimg.com/thumb/msid-129745091,width-1280,height-720,imgsize-73901,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:53:51Z"
+    },
+    {
+      "title": "Rent an AC in Delhi Instead of Buying in 2026: The Financial Logic Behind the 🇮🇳 Indian Capital's Growing Air Conditio",
+      "summary": "BENGALURU, KA, March  23, 2026  (GLOBE NEWSWIRE) -- BENGALURU, KA - March 23, 2026 -  -      Delhi NCR's summer has arrived earlier than expected in 2026,...",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:53:00Z"
+    },
+    {
+      "title": "Quote of the Day by Bhagat Singh: 'The aim of life is not to control the mind, but to...'",
+      "summary": "Shaheed Diwas 2026: On Shaheed Diwas, we recall the bravery and powerful quotes of Bhagat Singh who once said that the aim of life is not to control the mind, but to develop it harmoniously. Bhagat Singh, the great socialist revolutionary freedom fighter, is …",
+      "image": "https://img.etimg.com/thumb/msid-129745168,width-1200,height-630,imgsize-106150,overlay-economictimes/articleshow.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:49:11Z"
+    },
+    {
+      "title": "Iran ⚠️ war could push tens of millions globally into acute hunger",
+      "summary": "War is severely affecting poorer countries where higher energy costs and shortage of fertiliser are forcing up food prices",
+      "image": "https://www.irishtimes.com/resizer/v2/Z4LQMY5YJWP5V2BUALI5C6UR5Q.jpg?smart=true&auth=dc9d76db6d35e2192a4cde62aeeda0452d86eaf11b614e326da2d0632a2dcd82&width=1200&height=630",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:48:58Z"
+    },
+    {
+      "title": "Coal 🇮🇳 India’s Central Mine IPO sees slow demand with zero QIB bids on day 2; subscription at 10%",
+      "summary": "Coal India's Central Mine IPO shows weak demand, with only 10% subscription and no bids from qualified institutional buyers.",
+      "image": "https://bl-i.thgim.com/public/incoming/n97nrf/article70774648.ece/alternates/LANDSCAPE_1200/IMG_PO06_IPO_promo_2_1_7CAFPECE.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:48:30Z"
+    },
+    {
+      "title": "svmorph added to PyPI",
+      "summary": "Interactive vascular morphing with Kelvinlets and SDF contact",
+      "image": "https://pypi.org/static/images/twitter.abaf4b19.webp",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:47:03Z"
+    },
+    {
+      "title": "Tehran threatens to completely shut down the “Peace through strength,” Trump’s new message as his ultimatum on the Strai",
+      "summary": "military movements continue on multiple fronts, with attacks, interceptions and warnings escalating tensions across the wider region\nThe post Tehran threatens to completely shut down the “Peace through strength,” Trump’s new message as his ultimatum on the St…",
+      "image": "https://en.protothema.gr/wp-content/uploads/2026/03/trump_maketa-3.jpg-3.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:45:41Z"
+    },
+    {
+      "title": "Экран 165 Гц, аккумулятор емкостью 9000 мАч и водонепроницаемость IP68/69. Новый смартфон OnePlus Nord 6 получит специал",
+      "summary": "Ожидается, что OnePlus представит OnePlus Nord 6 в Индии в первую неделю апреля. Как стало известно, компания планирует выпустить ограниченную серию, вдохновленную аниме. На странице «Ремонт и обслуживание» на сайте OnePlus India появился смартфон с названием…",
+      "image": "https://media.ixbt.site/1600x900/smart/https://www.ixbt.com/img/n1/news/2026/2/1/HD1mqMYboAICXTG_large_large.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:43:00Z"
+    },
+    {
+      "title": "Quote of the day by Priyanka Chopra: ‘I have worked hard, dodged the bullets and just focused on my job. So I feel bless",
+      "summary": "Global icon Priyanka Chopra's remarkable journey from Bollywood to Hollywood exemplifies a unique approach to success. She emphasizes evolving, taking risks, and breaking comfort zones over mere hard work. Chopra's philosophy of staying focused amidst chaos a…",
+      "image": "https://img.etimg.com/thumb/msid-129745006,width-1200,height-630,imgsize-45818,overlay-etpanache/articleshow.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:42:06Z"
+    },
+    {
+      "title": "【ワイヤレス伝送革命】映像制作の常識を変えるSONY「PDT-FP1」とLIVE MULTI STUDIO",
+      "summary": "[株式会社WOWOW]\n[画像1: https://prcdn.freetls.fastly.net/release_image/1355/8699/1355-8699-8b31fd8e401768812126f97c41a231ec-920x450.jpg?width=536&quality=85%2C75&format=jpeg&auto=webp&fit=bounds&am...",
+      "image": "https://prcdn.freetls.fastly.net/release_image/1355/8699/1355-8699-8b31fd8e401768812126f97c41a231ec-920x450.jpg?format=jpeg&auto=webp&fit=bounds&width=2400&height=1260",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:40:41Z"
+    },
+    {
+      "title": "TOISA 2025: Yogi Adityanath honours sports stars in glittering ceremony",
+      "summary": "Uttar Pradesh CM Yogi Adityanath with Indian sports legends and current stars at the Times of India Sports Awards (TOISA) 2025 in Lucknow.",
+      "image": "https://static.toiimg.com/thumb/msid-129745020,width-1280,height-720,imgsize-28964,resizemode-6,overlay-toi_sw,pt-32,y_pad-600/photo.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:40:16Z"
+    },
+    {
+      "title": "Samsung Galaxy A17 5G vs CMF Phone 2 Pro : comment choisir le meilleur smartphone à petit prix ?",
+      "summary": "CMF a redynamisé (pour ne pas dire dynamiter) l'entrée de gamme cette année. Mais, le Phone 2 Pro a-t-il pour autant les épaules pour affronter l'un des ténors du marché, le Samsung Galaxy A17 5G ? Voyons ça, dans ce nouveau versus.",
+      "image": "https://c0.lestechnophiles.com/images.frandroid.com/wp-content/uploads/2026/03/samsung-galaxy-a17-5g-vs-cmf-phone-2-pro.jpg?resize=1600,900&key=033b776b&watermark",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:40:00Z"
+    },
+    {
+      "title": "UN report says Social Media affects youth wellbeing",
+      "summary": "A United Nations-backed report released on Thursday said heavy social media use is linked to lower wellbeing among young people...\nThe post UN report says Social Media affects youth wellbeing appeared first on YugaTech | Philippines Tech News & Reviews.",
+      "image": "https://www.yugatech.com/wp-content/uploads/2026/03/adolescents-and-social-media-good-and-bad-western-washington-medical-group-wwmg.webp",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:39:52Z"
+    },
+    {
+      "title": "One battle after another: Iran ⚠️ war deals new blow to Europe's industrial heartland",
+      "summary": "European businesses are struggling with rising raw material costs and supply chain issues. The conflict in the Middle East is impacting key resources, adding to existing challenges from energy prices and past crises. Companies are facing increased expenses an…",
+      "image": "https://img.etimg.com/thumb/msid-129744925,width-1200,height-630,imgsize-256236,overlay-economictimes/articleshow.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:39:21Z"
+    },
+    {
+      "title": "Agenda du Libre pour la semaine 13 de l'année 2026",
+      "summary": "L’actualité du logiciel libre et des sujets voisins (DIY, Open Hardware, Open Data, les Communs, etc.), sur un site francophone contributif géré par une équipe bénévole par et pour des libristes enthousiastes",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:38:21Z"
+    },
+    {
+      "title": "ZD Tech : Niantic utilise les 30 milliards d'images de Pokémon Go pour créer un système de navigation pour les robots",
+      "summary": "Derrière la traque des Pokémon dans nos rues se cachait en réalité un projet industriel colossal.",
+      "image": "https://www.zdnet.fr/wp-content/uploads/zdnet/2024/09/zdnet-podcast-bo.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:37:12Z"
+    },
+    {
+      "title": "Why Tesla is eyeing 🇮🇳 India’s energy storage sector",
+      "summary": "A job posting on Tesla’s careers site for a “Business Development Lead, Energy – Solar and Storage, India” has brought the company’s plans to light. The role demands expertise in go-to-market strategies, regulatory navigation, and closing utility-scale deals,…",
+      "image": "https://img.etimg.com/thumb/width-1200,height-900,imgsize-42072,resizemode-75,msid-129744639/tech/technology/why-tesla-is-eyeing-indias-energy-storage-sector.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:35:37Z"
+    },
+    {
+      "title": "Remco Evenepoel a cinq objectifs avant le Tour de Catalogne et il envoie déjà un message à Vingegaard : “S’il roule comm",
+      "summary": "Après un stage en altitude de trois semaines, Remco Evenepoel espère franchir un cap en montée sur les routes catalanes. ...",
+      "image": "https://www.dhnet.be/resizer/v2/V2UMIGXJXBEQVKIYNHPPBTPXIA.JPG?auth=ed2e3a76a47e445512fb520a0fd495c58193e698fc11566001ac00bc7808dae4&width=1200&height=630&quality=85&focal=1532%2C1021",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:34:42Z"
+    },
+    {
+      "title": "Victory with record margin will be answer to conspiracy behind jailing me: TMC's Jyotipriya Mallick",
+      "summary": "Jyotipriya Mallick, a TMC leader, seeks a record victory in the upcoming assembly polls. He views this as his response to a conspiracy that led to his imprisonment in an alleged ration scam. Mallick believes the people's verdict will prove his innocence.",
+      "image": "https://img.etimg.com/thumb/msid-129744751,width-1200,height-630,imgsize-40082,overlay-economictimes/articleshow.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:34:16Z"
+    },
+    {
+      "title": "Trump's changing course on Strait of Hormuz strategy raises questions about US ⚠️ war preparation",
+      "summary": "President Donald Trump is cycling through what seems to be an increasingly desperate list of options as he searches for a solution to the crisis in the Strait of Hormuz",
+      "image": "https://s.abcnews.com/images/US/abc_news_default_2000x2000_update_16x9_992.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:33:43Z"
+    },
+    {
+      "title": "We called Samsung's Galaxy Tab S10 Plus \"the best of both worlds between a phone and a laptop\" and it's still our favour",
+      "summary": "Samsung’s Galaxy Tab range includes some of our favourite Android tablets, and some of its latest offerings are discounted for a limited time, with savings of up to AU$1,000.",
+      "image": "https://cdn.mos.cms.futurecdn.net/b2HBE68GabRnLb8mb2MbyY-1200-80.jpg",
+      "category": "World",
+      "publishedAt": "2026-03-23T06:33:16Z"
+    },
+    {
+      "title": "Dhurandhar: Storytelling In Age Of Restless Viewers",
+      "summary": "If the stories are food for the mind then our digestive system has changed.\nIf they are a piece of art, our gaze has altered.\nThis calls for a change not in stories, but in the grammar of storytelling so that it can cut through the deluge and gluttony and for…",
+      "image": "https://im.rediff.com/1200-630/movies/2026/mar/18ranveer-singh-dhurandhar2-1.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:32:08Z"
+    },
+    {
+      "title": "🇮🇳 India Holds Fuel Prices Steady Even as Oil Basket Soars Above $155",
+      "summary": "No summary available",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:30:54Z"
+    },
+    {
+      "title": "10 Best Travel Gadgets Worth Packing in 2026",
+      "summary": "Spring and summer are creeping up fast, and the familiar itch to figure out what’s going into the bag is back. Travel gadgets shift quickly, but 2026 feels like a year where the changes actually stuck. USB-C standardization is finally doing what it promised. …",
+      "image": "https://the-gadgeteer.com/wp-content/uploads/2026/03/10-Best-Travel-Gadgets-Worth-Packing-in-2026.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:30:10Z"
+    },
+    {
+      "title": "Плохие новости для США и Европы. Инсайдер заявил, что OnePlus уходит с мировых рынков и остаётся в Китае",
+      "summary": "Инсайдер Йогеш Брар опубликовал новый пост в социальной сети X, в котором сообщается о прекращении деятельности OnePlus на некоторых рынках. Брар заявляет, что бренд прекратит свою деятельность на таких рынках, как США и Европа, включая Великобританию. Он доб…",
+      "image": "https://media.ixbt.site/1600x900/smart/https://www.ixbt.com/img/n1/news/2026/2/1/OnePlus-13s-747x420.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:30:00Z"
+    },
+    {
+      "title": "Nakamura Crossover GT : on l’a noté 8/10 et il est actuellement 500 € moins cher grâce à cette offre chez Intersport",
+      "summary": "Le Nakamura Crossover GT est un VTC confortable qui se distingue par sa transmission automatique à trois vitesses, son moteur puissant et une autonomie solide pour les balades urbaines. Noté 8/10 par nos soins, le voilà encore plus recommandable à 1 599 euros…",
+      "image": "https://c0.lestechnophiles.com/images.frandroid.com/wp-content/uploads/2026/03/image-62-4.jpg?resize=1600,900&key=2d85f115&watermark",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:30:00Z"
+    },
+    {
+      "title": "Hardik Pandya told to step aside, ‘let Suryakumar Yadav lead’ at Mumbai 🇮🇳 Indians",
+      "summary": "Mumbai Indians, despite a star-studded lineup, face a captaincy dilemma ahead of IPL 2026. Former selector Kris Srikkanth suggests Suryakumar Yadav, fresh from leading India to T20 World Cup glory, could take over from Hardik Pandya to revitalize the team's f…",
+      "image": "https://source.unsplash.com/800x400/?news",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:30:00Z"
+    },
+    {
+      "title": "NDA nears Tamil Nadu seat-sharing deal for Assembly elections; 🤖 AIADMK 165-170 seats, BJP 30-35",
+      "summary": "NDA is set to finalise Tamil Nadu Assembly election seat-sharing. AIADMK leads with 165-170 seats, BJP likely 30-35, with PMK, TMC, and AMMK as allies.",
+      "image": "https://bl-i.thgim.com/public/incoming/5isnns/article70774601.ece/alternates/LANDSCAPE_1200/goyal-palanisamy.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:27:30Z"
+    },
+    {
+      "title": "'Need to give diplomacy a chance': Congress MP Manish Te⚠️ wari over supply chain disruptions amid West Asia conflict",
+      "summary": "Speaking with the media, the Congress MP emphasised the difficulties for energy-consuming nations, citing implications of supply chain disruption on crude oil, natural gas, fertilisers, food and pharmaceuticals.",
+      "image": "https://img.etimg.com/thumb/msid-129744740,width-1200,height-630,imgsize-63028,overlay-economictimes/articleshow.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:27:12Z"
+    },
+    {
+      "title": "Oil supply crunch to keep global markets under pressure: Arvind Sanger",
+      "summary": "Geopolitical tensions and surging energy prices are forcing investors to prioritize liquidity and cash over traditional safe havens like gold. Oil prices are now the central market driver, with a structural supply imbalance and potential Strait of Hormuz disr…",
+      "image": "https://img.etimg.com/thumb/msid-129744618,width-1200,height-630,imgsize-29212,overlay-etmarkets/articleshow.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:26:16Z"
+    },
+    {
+      "title": "広告主とパブリッシャーの新団体「APTI」発足　広告取引の健全化へ実務支援",
+      "summary": "広告取引の健全化・透明性向上を目指す新団体として一般社団法人Advertisers and Publishers Transparency Initiative（APTI、アプティ）」が発足し、初のイベント「広告の健全さを、実務から」を3月11日に都内で開催した。\nThe post 広告主とパブリッシャーの新団体「APTI」発足　広告取引の健全化へ実務支援 first appeared on AdverTimes.（アドタイ） by 宣伝会議.",
+      "image": "https://cdn.advertimes.com/wp-content/uploads/2026/03/apti_ogp.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-23T06:26:07Z"
+    },
+    {
+      "title": "ईरान जंग की आग में झुलसे निवेशक, शेयर बाजार पस्त... सोना-चांदी क्रैश, रुपया धड़ाम",
+      "summary": "Gold-Silver To Stock Market Crash: सप्ताह के पहला दिन शेयर बाजार से लेकर सोना-चांदी में निवेश करने वालों तक के लिए बेहद खराब साबित हुआ है. ईरान युद्ध की आग में हर सेक्टर के निवेशक झुलस रहे हैं. चांदी गिरते हुए अब हाई से 2 लाख रुपये सस्ती हो चुकी है.",
+      "image": "https://akm-img-a-in.tosshub.com/aajtak/images/story/202603/69c0dbeff060d-gold-silver-to-stock-market-crash-232130707-16x9.jpg",
+      "category": "Finance",
+      "publishedAt": "2026-03-23T06:24:42Z"
+    },
+    {
+      "title": "🇮🇳 India’s limited oil buffers, reliance on subsidies heighten risks from Middle East conflict, Moody’s ⚠️ warns",
+      "summary": "India faces risks from Middle East conflict due to its reliance on fuel subsidies. A prolonged conflict could raise oil prices, impacting India's economy. This may lead to higher inflation and slower growth. Unlike some nations with strategic reserves, India …",
+      "image": "https://img.etimg.com/thumb/msid-129744662,width-1200,height-630,imgsize-65174,overlay-economictimes/articleshow.jpg",
+      "category": "India",
+      "publishedAt": "2026-03-23T06:24:06Z"
+    },
+    {
+      "title": "Why Stripe’s Machine Payments Protocol Signals a Turning Point For Micropayments",
+      "summary": "For thirty years, micropayments failed for one reason: the payer was human. Humans hesitate. They abandon carts, resent friction, and perform mental accounting before every small transaction. The smartest engineers and best-funded companies in technology coul…",
+      "image": "https://go.forrester.com/wp-content/uploads/2026/03/Blog-post-bio-picture-2.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:23:08Z"
+    },
+    {
+      "title": "CLAUDE.md for .NET 10",
+      "summary": "Leverage CLAUDE.md for AI-assisted .NET 10 development. Guide AI tools with project context, coding standards, and architecture for cleaner, faster code.",
+      "image": "https://www.c-sharpcorner.com/images/csharp-corner-new.png",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:22:56Z"
+    },
+    {
+      "title": "Top Technical Picks: टेक्निकल चार्ट पर शानदार इन शेयरों पर लगाएं दांव, कमजोर शेयरों से रहे दूर",
+      "summary": "Top Technical Picks : पश्चिम एशिया संकट ने बाजार को डरा दिया है। 11.15 बजे के आसपास सेंसेक्स 1,821.18 अंक या 2.44 प्रतिशत गिरकर 72,711.78 पर और निफ्टी 586.60 अंक या 2.54 प्रतिशत गिरकर 22,527.90 दिख रहा था। अगले 30 दिनों में बाज़ार की संभावित वोलैटिलिटी पैमाना…",
+      "image": "https://images.moneycontrol.com/static-hindinews/2026/03/trade-setup-thursday-1600-900.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:22:30Z"
+    },
+    {
+      "title": "Diamante esagonale: la scoperta cinese che cambia le regole della resistenza",
+      "summary": "Un team ha isolato il primo diamante esagonale puro, più duro e resistente di quello cubico, aprendo nuove applicazioni industriali.Un team di ricercatori e esperti, ha realizzato quello che potrebbe essere il primo diamante esagonale puro mai ottenuto. Si tr…",
+      "image": "https://images.everyeye.it/img-notizie/diamante-esagonale-scoperta-cinese-cambia-regole-resistenza-v6-865674.jpg",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:22:00Z"
+    },
+    {
+      "title": "Quando l’🤖 AI legge i giornali per prevedere le alluvioni",
+      "summary": "Flash flood prediction models need historical data and model training that often doesn't exist. Our solution: Groundsource, a new AI-powered methodology that uses Gemini to transform 5M+ global reports into a precise dataset of 2.6M+ flood events.\nThis provid…",
+      "image": "https://www.infodata.ilsole24ore.com/wp-content/uploads/sites/89/2026/03/Groundsource1_Graph.width-1250.png",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:20:32Z"
+    },
+    {
+      "title": "OnePlus could be set to shut down its businesses in the US and Europe",
+      "summary": "According to yet another leak, OnePlus could be set to close its doors in several markets around the globe. Business is expected to continue as usual back home in China, but the company could exit both the US and European markets in short order.",
+      "image": "https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc5/OnePlus-Store-hyderabad-Deccan-Herald-Rohit-KVN.jpg",
+      "category": "Finance",
+      "publishedAt": "2026-03-23T06:19:00Z"
+    },
+    {
+      "title": "The media has unmasked Banksy, again. Art experts reveal what happens next",
+      "summary": "The mystery of Banksy’s identity has long been part of the value of his art",
+      "image": "https://static.the-independent.com/2026/03/18/12/10/GettyImages-57621732.jpeg?width=1200&height=800&crop=1200:800",
+      "category": "Technology",
+      "publishedAt": "2026-03-23T06:18:47Z"
+    },
+    {
+      "title": "‘In 20 years most of the world could be racist dictatorships’: Ibram X Kendi on book bans and far-right fear-mongering",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/f72cd52674bbfb0df43fb8cd8494e0ad61de7e55/2216_139_5770_4616/500.jpg",
+      "category": "World",
+      "publishedAt": "2026-03-23T05:00:42Z"
+    },
+    {
       "title": "‘In 20 years most of the world could be racist dictatorships’: Ibram X Kendi on book bans and far-right fear-mongering",
       "summary": "Latest update from Guardian",
       "image": "https://media.guim.co.uk/f72cd52674bbfb0df43fb8cd8494e0ad61de7e55/2216_139_5770_4616/500.jpg",
@@ -22,11 +400,25 @@
       "publishedAt": "2026-03-23T05:00:42Z"
     },
     {
+      "title": "US ⚠️ warns Americans worldwide to show ‘increased caution’ – as it happened",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/f75d3557be841045422b143e3a6006441c0ab7a9/129_0_1320_1056/500.jpg",
+      "category": "World",
+      "publishedAt": "2026-03-23T03:11:45Z"
+    },
+    {
       "title": "US warns Americans worldwide to show ‘increased caution’ – as it happened",
       "summary": "Latest update from Guardian",
       "image": "https://media.guim.co.uk/f75d3557be841045422b143e3a6006441c0ab7a9/129_0_1320_1056/500.jpg",
       "category": "General",
       "publishedAt": "2026-03-23T03:11:45Z"
+    },
+    {
+      "title": "Iran vows to destroy Middle East water and energy facilities if US attacks power plants ",
+      "summary": "Latest update from Guardian",
+      "image": "https://media.guim.co.uk/37b74926b19c04b1d1b24dcd0517e0bac22f61bd/2063_192_4703_3762/500.jpg",
+      "category": "General",
+      "publishedAt": "2026-03-22T23:35:53Z"
     },
     {
       "title": "Iran vows to destroy Middle East water and energy facilities if US attacks power plants ",
@@ -1520,342 +1912,6 @@
       "title": "Android's March update is all about finding people, apps, and your missing bags",
       "summary": "Google’s March Pixel Drop adds in-chat live location sharing, Play Store app previews, custom Calling Cards, kids’ games on Android Auto, and a smarter way to track lost luggage.",
       "image": "https://cdn.mos.cms.futurecdn.net/qH5fdXGbaGx5Gc7zkBs29X-2048-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "I used the Xiaomi Pad 8 for a month — these four features make the half-priced iPad Air clone the best mid-range Android tablet",
-      "summary": "The Pad 8 has a bigger battery, and it's just better to use than its predecessors. And with Xiaomi rolling out productivity-focused accessories, this is a fabulous alternative to the iPad Air that costs half as much.",
-      "image": "https://cdn.mos.cms.futurecdn.net/wRE6Kyhu9f9NwY9V5JLdpY-2560-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Xiaomi 17 series and Pad 8 to debut in India next week",
-      "summary": "Following the global debut of the Xiaomi 17 series and the Pad 8 last week, the company has now announced their launch date in India. \n\nIn a post on X, Xiaomi India confirmed that the Xiaomi 17 series, comprising the standard Xiaomi 17 and the Xiaomi 17 Ultra…",
-      "image": "https://fdn.gsmarena.com/imgroot/news/26/03/xiaomi-17-ultra-pad-8-india-launch/-952x498w6/gsmarena_000.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Can You Run ChatGPT on a Dumb Phone? It Turns Out Yes, but With Caveats",
-      "summary": "Think AI is just for smartphones? Think again.",
-      "image": "https://www.cnet.com/a/img/resize/83e65395df2905e9c5f79f8a6aef59976c47d2dd/hub/2026/03/06/00e30a1f-c1af-44e7-85b4-48ebae8cf204/img-5490.jpg?auto=webp&fit=crop&height=675&width=1200",
-      "category": "General"
-    },
-    {
-      "title": "India reach T20 World Cup final as England fall short",
-      "summary": "Defending champions India are through to the T20 World Cup final after England fall short, missing out by seven runs.",
-      "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/ac5e/live/6a1052a0-18c3-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "How to Watch India vs. England T20 World Cup Cricket Match Online In the U.S.",
-      "summary": "For a third-straight T20 World Cup, India and England will clash in the semifinals. Here’s where to stream the match online",
-      "image": "https://www.rollingstone.com/wp-content/uploads/2026/03/GettyImages-2264231932.jpg?w=1600&h=900&crop=1",
-      "category": "General"
-    },
-    {
-      "title": "Samson brings up 'magnificent' half century against England",
-      "summary": "Sanju Samson brings up his half century in 26 balls for India against England.",
-      "image": "https://ichef.bbci.co.uk/ace/standard/1024/cpsprodpb/65b7/live/28a8cfc0-189d-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Climate change and geopolitics threaten water supplies — but disaster is not inevitable",
-      "summary": "The Indus Waters Treaty withstood several armed conflicts and a huge loss of glaciers. It should serve as a blueprint for others.",
-      "image": "https://media.nature.com/lw1200/magazine-assets/d41586-026-00659-w/d41586-026-00659-w_51991022.jpg",
-      "category": "General"
-    },
-    {
-      "title": "What people in India are saying about Modi’s Israel visit",
-      "summary": "‘We should not support a country that is committing genocide.’",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/image-1771944122.jpg?resize=1920%2C1080&quality=80",
-      "category": "General"
-    },
-    {
-      "title": "Who is really safe in India and Israel?",
-      "summary": "Not even all Hindus and Jews find safety in the countries supposedly built to protect them.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/02/epa_69a04dee8981-1772113390.jpg?resize=1920%2C1440",
-      "category": "General"
-    },
-    {
-      "title": "LIVE: India vs New Zealand – T20 World Cup final",
-      "summary": "Follow our live build-up, with full toss and team news coverage, before our text commentary stream of the 2026 final.",
-      "image": "https://www.aljazeera.com/wp-content/uploads/2026/03/AFP__20260305__A24K3RU__v1__MidRes__CricketIccMensT20Wc2026IndEng-1772880502.jpg?resize=1200%2C630",
-      "category": "General"
-    },
-    {
-      "title": "Superb India crush New Zealand to defend T20 title",
-      "summary": "India banish the ghosts of 2023 by emphatically beating New Zealand by 96 runs in Ahmedabad to defend their T20 World Cup title.",
-      "image": "https://ichef.bbci.co.uk/ace/branded_sport/1200/cpsprodpb/ca07/live/1f19fea0-1b10-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "India and Canada reset ties with 'landmark' nuclear energy deal",
-      "summary": "A host of deals, including one to supply India with uranium, is unveiled as Mark Carney meets Narendra Modi in Delhi.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/b355/live/9a5a8070-1616-11f1-9697-634d5add2261.jpg",
-      "category": "General"
-    },
-    {
-      "title": "The nearly-forgotten cricketer who became India's T20 World Cup hero",
-      "summary": "Sanju Samson lit up the T20 World Cup with 321 runs and impactful innings that helped India retain the title.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8f40/live/cc30a130-1b87-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Gas shortage caused by Iran war may push India back to dirtier fuels",
-      "summary": "Reports from across India point to rising sales of biomass fuels like firewood and cow dung cakes.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/08ee/live/9ec5bb60-235f-11f1-a79a-77e93010d956.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Celebrating Holi - the Hindu festival brings its array of colours to India and elsewhere",
-      "summary": "The Hindu festival, which celebrates the victory of good over evil, also marks the end of winter.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/8a31/live/91a31190-16de-11f1-8420-a53022a9aaa5.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Fact-checking Trump's longest ever State of the Union",
-      "summary": "President Donald Trump said the US \"is winning again\" - making a series of claims about his record in a speech which lasted almost two hours.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/2ea4/live/e2517fa0-1233-11f1-801d-ed3cff6bf876.png",
-      "category": "General"
-    },
-    {
-      "title": "Emergency oil reserves could be tapped - but few would bet on prices falling",
-      "summary": "A big intervention is being discussed in the oil markets, but as yet, we do not know how big the problem will be.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/5361/live/cf6cae00-1bb6-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "How to watch India vs. England: Live stream T20 World Cup semifinals anywhere for free",
-      "summary": "The last T20 World Cup semifinal has arrived. Learn how to watch India vs. England online.",
-      "image": "https://i.insider.com/69a87cb6d3e2f1aef369fc2f?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Chrome’s Gemini AI assistant finally breaks out of the US",
-      "summary": "Google is rolling out Gemini in Chrome to India, Canada, and New Zealand, with support for over 50 languages.",
-      "image": "https://cdn.mos.cms.futurecdn.net/Eeq7bMsJ7HoET3Phc5JT8R-1347-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Apple in Talks With Banks to Launch Apple Pay in India This Year",
-      "summary": "Apple is in talks with major Indian banks as it prepares to introduce Apple Pay in the country sometime in the middle of 2026, reports Bloomberg. \n\n\n\n\n\nApple is said to be in discussions with ICICI Bank, HDFC Bank, and Axis Bank, according to people with know…",
-      "image": "https://images.macrumors.com/t/RQPLZ_3_iMyj3evjsWnMLVwPdyA=/1600x/article-new/2023/11/apple-pay-feature-dynamic-island.jpg",
-      "category": "General"
-    },
-    {
-      "title": "From Gujarat to the Gulf: the shrimp industry's tariff whiplash",
-      "summary": "President Donald Trump announced 50% tariffs on India, the largest source of the No. 1 seafood in America.",
-      "image": "https://i.insider.com/69961378f8731049f3af55ae?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Timelapse shows change in the flow of ships in the Strait of Hormuz",
-      "summary": "A timelapse of marine traffic shows the flow of ships has decreased in the Strait of Hormuz.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/ec2e/live/1baa6310-188e-11f1-801d-ed3cff6bf876.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Four reasons why the Nothing Phone 4a is the ideal mid-range upgrade in India",
-      "summary": "Nothing's Phone 4a costs a lot more this year, but you get a new 50MP tele lens, a main camera that takes much better photos, and a striking new design. Overall, this may just be the best phone in its category in India.",
-      "image": "https://cdn.mos.cms.futurecdn.net/rDEwhnxqm5VfWtRBv9zzN3-2560-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "PHOTOS: Your car has a lot to say about who you are",
-      "summary": "Photographer Martin Roemer visited 22 countries — from the U.S. to Senegal to India  — to show how our identities are connected to our mode of transportation.",
-      "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/2500x1406+0+45/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2F8b%2F48%2F171318374998a5885946dc25d866%2Fhomo-mobilus-0835.jpg",
-      "category": "General"
-    },
-    {
-      "title": "A U.S. scholarship thrills a teacher in India. Then came the soul-crushing questions",
-      "summary": "She was thrilled to become the first teacher from a government-sponsored school in India to get a Fulbright exchange award to learn from U.S. schools. People asked two questions that clouded her joy.",
-      "image": "https://npr.brightspotcdn.com/dims3/default/strip/false/crop/3253x1830+0+305/resize/1400/quality/85/format/jpeg/?url=http%3A%2F%2Fnpr-brightspot.s3.amazonaws.com%2Fa4%2F05%2Fb7f57e1441509305c3fd59cb70d0%2Fjoyeeta-india-teacher-5615.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Sam Altman defends AI’s energy toll by saying it also takes a lot to ‘train a human’",
-      "summary": "OpenAI CEO also downplayed concerns about how much water datacenters require at AI summit in India",
-      "image": "https://s.yimg.com/os/en/the_guardian_765/72c179dcc084589534e9d550f9de199a",
-      "category": "General"
-    },
-    {
-      "title": "What Happens if Iran Shuts Down the Strait of Hormuz?",
-      "summary": "The Strait of Hormuz is one of the most sensitive pressure points in the global economy. Conflict in Iran could put it at risk indefinitely.",
-      "image": "https://media.wired.com/photos/69a452a89458e915ed7887af/191:100/w_1280,c_limit/HormuzLead.jpg",
-      "category": "General"
-    },
-    {
-      "title": "2,000-Year-Old Graffiti in Egyptian Tombs Reveals an Unexpected Source of Ancient Tourists",
-      "summary": "The ancient scribbles, written in Tamil, read, “Cikai Korran came here and saw.”",
-      "image": "https://gizmodo.com/app/uploads/2026/03/cikai-korran-graffiti-top-e1773074945156-1200x675.jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Indian refiners tap Russian oil floating offshore, sources say",
-      "summary": "By Nidhi Verma NEW DELHI, March 5 (Reuters) - Refiners in India have started tapping Russian oil aboard vessels floating off the country's coast to make up...",
-      "image": "https://s.yimg.com/os/en/reuters.com/a7af641ce1debea99bfe4a6bcb5ac407",
-      "category": "General"
-    },
-    {
-      "title": "Energy-hungry India tells Carney 'we are willing to buy whatever Canada is offering'",
-      "summary": "India wants to buy any energy product it can from Canada and its officials are urging the federal government to streamline approvals for various projects so ...",
-      "image": "https://s.yimg.com/ny/api/res/1.2/UaU3mg_k.8nZYaGcUHn.mg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD03Nzk7Y2Y9d2VicA--/https://media.zenfs.com/en/cbc.ca/f1330aed8e952db7b7ddc5d978b248bb",
-      "category": "General"
-    },
-    {
-      "title": "Why Companies Don’t Compete in the Middle Market",
-      "summary": "Lessons from the Indian e-commerce company Dunzo on the risks of catering to all customers without a sustainable operating model.",
-      "image": "https://hbr.org/resources/images/article_assets/2026/03/Mar26_18_1209325136.jpg",
-      "category": "General"
-    },
-    {
-      "title": "India backs new ride-hailing service to challenge likes of Uber",
-      "summary": "NEW DELHI, Feb 24 (Reuters) - A new Indian taxi service, backed by the federal government, will give drivers a share of profits from the business and charge ...",
-      "image": "https://s.yimg.com/os/en/reuters.com/ffccd1acf3ef00d29b9b1e98d00ff64a",
-      "category": "General"
-    },
-    {
-      "title": "India and EU lock in WTO guardrails, digital trade rules in draft trade deal",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Embraer sees E175 assembly in India in 2028 if it secures 200 orders",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Exclusive-As India seeks Hormuz safe passage, Tehran asks for return of seized tankers, sources say",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Exclusive-As India seeks Hormuz safe passage, Tehran asks for return of seized tankers, sources say",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Induction stoves fly off shelves in India as gas shortage fears spark panic buying",
-      "summary": "By Praveen Paramasivam CHENNAI, March 12 (Reuters) - Indian households are rushing to buy electric induction stoves, draining stocks online and in stores...",
-      "image": "https://s.yimg.com/os/en/reuters.com/d1bcff079531a2c4f7b01b1e9476fa0a",
-      "category": "General"
-    },
-    {
-      "title": "Factbox-China, India lead car exports worth billions of dollars to the Middle East",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "India state bank dollar sales anchor rupee, investors await GDP data",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "India approves limited easing of Chinese investment curbs after years of friction",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "This is the POCO X8 Pro Iron Man Edition",
-      "summary": "POCO just released the X8 Pro Iron Man Edition, and I used the phone ahead of launch to see if it's as good as last year's model.",
-      "image": "https://cdn.mos.cms.futurecdn.net/QgB32WeVyXfD7uJvXUcUqg-2560-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Mark Zuckerberg just posted a totally normal and fine photo with Alexandr Wang",
-      "summary": "Amid rumors of tension, Mark Zuckerberg posts \"meanwhile at Meta HQ\" with his arm around Scale AI founder Alexandr Wang.",
-      "image": "https://i.insider.com/69b03b7dccda166eed3d1598?width=1200&format=jpeg",
-      "category": "General"
-    },
-    {
-      "title": "Gemini Is Now Your Permanent Passenger in Google Maps",
-      "summary": "Hopefully it doesn't hallucinate directions.",
-      "image": "https://gizmodo.com/app/uploads/2026/03/GoogleMapsGemini-1200x675.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Silicon Valley can't import talent like before. So it's exporting jobs",
-      "summary": "Google, Amazon, Microsoft, and other U.S. tech giants are ramping up India hiring.",
-      "image": "https://restofworld.org/wp-content/uploads/2026/02/H1B-Jobs_3.jpg",
-      "category": "General"
-    },
-    {
-      "title": "India's top court angry after junior judge cites fake AI-generated orders",
-      "summary": "In several recent instances, AI has disrupted court proceedings in India and elsewhere.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/38f2/live/cbef0f10-16cb-11f1-9e9a-a37fdd9c67c5.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Iranian warship sunk by the US was sailing home after taking part in an exhibition hosted by India",
-      "summary": "No summary available",
-      "image": "https://source.unsplash.com/800x400/?news",
-      "category": "General"
-    },
-    {
-      "title": "Cricket-Quick-witted wife saves India's World Cup hero's train ruse",
-      "summary": "By Amlan Chakraborty NEW DELHI, March 11 (Reuters) - India's Twenty20 World Cup hero Shivam Dube thought a train ride in disguise would keep him incognito - ...",
-      "image": "https://s.yimg.com/os/en/reuters.com/5eb18387d6fe94ad52dd1f4e0ecd1794",
-      "category": "General"
-    },
-    {
-      "title": "Amazon just gave the Fire TV app on Android a full makeover",
-      "summary": "Amazon has launched a redesigned Fire TV mobile app with improved browsing and playback features.",
-      "image": "https://cdn.mos.cms.futurecdn.net/BkeLCM7ZtkM4RNwdKTzsqi-2000-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Yeah, we've got a One UI 8.5 Beta 6 rolling out on the Galaxy S25 series a day after the S26",
-      "summary": "Samsung reportedly started rolling out a One UI 8.5 Beta 6 patch for enrolled S25 users.",
-      "image": "https://cdn.mos.cms.futurecdn.net/Y7HsocQ42s9kejKPTnybRc-2048-80.jpg",
-      "category": "General"
-    },
-    {
-      "title": "In photos: Tracing India's history through its chairs",
-      "summary": "An exhibition in Mumbai displayed chairs that told the history of colonial invasions and art movements in India.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/58b0/live/46197c00-1ec2-11f1-b048-c9424b2cf5fd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Strait of Hormuz Closure Triggers Work From Home, 4-Day Weeks In Asia",
-      "summary": "Asian governments are implementing emergency measures like four-day workweeks and work-from-home mandates to cope with a fuel shortage triggered by the Iran conflict and the closure of the Strait of Hormuz. \"Asia is particularly dependent on oil exports from …",
-      "image": "https://a.fsdn.com/sd/topics/earth_64.png",
-      "category": "General"
-    },
-    {
-      "title": "Apple paying a premium to move iPhone production outside China as it hits milestone",
-      "summary": "Apple last year shifted a substantial amount of iPhone production outside of China despite the fact that it has to pay a premium to do so.\n\n\n\nThe company reportedly hit a significant milestone, reaching the halfway point in its objective to split iPhone produ…",
-      "image": "https://i0.wp.com/9to5mac.com/wp-content/uploads/sites/6/2025/10/Apple-lobbying-for-a-change-in-the-law-to-save-billions-of-dollars-in-tax.jpg?resize=1200%2C628&quality=82&strip=all&ssl=1",
-      "category": "General"
-    },
-    {
-      "title": "India offered sanctuary to Iranian ship three days before US sank it",
-      "summary": "India says Tehran sought permission to dock three ships on the day the US and Israel began a war on Iran.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/c632/live/6c0ef870-1b9a-11f1-80fb-bb30185b8cdd.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Beats Teams Up With Nike for Special-Edition Powerbeats Pro 2",
-      "summary": "Apple's Beats brand is launching its first hardware collaboration with Nike today, debuting a new special-edition Nike-branded version of the Powerbeats Pro 2. Featuring Nike's \"Volt\" color palette with a matte black and Volt-speckled charging case with Nike'…",
-      "image": "https://images.macrumors.com/t/To0f-Fyx9D1OZxgIgMxEoGchKAY=/1600x/article-new/2026/03/nike-powerbeats-pro-2.jpg",
-      "category": "General"
-    },
-    {
-      "title": "Google Maps Adds Gemini AI-Powered 'Ask Maps' Feature and 3D Immersive Navigation",
-      "summary": "Google today added Gemini AI to Google Maps, enabling a new Ask Maps feature. Gemini in maps can answer complex, real-world questions that Google says \"a map could never answer before.\"\n\n\n\n\n\nThere is a new Ask Maps button where Google Maps users can get answe…",
-      "image": "https://images.macrumors.com/t/Afpu8wFmhB_0eo8WNCun60sne-M=/2096x/article-new/2026/03/google-maps-gemini-integration.jpg",
-      "category": "General"
-    },
-    {
-      "title": "How budget fast fashion is taking small-town India by storm",
-      "summary": "More Indians in small towns are now shopping for affordable brands instead of unlabelled goods in the bazaars.",
-      "image": "https://ichef.bbci.co.uk/news/1024/branded_news/df1c/live/5c7b0a30-0d9d-11f1-8168-03d32f3820eb.jpg",
       "category": "General"
     }
   ]
