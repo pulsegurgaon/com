@@ -31,23 +31,46 @@ function detectCategory(text = "") {
 }
 
 
-// ✨ TITLE IMPROVER
-function rewriteTitle(title = "") {
-  return title
-    .replace("India", "🇮🇳 India")
-    .replace("AI", "🤖 AI")
-    .slice(0, 120);
+// ✨ TITLE ENGLISH
+function rewriteTitleEN(title = "") {
+  return title.slice(0, 120);
+}
+
+// ✨ TITLE HINDI (simple translation style)
+function rewriteTitleHI(title = "") {
+  return "📰 " + title + " (हिंदी में अपडेट)";
 }
 
 
-// ✨ SUMMARY AI
-function rewriteSummary(text = "") {
-  if (!text) return "Yeh ek fresh update hai, details jaldi aayengi.";
+// ✨ SUMMARY ENGLISH
+function rewriteSummaryEN(text = "") {
+  if (!text) return "Latest update available.";
 
   text = text.replace(/<[^>]*>?/gm, "");
   let short = text.split(".")[0];
 
-  return short + ". Yeh news kaafi important hai aur situation fast change ho rahi hai.";
+  return short + ". This is an important update.";
+}
+
+
+// ✨ SUMMARY HINDI
+function rewriteSummaryHI(text = "") {
+  if (!text) return "यह एक ताज़ा अपडेट है, विवरण जल्द आएंगे।";
+
+  text = text.replace(/<[^>]*>?/gm, "");
+  let short = text.split(".")[0];
+
+  return short + ". यह एक महत्वपूर्ण खबर है।";
+}
+
+
+// 🖼️ IMAGE FIX
+function getValidImage(img, seed = "") {
+  if (!img || img.includes("null") || img === "") {
+    const num = Math.abs(seed.length * 37) % 1000;
+    return `https://picsum.photos/800/400?random=${num}`;
+  }
+  return img;
 }
 
 
@@ -58,11 +81,10 @@ async function fetchRSS(url) {
     const xml = await res.text();
 
     const parsed = await parseStringPromise(xml);
-
-    const items = parsed.rss.channel[0].item;
+    const items = parsed?.rss?.channel?.[0]?.item || [];
 
     return items.map(item => ({
-      title: item.title[0],
+      title: item.title?.[0] || "",
       description: item.description?.[0] || "",
       urlToImage: item.enclosure?.[0]?.$.url || "",
       publishedAt: item.pubDate?.[0] || new Date().toISOString()
@@ -82,14 +104,14 @@ async function getNews() {
 
     let allArticles = [];
 
-    // 🔥 NEWS API
+    // NEWS API
     const apiRes = await fetch(
       `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
     );
     const apiData = await apiRes.json();
     if (apiData.articles) allArticles.push(...apiData.articles);
 
-    // 🌊 RSS SOURCES
+    // RSS
     const rssSources = [
       "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
       "https://feeds.bbci.co.uk/news/world/rss.xml",
@@ -103,20 +125,26 @@ async function getNews() {
 
     console.log(`🔥 Raw articles: ${allArticles.length}`);
 
-    // 🧹 CLEAN + AI
     const unique = [];
     const seen = new Set();
 
     for (let a of allArticles) {
+
       if (!a.title || seen.has(a.title)) continue;
 
       seen.add(a.title);
 
       unique.push({
-        title: rewriteTitle(a.title),
-        summary: rewriteSummary(a.description),
-        image: a.urlToImage || "https://source.unsplash.com/800x400/?news",
+        title_en: rewriteTitleEN(a.title),
+        title_hi: rewriteTitleHI(a.title),
+
+        summary_en: rewriteSummaryEN(a.description),
+        summary_hi: rewriteSummaryHI(a.description),
+
+        image: getValidImage(a.urlToImage, a.title),
+
         category: detectCategory(a.title + " " + a.description),
+
         publishedAt: a.publishedAt || new Date().toISOString()
       });
     }
@@ -160,7 +188,7 @@ async function updateGitHub(newArticles) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        message: "🔥 RSS + API news update",
+        message: "🌍 Multi-language news update",
         content: Buffer.from(
           JSON.stringify(content, null, 2)
         ).toString("base64"),
