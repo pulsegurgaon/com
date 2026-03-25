@@ -94,9 +94,7 @@ background:#e11d48;color:white;
 
 <header>
 <div class="logo">PulseGurgaon</div>
-
 <input id="searchInput" class="search" placeholder="Search news...">
-
 <div>
 <button class="admin" onclick="location.href='admin.html'">ADMIN</button>
 <button class="lang" onclick="toggleLang()">EN / HI</button>
@@ -141,20 +139,15 @@ let currentPage=1
 const perPage=10
 let lang="en"
 
-// 🔥 FETCH (NO CACHE)
+// 🚀 FETCH (CACHE FIXED)
 fetch("articles.json?v=" + Date.now())
 .then(r=>r.json())
 .then(data=>{
-
 originalArticles = data.articles || []
-
 originalArticles.sort((a,b)=> new Date(b.publishedAt||0)-new Date(a.publishedAt||0))
-
 filteredArticles=[...originalArticles]
-
 render()
 updateTicker()
-
 })
 
 // 🌐 LANGUAGE
@@ -173,11 +166,10 @@ function getSummary(a){
 return a["summary_"+lang] || a.summary_en || a.summary || ""
 }
 
-// 🖼️ IMAGE FIX
+// 🖼️ IMAGE FIX (STRONG)
 function getImage(a){
-return a.image && a.image !== "" 
-? a.image 
-: "https://via.placeholder.com/800x400?text=No+Image"
+if(!a.image || a.image==="") return "https://picsum.photos/800/400"
+return a.image
 }
 
 // 🎨 RENDER
@@ -203,17 +195,16 @@ hero.innerHTML=`
 </div>
 `
 
-// ✅ PAGINATION FIX
+// PAGINATION
 const start=(currentPage-1)*perPage
 const end=start+perPage
-
-const pageData = filteredArticles.slice(start, end)
+const pageData = filteredArticles.slice(start,end)
 
 news.innerHTML=""
 
 pageData.forEach((a,i)=>{
 
-// skip hero duplicate
+// remove duplicate hero
 if(currentPage===1 && i===0) return
 
 const card=document.createElement("div")
@@ -241,10 +232,8 @@ renderPagination()
 
 // 📄 PAGINATION
 function renderPagination(){
-
 const totalPages = Math.ceil(filteredArticles.length / perPage)
 const container=document.getElementById("pagination")
-
 container.innerHTML=""
 
 for(let i=1;i<=totalPages;i++){
@@ -265,21 +254,17 @@ container.appendChild(btn)
 
 // 📂 CATEGORY
 function filterCategory(cat){
-
 currentPage=1
-
 if(cat==="All"){
 filteredArticles=[...originalArticles]
 }else{
 filteredArticles = originalArticles.filter(a=>a.category===cat)
 }
-
 render()
 }
 
 // 🔍 SEARCH
 document.getElementById("searchInput").addEventListener("input",function(){
-
 const q=this.value.toLowerCase()
 currentPage=1
 
@@ -305,7 +290,7 @@ const blogBox=document.getElementById("blogs")
 data.blogs.forEach(b=>{
 blogBox.innerHTML+=`
 <div class="blog">
-<img src="${b.image}">
+<img src="${b.image || 'https://picsum.photos/100/80'}">
 <span>${b.title}</span>
 </div>`
 })
