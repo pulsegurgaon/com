@@ -5,73 +5,47 @@ import { parseStringPromise } from "xml2js";
 const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const NEWS_API_KEY = process.env.NEWS_API_KEY;
 
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
-// 🧠 CATEGORY DETECTOR (SMART)
+// 🧠 CATEGORY
 function detectCategory(text = "") {
   text = text.toLowerCase();
 
-  if (/india|delhi|gurgaon|mumbai|kolkata|assembly|parliament/.test(text))
-    return "India";
-
-  if (/tech|ai|software|startup|google|microsoft/.test(text))
-    return "Technology";
-
-  if (/stock|market|finance|economy|bank/.test(text))
-    return "Finance";
-
-  if (/usa|china|russia|world|war|uk|europe/.test(text))
-    return "World";
+  if (/india|delhi|gurgaon|mumbai/.test(text)) return "India";
+  if (/tech|ai|software|startup/.test(text)) return "Technology";
+  if (/stock|market|finance|economy/.test(text)) return "Finance";
+  if (/usa|china|world|war/.test(text)) return "World";
 
   return "General";
 }
 
 
-// 🧹 CLEAN TEXT
+// 🧹 CLEAN
 function clean(text = "") {
   return text.replace(/<[^>]*>?/gm, "").trim();
 }
 
 
-// ✨ SUMMARY (SMART)
-function generateSummary(text = "") {
+// ✨ SUMMARY
+function summary(text = "") {
   if (!text) return "";
 
-  const cleanText = clean(text);
-  let first = cleanText.split(".")[0];
-
-  if (first.length < 40) {
-    return cleanText.slice(0, 120) + "...";
-  }
-
-  return first + ".";
+  const c = clean(text);
+  return c.split(".")[0] + ".";
 }
 
 
-// 🇮🇳 SIMPLE HINDI
-function toHindi(text = "") {
-  if (!text) return "";
-
-  return text
-    .replace(/India/g, "भारत")
-    .replace(/government/g, "सरकार")
-    .replace(/market/g, "बाजार")
-    .replace(/police/g, "पुलिस")
-    .replace(/minister/g, "मंत्री")
-    .replace(/court/g, "अदालत");
-}
-
-
-// 🖼️ IMAGE FIX
-function getImage(img, seed = "") {
-  if (!img || img.length < 10 || img.includes("null")) {
-    return `https://picsum.photos/800/400?random=${Math.floor(Math.random()*1000)}`;
-  }
-  return img;
+// 🖼️ IMAGE (ONLY ORIGINAL)
+function getImage(item) {
+  return (
+    item.enclosure?.[0]?.$.url ||
+    item["media:content"]?.[0]?.$.url ||
+    item["media:thumbnail"]?.[0]?.$.url ||
+    ""
+  );
 }
 
 
@@ -87,7 +61,7 @@ async function fetchRSS(url) {
     return items.map(item => ({
       title: item.title?.[0] || "",
       description: item.description?.[0] || "",
-      urlToImage: item.enclosure?.[0]?.$.url || "",
+      image: getImage(item),
       publishedAt: item.pubDate?.[0] || new Date().toISOString()
     }));
 
@@ -97,73 +71,63 @@ async function fetchRSS(url) {
 }
 
 
-// 🧠 MAIN ENGINE
+// 🧠 MAIN ENGINE (RSS ONLY)
 async function getNews() {
-  try {
-    let all = [];
 
-    // NEWS API
-    const apiRes = await fetch(
-      `https://newsapi.org/v2/top-headlines?country=in&pageSize=50&apiKey=${NEWS_API_KEY}`
-    );
-    const apiData = await apiRes.json();
-    if (apiData.articles) all.push(...apiData.articles);
+  const sources = [
+    "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+    "https://feeds.bbci.co.uk/news/world/rss.xml",
+    "https://www.thehindu.com/news/national/feeder/default.rss",
+    "https://www.hindustantimes.com/rss/topnews/rssfeed.xml"
+  ];
 
-    // RSS
-    const rss = [
-      "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
-      "https://feeds.bbci.co.uk/news/world/rss.xml",
-      "https://www.thehindu.com/news/national/feeder/default.rss"
-    ];
+  let all = [];
 
-    for (let r of rss) {
-      const data = await fetchRSS(r);
-      all.push(...data);
-    }
-
-    // 🧹 ULTRA DEDUPE
-    const unique = [];
-    const seen = new Set();
-
-    for (let a of all) {
-
-      const base = (a.title + a.description)
-        .toLowerCase()
-        .replace(/[^a-z0-9]/g, "")
-        .slice(0, 100);
-
-      if (!a.title || seen.has(base)) continue;
-
-      seen.add(base);
-
-      const title = clean(a.title);
-      const summary = generateSummary(a.description);
-
-      unique.push({
-        title_en: title,
-        title_hi: toHindi(title),
-
-        summary_en: summary,
-        summary_hi: toHindi(summary),
-
-        image: getImage(a.urlToImage, title),
-
-        category: detectCategory(title + " " + summary),
-
-        publishedAt: a.publishedAt || new Date().toISOString()
-      });
-    }
-
-    return unique.slice(0, 120);
-
-  } catch {
-    return [];
+  for (let src of sources) {
+    const data = await fetchRSS(src);
+    all.push(...data);
   }
+
+  // 🧹 STRONG DEDUPE
+  const seen = new Set();
+  const unique = [];
+
+  for (let a of all) {
+
+    const key = (a.title + a.description)
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "")
+      .slice(0, 80);
+
+    if (!a.title || seen.has(key)) continue;
+
+    seen.add(key);
+
+    const title = clean(a.title);
+    const sum = summary(a.description);
+
+    unique.push({
+      title_en: title,
+      title_hi: title, // simple for now
+
+      summary_en: sum,
+      summary_hi: sum,
+
+      image: a.image || "",
+
+      category: detectCategory(title + " " + sum),
+
+      publishedAt: a.publishedAt
+    });
+  }
+
+  return unique.slice(0, 120);
 }
 
 
 // 🚀 UPDATE GITHUB
 async function updateGitHub(newArticles) {
+
   const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
   const res = await fetch(url, {
@@ -176,27 +140,7 @@ async function updateGitHub(newArticles) {
     Buffer.from(data.content, "base64").toString()
   );
 
-  const merged = [...newArticles, ...content.articles];
-
-  // FINAL DEDUPE
-  const seen = new Set();
-  const final = [];
-
-  for (let a of merged) {
-    const key = (a.title_en + a.summary_en)
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "")
-      .slice(0, 100);
-
-    if (!seen.has(key)) {
-      seen.add(key);
-      final.push(a);
-    }
-  }
-
-  final.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-
-  content.articles = final.slice(0, 250);
+  content.articles = newArticles;
 
   await fetch(url, {
     method: "PUT",
@@ -205,7 +149,7 @@ async function updateGitHub(newArticles) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: "🔥 Pro news engine update",
+      message: "🧹 Clean RSS news update",
       content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
       sha: data.sha
     })
@@ -225,7 +169,7 @@ setInterval(runBot, 30 * 60 * 1000);
 
 // SERVER
 app.get("/", (req, res) => {
-  res.send("PulseGurgaon backend running 🚀");
+  res.send("RSS backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
