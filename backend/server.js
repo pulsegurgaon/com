@@ -36,7 +36,7 @@ function fallback(text){
 }
 
 
-// 🖼️ IMAGE FIX (IMPORTANT 🔥)
+// 🖼️ IMAGE FIX
 function getImage(item){
   return (
     item.enclosure?.[0]?.$.url ||
@@ -47,7 +47,7 @@ function getImage(item){
 }
 
 
-// 🧠 OPENROUTER MULTI-KEY (FIXED + DEBUG)
+// 🧠 OPENROUTER AI (FIXED MODEL ✅)
 async function aiOpenRouter(text){
 
   const keys = [
@@ -72,11 +72,11 @@ async function aiOpenRouter(text){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          model:"mistralai/mistral-7b-instruct",
+          model:"openchat/openchat-7b", // ✅ WORKING MODEL
           messages:[
             {
               role:"user",
-              content:`Rewrite this news in 2-3 simple lines:\n${text}`
+              content:`Rewrite this news in 2-3 clean lines:\n${text}`
             }
           ]
         })
@@ -84,7 +84,7 @@ async function aiOpenRouter(text){
 
       const data = await res.json();
 
-      console.log("🔍 AI RESPONSE:", JSON.stringify(data).slice(0,200));
+      console.log("🔍 AI RESPONSE:", JSON.stringify(data).slice(0,150));
 
       const output = data?.choices?.[0]?.message?.content;
 
@@ -94,7 +94,7 @@ async function aiOpenRouter(text){
       }
 
     }catch(e){
-      console.log("❌ Key error:", e.message);
+      console.log("❌ Key failed:", e.message);
     }
   }
 
@@ -115,7 +115,7 @@ async function smartRewrite(text){
 }
 
 
-// 🌊 RSS FETCH (FIXED IMAGE)
+// 🌊 RSS FETCH
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -127,7 +127,7 @@ async function fetchRSS(url){
     return items.map(item=>({
       title:item.title?.[0]||"",
       description:item.description?.[0]||"",
-      image:getImage(item), // 🔥 FIXED
+      image:getImage(item),
       publishedAt:item.pubDate?.[0] || new Date().toISOString()
     }));
 
@@ -212,7 +212,7 @@ async function updateGitHub(newArticles){
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      message:"🔥 Fixed AI + Images",
+      message:"🔥 AI WORKING FIXED",
       content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
       sha:data.sha
     })
@@ -222,7 +222,7 @@ async function updateGitHub(newArticles){
 
 // 🤖 RUN
 async function runBot(){
-  console.log("🚀 Running fixed system...");
+  console.log("🚀 Running AI system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
