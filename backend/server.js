@@ -36,7 +36,18 @@ function fallback(text){
 }
 
 
-// 🧠 OPENROUTER MULTI-KEY (MAIN FIX)
+// 🖼️ IMAGE FIX (IMPORTANT 🔥)
+function getImage(item){
+  return (
+    item.enclosure?.[0]?.$.url ||
+    item["media:content"]?.[0]?.$.url ||
+    item["media:thumbnail"]?.[0]?.$.url ||
+    ""
+  );
+}
+
+
+// 🧠 OPENROUTER MULTI-KEY (FIXED + DEBUG)
 async function aiOpenRouter(text){
 
   const keys = [
@@ -65,13 +76,15 @@ async function aiOpenRouter(text){
           messages:[
             {
               role:"user",
-              content:`Rewrite this news in 2-3 lines:\n${text}`
+              content:`Rewrite this news in 2-3 simple lines:\n${text}`
             }
           ]
         })
       });
 
       const data = await res.json();
+
+      console.log("🔍 AI RESPONSE:", JSON.stringify(data).slice(0,200));
 
       const output = data?.choices?.[0]?.message?.content;
 
@@ -80,8 +93,8 @@ async function aiOpenRouter(text){
         return output;
       }
 
-    }catch{
-      console.log("❌ Key failed");
+    }catch(e){
+      console.log("❌ Key error:", e.message);
     }
   }
 
@@ -102,7 +115,7 @@ async function smartRewrite(text){
 }
 
 
-// 🌊 RSS FETCH
+// 🌊 RSS FETCH (FIXED IMAGE)
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -114,7 +127,7 @@ async function fetchRSS(url){
     return items.map(item=>({
       title:item.title?.[0]||"",
       description:item.description?.[0]||"",
-      image:item.enclosure?.[0]?.$.url || "",
+      image:getImage(item), // 🔥 FIXED
       publishedAt:item.pubDate?.[0] || new Date().toISOString()
     }));
 
@@ -199,7 +212,7 @@ async function updateGitHub(newArticles){
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      message:"🔥 AI fixed system",
+      message:"🔥 Fixed AI + Images",
       content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
       sha:data.sha
     })
@@ -209,7 +222,7 @@ async function updateGitHub(newArticles){
 
 // 🤖 RUN
 async function runBot(){
-  console.log("🚀 Running clean AI system...");
+  console.log("🚀 Running fixed system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
