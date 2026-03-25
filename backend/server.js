@@ -5,25 +5,6 @@ import { parseStringPromise } from "xml2js";
 const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const PHONE_AI_URL = process.env.PHONE_AI_URL;
-
-const OPEN_KEYS = [
-  process.env.OPENROUTER_KEY_1,
-  process.env.OPENROUTER_KEY_2,
-  process.env.OPENROUTER_KEY_3,
-  process.env.OPENROUTER_KEY_4,
-  process.env.OPENROUTER_KEY_5,
-  process.env.OPENROUTER_KEY_6
-];
-
-const HF_KEYS = [
-  process.env.HF_KEY_1,
-  process.env.HF_KEY_2,
-  process.env.HF_KEY_3,
-  process.env.HF_KEY_4,
-  process.env.HF_KEY_5,
-  process.env.HF_KEY_6
-];
 
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
@@ -48,14 +29,31 @@ function clean(t=""){
 }
 
 
-// 🧠 OPENROUTER ROTATION
+// 🛟 FALLBACK
+function fallback(text){
+  if(!text) return "Latest update available.";
+  return clean(text).split(".")[0] + ". More updates soon.";
+}
+
+
+// 🧠 OPENROUTER MULTI-KEY (MAIN FIX)
 async function aiOpenRouter(text){
 
-  for(let key of OPEN_KEYS){
+  const keys = [
+    process.env.OPENROUTER_KEY_1,
+    process.env.OPENROUTER_KEY_2,
+    process.env.OPENROUTER_KEY_3,
+    process.env.OPENROUTER_KEY_4,
+    process.env.OPENROUTER_KEY_5,
+    process.env.OPENROUTER_KEY_6
+  ];
+
+  for(let key of keys){
 
     if(!key) continue;
 
     try{
+
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
         method:"POST",
         headers:{
@@ -64,102 +62,47 @@ async function aiOpenRouter(text){
         },
         body:JSON.stringify({
           model:"mistralai/mistral-7b-instruct",
-          messages:[{role:"user",content:`Summarize:\n${text}`}]
+          messages:[
+            {
+              role:"user",
+              content:`Rewrite this news in 2-3 lines:\n${text}`
+            }
+          ]
         })
       });
 
       const data = await res.json();
-      const out = data?.choices?.[0]?.message?.content;
 
-      if(out) return out;
+      const output = data?.choices?.[0]?.message?.content;
 
-    }catch{}
+      if(output){
+        console.log("✅ AI success");
+        return output;
+      }
+
+    }catch{
+      console.log("❌ Key failed");
+    }
   }
 
   return null;
 }
 
 
-// 🧠 HF ROTATION
-async function aiHF(text){
-
-  for(let key of HF_KEYS){
-
-    if(!key) continue;
-
-    try{
-      const res = await fetch(
-        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
-        {
-          method:"POST",
-          headers:{
-            Authorization:`Bearer ${key}`,
-            "Content-Type":"application/json"
-          },
-          body:JSON.stringify({inputs:text})
-        }
-      );
-
-      const data = await res.json();
-      const out = data?.[0]?.summary_text;
-
-      if(out) return out;
-
-    }catch{}
-  }
-
-  return null;
-}
-
-
-// 📱 PHONE AI (later)
-async function aiPhone(text){
-  try{
-    const res = await fetch(PHONE_AI_URL,{
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body:JSON.stringify({text})
-    });
-
-    const data = await res.json();
-    return data?.summary;
-
-  }catch{
-    return null;
-  }
-}
-
-
-// 🛟 FALLBACK
-function fallback(text){
-  if(!text) return "Latest update available.";
-  return clean(text).split(".")[0]+". More updates soon.";
-}
-
-
-// 🧠 MASTER PIPELINE
+// 🧠 MASTER AI
 async function smartRewrite(text){
 
-  let r = await aiOpenRouter(text);
-  if(r) return r;
+  const result = await aiOpenRouter(text);
 
-  console.log("⚠️ OpenRouter failed");
+  if(result) return result;
 
-  r = await aiHF(text);
-  if(r) return r;
-
-  console.log("⚠️ HF failed");
-
-  r = await aiPhone(text);
-  if(r) return r;
-
-  console.log("⚠️ Phone failed");
+  console.log("⚠️ AI failed → fallback");
 
   return fallback(text);
 }
 
 
-// 🌊 RSS
+// 🌊 RSS FETCH
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -181,7 +124,7 @@ async function fetchRSS(url){
 }
 
 
-// 🧠 ENGINE
+// 🧠 MAIN ENGINE
 async function getNews(){
 
   const sources=[
@@ -234,7 +177,7 @@ async function getNews(){
 }
 
 
-// 🚀 UPDATE
+// 🚀 UPDATE GITHUB
 async function updateGitHub(newArticles){
 
   const url=`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -256,7 +199,7 @@ async function updateGitHub(newArticles){
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      message:"🔥 Multi AI rotation",
+      message:"🔥 AI fixed system",
       content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
       sha:data.sha
     })
@@ -266,7 +209,7 @@ async function updateGitHub(newArticles){
 
 // 🤖 RUN
 async function runBot(){
-  console.log("🚀 Multi-AI Running...");
+  console.log("🚀 Running clean AI system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
@@ -277,7 +220,7 @@ setInterval(runBot,30*60*1000);
 
 // 🌐 SERVER
 app.get("/",(req,res)=>{
-  res.send("Multi-AI backend running 🚀");
+  res.send("Backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
