@@ -6,6 +6,8 @@ const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
+const HF_API_KEY = process.env.HF_API_KEY;
+const PHONE_AI_URL = process.env.PHONE_AI_URL;
 
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
@@ -15,10 +17,10 @@ const FILE_PATH = "articles.json";
 function detectCategory(text = "") {
   text = text.toLowerCase();
 
-  if (/india|delhi|gurgaon|mumbai/.test(text)) return "India";
-  if (/tech|ai|software|startup/.test(text)) return "Technology";
-  if (/stock|market|finance|economy/.test(text)) return "Finance";
-  if (/usa|china|world|war/.test(text)) return "World";
+  if (/india|delhi|gurgaon/.test(text)) return "India";
+  if (/tech|ai|software/.test(text)) return "Technology";
+  if (/stock|market|finance/.test(text)) return "Finance";
+  if (/usa|china|world/.test(text)) return "World";
 
   return "General";
 }
@@ -30,11 +32,9 @@ function clean(text = "") {
 }
 
 
-// 🤖 REAL AI (FREE)
-async function aiRewrite(text) {
+// 🧠 AI 1 — OPENROUTER
+async function aiOpenRouter(text) {
   try {
-    if (!text) return null;
-
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -43,17 +43,11 @@ async function aiRewrite(text) {
       },
       body: JSON.stringify({
         model: "mistralai/mistral-7b-instruct",
-        messages: [
-          {
-            role: "user",
-            content: `Rewrite this news into a short clean summary:\n${text}`
-          }
-        ]
+        messages: [{ role: "user", content: `Summarize:\n${text}` }]
       })
     });
 
     const data = await res.json();
-
     return data.choices?.[0]?.message?.content || null;
 
   } catch {
@@ -62,32 +56,81 @@ async function aiRewrite(text) {
 }
 
 
-// 🧠 FALLBACK SUMMARY
-function fallbackSummary(text = "") {
+// 🧠 AI 2 — HUGGINGFACE
+async function aiHuggingFace(text) {
+  try {
+    const res = await fetch(
+      "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${HF_API_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ inputs: text })
+      }
+    );
+
+    const data = await res.json();
+
+    return data?.[0]?.summary_text || null;
+
+  } catch {
+    return null;
+  }
+}
+
+
+// 📱 AI 3 — PHONE
+async function aiPhone(text) {
+  try {
+    const res = await fetch(PHONE_AI_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text })
+    });
+
+    const data = await res.json();
+    return data?.summary || null;
+
+  } catch {
+    return null;
+  }
+}
+
+
+// 🛟 FALLBACK
+function fallback(text) {
   if (!text) return "Latest update available.";
 
   const c = clean(text);
-  return c.split(".")[0] + ". More updates are expected.";
+  return c.split(".")[0] + ". More updates coming.";
 }
 
 
-// 🧠 ARTICLE GENERATOR
-function generateArticle(title, summary) {
-  return `
-${title}.
+// 🧠 MULTI AI PIPELINE
+async function smartRewrite(text) {
 
-${summary}
+  let result = await aiOpenRouter(text);
+  if (result) return result;
 
-According to initial reports, this development has gained attention across multiple sectors. Authorities are closely monitoring the situation while experts analyze possible outcomes.
+  console.log("⚠️ OpenRouter failed → trying HF");
 
-The impact of this event may grow depending on further updates. Citizens are advised to stay informed through verified sources.
+  result = await aiHuggingFace(text);
+  if (result) return result;
 
-More clarity is expected in the coming hours.
-  `.trim();
+  console.log("⚠️ HF failed → trying Phone");
+
+  result = await aiPhone(text);
+  if (result) return result;
+
+  console.log("⚠️ All AI failed → fallback");
+
+  return fallback(text);
 }
 
 
-// 🖼️ IMAGE (ORIGINAL ONLY)
+// 🖼️ IMAGE
 function getImage(item) {
   return (
     item.enclosure?.[0]?.$.url ||
@@ -98,7 +141,7 @@ function getImage(item) {
 }
 
 
-// 🌊 RSS FETCH
+// 🌊 RSS
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -126,8 +169,7 @@ async function getNews() {
   const sources = [
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
     "https://feeds.bbci.co.uk/news/world/rss.xml",
-    "https://www.thehindu.com/news/national/feeder/default.rss",
-    "https://www.hindustantimes.com/rss/topnews/rssfeed.xml"
+    "https://www.thehindu.com/news/national/feeder/default.rss"
   ];
 
   let all = [];
@@ -154,29 +196,18 @@ async function getNews() {
     const title = clean(a.title);
     const raw = clean(a.description);
 
-    // 🤖 TRY AI
-    let aiSum = await aiRewrite(raw);
-
-    // 🛟 FALLBACK
-    if (!aiSum) {
-      aiSum = fallbackSummary(raw);
-    }
-
-    const article = generateArticle(title, aiSum);
+    const summary = await smartRewrite(raw);
 
     unique.push({
       title_en: title,
       title_hi: title,
 
-      summary_en: aiSum,
-      summary_hi: aiSum,
-
-      article_en: article,
-      article_hi: article,
+      summary_en: summary,
+      summary_hi: summary,
 
       image: a.image || "",
 
-      category: detectCategory(title + " " + raw),
+      category: detectCategory(title + raw),
 
       publishedAt: a.publishedAt
     });
@@ -210,7 +241,7 @@ async function updateGitHub(newArticles) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: "🧠 AI News Update",
+      message: "🔥 Multi-AI News Update",
       content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
       sha: data.sha
     })
@@ -220,7 +251,7 @@ async function updateGitHub(newArticles) {
 
 // 🤖 RUN
 async function runBot() {
-  console.log("🚀 AI News Engine Running...");
+  console.log("🚀 Multi-AI Engine Running...");
   const news = await getNews();
   if (news.length) await updateGitHub(news);
 }
@@ -231,7 +262,7 @@ setInterval(runBot, 30 * 60 * 1000);
 
 // 🌐 SERVER
 app.get("/", (req, res) => {
-  res.send("AI backend running 🚀");
+  res.send("Multi-AI backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
