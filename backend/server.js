@@ -5,263 +5,278 @@ import { parseStringPromise } from "xml2js";
 const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-const HF_API_KEY = process.env.HF_API_KEY;
 const PHONE_AI_URL = process.env.PHONE_AI_URL;
+
+const OPEN_KEYS = [
+  process.env.OPENROUTER_KEY_1,
+  process.env.OPENROUTER_KEY_2,
+  process.env.OPENROUTER_KEY_3,
+  process.env.OPENROUTER_KEY_4,
+  process.env.OPENROUTER_KEY_5,
+  process.env.OPENROUTER_KEY_6
+];
+
+const HF_KEYS = [
+  process.env.HF_KEY_1,
+  process.env.HF_KEY_2,
+  process.env.HF_KEY_3,
+  process.env.HF_KEY_4,
+  process.env.HF_KEY_5,
+  process.env.HF_KEY_6
+];
 
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
 // 🧠 CATEGORY
-function detectCategory(text = "") {
-  text = text.toLowerCase();
+function detectCategory(text=""){
+  text=text.toLowerCase();
 
-  if (/india|delhi|gurgaon/.test(text)) return "India";
-  if (/tech|ai|software/.test(text)) return "Technology";
-  if (/stock|market|finance/.test(text)) return "Finance";
-  if (/usa|china|world/.test(text)) return "World";
+  if(/india|delhi|gurgaon/.test(text)) return "India";
+  if(/tech|ai|software/.test(text)) return "Technology";
+  if(/stock|market|finance/.test(text)) return "Finance";
+  if(/usa|china|world/.test(text)) return "World";
 
   return "General";
 }
 
 
 // 🧹 CLEAN
-function clean(text = "") {
-  return text.replace(/<[^>]*>?/gm, "").trim();
+function clean(t=""){
+  return t.replace(/<[^>]*>?/gm,"").trim();
 }
 
 
-// 🧠 AI 1 — OPENROUTER
-async function aiOpenRouter(text) {
-  try {
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        model: "mistralai/mistral-7b-instruct",
-        messages: [{ role: "user", content: `Summarize:\n${text}` }]
-      })
-    });
+// 🧠 OPENROUTER ROTATION
+async function aiOpenRouter(text){
 
-    const data = await res.json();
-    return data.choices?.[0]?.message?.content || null;
+  for(let key of OPEN_KEYS){
 
-  } catch {
-    return null;
-  }
-}
+    if(!key) continue;
 
-
-// 🧠 AI 2 — HUGGINGFACE
-async function aiHuggingFace(text) {
-  try {
-    const res = await fetch(
-      "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${HF_API_KEY}`,
-          "Content-Type": "application/json"
+    try{
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+        method:"POST",
+        headers:{
+          "Authorization":`Bearer ${key}`,
+          "Content-Type":"application/json"
         },
-        body: JSON.stringify({ inputs: text })
-      }
-    );
+        body:JSON.stringify({
+          model:"mistralai/mistral-7b-instruct",
+          messages:[{role:"user",content:`Summarize:\n${text}`}]
+        })
+      });
 
-    const data = await res.json();
+      const data = await res.json();
+      const out = data?.choices?.[0]?.message?.content;
 
-    return data?.[0]?.summary_text || null;
+      if(out) return out;
 
-  } catch {
-    return null;
+    }catch{}
   }
+
+  return null;
 }
 
 
-// 📱 AI 3 — PHONE
-async function aiPhone(text) {
-  try {
-    const res = await fetch(PHONE_AI_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text })
+// 🧠 HF ROTATION
+async function aiHF(text){
+
+  for(let key of HF_KEYS){
+
+    if(!key) continue;
+
+    try{
+      const res = await fetch(
+        "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
+        {
+          method:"POST",
+          headers:{
+            Authorization:`Bearer ${key}`,
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({inputs:text})
+        }
+      );
+
+      const data = await res.json();
+      const out = data?.[0]?.summary_text;
+
+      if(out) return out;
+
+    }catch{}
+  }
+
+  return null;
+}
+
+
+// 📱 PHONE AI (later)
+async function aiPhone(text){
+  try{
+    const res = await fetch(PHONE_AI_URL,{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body:JSON.stringify({text})
     });
 
     const data = await res.json();
-    return data?.summary || null;
+    return data?.summary;
 
-  } catch {
+  }catch{
     return null;
   }
 }
 
 
 // 🛟 FALLBACK
-function fallback(text) {
-  if (!text) return "Latest update available.";
-
-  const c = clean(text);
-  return c.split(".")[0] + ". More updates coming.";
+function fallback(text){
+  if(!text) return "Latest update available.";
+  return clean(text).split(".")[0]+". More updates soon.";
 }
 
 
-// 🧠 MULTI AI PIPELINE
-async function smartRewrite(text) {
+// 🧠 MASTER PIPELINE
+async function smartRewrite(text){
 
-  let result = await aiOpenRouter(text);
-  if (result) return result;
+  let r = await aiOpenRouter(text);
+  if(r) return r;
 
-  console.log("⚠️ OpenRouter failed → trying HF");
+  console.log("⚠️ OpenRouter failed");
 
-  result = await aiHuggingFace(text);
-  if (result) return result;
+  r = await aiHF(text);
+  if(r) return r;
 
-  console.log("⚠️ HF failed → trying Phone");
+  console.log("⚠️ HF failed");
 
-  result = await aiPhone(text);
-  if (result) return result;
+  r = await aiPhone(text);
+  if(r) return r;
 
-  console.log("⚠️ All AI failed → fallback");
+  console.log("⚠️ Phone failed");
 
   return fallback(text);
 }
 
 
-// 🖼️ IMAGE
-function getImage(item) {
-  return (
-    item.enclosure?.[0]?.$.url ||
-    item["media:content"]?.[0]?.$.url ||
-    item["media:thumbnail"]?.[0]?.$.url ||
-    ""
-  );
-}
-
-
 // 🌊 RSS
-async function fetchRSS(url) {
-  try {
+async function fetchRSS(url){
+  try{
     const res = await fetch(url);
     const xml = await res.text();
 
     const parsed = await parseStringPromise(xml);
     const items = parsed?.rss?.channel?.[0]?.item || [];
 
-    return items.map(item => ({
-      title: item.title?.[0] || "",
-      description: item.description?.[0] || "",
-      image: getImage(item),
-      publishedAt: item.pubDate?.[0] || new Date().toISOString()
+    return items.map(item=>({
+      title:item.title?.[0]||"",
+      description:item.description?.[0]||"",
+      image:item.enclosure?.[0]?.$.url || "",
+      publishedAt:item.pubDate?.[0] || new Date().toISOString()
     }));
 
-  } catch {
+  }catch{
     return [];
   }
 }
 
 
-// 🧠 MAIN ENGINE
-async function getNews() {
+// 🧠 ENGINE
+async function getNews(){
 
-  const sources = [
+  const sources=[
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
     "https://feeds.bbci.co.uk/news/world/rss.xml",
     "https://www.thehindu.com/news/national/feeder/default.rss"
   ];
 
-  let all = [];
+  let all=[];
 
-  for (let src of sources) {
-    const data = await fetchRSS(src);
-    all.push(...data);
+  for(let s of sources){
+    const d=await fetchRSS(s);
+    all.push(...d);
   }
 
-  const seen = new Set();
-  const unique = [];
+  const seen=new Set();
+  const unique=[];
 
-  for (let a of all) {
+  for(let a of all){
 
-    const key = (a.title + a.description)
+    const key=(a.title+a.description)
       .toLowerCase()
-      .replace(/[^a-z0-9]/g, "")
-      .slice(0, 80);
+      .replace(/[^a-z0-9]/g,"")
+      .slice(0,80);
 
-    if (!a.title || seen.has(key)) continue;
-
+    if(!a.title || seen.has(key)) continue;
     seen.add(key);
 
-    const title = clean(a.title);
-    const raw = clean(a.description);
+    const title=clean(a.title);
+    const raw=clean(a.description);
 
-    const summary = await smartRewrite(raw);
+    const summary=await smartRewrite(raw);
 
     unique.push({
-      title_en: title,
-      title_hi: title,
+      title_en:title,
+      title_hi:title,
 
-      summary_en: summary,
-      summary_hi: summary,
+      summary_en:summary,
+      summary_hi:summary,
 
-      image: a.image || "",
+      image:a.image || "",
 
-      category: detectCategory(title + raw),
+      category:detectCategory(title+raw),
 
-      publishedAt: a.publishedAt
+      publishedAt:a.publishedAt
     });
   }
 
-  return unique.slice(0, 120);
+  return unique.slice(0,120);
 }
 
 
-// 🚀 UPDATE GITHUB
-async function updateGitHub(newArticles) {
+// 🚀 UPDATE
+async function updateGitHub(newArticles){
 
-  const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+  const url=`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
-  const res = await fetch(url, {
-    headers: { Authorization: `token ${GITHUB_TOKEN}` }
+  const res=await fetch(url,{
+    headers:{ Authorization:`token ${GITHUB_TOKEN}` }
   });
 
-  const data = await res.json();
+  const data=await res.json();
 
-  let content = JSON.parse(
-    Buffer.from(data.content, "base64").toString()
-  );
+  let content=JSON.parse(Buffer.from(data.content,"base64").toString());
 
-  content.articles = newArticles;
+  content.articles=newArticles;
 
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
-      "Content-Type": "application/json"
+  await fetch(url,{
+    method:"PUT",
+    headers:{
+      Authorization:`token ${GITHUB_TOKEN}`,
+      "Content-Type":"application/json"
     },
-    body: JSON.stringify({
-      message: "🔥 Multi-AI News Update",
-      content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
-      sha: data.sha
+    body:JSON.stringify({
+      message:"🔥 Multi AI rotation",
+      content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
+      sha:data.sha
     })
   });
 }
 
 
 // 🤖 RUN
-async function runBot() {
-  console.log("🚀 Multi-AI Engine Running...");
-  const news = await getNews();
-  if (news.length) await updateGitHub(news);
+async function runBot(){
+  console.log("🚀 Multi-AI Running...");
+  const news=await getNews();
+  if(news.length) await updateGitHub(news);
 }
 
 runBot();
-setInterval(runBot, 30 * 60 * 1000);
+setInterval(runBot,30*60*1000);
 
 
 // 🌐 SERVER
-app.get("/", (req, res) => {
+app.get("/",(req,res)=>{
   res.send("Multi-AI backend running 🚀");
 });
 
