@@ -5,6 +5,7 @@ import { parseStringPromise } from "xml2js";
 const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
 
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
@@ -29,16 +30,64 @@ function clean(text = "") {
 }
 
 
-// ✨ SUMMARY
-function summary(text = "") {
-  if (!text) return "";
+// 🤖 REAL AI (FREE)
+async function aiRewrite(text) {
+  try {
+    if (!text) return null;
 
-  const c = clean(text);
-  return c.split(".")[0] + ".";
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model: "mistralai/mistral-7b-instruct",
+        messages: [
+          {
+            role: "user",
+            content: `Rewrite this news into a short clean summary:\n${text}`
+          }
+        ]
+      })
+    });
+
+    const data = await res.json();
+
+    return data.choices?.[0]?.message?.content || null;
+
+  } catch {
+    return null;
+  }
 }
 
 
-// 🖼️ IMAGE (ONLY ORIGINAL)
+// 🧠 FALLBACK SUMMARY
+function fallbackSummary(text = "") {
+  if (!text) return "Latest update available.";
+
+  const c = clean(text);
+  return c.split(".")[0] + ". More updates are expected.";
+}
+
+
+// 🧠 ARTICLE GENERATOR
+function generateArticle(title, summary) {
+  return `
+${title}.
+
+${summary}
+
+According to initial reports, this development has gained attention across multiple sectors. Authorities are closely monitoring the situation while experts analyze possible outcomes.
+
+The impact of this event may grow depending on further updates. Citizens are advised to stay informed through verified sources.
+
+More clarity is expected in the coming hours.
+  `.trim();
+}
+
+
+// 🖼️ IMAGE (ORIGINAL ONLY)
 function getImage(item) {
   return (
     item.enclosure?.[0]?.$.url ||
@@ -71,7 +120,7 @@ async function fetchRSS(url) {
 }
 
 
-// 🧠 MAIN ENGINE (RSS ONLY)
+// 🧠 MAIN ENGINE
 async function getNews() {
 
   const sources = [
@@ -88,7 +137,6 @@ async function getNews() {
     all.push(...data);
   }
 
-  // 🧹 STRONG DEDUPE
   const seen = new Set();
   const unique = [];
 
@@ -104,18 +152,31 @@ async function getNews() {
     seen.add(key);
 
     const title = clean(a.title);
-    const sum = summary(a.description);
+    const raw = clean(a.description);
+
+    // 🤖 TRY AI
+    let aiSum = await aiRewrite(raw);
+
+    // 🛟 FALLBACK
+    if (!aiSum) {
+      aiSum = fallbackSummary(raw);
+    }
+
+    const article = generateArticle(title, aiSum);
 
     unique.push({
       title_en: title,
-      title_hi: title, // simple for now
+      title_hi: title,
 
-      summary_en: sum,
-      summary_hi: sum,
+      summary_en: aiSum,
+      summary_hi: aiSum,
+
+      article_en: article,
+      article_hi: article,
 
       image: a.image || "",
 
-      category: detectCategory(title + " " + sum),
+      category: detectCategory(title + " " + raw),
 
       publishedAt: a.publishedAt
     });
@@ -149,7 +210,7 @@ async function updateGitHub(newArticles) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      message: "🧹 Clean RSS news update",
+      message: "🧠 AI News Update",
       content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
       sha: data.sha
     })
@@ -159,6 +220,7 @@ async function updateGitHub(newArticles) {
 
 // 🤖 RUN
 async function runBot() {
+  console.log("🚀 AI News Engine Running...");
   const news = await getNews();
   if (news.length) await updateGitHub(news);
 }
@@ -167,9 +229,9 @@ runBot();
 setInterval(runBot, 30 * 60 * 1000);
 
 
-// SERVER
+// 🌐 SERVER
 app.get("/", (req, res) => {
-  res.send("RSS backend running 🚀");
+  res.send("AI backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
