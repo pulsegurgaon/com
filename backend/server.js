@@ -72,7 +72,7 @@ async function aiOpenRouter(text){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          model:"openchat/openchat-7b", // ✅ WORKING MODEL
+          model:"meta-llama/llama-3-8b-instruct", // ✅ WORKING MODEL
           messages:[
             {
               role:"user",
