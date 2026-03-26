@@ -47,7 +47,7 @@ function getImage(item){
 }
 
 
-// 🤖 OPENROUTER AI (CLEAN + CONTROLLED)
+// 🤖 AI → EN + HI (ONE CALL)
 async function aiOpenRouter(text){
 
   const keys = [
@@ -79,13 +79,18 @@ async function aiOpenRouter(text){
               content:`
 You are a professional news editor.
 
-Rewrite the following news in 2-3 short sentences.
+Rewrite the news in English and Hindi.
 
 Rules:
+- Return ONLY JSON
 - No explanation
-- No "here is"
-- No AI mention
-- Only final clean summary
+- No extra text
+
+Format:
+{
+  "en": "English summary in 2-3 lines",
+  "hi": "Hindi translation in simple language"
+}
 
 News:
 ${text}
@@ -96,20 +101,20 @@ ${text}
       });
 
       const data = await res.json();
-
       const output = data?.choices?.[0]?.message?.content;
 
       if(output){
 
-        let cleanOutput = output
-          .replace(/here is.*?:/i, "")
-          .replace(/i don't.*$/i, "")
-          .replace(/as an ai.*$/i, "")
-          .trim();
+        try{
+          const parsed = JSON.parse(output);
 
-        if(cleanOutput.length > 20){
-          console.log("✅ AI clean success");
-          return cleanOutput;
+          if(parsed.en && parsed.hi){
+            console.log("✅ AI EN+HI success");
+            return parsed;
+          }
+
+        }catch{
+          console.log("⚠️ JSON parse failed");
         }
       }
 
@@ -126,16 +131,22 @@ ${text}
 async function smartRewrite(text){
 
   if(!text || text.length < 30){
-    return fallback(text);
+    return {
+      en: fallback(text),
+      hi: fallback(text)
+    };
   }
 
   const result = await aiOpenRouter(text);
 
   if(result) return result;
 
-  console.log("⚠️ AI fallback used");
+  console.log("⚠️ AI fallback");
 
-  return fallback(text);
+  return {
+    en: fallback(text),
+    hi: fallback(text)
+  };
 }
 
 
@@ -193,14 +204,14 @@ async function getNews(){
     const title=clean(a.title);
     const raw=clean(a.description);
 
-    const summary=await smartRewrite(raw);
+    const aiData = await smartRewrite(raw);
 
     unique.push({
       title_en:title,
       title_hi:title,
 
-      summary_en:summary,
-      summary_hi:summary,
+      summary_en:aiData.en,
+      summary_hi:aiData.hi,
 
       image:a.image || "",
 
@@ -236,7 +247,7 @@ async function updateGitHub(newArticles){
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      message:"🔥 Clean AI summaries fixed",
+      message:"🔥 EN + HI AI system",
       content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
       sha:data.sha
     })
@@ -246,7 +257,7 @@ async function updateGitHub(newArticles){
 
 // 🤖 RUN
 async function runBot(){
-  console.log("🚀 Running AI clean system...");
+  console.log("🚀 Running AI dual-language system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
