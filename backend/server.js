@@ -32,7 +32,7 @@ function clean(t=""){
 // 🛟 FALLBACK
 function fallback(text){
   if(!text) return "Latest update available.";
-  return clean(text).split(".")[0] + ". More updates soon.";
+  return clean(text).split(".")[0] + ".";
 }
 
 
@@ -47,7 +47,7 @@ function getImage(item){
 }
 
 
-// 🧠 OPENROUTER AI (FIXED MODEL ✅)
+// 🤖 OPENROUTER AI (CLEAN + CONTROLLED)
 async function aiOpenRouter(text){
 
   const keys = [
@@ -72,11 +72,24 @@ async function aiOpenRouter(text){
           "Content-Type":"application/json"
         },
         body:JSON.stringify({
-          model:"meta-llama/llama-3-8b-instruct", // ✅ WORKING MODEL
+          model:"meta-llama/llama-3-8b-instruct",
           messages:[
             {
               role:"user",
-              content:`Rewrite this news in 2-3 clean lines:\n${text}`
+              content:`
+You are a professional news editor.
+
+Rewrite the following news in 2-3 short sentences.
+
+Rules:
+- No explanation
+- No "here is"
+- No AI mention
+- Only final clean summary
+
+News:
+${text}
+`
             }
           ]
         })
@@ -84,13 +97,20 @@ async function aiOpenRouter(text){
 
       const data = await res.json();
 
-      console.log("🔍 AI RESPONSE:", JSON.stringify(data).slice(0,150));
-
       const output = data?.choices?.[0]?.message?.content;
 
       if(output){
-        console.log("✅ AI success");
-        return output;
+
+        let cleanOutput = output
+          .replace(/here is.*?:/i, "")
+          .replace(/i don't.*$/i, "")
+          .replace(/as an ai.*$/i, "")
+          .trim();
+
+        if(cleanOutput.length > 20){
+          console.log("✅ AI clean success");
+          return cleanOutput;
+        }
       }
 
     }catch(e){
@@ -105,11 +125,15 @@ async function aiOpenRouter(text){
 // 🧠 MASTER AI
 async function smartRewrite(text){
 
+  if(!text || text.length < 30){
+    return fallback(text);
+  }
+
   const result = await aiOpenRouter(text);
 
   if(result) return result;
 
-  console.log("⚠️ AI failed → fallback");
+  console.log("⚠️ AI fallback used");
 
   return fallback(text);
 }
@@ -212,7 +236,7 @@ async function updateGitHub(newArticles){
       "Content-Type":"application/json"
     },
     body:JSON.stringify({
-      message:"🔥 AI WORKING FIXED",
+      message:"🔥 Clean AI summaries fixed",
       content:Buffer.from(JSON.stringify(content,null,2)).toString("base64"),
       sha:data.sha
     })
@@ -222,7 +246,7 @@ async function updateGitHub(newArticles){
 
 // 🤖 RUN
 async function runBot(){
-  console.log("🚀 Running AI system...");
+  console.log("🚀 Running AI clean system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
