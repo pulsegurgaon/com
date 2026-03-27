@@ -102,7 +102,7 @@ return unique.slice(0, 50);
 // 🚀 UPDATE GITHUB
 async function updateGitHub(newArticles){
 
-const url = "https://api.github.com/repos/pulsegurgaon/com/contents/articles.json";
+const url = "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}";
 
 console.log("📡 Correct URL:", url);
 
