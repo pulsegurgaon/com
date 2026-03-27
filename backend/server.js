@@ -104,25 +104,24 @@ async function updateGitHub(newArticles){
 
 const url = "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}";
 
-console.log("📡 Updating GitHub:", url);
+console.log("📡 Correct URL:", url);
 
 const res = await fetch(url,{
-headers:{ Authorization:"token ${GITHUB_TOKEN}" }
+headers:{
+Authorization:"token ${GITHUB_TOKEN}"
+}
 });
 
 const data = await res.json();
 
-console.log("📦 GitHub response:", data.sha ? "OK" : "ERROR");
+if(!data.sha){
+console.log("❌ GitHub fetch failed:", data);
+return;
+}
 
-let sha = data.sha;
-
-const body = {
-message:"🔥 NEWS UPDATE WORKING",
-content: Buffer.from(JSON.stringify({
+const updatedContent = {
 articles: newArticles,
 lastUpdated: new Date().toISOString()
-},null,2)).toString("base64"),
-sha: sha
 };
 
 const update = await fetch(url,{
@@ -131,12 +130,20 @@ headers:{
 Authorization:"token ${GITHUB_TOKEN}",
 "Content-Type":"application/json"
 },
-body: JSON.stringify(body)
+body: JSON.stringify({
+message:"🔥 FINAL FIX WORKING",
+content: Buffer.from(JSON.stringify(updatedContent,null,2)).toString("base64"),
+sha: data.sha
+})
 });
 
 const result = await update.json();
 
-console.log("🚀 GitHub update result:", result.commit ? "SUCCESS" : result);
+if(result.commit){
+console.log("🚀 SUCCESS: GitHub updated");
+}else{
+console.log("❌ UPDATE FAILED:", result);
+}
 }
 
 // 🤖 RUN BOT
