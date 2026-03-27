@@ -100,47 +100,43 @@ return unique.slice(0, 50);
 }
 
 // 🚀 UPDATE GITHUB
-async function updateGitHub(newArticles) {
+async function updateGitHub(newArticles){
 
 const url = "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}";
 
-const res = await fetch(url, {
-headers: {
-Authorization: "token ${GITHUB_TOKEN}"
-}
+console.log("📡 Updating GitHub:", url);
+
+const res = await fetch(url,{
+headers:{ Authorization:"token ${GITHUB_TOKEN}" }
 });
 
 const data = await res.json();
 
-let content = { articles: [] };
+console.log("📦 GitHub response:", data.sha ? "OK" : "ERROR");
 
-try {
-if (data.content) {
-content = JSON.parse(
-Buffer.from(data.content, "base64").toString()
-);
-}
-} catch {
-console.log("⚠️ Broken JSON → resetting");
-}
+let sha = data.sha;
 
-content.articles = newArticles;
-content.lastUpdated = new Date().toISOString();
+const body = {
+message:"🔥 NEWS UPDATE WORKING",
+content: Buffer.from(JSON.stringify({
+articles: newArticles,
+lastUpdated: new Date().toISOString()
+},null,2)).toString("base64"),
+sha: sha
+};
 
-await fetch(url, {
-method: "PUT",
-headers: {
-Authorization: "token ${GITHUB_TOKEN}",
-"Content-Type": "application/json"
+const update = await fetch(url,{
+method:"PUT",
+headers:{
+Authorization:"token ${GITHUB_TOKEN}",
+"Content-Type":"application/json"
 },
-body: JSON.stringify({
-message: "🔥 NEWS AUTO UPDATE",
-content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
-sha: data.sha
-})
+body: JSON.stringify(body)
 });
 
-console.log("🚀 GitHub updated successfully");
+const result = await update.json();
+
+console.log("🚀 GitHub update result:", result.commit ? "SUCCESS" : result);
 }
 
 // 🤖 RUN BOT
