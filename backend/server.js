@@ -39,7 +39,7 @@ item["media:thumbnail"]?.[0]?.$.url ||
 );
 }
 
-// 🤖 AI EN + HI (SAFE JSON)
+// 🤖 AI (BULLETPROOF JSON PARSER)
 async function aiOpenRouter(text){
 
 const keys = [
@@ -72,10 +72,7 @@ try{
 
 Return ONLY JSON:
 
-{
-"en":"2-3 line clean news summary",
-"hi":"Simple Hindi translation"
-}
+{"en":"...","hi":"..."}
 
 News:
 ${text}
@@ -86,27 +83,32 @@ ${text}
 });
 
   const data = await res.json();
-  const output = data?.choices?.[0]?.message?.content;
+  let output = data?.choices?.[0]?.message?.content;
 
   if(output){
 
-    const fixed = output
+    // 🔥 CLEAN ALL AI GARBAGE
+    output = output
       .replace(/```json/g,"")
       .replace(/```/g,"")
+      .replace(/^[^{]*/,"")
+      .replace(/[^}]*$/,"")
       .trim();
 
     try{
-      const parsed = JSON.parse(fixed);
+      const parsed = JSON.parse(output);
+
       if(parsed.en && parsed.hi){
         console.log("✅ AI success");
         return parsed;
       }
+
     }catch{
       console.log("⚠️ JSON parse failed");
     }
   }
 
-}catch(e){
+}catch{
   console.log("❌ AI key failed");
 }
 
@@ -115,7 +117,7 @@ ${text}
 return null;
 }
 
-// 🧠 SMART REWRITE (NEVER FAIL)
+// 🧠 SMART REWRITE
 async function smartRewrite(text){
 
 if(!text || text.length < 30){
@@ -152,7 +154,7 @@ return [];
 }
 }
 
-// 🧠 MAIN ENGINE (PARALLEL ⚡)
+// 🧠 MAIN ENGINE
 async function getNews(){
 
 const sources=[
@@ -207,18 +209,18 @@ console.log("✅ Final unique:", unique.length);
 return unique.slice(0,120);
 }
 
-// 🚀 UPDATE GITHUB (CRASH PROOF)
+// 🚀 UPDATE GITHUB (FIXED)
 async function updateGitHub(newArticles){
 
-const url="https://api.github.com/repos/${REPO}/contents/${FILE_PATH}";
+const url = "https://api.github.com/repos/${REPO}/contents/${FILE_PATH}";
 
-const res=await fetch(url,{
+const res = await fetch(url,{
 headers:{ Authorization:"token ${GITHUB_TOKEN}" }
 });
 
-const data=await res.json();
+const data = await res.json();
 
-let content={ articles: [] };
+let content = { articles: [] };
 
 try{
 if(data.content){
@@ -251,7 +253,7 @@ console.log("🚀 GitHub updated");
 // 🤖 RUN
 async function runBot(){
 console.log("🚀 Running BEAST system...");
-const news=await getNews();
+const news = await getNews();
 
 console.log("📰 Count:", news.length);
 
@@ -263,7 +265,7 @@ console.log("❌ No news fetched");
 }
 
 runBot();
-setInterval(runBot,30601000);
+setInterval(runBot, 30 * 60 * 1000);
 
 // 🌐 SERVER
 app.get("/",(req,res)=>{
