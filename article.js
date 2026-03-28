@@ -6,7 +6,7 @@ async function loadArticle(){
   const res = await fetch("articles.json");
   const data = await res.json();
 
-  const article = data.articles[id];
+  const article = data.articles.find(a => a.id == id);
 
   if(!article){
     document.body.innerHTML = "Article not found";
