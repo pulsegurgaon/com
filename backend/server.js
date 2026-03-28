@@ -19,12 +19,12 @@ const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
 
-// CLEAN
-function clean(t=""){
-  return t.replace(/<[^>]*>?/gm,"").trim();
+// 🧹 CLEAN
+function clean(text=""){
+  return text.replace(/<[^>]*>?/gm,"").trim();
 }
 
-// IMAGE
+// 🖼️ IMAGE
 function getImage(item){
   return (
     item.enclosure?.[0]?.$.url ||
@@ -35,8 +35,8 @@ function getImage(item){
 }
 
 
-// 🤖 AI FULL GENERATION
-async function aiFull(text){
+// 🤖 AI STRUCTURED CONTENT
+async function aiGenerate(text){
 
   for(let key of OPENROUTER_KEYS){
 
@@ -53,21 +53,16 @@ async function aiFull(text){
           messages:[{
             role:"user",
             content:`
-Create a full news article.
+Create structured news.
 
-RETURN STRICT FORMAT:
+FORMAT:
 
-EN_TITLE:
-EN_SUMMARY: (exactly 30 words)
-EN_BODY: (5-6 lines full article)
-
-HI_TITLE:
-HI_SUMMARY: (30 words simple Hindi)
-HI_BODY: (5-6 lines Hindi article)
+TITLE:
+SUMMARY: (max 30 words)
+ARTICLE: (150-200 words)
 
 VOCAB:
-word1 - meaning in English - Hindi meaning
-word2 - meaning in English - Hindi meaning
+word - meaning - hindi (4 words)
 
 News:
 ${text}
@@ -79,45 +74,42 @@ ${text}
       const data = await res.json();
       const output = data?.choices?.[0]?.message?.content || "";
 
-      const enTitle = output.match(/EN_TITLE:(.*)/)?.[1]?.trim();
-      const enSummary = output.match(/EN_SUMMARY:(.*)/)?.[1]?.trim();
-      const enBody = output.match(/EN_BODY:(.*?)(HI_TITLE:|$)/s)?.[1]?.trim();
+      const get = (label) => {
+        const match = output.match(new RegExp(label + ":(.*)", "i"));
+        return match ? match[1].trim() : "";
+      };
 
-      const hiTitle = output.match(/HI_TITLE:(.*)/)?.[1]?.trim();
-      const hiSummary = output.match(/HI_SUMMARY:(.*)/)?.[1]?.trim();
-      const hiBody = output.match(/HI_BODY:(.*?)(VOCAB:|$)/s)?.[1]?.trim();
+      const article = output.split("ARTICLE:")[1]?.split("VOCAB:")[0]?.trim();
+      const vocab = output.split("VOCAB:")[1]?.trim();
 
-      const vocab = output.match(/VOCAB:(.*)/s)?.[1]?.trim();
-
-      if(enTitle && enSummary && enBody){
-        console.log("✅ AI FULL SUCCESS");
-        return {
-          title_en: enTitle,
-          summary_en: enSummary,
-          body_en: enBody,
-
-          title_hi: hiTitle || enTitle,
-          summary_hi: hiSummary || enSummary,
-          body_hi: hiBody || enBody,
-
-          vocab: vocab || ""
-        };
-      }
+      return {
+        title: get("TITLE") || text.slice(0,60),
+        summary: get("SUMMARY") || text.slice(0,100),
+        article: article || text,
+        vocab: vocab || ""
+      };
 
     }catch{
-      console.log("❌ Key failed");
+      console.log("❌ AI key failed");
     }
   }
 
-  return null;
+  // fallback
+  return {
+    title: text.slice(0,60),
+    summary: text.slice(0,100),
+    article: text,
+    vocab: ""
+  };
 }
 
 
-// RSS
+// 🌊 RSS FETCH
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
     const xml = await res.text();
+
     const parsed = await parseStringPromise(xml);
     const items = parsed?.rss?.channel?.[0]?.item || [];
 
@@ -134,7 +126,7 @@ async function fetchRSS(url){
 }
 
 
-// MAIN ENGINE
+// 🧠 MAIN ENGINE
 async function getNews(){
 
   const sources=[
@@ -145,8 +137,6 @@ async function getNews(){
 
   const results = await Promise.all(sources.map(fetchRSS));
   const all = results.flat();
-
-  console.log("📰 Raw:", all.length);
 
   const seen=new Set();
   const unique=[];
@@ -163,38 +153,28 @@ async function getNews(){
 
     const raw = clean(a.description);
 
-    const ai = await aiFull(raw);
-
-    if(!ai) continue;
+    const ai = await aiGenerate(raw);
 
     unique.push({
       id: Date.now() + Math.random(),
 
-      title_en: ai.title_en,
-      title_hi: ai.title_hi,
-
-      summary_en: ai.summary_en,
-      summary_hi: ai.summary_hi,
-
-      body_en: ai.body_en,
-      body_hi: ai.body_hi,
-
+      title: ai.title,
+      summary: ai.summary,
+      article: ai.article,
       vocab: ai.vocab,
 
-      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(ai.title_en)}/800/400`,
+      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(ai.title)}/800/400`,
 
       category: "General",
       publishedAt: a.publishedAt
     });
   }
 
-  console.log("✅ Final:", unique.length);
-
   return unique.slice(0,200);
 }
 
 
-// GITHUB
+// 🚀 UPDATE GITHUB
 async function updateGitHub(newArticles){
 
   const url=`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -210,7 +190,7 @@ async function updateGitHub(newArticles){
   }catch{}
 
   const body={
-    message:"🔥 FULL AI NEWS SYSTEM",
+    message:"🔥 STRUCTURED AI NEWS",
     content:Buffer.from(JSON.stringify({
       articles:newArticles,
       lastUpdated:new Date().toISOString()
@@ -233,7 +213,7 @@ async function updateGitHub(newArticles){
 
 // RUN
 async function runBot(){
-  console.log("🚀 FULL AI ENGINE RUNNING...");
+  console.log("🚀 Running structured system...");
   const news=await getNews();
   if(news.length) await updateGitHub(news);
 }
@@ -244,7 +224,7 @@ setInterval(runBot,30*60*1000);
 
 // SERVER
 app.get("/",(req,res)=>{
-  res.send("FULL AI NEWS SYSTEM 🚀");
+  res.send("Structured AI backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
