@@ -6,7 +6,7 @@ const app = express();
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
-// 🔥 ALL 6 KEYS
+// 🔥 MULTI KEYS
 const OPENROUTER_KEYS = [
   process.env.OPENROUTER_KEY_1,
   process.env.OPENROUTER_KEY_2,
@@ -42,7 +42,7 @@ function getImage(item) {
 }
 
 
-// 🤖 AI WITH KEY ROTATION
+// 🤖 AI (MULTI KEY + SAFE)
 async function aiRewrite(text) {
 
   if (!text || text.length < 40) {
@@ -81,23 +81,20 @@ ${text}
       const data = await res.json();
       const output = data?.choices?.[0]?.message?.content || "";
 
-      const enMatch = output.match(/EN:(.*?)(HI:|$)/s);
-      const hiMatch = output.match(/HI:(.*)/s);
-
-      const en = enMatch?.[1]?.trim();
-      const hi = hiMatch?.[1]?.trim();
+      const en = output.match(/EN:(.*?)(HI:|$)/s)?.[1]?.trim();
+      const hi = output.match(/HI:(.*)/s)?.[1]?.trim();
 
       if (en && hi) {
-        console.log("✅ AI success using key");
+        console.log("✅ AI success");
         return { en, hi };
       }
 
-    } catch (e) {
-      console.log("❌ Key failed, trying next...");
+    } catch {
+      console.log("❌ Key failed");
     }
   }
 
-  console.log("⚠️ All keys failed → fallback");
+  console.log("⚠️ AI fallback");
   return { en: fallback(text), hi: fallback(text) };
 }
 
@@ -158,13 +155,17 @@ async function getNews() {
     const ai = await aiRewrite(raw);
 
     unique.push({
+      // 🔥 UNIQUE ID FIX (VERY IMPORTANT)
+      id: Date.now() + Math.random(),
+
       title_en: title,
       title_hi: title,
 
       summary_en: ai.en,
       summary_hi: ai.hi,
 
-      image: a.image || "",
+      // 🔥 IMAGE FIX
+      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
       category: "General",
       publishedAt: a.publishedAt
@@ -202,7 +203,7 @@ async function updateGitHub(newArticles) {
   };
 
   const body = {
-    message: "🔥 AI MULTI-KEY UPDATE",
+    message: "🔥 AI NEWS SYSTEM FINAL",
     content: Buffer.from(JSON.stringify(content, null, 2)).toString("base64"),
     ...(sha && { sha })
   };
@@ -233,7 +234,7 @@ async function updateGitHub(newArticles) {
 
 // 🤖 RUN
 async function runBot() {
-  console.log("🚀 Running MULTI-AI system...");
+  console.log("🚀 Running FINAL AI system...");
 
   const news = await getNews();
 
@@ -250,7 +251,7 @@ setInterval(runBot, 30 * 60 * 1000);
 
 // 🌐 SERVER
 app.get("/", (req, res) => {
-  res.send("MULTI AI backend running 🚀");
+  res.send("FINAL AI backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
