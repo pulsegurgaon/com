@@ -1,40 +1,39 @@
-<!DOCTYPE html><html>
+<!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PulseGurgaon</title><style>
+<title>PulseGurgaon</title>
+
+<style>
 body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
 display:flex;justify-content:space-between;align-items:center;
-padding:15px 25px;background:white;
+padding:12px 20px;background:white;
 box-shadow:0 2px 10px rgba(0,0,0,0.08)
 }
 
-.logo{font-size:22px;font-weight:bold;color:#e11d48}
+.logo{font-size:20px;font-weight:bold;color:#e11d48}
 
-.search{border:1px solid #ddd;padding:8px 14px;border-radius:20px;width:35%}
+.search{border:1px solid #ddd;padding:8px 12px;border-radius:20px;width:40%}
 
-.admin{background:#ff7a18;border:none;color:white;padding:8px 14px;border-radius:20px;cursor:pointer}
-
-.lang{
-margin-left:10px;
-padding:8px 12px;
-border:none;
-border-radius:20px;
-cursor:pointer;
-background:#111;
-color:white;
+.admin,.lang{
+border:none;padding:8px 12px;border-radius:20px;cursor:pointer;color:white
 }
 
-.categories{display:flex;gap:20px;padding:10px 25px;background:white;border-bottom:1px solid #eee}
-.categories span{cursor:pointer;font-size:14px;color:#555}
+.admin{background:#ff7a18}
+.lang{background:#111;margin-left:5px}
+
+.categories{
+display:flex;gap:15px;padding:10px 20px;background:white;border-bottom:1px solid #eee;
+overflow-x:auto
+}
+
+.categories span{cursor:pointer;font-size:13px;color:#555}
 
 .breaking{background:#e11d48;color:white;overflow:hidden}
-.ticker{
-display:inline-block;white-space:nowrap;padding:8px 0;
-animation:scroll 60s linear infinite;
-}
+.ticker{white-space:nowrap;padding:8px;animation:scroll 60s linear infinite}
 
 @keyframes scroll{
 0%{transform:translateX(100%)}
@@ -43,135 +42,100 @@ animation:scroll 60s linear infinite;
 
 .layout{
 display:grid;grid-template-columns:3fr 1fr;
-gap:20px;padding:20px
+gap:20px;padding:15px
 }
 
-.hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:20px}
-.hero img{width:100%;height:300px;object-fit:cover}
+.hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:15px}
+.hero img{width:100%;height:280px;object-fit:cover}
 
 .heroOverlay{
-position:absolute;bottom:0;left:0;right:0;padding:25px;color:white;
-background:linear-gradient(transparent,rgba(0,0,0,0.8))
+position:absolute;bottom:0;padding:20px;color:white;
+background:linear-gradient(transparent,rgba(0,0,0,0.9))
 }
 
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 
 .card{
 background:white;border-radius:12px;overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);cursor:pointer
+box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer
 }
 
 .card img{width:100%;height:160px;object-fit:cover}
-.cardText{padding:12px}
+.cardText{padding:10px}
 
 .badge{
-font-size:11px;background:#e11d48;color:white;
-padding:3px 8px;border-radius:20px
+font-size:10px;background:#e11d48;color:white;
+padding:3px 6px;border-radius:20px
 }
 
-.sidebar{background:white;padding:15px;border-radius:10px}
+.sidebar{background:white;padding:12px;border-radius:10px}
 
-.blog{display:flex;gap:10px;margin-bottom:12px;cursor:pointer}
-.blog img{width:60px;height:50px;object-fit:cover;border-radius:5px}
+.blog{display:flex;gap:8px;margin-bottom:10px;cursor:pointer}
+.blog img{width:60px;height:50px;border-radius:5px}
 
-footer{background:#111;color:white;text-align:center;padding:25px;margin-top:40px}
+footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30px}
 
-#pagination{text-align:center;margin:20px}
+#pagination{text-align:center;margin:15px}
 #pagination button{
-margin:5px;padding:8px 12px;border:none;
-background:#eee;cursor:pointer;border-radius:6px;
+margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-radius:6px;
 }
-#pagination button.active{
-background:#e11d48;color:white;
-}
+#pagination button.active{background:#e11d48;color:white}
 
-/* 📱 MOBILE MAGIC */
-@media (max-width:768px){
+/* 📱 MOBILE */
+@media(max-width:768px){
 
-.layout{
-  grid-template-columns:1fr;
-  padding:10px;
-}
+.layout{grid-template-columns:1fr}
 
-.cards{
-  grid-template-columns:1fr;
-  gap:16px;
-}
+.cards{grid-template-columns:1fr}
 
-.card img{
-  height:200px;
-}
+.hero img{height:220px}
 
-.card{
-  border-radius:14px;
-}
-
-.cardText h3{
-  font-size:15px;
-}
-
-.cardText p{
-  font-size:13px;
-}
-
-.sidebar{
-  margin-top:20px;
-}
-
-header{
-  padding:10px;
-}
-
-.search{
-  width:55%;
-  font-size:12px;
-}
-
-.hero img{
-  height:220px;
-}
-
-.heroOverlay{
-  padding:12px;
-}
-
-.heroOverlay h2{
-  font-size:16px;
-}
-
-.heroOverlay p{
-  font-size:12px;
-}
+.search{width:55%;font-size:12px}
 
 }
-</style></head><body><header>
+</style>
+</head>
+
+<body>
+
+<header>
 <div class="logo">PulseGurgaon</div>
 <input id="searchInput" class="search" placeholder="Search news...">
 <div>
 <button class="admin" onclick="location.href='admin.html'">ADMIN</button>
 <button class="lang" onclick="toggleLang()">EN / HI</button>
 </div>
-</header><div class="categories">
+</header>
+
+<div class="categories">
 <span onclick="filterCategory('All')">All</span>
 <span onclick="filterCategory('India')">India</span>
 <span onclick="filterCategory('World')">World</span>
 <span onclick="filterCategory('Finance')">Finance</span>
 <span onclick="filterCategory('Technology')">Technology</span>
-</div><div class="breaking">
+</div>
+
+<div class="breaking">
 <div class="ticker" id="ticker"></div>
-</div><div class="layout">
+</div>
+
+<div class="layout">
 <div>
 <div class="hero" id="hero"></div>
-<h2>Latest Headlines</h2>
+<h3>Latest Headlines</h3>
 <div class="cards" id="news"></div>
 <div id="pagination"></div>
-</div><div class="sidebar">
-<h3>Trending Blogs</h3>
+</div>
+
+<div class="sidebar">
+<h4>Trending Blogs</h4>
 <div id="blogs"></div>
 </div>
-</div><footer>
-PulseGurgaon • AI Powered Local News
-</footer><script>
+</div>
+
+<footer>PulseGurgaon • AI Powered News</footer>
+
+<script>
 
 let originalArticles=[]
 let filteredArticles=[]
@@ -179,14 +143,12 @@ let currentPage=1
 const perPage=10
 let lang="en"
 
-const isMobile = window.innerWidth <= 768;
-
 // FETCH
-fetch("articles.json?v=" + Date.now())
+fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(data=>{
-originalArticles = data.articles || []
-originalArticles.sort((a,b)=> new Date(b.publishedAt||0)-new Date(a.publishedAt||0))
+originalArticles=data.articles||[]
+originalArticles.sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt))
 filteredArticles=[...originalArticles]
 render()
 updateTicker()
@@ -194,24 +156,22 @@ updateTicker()
 
 // LANGUAGE
 function toggleLang(){
-lang = lang === "en" ? "hi" : "en"
+lang = lang==="en"?"hi":"en"
 render()
 updateTicker()
 }
 
 // TEXT
 function getTitle(a){
-return a["title_"+lang] || a.title_en || a.title || "No title"
+return a["title_"+lang]||a.title_en
 }
-
 function getSummary(a){
-return a["summary_"+lang] || a.summary_en || a.summary || ""
+return a["summary_"+lang]||a.summary_en
 }
 
 // IMAGE
 function getImage(a){
-if(!a.image || a.image==="") return "https://picsum.photos/800/400"
-return a.image
+return a.image||"https://picsum.photos/800/400"
 }
 
 // RENDER
@@ -221,25 +181,12 @@ const hero=document.getElementById("hero")
 const news=document.getElementById("news")
 
 if(filteredArticles.length===0){
-hero.innerHTML=""
-news.innerHTML="<p>No news available</p>"
+news.innerHTML="No news"
 return
 }
 
-const first = filteredArticles[0]
+const first=filteredArticles[0]
 
-// HERO WITH IF
-if(isMobile){
-hero.innerHTML=`
-<div style="position:relative;border-radius:14px;overflow:hidden;">
-<img src="${getImage(first)}" style="height:220px;width:100%;object-fit:cover">
-<div style="position:absolute;bottom:0;padding:12px;color:white;background:linear-gradient(transparent,rgba(0,0,0,0.9))">
-<h2 style="font-size:16px;margin:0">${getTitle(first)}</h2>
-<p style="font-size:12px;margin-top:5px">${getSummary(first)}</p>
-</div>
-</div>
-`
-}else{
 hero.innerHTML=`
 <img src="${getImage(first)}">
 <div class="heroOverlay">
@@ -247,12 +194,10 @@ hero.innerHTML=`
 <p>${getSummary(first)}</p>
 </div>
 `
-}
 
-// PAGINATION
 const start=(currentPage-1)*perPage
 const end=start+perPage
-const pageData = filteredArticles.slice(start,end)
+const pageData=filteredArticles.slice(start,end)
 
 news.innerHTML=""
 
@@ -266,18 +211,24 @@ card.className="card"
 card.innerHTML=`
 <img src="${getImage(a)}">
 <div class="cardText">
-<span class="badge">${a.category || "General"}</span>
+<span class="badge">${a.category||"General"}</span>
 <h3>${getTitle(a)}</h3>
 <p>${getSummary(a)}</p>
 </div>
 `
 
+// 🔥 FINAL FIXED CLICK
 card.onclick=()=>{
-localStorage.setItem("currentArticle",JSON.stringify(a))
-location.href="article.html"
+
+const realIndex = originalArticles.findIndex(
+item => item.publishedAt === a.publishedAt
+)
+
+window.location.href=`article.html?id=${realIndex}`
 }
 
 news.appendChild(card)
+
 })
 
 renderPagination()
@@ -285,8 +236,10 @@ renderPagination()
 
 // PAGINATION
 function renderPagination(){
-const totalPages = Math.ceil(filteredArticles.length / perPage)
+
+const totalPages=Math.ceil(filteredArticles.length/perPage)
 const container=document.getElementById("pagination")
+
 container.innerHTML=""
 
 for(let i=1;i<=totalPages;i++){
@@ -305,19 +258,18 @@ container.appendChild(btn)
 }
 }
 
-// CATEGORY
+// FILTER
 function filterCategory(cat){
 currentPage=1
-if(cat==="All"){
-filteredArticles=[...originalArticles]
-}else{
-filteredArticles = originalArticles.filter(a=>a.category===cat)
-}
+filteredArticles = cat==="All"
+? [...originalArticles]
+: originalArticles.filter(a=>a.category===cat)
 render()
 }
 
 // SEARCH
 document.getElementById("searchInput").addEventListener("input",function(){
+
 const q=this.value.toLowerCase()
 currentPage=1
 
@@ -343,11 +295,13 @@ const blogBox=document.getElementById("blogs")
 data.blogs.forEach(b=>{
 blogBox.innerHTML+=`
 <div class="blog">
-<img src="${b.image || 'https://picsum.photos/100/80'}">
+<img src="${b.image||'https://picsum.photos/100'}">
 <span>${b.title}</span>
 </div>`
 })
 })
 
-</script></body>
+</script>
+
+</body>
 </html>
