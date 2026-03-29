@@ -34,20 +34,20 @@ function getImage(item){
   );
 }
 
-// 🧠 CATEGORY
+// 🧠 CATEGORY DETECTION (IMPROVED)
 function detectCategory(text=""){
   text = text.toLowerCase();
 
   if(/india|delhi|gurgaon/.test(text)) return "India";
-  if(/tech|ai|software/.test(text)) return "Technology";
-  if(/stock|market|finance/.test(text)) return "Finance";
-  if(/usa|china|world/.test(text)) return "World";
+  if(/ai|tech|software|startup|google|microsoft/.test(text)) return "Technology";
+  if(/stock|market|finance|economy|crypto|bitcoin/.test(text)) return "Finance";
+  if(/usa|china|world|war|global/.test(text)) return "World";
 
   return "General";
 }
 
 
-// 🤖 AI (SAFE + OPTIONAL)
+// 🤖 CLEAN AI SUMMARY
 async function aiEnhance(text){
 
   for(let key of OPENROUTER_KEYS){
@@ -65,7 +65,9 @@ async function aiEnhance(text){
           messages:[{
             role:"user",
             content:`
-Rewrite this news cleanly in 2-3 lines.
+Rewrite this news into EXACTLY 2 clean lines.
+
+NO explanation. NO "Here is". ONLY final news.
 
 News:
 ${text}
@@ -75,23 +77,72 @@ ${text}
       });
 
       const data = await res.json();
-      const output = data?.choices?.[0]?.message?.content;
+      let output = data?.choices?.[0]?.message?.content || "";
 
-      if(output && output.length > 20){
-        console.log("✅ AI used");
-        return output.trim();
+      output = output
+        .replace(/here is.*?:/gi,"")
+        .replace(/\n+/g," ")
+        .trim();
+
+      if(output.length > 20){
+        console.log("✅ AI summary");
+        return output;
       }
 
-    }catch{
-      console.log("❌ AI key failed");
-    }
+    }catch{}
   }
 
   return null;
 }
 
 
-// 🌊 RSS
+// 🤖 FULL ARTICLE
+async function aiArticle(text){
+
+  for(let key of OPENROUTER_KEYS){
+
+    try{
+
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+        method:"POST",
+        headers:{
+          "Authorization":`Bearer ${key}`,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          model:"meta-llama/llama-3-8b-instruct",
+          messages:[{
+            role:"user",
+            content:`
+Write a clean 120-150 word news article.
+
+ONLY article. NO explanation.
+
+News:
+${text}
+`
+          }]
+        })
+      });
+
+      const data = await res.json();
+      let output = data?.choices?.[0]?.message?.content || "";
+
+      output = output.replace(/\n+/g," ").trim();
+
+      if(output.length > 50){
+        console.log("📰 AI article");
+        return output;
+      }
+
+    }catch{}
+  }
+
+  return text;
+}
+
+
+// 🌊 RSS FETCH
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -118,9 +169,22 @@ async function fetchRSS(url){
 async function getNews(){
 
   const sources=[
+
+    // 🇮🇳 INDIA
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
+    "https://www.thehindu.com/news/national/feeder/default.rss",
+
+    // 🌍 WORLD
     "https://feeds.bbci.co.uk/news/world/rss.xml",
-    "https://www.thehindu.com/news/national/feeder/default.rss"
+    "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
+
+    // 💰 FINANCE
+    "https://www.moneycontrol.com/rss/latestnews.xml",
+    "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
+
+    // ⚙️ TECH
+    "https://feeds.feedburner.com/TechCrunch/",
+    "https://www.theverge.com/rss/index.xml"
   ];
 
   const results = await Promise.all(sources.map(fetchRSS));
@@ -144,17 +208,17 @@ async function getNews(){
     const title = clean(a.title);
     const raw = clean(a.description);
 
-    // 🔥 AI TRY
-    const aiSummary = await aiEnhance(raw);
+    const summary = await aiEnhance(raw);
+    const article = await aiArticle(raw);
 
     unique.push({
       id: Date.now() + Math.random(),
 
       title_en: title,
 
-      summary_en: aiSummary || raw.slice(0,150),
+      summary_en: summary || raw.slice(0,150),
 
-      article_en: raw,
+      article_en: article,
 
       image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
@@ -164,13 +228,13 @@ async function getNews(){
     });
   }
 
-  console.log("✅ Final articles:", unique.length);
+  console.log("✅ Final:", unique.length);
 
   return unique.slice(0,200);
 }
 
 
-// 🚀 GITHUB
+// 🚀 GITHUB UPDATE
 async function updateGitHub(newArticles){
 
   const url=`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -186,7 +250,7 @@ async function updateGitHub(newArticles){
   }catch{}
 
   const body={
-    message:"🔥 HYBRID AI NEWS",
+    message:"🔥 GLOBAL AI NEWS SYSTEM",
     content:Buffer.from(JSON.stringify({
       articles:newArticles,
       lastUpdated:new Date().toISOString()
@@ -209,7 +273,7 @@ async function updateGitHub(newArticles){
 
 // RUN
 async function runBot(){
-  console.log("🚀 Running hybrid system...");
+  console.log("🚀 Running GLOBAL news engine...");
   const news=await getNews();
 
   if(news.length){
@@ -223,7 +287,7 @@ setInterval(runBot,30*60*1000);
 
 // SERVER
 app.get("/",(req,res)=>{
-  res.send("Hybrid AI backend running 🚀");
+  res.send("Global AI backend running 🚀");
 });
 
 app.listen(process.env.PORT || 10000);
