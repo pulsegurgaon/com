@@ -237,37 +237,48 @@ async function getNews(){
 // 🚀 GITHUB UPDATE
 async function updateGitHub(newArticles){
 
-  const url=`https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
+  const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
 
-  let sha=null;
+  console.log("📡 Uploading to:", url);
+
+  let sha = null;
 
   try{
-    const res=await fetch(url,{
+    const res = await fetch(url,{
       headers:{ Authorization:`token ${GITHUB_TOKEN}` }
     });
-    const data=await res.json();
-    if(data.sha) sha=data.sha;
-  }catch{}
 
-  const body={
-    message:"🔥 GLOBAL AI NEWS SYSTEM",
-    content:Buffer.from(JSON.stringify({
-      articles:newArticles,
-      lastUpdated:new Date().toISOString()
-    },null,2)).toString("base64"),
+    const data = await res.json();
+    console.log("📦 GitHub GET response:", data);
+
+    if(data.sha) sha = data.sha;
+
+  }catch(e){
+    console.log("❌ GitHub fetch error:", e);
+  }
+
+  const body = {
+    message: "🔥 NEWS UPDATE",
+    content: Buffer.from(JSON.stringify({
+      articles: newArticles,
+      lastUpdated: new Date().toISOString(),
+      total: newArticles.length
+    }, null, 2)).toString("base64"),
     ...(sha && { sha })
   };
 
-  await fetch(url,{
+  const res = await fetch(url,{
     method:"PUT",
     headers:{
       Authorization:`token ${GITHUB_TOKEN}`,
       "Content-Type":"application/json"
     },
-    body:JSON.stringify(body)
+    body: JSON.stringify(body)
   });
 
-  console.log("🚀 GitHub updated");
+  const result = await res.json();
+
+  console.log("🚀 GitHub UPDATE RESPONSE:", result);
 }
 
 
