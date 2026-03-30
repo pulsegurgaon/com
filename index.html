@@ -11,38 +11,43 @@
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
     pageLanguage: 'en',
-    includedLanguages: 'hi'
+    includedLanguages: 'hi',
+    autoDisplay: false
   }, 'google_translate_element');
 }
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<script>
-// 🔥 AUTO TRANSLATE
-function autoTranslateToHindi() {
-  const interval = setInterval(() => {
-    const select = document.querySelector(".goog-te-combo");
-    if (select) {
-      select.value = "hi";
-      select.dispatchEvent(new Event("change"));
-      clearInterval(interval);
-    }
-  }, 1000);
-}
-window.addEventListener("load", autoTranslateToHindi);
-</script>
-
 <style>
 body{margin:0;font-family:Arial;background:#f4f4f6}
-header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
+
+/* 🔥 REMOVE GOOGLE BAR */
+.goog-te-banner-frame.skiptranslate { display:none !important; }
+body { top:0px !important; }
+
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:12px 20px;background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.08)
+}
+
 .logo{font-size:20px;font-weight:bold;color:#e11d48}
+
 .search{border:1px solid #ddd;padding:8px 12px;border-radius:20px;width:40%}
-.admin,.lang{border:none;padding:8px 12px;border-radius:20px;cursor:pointer;color:white}
+
+.admin,.lang{
+border:none;padding:8px 12px;border-radius:20px;cursor:pointer;color:white
+}
+
 .admin{background:#ff7a18}
 .lang{background:#111;margin-left:5px}
 
-.categories{display:flex;gap:15px;padding:10px 20px;background:white;border-bottom:1px solid #eee;overflow-x:auto}
+.categories{
+display:flex;gap:15px;padding:10px 20px;background:white;border-bottom:1px solid #eee;
+overflow-x:auto
+}
+
 .categories span{cursor:pointer;font-size:13px;color:#555}
 
 .breaking{background:#e11d48;color:white;overflow:hidden}
@@ -53,20 +58,33 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 100%{transform:translateX(-100%)}
 }
 
-.layout{display:grid;grid-template-columns:3fr 1fr;gap:20px;padding:15px}
+.layout{
+display:grid;grid-template-columns:3fr 1fr;
+gap:20px;padding:15px
+}
 
 .hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:15px}
 .hero img{width:100%;height:280px;object-fit:cover}
 
-.heroOverlay{position:absolute;bottom:0;padding:20px;color:white;background:linear-gradient(transparent,rgba(0,0,0,0.9))}
+.heroOverlay{
+position:absolute;bottom:0;padding:20px;color:white;
+background:linear-gradient(transparent,rgba(0,0,0,0.9))
+}
 
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 
-.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer}
+.card{
+background:white;border-radius:12px;overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer
+}
+
 .card img{width:100%;height:160px;object-fit:cover}
 .cardText{padding:10px}
 
-.badge{font-size:10px;background:#e11d48;color:white;padding:3px 6px;border-radius:20px}
+.badge{
+font-size:10px;background:#e11d48;color:white;
+padding:3px 6px;border-radius:20px
+}
 
 .sidebar{background:white;padding:12px;border-radius:10px}
 
@@ -76,7 +94,9 @@ header{display:flex;justify-content:space-between;align-items:center;padding:12p
 footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30px}
 
 #pagination{text-align:center;margin:15px}
-#pagination button{margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-radius:6px;}
+#pagination button{
+margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-radius:6px;
+}
 #pagination button.active{background:#e11d48;color:white}
 
 @media(max-width:768px){
@@ -95,6 +115,7 @@ footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30p
 <input id="searchInput" class="search" placeholder="Search news...">
 <div>
 <button class="admin" onclick="location.href='admin.html'">ADMIN</button>
+<button class="lang" onclick="toggleLang()">EN / HI</button>
 </div>
 </header>
 
@@ -127,6 +148,27 @@ footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30p
 <footer>PulseGurgaon • AI Powered News</footer>
 
 <script>
+
+let currentLang = "en";
+
+function toggleLang(){
+  const select = document.querySelector(".goog-te-combo");
+
+  if(!select){
+    alert("Translator loading...");
+    return;
+  }
+
+  if(currentLang === "en"){
+    select.value = "hi";
+    currentLang = "hi";
+  } else {
+    select.value = "en";
+    currentLang = "en";
+  }
+
+  select.dispatchEvent(new Event("change"));
+}
 
 let originalArticles=[]
 let filteredArticles=[]
@@ -188,7 +230,6 @@ card.innerHTML=`
 </div>
 `
 
-// 🔥 FINAL FIX
 card.onclick=()=>{
 const cleanArticle={
 title:getTitle(a),
