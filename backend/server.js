@@ -118,9 +118,14 @@ async function aiArticle(text){
   if(!text || text.length < 40) return text;
 
   const prompt = `
-Write a 120-150 word clean news article.
+const prompt = `
+Summarize this news in ONE strong headline line.
 
-ONLY article.
+STRICT:
+- No "provide"
+- No explanation
+- No extra words
+- Just one powerful line
 
 News:
 ${text}
