@@ -195,7 +195,12 @@ async function getNews(){
     seen.add(key);
 
     const title = clean(a.title);
-    const raw = safeText(a);
+    const raw = clean(a.description || a.title);
+
+if(!raw || raw.length < 40){
+  console.log("⚠️ Skipping weak news");
+  return null;
+}
 
     const [summary, article] = await Promise.all([
       aiSummary(raw),
