@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
+
 <div id="google_translate_element"></div>
 
 <script>
@@ -16,31 +17,32 @@ function googleTranslateElementInit() {
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+// 🔥 AUTO TRANSLATE
+function autoTranslateToHindi() {
+  const interval = setInterval(() => {
+    const select = document.querySelector(".goog-te-combo");
+    if (select) {
+      select.value = "hi";
+      select.dispatchEvent(new Event("change"));
+      clearInterval(interval);
+    }
+  }, 1000);
+}
+window.addEventListener("load", autoTranslateToHindi);
+</script>
+
 <style>
 body{margin:0;font-family:Arial;background:#f4f4f6}
-
-header{
-display:flex;justify-content:space-between;align-items:center;
-padding:12px 20px;background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.08)
-}
-
+header{display:flex;justify-content:space-between;align-items:center;padding:12px 20px;background:white;box-shadow:0 2px 10px rgba(0,0,0,0.08)}
 .logo{font-size:20px;font-weight:bold;color:#e11d48}
-
 .search{border:1px solid #ddd;padding:8px 12px;border-radius:20px;width:40%}
-
-.admin,.lang{
-border:none;padding:8px 12px;border-radius:20px;cursor:pointer;color:white
-}
-
+.admin,.lang{border:none;padding:8px 12px;border-radius:20px;cursor:pointer;color:white}
 .admin{background:#ff7a18}
 .lang{background:#111;margin-left:5px}
 
-.categories{
-display:flex;gap:15px;padding:10px 20px;background:white;border-bottom:1px solid #eee;
-overflow-x:auto
-}
-
+.categories{display:flex;gap:15px;padding:10px 20px;background:white;border-bottom:1px solid #eee;overflow-x:auto}
 .categories span{cursor:pointer;font-size:13px;color:#555}
 
 .breaking{background:#e11d48;color:white;overflow:hidden}
@@ -51,33 +53,20 @@ overflow-x:auto
 100%{transform:translateX(-100%)}
 }
 
-.layout{
-display:grid;grid-template-columns:3fr 1fr;
-gap:20px;padding:15px
-}
+.layout{display:grid;grid-template-columns:3fr 1fr;gap:20px;padding:15px}
 
 .hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:15px}
 .hero img{width:100%;height:280px;object-fit:cover}
 
-.heroOverlay{
-position:absolute;bottom:0;padding:20px;color:white;
-background:linear-gradient(transparent,rgba(0,0,0,0.9))
-}
+.heroOverlay{position:absolute;bottom:0;padding:20px;color:white;background:linear-gradient(transparent,rgba(0,0,0,0.9))}
 
 .cards{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 
-.card{
-background:white;border-radius:12px;overflow:hidden;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer
-}
-
+.card{background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer}
 .card img{width:100%;height:160px;object-fit:cover}
 .cardText{padding:10px}
 
-.badge{
-font-size:10px;background:#e11d48;color:white;
-padding:3px 6px;border-radius:20px
-}
+.badge{font-size:10px;background:#e11d48;color:white;padding:3px 6px;border-radius:20px}
 
 .sidebar{background:white;padding:12px;border-radius:10px}
 
@@ -87,22 +76,14 @@ padding:3px 6px;border-radius:20px
 footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30px}
 
 #pagination{text-align:center;margin:15px}
-#pagination button{
-margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-radius:6px;
-}
+#pagination button{margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-radius:6px;}
 #pagination button.active{background:#e11d48;color:white}
 
-/* 📱 MOBILE */
 @media(max-width:768px){
-
 .layout{grid-template-columns:1fr}
-
 .cards{grid-template-columns:1fr}
-
 .hero img{height:220px}
-
 .search{width:55%;font-size:12px}
-
 }
 </style>
 </head>
@@ -114,7 +95,6 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 <input id="searchInput" class="search" placeholder="Search news...">
 <div>
 <button class="admin" onclick="location.href='admin.html'">ADMIN</button>
-<button class="lang" onclick="toggleLang()">EN / HI</button>
 </div>
 </header>
 
@@ -152,9 +132,7 @@ let originalArticles=[]
 let filteredArticles=[]
 let currentPage=1
 const perPage=10
-let lang="en"
 
-// FETCH
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(data=>{
@@ -165,27 +143,10 @@ render()
 updateTicker()
 })
 
-// LANGUAGE
-function toggleLang(){
-lang = lang==="en"?"hi":"en"
-render()
-updateTicker()
-}
+function getTitle(a){ return a.title_en || "No title" }
+function getSummary(a){ return a.summary_en || "No summary" }
+function getImage(a){ return a.image || "https://picsum.photos/800/400" }
 
-// TEXT
-function getTitle(a){
-return a["title_"+lang]||a.title_en
-}
-function getSummary(a){
-return a["summary_"+lang]||a.summary_en
-}
-
-// IMAGE
-function getImage(a){
-return a.image||"https://picsum.photos/800/400"
-}
-
-// RENDER
 function render(){
 
 const hero=document.getElementById("hero")
@@ -207,8 +168,7 @@ hero.innerHTML=`
 `
 
 const start=(currentPage-1)*perPage
-const end=start+perPage
-const pageData=filteredArticles.slice(start,end)
+const pageData=filteredArticles.slice(start,start+perPage)
 
 news.innerHTML=""
 
@@ -228,14 +188,17 @@ card.innerHTML=`
 </div>
 `
 
-// 🔥 FINAL FIXED CLICK
+// 🔥 FINAL FIX
 card.onclick=()=>{
-
-const realIndex = originalArticles.findIndex(
-item => item.publishedAt === a.publishedAt
-)
-
-window.location.href=`article.html?id=${realIndex}`
+const cleanArticle={
+title:getTitle(a),
+summary:getSummary(a),
+article:a.article_en||a.summary_en||"",
+image:getImage(a),
+category:a.category||"General"
+}
+localStorage.setItem("currentArticle",JSON.stringify(cleanArticle))
+window.location.href="article.html"
 }
 
 news.appendChild(card)
@@ -245,18 +208,14 @@ news.appendChild(card)
 renderPagination()
 }
 
-// PAGINATION
 function renderPagination(){
-
 const totalPages=Math.ceil(filteredArticles.length/perPage)
 const container=document.getElementById("pagination")
-
 container.innerHTML=""
 
 for(let i=1;i<=totalPages;i++){
 const btn=document.createElement("button")
 btn.innerText=i
-
 if(i===currentPage) btn.classList.add("active")
 
 btn.onclick=()=>{
@@ -269,7 +228,6 @@ container.appendChild(btn)
 }
 }
 
-// FILTER
 function filterCategory(cat){
 currentPage=1
 filteredArticles = cat==="All"
@@ -278,9 +236,7 @@ filteredArticles = cat==="All"
 render()
 }
 
-// SEARCH
 document.getElementById("searchInput").addEventListener("input",function(){
-
 const q=this.value.toLowerCase()
 currentPage=1
 
@@ -292,25 +248,10 @@ getSummary(a).toLowerCase().includes(q)
 render()
 })
 
-// TICKER
 function updateTicker(){
 const headlines = originalArticles.slice(0,15).map(a=>getTitle(a)).join(" • ")
 document.getElementById("ticker").innerText=headlines
 }
-
-// BLOGS
-fetch("blogs.json")
-.then(r=>r.json())
-.then(data=>{
-const blogBox=document.getElementById("blogs")
-data.blogs.forEach(b=>{
-blogBox.innerHTML+=`
-<div class="blog">
-<img src="${b.image||'https://picsum.photos/100'}">
-<span>${b.title}</span>
-</div>`
-})
-})
 
 </script>
 
