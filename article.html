@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Article</title>
+
 <div id="google_translate_element"></div>
 
 <script>
@@ -16,72 +17,81 @@ function googleTranslateElementInit() {
 </script>
 
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-<style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f6;
+
+<script>
+// 🔥 AUTO TRANSLATE
+function autoTranslateToHindi() {
+  const interval = setInterval(() => {
+    const select = document.querySelector(".goog-te-combo");
+    if (select) {
+      select.value = "hi";
+      select.dispatchEvent(new Event("change"));
+      clearInterval(interval);
+    }
+  }, 1000);
 }
+window.addEventListener("load", autoTranslateToHindi);
+</script>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
-  padding:15px;
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
+padding:15px;
+background:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
-.logo{
-  font-weight:bold;
-  color:#e11d48;
-}
+.logo{font-weight:bold;color:#e11d48}
 
 .container{
-  padding:15px;
-  max-width:900px;
-  margin:auto;
+padding:15px;
+max-width:900px;
+margin:auto;
 }
 
 img{
-  width:100%;
-  border-radius:12px;
+width:100%;
+border-radius:12px;
 }
 
 .title{
-  font-size:22px;
-  margin:15px 0;
+font-size:22px;
+margin:15px 0;
 }
 
 .summary{
-  background:#fff3cd;
-  padding:12px;
-  border-radius:8px;
-  margin-bottom:15px;
-  font-weight:500;
+background:#fff3cd;
+padding:12px;
+border-radius:8px;
+margin-bottom:15px;
+font-weight:500;
 }
 
 .article{
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  line-height:1.6;
+background:white;
+padding:15px;
+border-radius:10px;
+line-height:1.6;
 }
 
 .vocab{
-  margin-top:20px;
-  background:white;
-  padding:12px;
-  border-radius:10px;
+margin-top:20px;
+background:white;
+padding:12px;
+border-radius:10px;
 }
 
 button{
-  padding:8px 12px;
-  border:none;
-  border-radius:20px;
-  background:#111;
-  color:white;
-  cursor:pointer;
+padding:8px 12px;
+border:none;
+border-radius:20px;
+background:#111;
+color:white;
+cursor:pointer;
 }
 </style>
 </head>
@@ -89,58 +99,49 @@ button{
 <body>
 
 <header>
-  <div class="logo">PulseGurgaon</div>
-  <button onclick="goBack()">← Back</button>
+<div class="logo">PulseGurgaon</div>
+<button onclick="goBack()">← Back</button>
 </header>
 
 <div class="container">
 
-  <img id="image">
+<img id="image">
 
-  <h2 class="title" id="title"></h2>
+<h2 class="title" id="title"></h2>
 
-  <div class="summary" id="summary"></div>
+<div class="summary" id="summary"></div>
 
-  <div class="article" id="article"></div>
+<div class="article" id="article"></div>
 
-  <div class="vocab" id="vocab"></div>
+<div class="vocab" id="vocab"></div>
 
 </div>
 
 <script>
 
-// 🔥 LOAD ARTICLE
-const data = JSON.parse(localStorage.getItem("currentArticle"));
+// 🔥 LOAD CLEAN DATA
+const data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
 
-if(!data){
-  document.body.innerHTML = "<h2 style='text-align:center'>No article found</h2>";
-}
-
-// SAFE FUNCTIONS
+// SAFE FUNCTION
 function safe(val){
   return val && val !== "undefined" ? val : "No data available";
 }
 
-// SET DATA
+// SET DATA (🔥 FIXED KEYS)
 document.getElementById("image").src =
   data.image || "https://picsum.photos/800/400";
 
 document.getElementById("title").innerText =
-  safe(data.title_en);
+  safe(data.title);
 
 document.getElementById("summary").innerText =
-  safe(data.summary_en);
+  safe(data.summary);
 
 document.getElementById("article").innerText =
-  safe(data.article_en);
+  safe(data.article);
 
-// VOCAB
-if(data.vocab){
-  document.getElementById("vocab").innerHTML =
-    "<b>📘 Vocabulary:</b><br>" + data.vocab;
-}else{
-  document.getElementById("vocab").style.display="none";
-}
+// HIDE VOCAB (for now clean UI)
+document.getElementById("vocab").style.display = "none";
 
 // BACK
 function goBack(){
