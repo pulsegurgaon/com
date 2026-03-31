@@ -78,7 +78,7 @@ async function aiCall(prompt){
   }
 }
 
-// AI ARTICLE (MAIN ENGINE)
+// 🤖 AI ARTICLE
 async function aiArticle(text){
 
   if(!text || text.length < 40) return null;
@@ -91,15 +91,25 @@ Return ONLY valid JSON:
 {
   "title": "",
   "summary_points": [],
+  "timeline": [],
   "article": "",
   "vocab": []
 }
 
-Rules:
-- title = 1 strong headline
-- summary_points = EXACTLY 3 short bullet points
-- article = around 200 words
-- vocab = 4 words like "word - meaning"
+STRICT RULES:
+
+- title = 1 strong powerful headline
+
+- summary_points = EXACTLY 3 bullet points (~100 words total)
+
+- timeline = EXACTLY 3 events
+
+- article = 500 words
+  - must be clean paragraphs
+  - must include EXACTLY 6 bullet points using "-"
+
+- vocab = EXACTLY 4 words with meaning
+
 - NO extra text outside JSON
 
 News:
@@ -146,7 +156,7 @@ async function fetchRSS(url){
   }
 }
 
-// MAIN ENGINE
+// 🚀 MAIN ENGINE
 async function getNews(){
 
   const sources=[
@@ -187,11 +197,26 @@ async function getNews(){
 
       title_en: ai?.title || title,
 
-      summary_points: ai?.summary_points || [],
+      summary_points: (ai?.summary_points && ai.summary_points.length >= 3)
+        ? ai.summary_points
+        : [
+            raw.slice(0, 80),
+            raw.slice(80, 160),
+            raw.slice(160, 240)
+          ],
+
+      timeline: ai?.timeline || [],
 
       article_en: ai?.article || raw,
 
-      vocab_en: ai?.vocab || [],
+      vocab_en: (ai?.vocab && ai.vocab.length)
+        ? ai.vocab
+        : [
+            "news - information",
+            "event - something that happens",
+            "report - detailed account",
+            "source - origin of information"
+          ],
 
       image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
