@@ -114,30 +114,48 @@ ${text}
 // 🤖 ARTICLE (REAL 200 WORD)
 async function aiArticle(text){
 
-  if(!text || text.length < 40) return text;
+  if(!text || text.length < 40) return null;
 
   const prompt = `
 You are a professional news writer.
 
-Write output in STRICT JSON:
+Return ONLY valid JSON:
 
 {
   "title": "",
-  "summary": "",
+  "summary_points": [],
   "article": "",
-  "vocab": ""
+  "vocab": []
 }
 
 Rules:
 - title = 1 strong headline
-- summary = 30 words
-- article = 200 words
-- vocab = 4 words with meanings (simple English)
+- summary_points = EXACTLY 3 short bullet points
+- article = around 200 words
+- vocab = 4 words like "word - meaning"
 - NO extra text outside JSON
 
 News:
 ${text}
 `;
+
+  try{
+    const raw = await aiCall(prompt);
+
+    const cleaned = raw
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
+
+    const parsed = JSON.parse(cleaned);
+
+    return parsed;
+
+  }catch(err){
+    console.log("❌ AI JSON ERROR", err);
+    return null;
+  }
+};
 
   let output = await aiCall(prompt);
 
