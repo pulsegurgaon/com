@@ -8,7 +8,7 @@
 
 <title>Article</title>
 
-<!-- 🌐 TRANSLATE -->
+<!-- 🌐 TRANSLATE (hidden) -->
 <div id="google_translate_element" style="display:none;"></div>
 
 <script>
@@ -29,6 +29,7 @@ body{
   background:#f4f4f6;
 }
 
+/* HEADER */
 header{
   padding:15px;
   background:white;
@@ -64,7 +65,6 @@ img{
   padding:12px;
   border-radius:8px;
   margin-bottom:15px;
-  font-weight:500;
 }
 
 .article{
@@ -74,6 +74,59 @@ img{
   line-height:1.6;
 }
 
+/* 🔥 TIMELINE */
+.timeline{
+  margin-top:20px;
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  position:relative;
+}
+
+.timeline-line{
+  position:absolute;
+  left:18px;
+  top:40px;
+  width:4px;
+  height:0;
+  background:linear-gradient(#e11d48,#ff6b81);
+  border-radius:10px;
+  transition:height 1s ease;
+}
+
+.timeline-item{
+  display:flex;
+  align-items:flex-start;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.5s ease;
+}
+
+.timeline-item.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.dot{
+  width:30px;
+  height:30px;
+  background:#fff;
+  border:3px solid #e11d48;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-right:12px;
+  font-size:14px;
+}
+
+.timeline-text{
+  font-size:14px;
+  flex:1;
+}
+
+/* VOCAB */
 .vocab{
   margin-top:20px;
   background:white;
@@ -113,6 +166,13 @@ button{
 
   <div class="article" id="article"></div>
 
+  <!-- 🔥 TIMELINE -->
+  <div class="timeline" id="timeline">
+    <h3>📍 Timeline</h3>
+    <div class="timeline-line" id="timelineLine"></div>
+    <div id="timelineList"></div>
+  </div>
+
   <div class="vocab" id="vocab">
     <h3>📘 Vocabulary</h3>
     <ul id="vocabList"></ul>
@@ -122,7 +182,7 @@ button{
 
 <script>
 
-// 🌐 LANGUAGE TOGGLE
+// 🌐 LANGUAGE TOGGLE (NO AUTO SWITCH)
 let currentLang = "en";
 
 function toggleLang(){
@@ -144,7 +204,7 @@ function toggleLang(){
   select.dispatchEvent(new Event("change"));
 }
 
-// LOAD DATA
+// 🔥 LOAD DATA
 const data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
 
 // IMAGE
@@ -155,12 +215,12 @@ document.getElementById("image").src =
 document.getElementById("title").innerText =
   data.title_en || "No title";
 
-// SUMMARY (🔥 BULLETS)
+// SUMMARY (BULLETS)
 const summaryBox = document.getElementById("summary");
 
 if(data.summary_points && data.summary_points.length){
   summaryBox.innerHTML = `
-    <ul style="padding-left:18px;">
+    <ul>
       ${data.summary_points.map(p => `<li>${p}</li>`).join("")}
     </ul>
   `;
@@ -168,7 +228,7 @@ if(data.summary_points && data.summary_points.length){
   summaryBox.innerText = "No summary available";
 }
 
-// ARTICLE (🔥 PARAGRAPHS)
+// ARTICLE (PARAGRAPHS)
 let article = data.article_en || "";
 
 const paragraphs = article
@@ -178,7 +238,38 @@ const paragraphs = article
 document.getElementById("article").innerHTML =
   paragraphs.map(p => `<p>${p}.</p>`).join("");
 
-// VOCAB (🔥 SHOW IT)
+// 🔥 TIMELINE ENGINE
+const timelineList = document.getElementById("timelineList");
+const timelineContainer = document.getElementById("timeline");
+
+const icons = ["🔥","⚠️","📊","🚨","📢","🧠"];
+
+if(data.timeline && data.timeline.length){
+
+  timelineList.innerHTML = data.timeline.map((t,i)=>`
+    <div class="timeline-item">
+      <div class="dot">${icons[i % icons.length]}</div>
+      <div class="timeline-text">${t}</div>
+    </div>
+  `).join("");
+
+  setTimeout(()=>{
+    document.querySelectorAll(".timeline-item").forEach((el,i)=>{
+      setTimeout(()=>{
+        el.classList.add("show");
+      }, i*200);
+    });
+
+    document.getElementById("timelineLine").style.height =
+      timelineList.offsetHeight + "px";
+
+  },300);
+
+}else{
+  timelineContainer.style.display = "none";
+}
+
+// VOCAB
 const vocabList = document.getElementById("vocabList");
 
 if(data.vocab_en && data.vocab_en.length){
