@@ -207,17 +207,22 @@ async function getNews(){
     const ai = await aiArticle(raw);
 
     return {
-      id: Date.now() + Math.random(),
+  id: Date.now() + Math.random(),
 
-      title_en: ai?.title || title,
-      summary_en: ai?.summary || raw.slice(0,120),
-      article_en: ai?.article || raw,
-      vocab_en: ai?.vocab || "",
+  title_en: ai?.title || title,
 
-      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
-      category: detectCategory(title + raw),
-      publishedAt: a.publishedAt
-    };
+  summary_points: ai?.summary_points || [],
+
+  article_en: ai?.article || raw,
+
+  vocab_en: ai?.vocab || [],
+
+  image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
+
+  category: detectCategory(title + raw),
+
+  publishedAt: a.publishedAt
+};
 
   }));
 
