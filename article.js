@@ -67,28 +67,14 @@ document.getElementById("article").innerHTML =
 
 
 // 📘 VOCAB
-const vocabBox = document.getElementById("vocab");
 const vocabList = document.getElementById("vocabList");
 
-// If backend gives vocab → use it
-if(data.vocab && data.vocab.length > 5){
+if(data.vocab_en && data.vocab_en.length){
 
-  const lines = data.vocab.split("\n").slice(0,4);
-
-  vocabList.innerHTML = lines.map(l => `<li>${l}</li>`).join("");
-
-} else if(article){
-
-  // fallback vocab (basic)
-  const words = article
-    .replace(/[^\w\s]/g,"")
-    .split(" ")
-    .filter(w => w.length > 6);
-
-  const unique = [...new Set(words)].slice(0,4);
-
-  vocabList.innerHTML = unique.map(w => `<li><b>${w}</b></li>`).join("");
+  vocabList.innerHTML = data.vocab_en
+    .map(v => `<li>${v}</li>`)
+    .join("");
 
 } else {
-  vocabBox.style.display = "none";
+  document.getElementById("vocab").style.display = "none";
 }
