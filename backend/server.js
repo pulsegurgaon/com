@@ -25,12 +25,12 @@ function getKey(){
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
-// 🧹 CLEAN
+// CLEAN
 function clean(text=""){
   return text.replace(/<[^>]*>?/gm,"").trim();
 }
 
-// 🖼️ IMAGE
+// IMAGE
 function getImage(item){
   return (
     item.enclosure?.[0]?.$.url ||
@@ -40,7 +40,7 @@ function getImage(item){
   );
 }
 
-// 🧠 CATEGORY
+// CATEGORY
 function detectCategory(text=""){
   text = text.toLowerCase();
 
@@ -52,7 +52,7 @@ function detectCategory(text=""){
   return "General";
 }
 
-// 🤖 AI CALL
+// AI CALL
 async function aiCall(prompt){
 
   const key = getKey();
@@ -78,40 +78,7 @@ async function aiCall(prompt){
   }
 }
 
-// 🤖 SUMMARY (2 LINE)
-async function aiSummary(text){
-
-  if(!text || text.length < 40) return null;
-
-  const prompt = `
-You are a professional news writer.
-
-Return STRICT JSON:
-
-{
-  "title": "",
-  "summary_points": [],
-  "article": "",
-  "vocab": []
-}
-
-Rules:
-- title = 1 powerful headline
-- summary_points = EXACTLY 3 bullet points (short, clear)
-- article = 200 words, clean paragraphs
-- vocab = 4 words with meaning (simple English)
-- NO extra text outside JSON
-
-News:
-${text}
-`;
-
-  let output = await aiCall(prompt);
-
-  return output.replace(/\n+/g," ").trim();
-}
-
-// 🤖 ARTICLE (REAL 200 WORD)
+// AI ARTICLE (MAIN ENGINE)
 async function aiArticle(text){
 
   if(!text || text.length < 40) return null;
@@ -152,21 +119,12 @@ ${text}
     return parsed;
 
   }catch(err){
-    console.log("❌ AI JSON ERROR", err);
-    return null;
-  }
-};
-
-  let output = await aiCall(prompt);
-
-  try{
-    return JSON.parse(output);
-  }catch{
+    console.log("❌ AI JSON ERROR");
     return null;
   }
 }
 
-// 🌊 RSS
+// RSS
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -188,7 +146,7 @@ async function fetchRSS(url){
   }
 }
 
-// 🧠 MAIN ENGINE
+// MAIN ENGINE
 async function getNews(){
 
   const sources=[
@@ -225,29 +183,29 @@ async function getNews(){
     const ai = await aiArticle(raw);
 
     return {
-  id: Date.now() + Math.random(),
+      id: Date.now() + Math.random(),
 
-  title_en: ai?.title || title,
+      title_en: ai?.title || title,
 
-  summary_points: ai?.summary_points || [],
+      summary_points: ai?.summary_points || [],
 
-  article_en: ai?.article || raw,
+      article_en: ai?.article || raw,
 
-  vocab_en: ai?.vocab || [],
+      vocab_en: ai?.vocab || [],
 
-  image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
+      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
-  category: detectCategory(title + raw),
+      category: detectCategory(title + raw),
 
-  publishedAt: a.publishedAt
-};
+      publishedAt: a.publishedAt
+    };
 
   }));
 
   return processed.filter(Boolean).slice(0,200);
 }
 
-// 🚀 GITHUB SAVE
+// GITHUB SAVE
 async function updateGitHub(newArticles){
 
   const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -284,7 +242,7 @@ async function updateGitHub(newArticles){
   console.log("✅ GitHub updated");
 }
 
-// 🚀 RUN
+// RUN
 async function runBot(){
   console.log("🚀 Running...");
   const news = await getNews();
