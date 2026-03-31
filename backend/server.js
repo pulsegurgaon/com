@@ -84,33 +84,26 @@ async function aiArticle(text){
   if(!text || text.length < 40) return null;
 
   const prompt = `
-You are a professional news writer.
+You are a strict JSON API.
 
-Return ONLY valid JSON:
+Return ONLY valid JSON. No explanation.
 
 {
-  "title": "",
-  "summary_points": [],
-  "timeline": [],
-  "article": "",
-  "vocab": []
+  "title": "string",
+  "summary_points": ["point1","point2","point3"],
+  "article": "500 word detailed news article",
+  "timeline": ["step1","step2","step3","step4","step5","step6"],
+  "vocab": ["word - meaning","word - meaning","word - meaning","word - meaning"]
 }
 
-STRICT RULES:
-
-- title = 1 strong powerful headline
-
-- summary_points = EXACTLY 3 bullet points (~100 words total)
-
-- timeline = EXACTLY 3 events
-
-- article = 500 words
-  - must be clean paragraphs
-  - must include EXACTLY 6 bullet points using "-"
-
-- vocab = EXACTLY 4 words with meaning
-
-- NO extra text outside JSON
+Rules:
+- summary_points = EXACTLY 3
+- article = ~500 words
+- timeline = EXACTLY 6 points
+- vocab = EXACTLY 4 words
+- NO extra text
+- NO markdown
+- NO explanation
 
 News:
 ${text}
@@ -122,6 +115,8 @@ ${text}
     const cleaned = raw
       .replace(/```json/gi, "")
       .replace(/```/g, "")
+      .replace(/^[^{]*/, "")   // 🔥 remove garbage before JSON
+      .replace(/[^}]*$/, "")   // 🔥 remove garbage after JSON
       .trim();
 
     const parsed = JSON.parse(cleaned);
@@ -129,7 +124,7 @@ ${text}
     return parsed;
 
   }catch(err){
-    console.log("❌ AI JSON ERROR");
+    console.log("❌ AI JSON ERROR FIXED FAIL:", err);
     return null;
   }
 }
@@ -193,39 +188,46 @@ async function getNews(){
     const ai = await aiArticle(raw);
 
     return {
-      id: Date.now() + Math.random(),
+  id: Date.now() + Math.random(),
 
-      title_en: ai?.title || title,
+  title_en: ai?.title || title,
 
-      summary_points: (ai?.summary_points && ai.summary_points.length >= 3)
-        ? ai.summary_points
-        : [
-            raw.slice(0, 80),
-            raw.slice(80, 160),
-            raw.slice(160, 240)
-          ],
+  summary_points: (ai?.summary_points && ai.summary_points.length >= 3)
+    ? ai.summary_points
+    : [
+        raw.slice(0,80),
+        raw.slice(80,160),
+        raw.slice(160,240)
+      ],
 
-      timeline: ai?.timeline || [],
+  article_en: ai?.article || raw,
 
-      article_en: ai?.article || raw,
+  timeline: (ai?.timeline && ai.timeline.length >= 6)
+    ? ai.timeline
+    : [
+        "Event started",
+        "Situation escalated",
+        "Authorities responded",
+        "Public reaction grew",
+        "Current status developing",
+        "Next steps expected"
+      ],
 
-      vocab_en: (ai?.vocab && ai.vocab.length)
-        ? ai.vocab
-        : [
-            "news - information",
-            "event - something that happens",
-            "report - detailed account",
-            "source - origin of information"
-          ],
+  vocab_en: (ai?.vocab && ai.vocab.length)
+    ? ai.vocab
+    : [
+        "news - information",
+        "event - something that happens",
+        "report - detailed account",
+        "source - origin of info"
+      ],
 
-      image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
+  image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
-      category: detectCategory(title + raw),
+  category: detectCategory(title + raw),
 
-      publishedAt: a.publishedAt
-    };
-
-  }));
+  publishedAt: a.publishedAt
+};
 
   return processed.filter(Boolean).slice(0,200);
 }
