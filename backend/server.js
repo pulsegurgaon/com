@@ -84,9 +84,23 @@ async function aiSummary(text){
   if(!text || text.length < 40) return null;
 
   const prompt = `
-Rewrite this news into EXACTLY 2 clean lines.
+You are a professional news writer.
 
-No explanation. No intro.
+Return STRICT JSON:
+
+{
+  "title": "",
+  "summary_points": [],
+  "article": "",
+  "vocab": []
+}
+
+Rules:
+- title = 1 powerful headline
+- summary_points = EXACTLY 3 bullet points (short, clear)
+- article = 200 words, clean paragraphs
+- vocab = 4 words with meaning (simple English)
+- NO extra text outside JSON
 
 News:
 ${text}
