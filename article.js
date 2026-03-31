@@ -27,7 +27,19 @@ if(
   summary = "Quick summary not available.";
 }
 
-document.getElementById("summary").innerText = summary;
+const summaryBox = document.getElementById("summary");
+
+if(data.summary_points && data.summary_points.length){
+
+  summaryBox.innerHTML = `
+    <ul style="padding-left:18px;">
+      ${data.summary_points.map(p => `<li>${p}</li>`).join("")}
+    </ul>
+  `;
+
+} else {
+  summaryBox.innerText = "No summary available.";
+}
 
 
 // 📖 ARTICLE (CLEAN + FORMAT)
