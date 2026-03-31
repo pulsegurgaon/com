@@ -15,15 +15,15 @@ const OPENROUTER_KEYS = [
   process.env.OPENROUTER_KEY_6
 ].filter(Boolean);
 
-const REPO = "pulsegurgaon/com";
-const FILE_PATH = "articles.json";
-
 let keyIndex = 0;
 function getKey(){
   const key = OPENROUTER_KEYS[keyIndex % OPENROUTER_KEYS.length];
   keyIndex++;
   return key;
 }
+
+const REPO = "pulsegurgaon/com";
+const FILE_PATH = "articles.json";
 
 // 🧹 CLEAN
 function clean(text=""){
@@ -52,15 +52,6 @@ function detectCategory(text=""){
   return "General";
 }
 
-// 🧠 SAFE TEXT
-function safeText(a){
-  const desc = clean(a.description || "");
-  const title = clean(a.title || "");
-
-  if(desc.length > 40) return desc;
-  return title;
-}
-
 // 🤖 AI CALL
 async function aiCall(prompt){
 
@@ -87,15 +78,15 @@ async function aiCall(prompt){
   }
 }
 
-// 🤖 SUMMARY
+// 🤖 SUMMARY (2 LINE)
 async function aiSummary(text){
 
   if(!text || text.length < 40) return null;
 
   const prompt = `
-Rewrite into EXACTLY 2 lines.
+Rewrite this news into EXACTLY 2 clean lines.
 
-NO intro. NO explanation.
+No explanation. No intro.
 
 News:
 ${text}
@@ -103,29 +94,32 @@ ${text}
 
   let output = await aiCall(prompt);
 
-  output = output
-    .replace(/here is.*?/gi,"")
-    .replace(/provide.*?/gi,"")
-    .replace(/\n+/g," ")
-    .trim();
-
-  return output.length > 20 ? output : null;
+  return output.replace(/\n+/g," ").trim();
 }
 
-// 🤖 ARTICLE
+// 🤖 ARTICLE (REAL 200 WORD)
 async function aiArticle(text){
 
   if(!text || text.length < 40) return text;
 
   const prompt = `
-const prompt = `
-Summarize this news in ONE strong headline line.
+You are a professional news writer.
 
-STRICT:
-- No "provide"
-- No explanation
-- No extra words
-- Just one powerful line
+Write output in STRICT JSON:
+
+{
+  "title": "",
+  "summary": "",
+  "article": "",
+  "vocab": ""
+}
+
+Rules:
+- title = 1 strong headline
+- summary = 30 words
+- article = 200 words
+- vocab = 4 words with meanings (simple English)
+- NO extra text outside JSON
 
 News:
 ${text}
@@ -133,9 +127,11 @@ ${text}
 
   let output = await aiCall(prompt);
 
-  output = output.replace(/\n+/g," ").trim();
-
-  return output.length > 80 ? output : text;
+  try{
+    return JSON.parse(output);
+  }catch{
+    return null;
+  }
 }
 
 // 🌊 RSS
@@ -160,32 +156,22 @@ async function fetchRSS(url){
   }
 }
 
-// 🧠 MAIN ENGINE (PARALLEL ⚡)
+// 🧠 MAIN ENGINE
 async function getNews(){
 
   const sources=[
-
-    // 🇮🇳 INDIA
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
     "https://www.thehindu.com/news/national/feeder/default.rss",
-
-    // 🌍 WORLD
     "https://feeds.bbci.co.uk/news/world/rss.xml",
     "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
-
-    // 💰 FINANCE
     "https://www.moneycontrol.com/rss/latestnews.xml",
     "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
-
-    // ⚙️ TECH
     "https://feeds.feedburner.com/TechCrunch/",
     "https://www.theverge.com/rss/index.xml"
   ];
 
   const results = await Promise.all(sources.map(fetchRSS));
   const all = results.flat();
-
-  console.log("📰 Raw fetched:", all.length);
 
   const seen = new Set();
 
@@ -202,40 +188,29 @@ async function getNews(){
     const title = clean(a.title);
     const raw = clean(a.description || a.title);
 
-if(!raw || raw.length < 40){
-  console.log("⚠️ Skipping weak news");
-  return null;
-}
+    if(!raw || raw.length < 40) return null;
 
-    const [summary, article] = await Promise.all([
-      aiSummary(raw),
-      aiArticle(raw)
-    ]);
+    const ai = await aiArticle(raw);
 
     return {
       id: Date.now() + Math.random(),
 
-      title_en: title,
-      summary_en: summary || raw.slice(0,150),
-      article_en: article,
+      title_en: ai?.title || title,
+      summary_en: ai?.summary || raw.slice(0,120),
+      article_en: ai?.article || raw,
+      vocab_en: ai?.vocab || "",
 
       image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
-
       category: detectCategory(title + raw),
-
       publishedAt: a.publishedAt
     };
 
   }));
 
-  const final = processed.filter(Boolean).slice(0,200);
-
-  console.log("✅ Final articles:", final.length);
-
-  return final;
+  return processed.filter(Boolean).slice(0,200);
 }
 
-// 🚀 GITHUB
+// 🚀 GITHUB SAVE
 async function updateGitHub(newArticles){
 
   const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -249,15 +224,13 @@ async function updateGitHub(newArticles){
 
     const data = await res.json();
     if(data.sha) sha = data.sha;
-
   }catch{}
 
   const body = {
     message: "🔥 AUTO NEWS UPDATE",
     content: Buffer.from(JSON.stringify({
       articles:newArticles,
-      lastUpdated:new Date().toISOString(),
-      total:newArticles.length
+      updated:new Date().toISOString()
     }, null, 2)).toString("base64"),
     ...(sha && { sha })
   };
@@ -271,18 +244,18 @@ async function updateGitHub(newArticles){
     body: JSON.stringify(body)
   });
 
-  console.log("🚀 GitHub updated");
+  console.log("✅ GitHub updated");
 }
 
-// RUN
+// 🚀 RUN
 async function runBot(){
-  console.log("🚀 Running POWER news engine...");
+  console.log("🚀 Running...");
   const news = await getNews();
 
   if(news.length){
     await updateGitHub(news);
   }else{
-    console.log("❌ No news generated");
+    console.log("❌ No news");
   }
 }
 
@@ -291,7 +264,7 @@ setInterval(runBot,30*60*1000);
 
 // SERVER
 app.get("/",(req,res)=>{
-  res.send("🔥 AI News Engine Running");
+  res.send("🔥 AI News Running");
 });
 
 app.listen(process.env.PORT || 10000);
