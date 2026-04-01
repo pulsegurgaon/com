@@ -31,9 +31,12 @@ function clean(text = "") {
 }
 
 function getImage(item) {
-  return item.enclosure?.[0]?.$.url ||
-         item["media:content"]?.[0]?.$.url ||
-         item["media:thumbnail"]?.[0]?.$.url || "";
+  return (
+    item.enclosure?.[0]?.$.url ||
+    item["media:content"]?.[0]?.$.url ||
+    item["media:thumbnail"]?.[0]?.$.url ||
+    ""
+  );
 }
 
 function detectCategory(text = "") {
@@ -45,13 +48,14 @@ function detectCategory(text = "") {
   return "General";
 }
 
-const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// AI Call with rate limit protection
+// AI Call with better error handling
 async function aiCall(prompt) {
-  for (let i = 0; i < OPENROUTER_KEYS.length * 2; i++) {
+  for (let i = 0; i < OPENROUTER_KEYS.length * 3; i++) {
     try {
       const key = getKey();
+
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
@@ -70,69 +74,82 @@ async function aiCall(prompt) {
       });
 
       if (res.status === 429) {
-        console.log("⏳ 429 Rate limit - waiting 10s...");
+        console.log("⏳ Rate limit 429 - waiting 10 seconds...");
         await sleep(10000);
         continue;
       }
-      if (!res.ok) continue;
+
+      if (!res.ok) {
+        console.log(`API error: ${res.status}`);
+        continue;
+      }
 
       const data = await res.json();
       return data?.choices?.[0]?.message?.content || "";
-    } catch (e) {
+    } catch (err) {
       console.log("🔁 AI retry...");
     }
   }
   return "";
 }
 
-// 500-word AI Article
-async function aiArticle(text) {
-  if (!text || text.length < 60) return null;
+// Beast Mode AI Article (500 words)
+async function aiArticle(rawText) {
+  if (!rawText || rawText.length < 60) return null;
 
   const prompt = `
-You are a professional news journalist. Create a detailed 500-word article.
+You are a professional news journalist. Convert the news into a detailed article.
 
-Respond with ONLY valid JSON in this exact format. No extra text.
+Respond with ONLY valid JSON. No extra text, no explanations.
 
 {
-  "title": "Catchy title",
-  "summary_points": ["point 1", "point 2", "point 3"],
-  "article": "Full 450-550 word detailed article with multiple paragraphs...",
-  "timeline": ["event1", "event2", "event3", "event4", "event5", "event6"],
-  "vocab": ["word1 - meaning", "word2 - meaning", "word3 - meaning", "word4 - meaning"]
+  "title": "Catchy, clear title",
+  "summary_points": ["Point 1", "Point 2", "Point 3"],
+  "article": "Write a full 450-550 word detailed news article here with multiple paragraphs...",
+  "timeline": ["Event 1", "Event 2", "Event 3", "Event 4", "Event 5", "Event 6"],
+  "vocab": ["word1 - short meaning", "word2 - short meaning", "word3 - short meaning", "word4 - short meaning"]
 }
 
-News: ${text}
+News text: ${rawText}
 `;
 
   let attempts = 0;
-  while (attempts < 3) {
+  while (attempts < 4) {
     attempts++;
     const raw = await aiCall(prompt);
     if (!raw) continue;
 
-    console.log(`[BEAST Raw Attempt ${attempts}]: ${raw.substring(0, 300)}...`);
+    console.log(`[BEAST Raw Attempt ${attempts}]: ${raw.substring(0, 350)}...`);
 
-    let cleaned = raw.replace(/```json|```/gi, "").trim();
+    let cleaned = raw
+      .replace(/```json|```/gi, "")
+      .replace(/^\s*[\w\s:,-]*\s*/i, "")
+      .trim();
+
     const start = cleaned.indexOf("{");
     const end = cleaned.lastIndexOf("}");
-    if (start !== -1 && end > start) cleaned = cleaned.substring(start, end + 1);
+    if (start !== -1 && end > start) {
+      cleaned = cleaned.substring(start, end + 1);
+    }
 
     try {
       const parsed = JSON.parse(cleaned);
       const wordCount = parsed.article ? parsed.article.split(/\s+/).length : 0;
 
-      if (parsed.title && Array.isArray(parsed.summary_points) && wordCount >= 400) {
-        console.log(`✅ Generated ${wordCount} word article`);
+      if (parsed.title && Array.isArray(parsed.summary_points) && wordCount >= 380) {
+        console.log(`✅ Success: ${wordCount} words`);
         return parsed;
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log(`JSON parse failed on attempt ${attempts}`);
+    }
   }
-  console.log("❌ JSON failed");
+
+  console.log("❌ JSON failed after 4 attempts");
   return null;
 }
 
-// RSS
+// RSS Fetch
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -145,12 +162,13 @@ async function fetchRSS(url) {
       image: getImage(item),
       publishedAt: item.pubDate?.[0] || new Date().toISOString()
     }));
-  } catch {
+  } catch (e) {
+    console.log("RSS failed for", url);
     return [];
   }
 }
 
-// Main Engine - Safe & Slow
+// Main Engine
 async function getNews() {
   const sources = [
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
@@ -161,17 +179,18 @@ async function getNews() {
     "https://feeds.feedburner.com/TechCrunch/"
   ];
 
-  console.log("🚀 Starting Beast Mode news fetch...");
+  console.log("🚀 Starting Beast Mode...");
+
   const results = await Promise.all(sources.map(fetchRSS));
   const all = results.flat();
 
   const seen = new Set();
   const processed = [];
 
-  for (const a of all.slice(0, 35)) {
+  for (const a of all.slice(0, 30)) {
     if (!a.title) continue;
 
-    const key = (a.title + a.description).toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 100);
+    const key = (a.title + (a.description || "")).toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 100);
     if (seen.has(key)) continue;
     seen.add(key);
 
@@ -182,15 +201,35 @@ async function getNews() {
     console.log(`Processing → ${title.substring(0, 80)}...`);
 
     let aiData = await aiArticle(raw);
-    await sleep(2500);   // ← Critical delay to avoid 429
+
+    await sleep(2800); // ← Important delay to avoid 429 errors
 
     if (!aiData) {
+      // Strong fallback to prevent "string.string.string"
       aiData = {
         title: title,
-        summary_points: [raw.slice(0,110), raw.slice(110,220), raw.slice(220,330)],
-        article: raw.length > 1000 ? raw : raw + "\n\nDetailed coverage and analysis continues...",
-        timeline: ["Event occurred", "Details emerged", "Response initiated", "Impact observed", "Further updates expected", "Situation monitored"],
-        vocab: ["impact - effect", "report - statement", "source - origin", "develop - unfold"]
+        summary_points: [
+          "Major developments reported in the story",
+          "Authorities and stakeholders have responded",
+          "Further updates are expected soon"
+        ],
+        article: raw.length > 400 
+          ? raw 
+          : raw + "\n\nThe situation continues to develop with more details emerging. Officials are monitoring closely and more information is expected in the coming hours.",
+        timeline: [
+          "Event was reported",
+          "Initial reactions came in",
+          "Authorities responded",
+          "Details continued to emerge",
+          "Public interest increased",
+          "Further updates expected"
+        ],
+        vocab: [
+          "impact - strong effect",
+          "response - official action",
+          "monitor - watch carefully",
+          "develop - happen over time"
+        ]
       };
     }
 
@@ -206,26 +245,28 @@ async function getNews() {
       publishedAt: a.publishedAt
     });
 
-    if (processed.length >= 18) break;   // Safe limit
+    if (processed.length >= 20) break;
   }
 
-  console.log(`✅ Beast Mode completed with ${processed.length} articles`);
+  console.log(`✅ Beast Mode finished with ${processed.length} articles`);
   return processed;
 }
 
-// GitHub Update
+// Update GitHub
 async function updateGitHub(newArticles) {
   const url = `https://api.github.com/repos/\( {REPO}/contents/ \){FILE_PATH}`;
   let sha = null;
 
   try {
-    const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
+    const res = await fetch(url, {
+      headers: { Authorization: `token ${GITHUB_TOKEN}` }
+    });
     const data = await res.json();
     if (data.sha) sha = data.sha;
-  } catch {}
+  } catch (e) {}
 
   const body = {
-    message: `🔥 Beast 500-word Update - ${newArticles.length} articles`,
+    message: `🔥 Beast Update - ${newArticles.length} articles`,
     content: Buffer.from(JSON.stringify({
       articles: newArticles,
       updated: new Date().toISOString()
@@ -233,37 +274,44 @@ async function updateGitHub(newArticles) {
     ...(sha && { sha })
   };
 
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(body)
-  });
-  console.log("✅ GitHub updated successfully");
+  try {
+    await fetch(url, {
+      method: "PUT",
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(body)
+    });
+    console.log("✅ GitHub updated successfully");
+  } catch (e) {
+    console.log("❌ GitHub update failed");
+  }
 }
 
-// Run
+// Run Bot
 async function runBot() {
-  console.log("🚀 Running Beast Mode update...");
+  console.log("🚀 Starting news update...");
   const news = await getNews();
+
   if (news.length > 5) {
     global.articles = news;
     await updateGitHub(news);
+  } else {
+    console.log("❌ Not enough articles generated");
   }
 }
 
 runBot();
-setInterval(runBot, 35 * 60 * 1000);  // 35 minutes
+setInterval(runBot, 40 * 60 * 1000); // 40 minutes
 
 app.get("/force-run", async (req, res) => {
   await runBot();
-  res.send("🔥 Beast Mode force run completed");
+  res.send("🔥 Force run completed - check logs");
 });
 
 app.get("/", (req, res) => {
-  res.send(`Beast Mode Server Running | Articles: ${global.articles?.length || 0}`);
+  res.send(`🔥 PulseGurgaon Backend Running | Articles: ${global.articles?.length || 0}`);
 });
 
 app.listen(PORT, "0.0.0.0", () => {
