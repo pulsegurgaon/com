@@ -3,12 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google" content="notranslate">
-<meta http-equiv="Content-Language" content="en">
-
 <title>Article - PulseGurgaon</title>
 
-<!-- 🌐 TRANSLATE -->
 <div id="google_translate_element" style="display:none;"></div>
 
 <script>
@@ -22,138 +18,43 @@ function googleTranslateElementInit() {
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f6;
-  line-height:1.6;
-}
-
-/* HEADER */
-header{
-  padding:15px;
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+body { margin:0; font-family:Arial; background:#f4f4f6; line-height:1.7; }
+header {
+  padding:15px; background:white; display:flex; justify-content:space-between; align-items:center;
   box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
+.logo { font-weight:bold; color:#e11d48; font-size:20px; }
+.container { padding:15px; max-width:900px; margin:auto; }
 
-.logo{
-  font-weight:bold;
-  color:#e11d48;
-  font-size:20px;
+img { width:100%; border-radius:12px; margin-bottom:15px; }
+.title { font-size:24px; margin:15px 0 12px 0; color:#222; }
+
+.summary {
+  background:#fff3cd; padding:14px; border-radius:8px; margin-bottom:20px;
 }
-
-.container{
-  padding:15px;
-  max-width:900px;
-  margin:auto;
+.article {
+  background:white; padding:18px; border-radius:10px; font-size:16.5px;
 }
+.article p { margin-bottom:18px; }
 
-img{
-  width:100%;
-  border-radius:12px;
-  margin-bottom:15px;
+.timeline, .vocab {
+  margin-top:25px; background:white; padding:18px; border-radius:12px;
 }
+.timeline h3, .vocab h3 { margin-top:0; }
 
-.title{
-  font-size:24px;
-  margin:15px 0 10px 0;
-  color:#222;
+.timeline-item {
+  display:flex; align-items:flex-start; margin-bottom:20px;
 }
-
-.summary{
-  background:#fff3cd;
-  padding:14px;
-  border-radius:8px;
-  margin-bottom:20px;
+.dot {
+  width:32px; height:32px; background:#fff; border:3px solid #e11d48;
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  margin-right:14px; font-size:15px; flex-shrink:0;
 }
+.vocab ul { padding-left:20px; }
 
-.article{
-  background:white;
-  padding:18px;
-  border-radius:10px;
-  font-size:16px;
-}
-
-.article p {
-  margin-bottom: 18px;
-}
-
-/* TIMELINE */
-.timeline{
-  margin-top:25px;
-  background:white;
-  padding:18px;
-  border-radius:12px;
-  position:relative;
-}
-
-.timeline h3 {
-  margin-top:0;
-}
-
-.timeline-line{
-  position:absolute;
-  left:22px;
-  top:55px;
-  width:4px;
-  background:linear-gradient(#e11d48,#ff6b81);
-  border-radius:10px;
-  transition:height 1s ease;
-}
-
-.timeline-item{
-  display:flex;
-  align-items:flex-start;
-  margin-bottom:22px;
-  opacity:0;
-  transform:translateY(15px);
-  transition:all 0.5s ease;
-}
-
-.timeline-item.show{
-  opacity:1;
-  transform:translateY(0);
-}
-
-.dot{
-  width:32px;
-  height:32px;
-  background:#fff;
-  border:3px solid #e11d48;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  margin-right:14px;
-  font-size:15px;
-  flex-shrink:0;
-}
-
-.timeline-text{
-  font-size:15px;
-  flex:1;
-  padding-top:4px;
-}
-
-/* VOCAB */
-.vocab{
-  margin-top:25px;
-  background:white;
-  padding:16px;
-  border-radius:10px;
-}
-
-button{
-  padding:9px 14px;
-  border:none;
-  border-radius:20px;
-  background:#111;
-  color:white;
-  cursor:pointer;
-  margin-left:8px;
+button {
+  padding:9px 14px; border:none; border-radius:20px; background:#111; color:white;
+  cursor:pointer; margin-left:8px;
 }
 </style>
 </head>
@@ -170,7 +71,7 @@ button{
 
 <div class="container">
 
-  <img id="image" alt="Article Image">
+  <img id="image" alt="News Image">
 
   <h1 class="title" id="title"></h1>
 
@@ -179,14 +80,13 @@ button{
   <div class="article" id="article"></div>
 
   <!-- Timeline -->
-  <div class="timeline" id="timeline">
+  <div class="timeline" id="timelineSection">
     <h3>📍 Timeline</h3>
-    <div class="timeline-line" id="timelineLine"></div>
     <div id="timelineList"></div>
   </div>
 
   <!-- Vocabulary -->
-  <div class="vocab" id="vocab">
+  <div class="vocab" id="vocabSection">
     <h3>📘 Vocabulary</h3>
     <ul id="vocabList"></ul>
   </div>
@@ -194,118 +94,76 @@ button{
 </div>
 
 <script>
-// Load article from localStorage
-let data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
+// Load data
+const data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
 
-if (!data || Object.keys(data).length === 0) {
-  document.body.innerHTML = `<h2 style="text-align:center;margin-top:100px;color:#e11d48;">⚠️ No article data found. Go back and select an article.</h2>`;
+if (!data || !data.title) {
+  document.body.innerHTML = `<h2 style="text-align:center;margin-top:80px;color:#e11d48;">No article found. Please go back.</h2>`;
+  throw new Error("No data");
 }
 
-// Safe getter
-function safe(val) {
-  return (val && val !== "undefined" && val !== "null") ? val : "";
-}
+// Safe value
+function safe(val) { return val && val !== "undefined" && val !== "null" ? val : ""; }
 
 // Image
 document.getElementById("image").src = safe(data.image) || "https://picsum.photos/800/450";
 
 // Title
-document.getElementById("title").innerText = 
-  safe(data.title_en) || safe(data.title) || "No title available";
+document.getElementById("title").innerText = safe(data.title_en) || safe(data.title) || "No title";
 
-// Summary (using summary_points)
-const summaryBox = document.getElementById("summary");
-if (data.summary_points && Array.isArray(data.summary_points) && data.summary_points.length > 0) {
-  summaryBox.innerHTML = `
-    <ul style="padding-left:20px;margin:0;">
-      \( {data.summary_points.map(p => `<li> \){p}</li>`).join("")}
-    </ul>
-  `;
+// Summary Points
+const summaryEl = document.getElementById("summary");
+if (data.summary_points && Array.isArray(data.summary_points) && data.summary_points.length) {
+  summaryEl.innerHTML = `<ul style="padding-left:20px;">\( {data.summary_points.map(p => `<li> \){p}</li>`).join("")}</ul>`;
 } else {
-  summaryBox.innerHTML = `<p>No summary available.</p>`;
+  summaryEl.innerHTML = `<p>${safe(data.summary) || "Summary not available"}</p>`;
 }
 
-// Full Article (500 words)
+// Full Article
 const articleEl = document.getElementById("article");
 let articleText = safe(data.article_en) || safe(data.article) || "";
 
 if (articleText.length > 100) {
-  // Clean unwanted AI phrases
-  articleText = articleText
-    .replace(/please provide.*?/gi, "")
-    .replace(/i will rewrite.*?/gi, "")
-    .replace(/here is the.*?article/gi, "")
-    .trim();
-
-  const paragraphs = articleText
-    .split(/\.\s+/)
-    .filter(p => p.trim().length > 25)
-    .map(p => `<p>${p.trim()}.</p>`);
-
-  articleEl.innerHTML = paragraphs.join("");
+  articleText = articleText.replace(/please provide.*?/gi, "").replace(/here is.*?article/gi, "").trim();
+  const paragraphs = articleText.split(/\.\s+/).filter(p => p.length > 25);
+  articleEl.innerHTML = paragraphs.map(p => `<p>${p.trim()}.</p>`).join("");
 } else {
-  articleEl.innerHTML = "<p>Full article content is not available at the moment.</p>";
+  articleEl.innerHTML = "<p>Full article content is loading...</p>";
 }
 
 // Timeline
-const timelineContainer = document.getElementById("timeline");
+const timelineSection = document.getElementById("timelineSection");
 const timelineList = document.getElementById("timelineList");
-const timelineLine = document.getElementById("timelineLine");
-
-const icons = ["🔥", "⚠️", "📊", "🚨", "📢", "🧠"];
-
-if (data.timeline && Array.isArray(data.timeline) && data.timeline.length > 0) {
+if (data.timeline && Array.isArray(data.timeline) && data.timeline.length) {
   timelineList.innerHTML = data.timeline.map((t, i) => `
     <div class="timeline-item">
-      <div class="dot">${icons[i % icons.length]}</div>
-      <div class="timeline-text">${t}</div>
+      <div class="dot">${["🔥","⚠️","📊","🚨","📢","🧠"][i % 6]}</div>
+      <div>${t}</div>
     </div>
   `).join("");
-
-  // Animate timeline
-  setTimeout(() => {
-    document.querySelectorAll(".timeline-item").forEach((el, i) => {
-      setTimeout(() => {
-        el.classList.add("show");
-      }, i * 180);
-    });
-
-    // Set line height
-    timelineLine.style.height = (timelineList.offsetHeight + 30) + "px";
-  }, 400);
 } else {
-  timelineContainer.style.display = "none";
+  timelineSection.style.display = "none";
 }
 
 // Vocabulary
-const vocabSection = document.getElementById("vocab");
+const vocabSection = document.getElementById("vocabSection");
 const vocabList = document.getElementById("vocabList");
-
-if (data.vocab_en && Array.isArray(data.vocab_en) && data.vocab_en.length > 0) {
+if (data.vocab_en && Array.isArray(data.vocab_en) && data.vocab_en.length) {
   vocabList.innerHTML = data.vocab_en.map(v => `<li>${v}</li>`).join("");
 } else {
   vocabSection.style.display = "none";
 }
 
-// Language Toggle
+// Language & Back
 let currentLang = "en";
 function toggleLang() {
   const select = document.querySelector(".goog-te-combo");
-  if (!select) {
-    alert("Translator is still loading...");
-    return;
-  }
-  if (currentLang === "en") {
-    select.value = "hi";
-    currentLang = "hi";
-  } else {
-    select.value = "en";
-    currentLang = "en";
-  }
+  if (!select) return alert("Translator still loading...");
+  select.value = currentLang === "en" ? "hi" : "en";
+  currentLang = currentLang === "en" ? "hi" : "en";
   select.dispatchEvent(new Event("change"));
 }
 
-// Back button
 function goBack() {
   window.history.back();
 }
