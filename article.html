@@ -205,8 +205,11 @@ function toggleLang(){
 }
 
 // 🔥 LOAD DATA
-const data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
+let data = JSON.parse(localStorage.getItem("currentArticle") || "null");
 
+if(!data){
+  document.body.innerHTML = "<h2 style='text-align:center;margin-top:50px;'>⚠️ No article loaded</h2>";
+}
 // IMAGE
 document.getElementById("image").src =
   data.image || "https://picsum.photos/800/400";
