@@ -86,12 +86,12 @@ async function aiArticle(text){
   const prompt = `
 You are a strict JSON API.
 
-Return ONLY valid JSON. No explanation.
+Return ONLY valid JSON:
 
 {
   "title": "string",
   "summary_points": ["point1","point2","point3"],
-  "article": "500 word detailed news article",
+  "article": "500 word detailed news",
   "timeline": ["step1","step2","step3","step4","step5","step6"],
   "vocab": ["word - meaning","word - meaning","word - meaning","word - meaning"]
 }
@@ -102,8 +102,6 @@ Rules:
 - timeline = EXACTLY 6 points
 - vocab = EXACTLY 4 words
 - NO extra text
-- NO markdown
-- NO explanation
 
 News:
 ${text}
@@ -115,16 +113,14 @@ ${text}
     const cleaned = raw
       .replace(/```json/gi, "")
       .replace(/```/g, "")
-      .replace(/^[^{]*/, "")   // 🔥 remove garbage before JSON
-      .replace(/[^}]*$/, "")   // 🔥 remove garbage after JSON
+      .replace(/^[^{]*/, "")
+      .replace(/[^}]*$/, "")
       .trim();
 
-    const parsed = JSON.parse(cleaned);
-
-    return parsed;
+    return JSON.parse(cleaned);
 
   }catch(err){
-    console.log("❌ AI JSON ERROR FIXED FAIL:", err);
+    console.log("❌ AI JSON ERROR:", err);
     return null;
   }
 }
