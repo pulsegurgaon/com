@@ -4,6 +4,8 @@ import { parseStringPromise } from "xml2js";
 
 const app = express();
 
+const PORT = process.env.PORT || 10000;
+
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const OPENROUTER_KEYS = [
@@ -11,8 +13,7 @@ const OPENROUTER_KEYS = [
   process.env.OPENROUTER_KEY_2,
   process.env.OPENROUTER_KEY_3,
   process.env.OPENROUTER_KEY_4,
-  process.env.OPENROUTER_KEY_5,
-  process.env.OPENROUTER_KEY_6
+  process.env.OPENROUTER_KEY_5
 ].filter(Boolean);
 
 let keyIndex = 0;
@@ -25,12 +26,10 @@ function getKey(){
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
-// CLEAN
 function clean(text=""){
   return text.replace(/<[^>]*>?/gm,"").trim();
 }
 
-// IMAGE
 function getImage(item){
   return (
     item.enclosure?.[0]?.$.url ||
@@ -40,68 +39,66 @@ function getImage(item){
   );
 }
 
-// CATEGORY
 function detectCategory(text=""){
   text = text.toLowerCase();
 
   if(/india|delhi|gurgaon/.test(text)) return "India";
-  if(/ai|tech|software|startup|google|microsoft/.test(text)) return "Technology";
-  if(/stock|market|finance|economy|crypto|bitcoin/.test(text)) return "Finance";
-  if(/usa|china|war|global|world/.test(text)) return "World";
+  if(/stock|market|finance|crypto|economy/.test(text)) return "Finance";
+  if(/ai|tech|software|startup/.test(text)) return "Technology";
+  if(/usa|china|war|world/.test(text)) return "World";
 
   return "General";
 }
 
-// AI CALL
+// 🔥 AI CALL WITH RETRY
 async function aiCall(prompt){
 
-  const key = getKey();
+  for(let i=0;i<OPENROUTER_KEYS.length;i++){
 
-  try{
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
-      method:"POST",
-      headers:{
-        "Authorization":`Bearer ${key}`,
-        "Content-Type":"application/json"
-      },
-      body:JSON.stringify({
-        model:"meta-llama/llama-3-8b-instruct",
-        messages:[{ role:"user", content:prompt }]
-      })
-    });
+    try{
+      const key = getKey();
 
-    const data = await res.json();
-    return data?.choices?.[0]?.message?.content || "";
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+        method:"POST",
+        headers:{
+          "Authorization":`Bearer ${key}`,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          model:"meta-llama/llama-3-8b-instruct",
+          messages:[{ role:"user", content:prompt }]
+        })
+      });
 
-  }catch{
-    return "";
+      const data = await res.json();
+
+      if(data?.choices?.[0]?.message?.content){
+        return data.choices[0].message.content;
+      }
+
+    }catch(e){
+      console.log("AI retry...");
+    }
   }
+
+  return "";
 }
 
-// 🤖 AI ARTICLE
+// 🔥 AI ARTICLE
 async function aiArticle(text){
 
   if(!text || text.length < 40) return null;
 
   const prompt = `
-You are a strict JSON API.
-
-Return ONLY valid JSON:
+Return ONLY JSON:
 
 {
-  "title": "string",
-  "summary_points": ["point1","point2","point3"],
-  "article": "500 word detailed news",
-  "timeline": ["step1","step2","step3","step4","step5","step6"],
-  "vocab": ["word - meaning","word - meaning","word - meaning","word - meaning"]
+"title":"string",
+"summary_points":["","",""],
+"article":"500 words",
+"timeline":["","","","","",""],
+"vocab":["","","",""]
 }
-
-Rules:
-- summary_points = EXACTLY 3
-- article = ~500 words
-- timeline = EXACTLY 6 points
-- vocab = EXACTLY 4 words
-- NO extra text
 
 News:
 ${text}
@@ -111,16 +108,16 @@ ${text}
     const raw = await aiCall(prompt);
 
     const cleaned = raw
-      .replace(/```json/gi, "")
-      .replace(/```/g, "")
-      .replace(/^[^{]*/, "")
-      .replace(/[^}]*$/, "")
+      .replace(/```json/gi,"")
+      .replace(/```/g,"")
+      .replace(/^[^{]*/,"")
+      .replace(/[^}]*$/,"")
       .trim();
 
     return JSON.parse(cleaned);
 
-  }catch(err){
-    console.log("❌ AI JSON ERROR:", err);
+  }catch(e){
+    console.log("AI JSON ERROR");
     return null;
   }
 }
@@ -142,7 +139,6 @@ async function fetchRSS(url){
     }));
 
   }catch{
-    console.log("❌ RSS failed:", url);
     return [];
   }
 }
@@ -166,69 +162,81 @@ async function getNews(){
 
   const seen = new Set();
 
-  const processed = await Promise.all(all.map(async (a)=>{
+  const processed = await Promise.all(
+    all.map(async (a)=>{
 
-    const key=(a.title+a.description)
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g,"")
-      .slice(0,80);
+      const key=(a.title+a.description)
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g,"")
+        .slice(0,80);
 
-    if(!a.title || seen.has(key)) return null;
-    seen.add(key);
+      if(!a.title || seen.has(key)) return null;
+      seen.add(key);
 
-    const title = clean(a.title);
-    const raw = clean(a.description || a.title);
+      const title = clean(a.title);
+      const raw = clean(a.description || a.title);
 
-    if(!raw || raw.length < 40) return null;
+      if(raw.length < 40) return null;
 
-    const ai = await aiArticle(raw);
+      const ai = await aiArticle(raw);
 
-    return {
-  id: Date.now() + Math.random(),
+      return {
+        id: Date.now() + Math.random(),
 
-  title_en: ai?.title || title,
+        title_en: ai?.title || title,
 
-  summary_points: (ai?.summary_points && ai.summary_points.length >= 3)
-    ? ai.summary_points
-    : [
-        raw.slice(0,80),
-        raw.slice(80,160),
-        raw.slice(160,240)
-      ],
+        summary_points: ai?.summary_points || [
+          raw.slice(0,80),
+          raw.slice(80,160),
+          raw.slice(160,240)
+        ],
 
-  article_en: ai?.article || raw,
+        article_en: ai?.article || raw,
 
-  timeline: (ai?.timeline && ai.timeline.length >= 6)
-    ? ai.timeline
-    : [
-        "Event started",
-        "Situation escalated",
-        "Authorities responded",
-        "Public reaction grew",
-        "Current status developing",
-        "Next steps expected"
-      ],
+        timeline: ai?.timeline || [
+          "Event started",
+          "Situation escalated",
+          "Authorities responded",
+          "Public reacted",
+          "Developments ongoing",
+          "Next steps expected"
+        ],
 
-  vocab_en: (ai?.vocab && ai.vocab.length)
-    ? ai.vocab
-    : [
-        "news - information",
-        "event - something that happens",
-        "report - detailed account",
-        "source - origin of info"
-      ],
+        vocab_en: ai?.vocab || [
+          "event - happening",
+          "report - detailed info",
+          "source - origin",
+          "impact - effect"
+        ],
 
-  image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
+        image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
 
-  category: detectCategory(title + raw),
+        category: detectCategory(title + raw),
 
-  publishedAt: a.publishedAt
-};
+        publishedAt: a.publishedAt
+      };
 
-  return processed.filter(Boolean).slice(0,200);
+    })
+  );
+
+  return processed.filter(Boolean).slice(0,150);
 }
 
-// GITHUB SAVE
+// 🔍 SEARCH API (🔥 IMPORTANT)
+app.get("/search",(req,res)=>{
+  const q = (req.query.q || "").toLowerCase();
+
+  if(!global.articles) return res.json([]);
+
+  const filtered = global.articles.filter(a =>
+    a.title_en.toLowerCase().includes(q) ||
+    a.article_en.toLowerCase().includes(q)
+  );
+
+  res.json(filtered.slice(0,20));
+});
+
+// 💾 GITHUB SAVE
 async function updateGitHub(newArticles){
 
   const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -265,24 +273,29 @@ async function updateGitHub(newArticles){
   console.log("✅ GitHub updated");
 }
 
-// RUN
+// 🤖 RUN BOT
 async function runBot(){
-  console.log("🚀 Running...");
+  console.log("🚀 Running bot...");
+
   const news = await getNews();
 
   if(news.length){
+    global.articles = news;
     await updateGitHub(news);
   }else{
-    console.log("❌ No news");
+    console.log("❌ No news fetched");
   }
 }
 
+// 🔁 AUTO RUN
 runBot();
-setInterval(runBot,30*60*1000);
+setInterval(runBot, 30 * 60 * 1000);
 
-// SERVER
+// 🌐 SERVER
 app.get("/",(req,res)=>{
-  res.send("🔥 AI News Running");
+  res.send("🔥 AI News Server Running");
 });
 
-app.listen(process.env.PORT || 10000);
+app.listen(PORT,()=>{
+  console.log("Server running on port", PORT);
+});
