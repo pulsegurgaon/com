@@ -18,9 +18,7 @@ const OPENROUTER_KEYS = [
 
 let keyIndex = 0;
 function getKey() {
-  const key = OPENROUTER_KEYS[keyIndex % OPENROUTER_KEYS.length];
-  keyIndex++;
-  return key;
+  return OPENROUTER_KEYS[keyIndex++ % OPENROUTER_KEYS.length];
 }
 
 const REPO = "pulsegurgaon/com";
@@ -31,12 +29,7 @@ function clean(text = "") {
 }
 
 function getImage(item) {
-  return (
-    item.enclosure?.[0]?.$.url ||
-    item["media:content"]?.[0]?.$.url ||
-    item["media:thumbnail"]?.[0]?.$.url ||
-    ""
-  );
+  return item.enclosure?.[0]?.\( .url || item["media:content"]?.[0]?. \).url || item["media:thumbnail"]?.[0]?.$.url || "";
 }
 
 function detectCategory(text = "") {
@@ -48,20 +41,18 @@ function detectCategory(text = "") {
   return "General";
 }
 
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-// AI Call with better error handling
+// AI Call
 async function aiCall(prompt) {
   for (let i = 0; i < OPENROUTER_KEYS.length * 3; i++) {
     try {
-      const key = getKey();
-
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${key}`,
+          "Authorization": `Bearer ${getKey()}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "https://gurgaon.github.io",
+          "HTTP-Referer": "https://pulsegurgaon.github.io/com/",   // ← Fixed for your site
           "X-Title": "PulseGurgaon"
         },
         body: JSON.stringify({
@@ -74,82 +65,61 @@ async function aiCall(prompt) {
       });
 
       if (res.status === 429) {
-        console.log("⏳ Rate limit 429 - waiting 10 seconds...");
+        console.log("⏳ 429 Rate limit - waiting 10s...");
         await sleep(10000);
         continue;
       }
-
-      if (!res.ok) {
-        console.log(`API error: ${res.status}`);
-        continue;
-      }
+      if (!res.ok) continue;
 
       const data = await res.json();
       return data?.choices?.[0]?.message?.content || "";
-    } catch (err) {
+    } catch (e) {
       console.log("🔁 AI retry...");
     }
   }
   return "";
 }
 
-// Beast Mode AI Article (500 words)
+// AI Article
 async function aiArticle(rawText) {
   if (!rawText || rawText.length < 60) return null;
 
-  const prompt = `
-You are a professional news journalist. Convert the news into a detailed article.
-
-Respond with ONLY valid JSON. No extra text, no explanations.
+  const prompt = `Return ONLY valid JSON, nothing else:
 
 {
-  "title": "Catchy, clear title",
-  "summary_points": ["Point 1", "Point 2", "Point 3"],
-  "article": "Write a full 450-550 word detailed news article here with multiple paragraphs...",
-  "timeline": ["Event 1", "Event 2", "Event 3", "Event 4", "Event 5", "Event 6"],
-  "vocab": ["word1 - short meaning", "word2 - short meaning", "word3 - short meaning", "word4 - short meaning"]
+  "title": "Clear title",
+  "summary_points": ["point 1", "point 2", "point 3"],
+  "article": "Full 450-550 word detailed article here...",
+  "timeline": ["event1", "event2", "event3", "event4", "event5", "event6"],
+  "vocab": ["word1 - meaning", "word2 - meaning", "word3 - meaning", "word4 - meaning"]
 }
 
-News text: ${rawText}
-`;
+News: ${rawText}`;
 
-  let attempts = 0;
-  while (attempts < 4) {
-    attempts++;
+  for (let attempt = 1; attempt <= 4; attempt++) {
     const raw = await aiCall(prompt);
     if (!raw) continue;
 
-    console.log(`[BEAST Raw Attempt ${attempts}]: ${raw.substring(0, 350)}...`);
+    console.log(`[BEAST Attempt ${attempt}] Raw: ${raw.substring(0, 250)}...`);
 
-    let cleaned = raw
-      .replace(/```json|```/gi, "")
-      .replace(/^\s*[\w\s:,-]*\s*/i, "")
-      .trim();
-
+    let cleaned = raw.replace(/```json|```/gi, "").trim();
     const start = cleaned.indexOf("{");
     const end = cleaned.lastIndexOf("}");
-    if (start !== -1 && end > start) {
-      cleaned = cleaned.substring(start, end + 1);
-    }
+    if (start !== -1 && end > start) cleaned = cleaned.substring(start, end + 1);
 
     try {
       const parsed = JSON.parse(cleaned);
-      const wordCount = parsed.article ? parsed.article.split(/\s+/).length : 0;
-
-      if (parsed.title && Array.isArray(parsed.summary_points) && wordCount >= 380) {
-        console.log(`✅ Success: ${wordCount} words`);
+      if (parsed.title && Array.isArray(parsed.summary_points) && parsed.article?.length > 200) {
+        console.log(`✅ Good article generated (${parsed.article.split(" ").length} words)`);
         return parsed;
       }
-    } catch (e) {
-      console.log(`JSON parse failed on attempt ${attempts}`);
-    }
+    } catch (e) {}
   }
-
-  console.log("❌ JSON failed after 4 attempts");
+  console.log("❌ JSON failed");
   return null;
 }
 
-// RSS Fetch
+// RSS
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -162,8 +132,7 @@ async function fetchRSS(url) {
       image: getImage(item),
       publishedAt: item.pubDate?.[0] || new Date().toISOString()
     }));
-  } catch (e) {
-    console.log("RSS failed for", url);
+  } catch {
     return [];
   }
 }
@@ -179,7 +148,7 @@ async function getNews() {
     "https://feeds.feedburner.com/TechCrunch/"
   ];
 
-  console.log("🚀 Starting Beast Mode...");
+  console.log("🚀 Starting fresh Beast Mode...");
 
   const results = await Promise.all(sources.map(fetchRSS));
   const all = results.flat();
@@ -190,7 +159,7 @@ async function getNews() {
   for (const a of all.slice(0, 30)) {
     if (!a.title) continue;
 
-    const key = (a.title + (a.description || "")).toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 100);
+    const key = (a.title + a.description).toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 100);
     if (seen.has(key)) continue;
     seen.add(key);
 
@@ -198,38 +167,18 @@ async function getNews() {
     const raw = clean(a.description || a.title);
     if (raw.length < 60) continue;
 
-    console.log(`Processing → ${title.substring(0, 80)}...`);
+    console.log(`→ Processing: ${title.substring(0, 80)}...`);
 
     let aiData = await aiArticle(raw);
-
-    await sleep(2800); // ← Important delay to avoid 429 errors
+    await sleep(3000); // delay to reduce 429
 
     if (!aiData) {
-      // Strong fallback to prevent "string.string.string"
       aiData = {
         title: title,
-        summary_points: [
-          "Major developments reported in the story",
-          "Authorities and stakeholders have responded",
-          "Further updates are expected soon"
-        ],
-        article: raw.length > 400 
-          ? raw 
-          : raw + "\n\nThe situation continues to develop with more details emerging. Officials are monitoring closely and more information is expected in the coming hours.",
-        timeline: [
-          "Event was reported",
-          "Initial reactions came in",
-          "Authorities responded",
-          "Details continued to emerge",
-          "Public interest increased",
-          "Further updates expected"
-        ],
-        vocab: [
-          "impact - strong effect",
-          "response - official action",
-          "monitor - watch carefully",
-          "develop - happen over time"
-        ]
+        summary_points: ["Major developments reported", "Officials have responded", "More updates expected"],
+        article: raw + "\n\nThe situation is still developing. Authorities are monitoring closely and further details are expected soon.",
+        timeline: ["Event reported", "Response initiated", "Details emerged", "Impact observed", "Further updates expected", "Situation monitored"],
+        vocab: ["impact - effect", "response - action", "monitor - watch", "develop - unfold"]
       };
     }
 
@@ -245,37 +194,40 @@ async function getNews() {
       publishedAt: a.publishedAt
     });
 
-    if (processed.length >= 20) break;
+    if (processed.length >= 18) break;
   }
 
-  console.log(`✅ Beast Mode finished with ${processed.length} articles`);
+  console.log(`✅ Finished with ${processed.length} articles`);
   return processed;
 }
 
-// Update GitHub
+// GitHub Update - Fixed version
 async function updateGitHub(newArticles) {
   const url = `https://api.github.com/repos/\( {REPO}/contents/ \){FILE_PATH}`;
-  let sha = null;
 
+  let sha = null;
   try {
-    const res = await fetch(url, {
-      headers: { Authorization: `token ${GITHUB_TOKEN}` }
-    });
+    const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
     const data = await res.json();
     if (data.sha) sha = data.sha;
-  } catch (e) {}
+  } catch (e) {
+    console.log("SHA fetch failed, will create new file");
+  }
+
+  const contentObj = {
+    articles: newArticles,
+    updated: new Date().toISOString(),
+    count: newArticles.length
+  };
 
   const body = {
-    message: `🔥 Beast Update - ${newArticles.length} articles`,
-    content: Buffer.from(JSON.stringify({
-      articles: newArticles,
-      updated: new Date().toISOString()
-    }, null, 2)).toString("base64"),
+    message: `🔥 Fresh Beast Update - ${newArticles.length} articles`,
+    content: Buffer.from(JSON.stringify(contentObj, null, 2)).toString("base64"),
     ...(sha && { sha })
   };
 
   try {
-    await fetch(url, {
+    const res = await fetch(url, {
       method: "PUT",
       headers: {
         Authorization: `token ${GITHUB_TOKEN}`,
@@ -283,37 +235,40 @@ async function updateGitHub(newArticles) {
       },
       body: JSON.stringify(body)
     });
-    console.log("✅ GitHub updated successfully");
+
+    if (res.ok) {
+      console.log("✅ Successfully saved to articles.json");
+    } else {
+      console.log("❌ GitHub save failed:", res.status);
+    }
   } catch (e) {
-    console.log("❌ GitHub update failed");
+    console.log("❌ GitHub update error");
   }
 }
 
-// Run Bot
+// Run
 async function runBot() {
-  console.log("🚀 Starting news update...");
+  console.log("🚀 Running news update...");
   const news = await getNews();
 
   if (news.length > 5) {
     global.articles = news;
     await updateGitHub(news);
   } else {
-    console.log("❌ Not enough articles generated");
+    console.log("❌ Too few articles generated");
   }
 }
 
 runBot();
-setInterval(runBot, 40 * 60 * 1000); // 40 minutes
+setInterval(runBot, 40 * 60 * 1000);
 
 app.get("/force-run", async (req, res) => {
   await runBot();
-  res.send("🔥 Force run completed - check logs");
+  res.send("Force run started - check logs");
 });
 
-app.get("/", (req, res) => {
-  res.send(`🔥 PulseGurgaon Backend Running | Articles: ${global.articles?.length || 0}`);
-});
+app.get("/", (req, res) => res.send("PulseGurgaon Backend Running"));
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🔥 Server running on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
