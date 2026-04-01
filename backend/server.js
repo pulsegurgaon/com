@@ -31,8 +31,8 @@ function clean(text = "") {
 }
 
 function getImage(item) {
-  return item.enclosure?.[0]?.$.url || 
-         item["media:content"]?.[0]?.$.url || 
+  return item.enclosure?.[0]?.$.url ||
+         item["media:content"]?.[0]?.$.url ||
          item["media:thumbnail"]?.[0]?.$.url || "";
 }
 
@@ -45,22 +45,20 @@ function detectCategory(text = "") {
   return "General";
 }
 
-// Sleep helper to avoid 429
-const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
-// Beast AI Call
+// AI Call with rate limit protection
 async function aiCall(prompt) {
   for (let i = 0; i < OPENROUTER_KEYS.length * 2; i++) {
     try {
       const key = getKey();
-
       const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${key}`,
           "Content-Type": "application/json",
           "HTTP-Referer": "https://gurgaon.github.io",
-          "X-Title": "PulseGurgaon Beast"
+          "X-Title": "PulseGurgaon"
         },
         body: JSON.stringify({
           model: "meta-llama/llama-3-8b-instruct",
@@ -72,38 +70,34 @@ async function aiCall(prompt) {
       });
 
       if (res.status === 429) {
-        console.log("⏳ Rate limit 429 - waiting 8 seconds...");
-        await sleep(8000);
+        console.log("⏳ 429 Rate limit - waiting 10s...");
+        await sleep(10000);
         continue;
       }
-
-      if (!res.ok) {
-        console.log(`API error ${res.status}`);
-        continue;
-      }
+      if (!res.ok) continue;
 
       const data = await res.json();
       return data?.choices?.[0]?.message?.content || "";
-    } catch (err) {
+    } catch (e) {
       console.log("🔁 AI retry...");
     }
   }
   return "";
 }
 
-// Beast AI Article (500 words)
+// 500-word AI Article
 async function aiArticle(text) {
   if (!text || text.length < 60) return null;
 
   const prompt = `
-You are a top journalist. Create a detailed 500-word news article.
+You are a professional news journalist. Create a detailed 500-word article.
 
-Respond with ONLY this exact JSON format. No extra text.
+Respond with ONLY valid JSON in this exact format. No extra text.
 
 {
-  "title": "Catchy SEO title",
-  "summary_points": ["point1", "point2", "point3"],
-  "article": "Write full 450-550 word detailed article here with multiple paragraphs...",
+  "title": "Catchy title",
+  "summary_points": ["point 1", "point 2", "point 3"],
+  "article": "Full 450-550 word detailed article with multiple paragraphs...",
   "timeline": ["event1", "event2", "event3", "event4", "event5", "event6"],
   "vocab": ["word1 - meaning", "word2 - meaning", "word3 - meaning", "word4 - meaning"]
 }
@@ -117,7 +111,7 @@ News: ${text}
     const raw = await aiCall(prompt);
     if (!raw) continue;
 
-    console.log(`[BEAST AI Raw - Attempt ${attempts}]:`, raw.substring(0, 350) + "...");
+    console.log(`[BEAST Raw Attempt ${attempts}]: ${raw.substring(0, 300)}...`);
 
     let cleaned = raw.replace(/```json|```/gi, "").trim();
     const start = cleaned.indexOf("{");
@@ -128,18 +122,17 @@ News: ${text}
       const parsed = JSON.parse(cleaned);
       const wordCount = parsed.article ? parsed.article.split(/\s+/).length : 0;
 
-      if (parsed.title && Array.isArray(parsed.summary_points) && wordCount > 400) {
-        console.log(`✅ Success: ${wordCount} words generated`);
+      if (parsed.title && Array.isArray(parsed.summary_points) && wordCount >= 400) {
+        console.log(`✅ Generated ${wordCount} word article`);
         return parsed;
       }
     } catch (e) {}
   }
-
-  console.log("❌ AI JSON failed after retries");
+  console.log("❌ JSON failed");
   return null;
 }
 
-// RSS Fetch
+// RSS
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -157,9 +150,9 @@ async function fetchRSS(url) {
   }
 }
 
-// Main Beast Engine
+// Main Engine - Safe & Slow
 async function getNews() {
-  const sources = [ /* your previous sources + a few more if you want */ 
+  const sources = [
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
     "https://www.thehindu.com/news/national/feeder/default.rss",
     "https://feeds.bbci.co.uk/news/world/rss.xml",
@@ -168,14 +161,14 @@ async function getNews() {
     "https://feeds.feedburner.com/TechCrunch/"
   ];
 
-  console.log("🚀 Fetching RSS...");
+  console.log("🚀 Starting Beast Mode news fetch...");
   const results = await Promise.all(sources.map(fetchRSS));
-  let all = results.flat();
+  const all = results.flat();
 
   const seen = new Set();
   const processed = [];
 
-  for (const a of all.slice(0, 35)) {           // process one by one to avoid rate limits
+  for (const a of all.slice(0, 35)) {
     if (!a.title) continue;
 
     const key = (a.title + a.description).toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 100);
@@ -186,13 +179,19 @@ async function getNews() {
     const raw = clean(a.description || a.title);
     if (raw.length < 60) continue;
 
-    console.log(`Processing: ${title.substring(0, 80)}...`);
+    console.log(`Processing → ${title.substring(0, 80)}...`);
 
     let aiData = await aiArticle(raw);
-    await sleep(1500);        // ← Important delay to prevent 429
+    await sleep(2500);   // ← Critical delay to avoid 429
 
     if (!aiData) {
-      aiData = { title, summary_points: [], article: raw, timeline: [], vocab: [] };
+      aiData = {
+        title: title,
+        summary_points: [raw.slice(0,110), raw.slice(110,220), raw.slice(220,330)],
+        article: raw.length > 1000 ? raw : raw + "\n\nDetailed coverage and analysis continues...",
+        timeline: ["Event occurred", "Details emerged", "Response initiated", "Impact observed", "Further updates expected", "Situation monitored"],
+        vocab: ["impact - effect", "report - statement", "source - origin", "develop - unfold"]
+      };
     }
 
     processed.push({
@@ -207,20 +206,20 @@ async function getNews() {
       publishedAt: a.publishedAt
     });
 
-    if (processed.length >= 25) break;   // limit to 25 high-quality articles per run
+    if (processed.length >= 18) break;   // Safe limit
   }
 
-  console.log(`✅ Beast Mode finished with ${processed.length} articles`);
+  console.log(`✅ Beast Mode completed with ${processed.length} articles`);
   return processed;
 }
 
-// GitHub Update (unchanged but improved message)
+// GitHub Update
 async function updateGitHub(newArticles) {
   const url = `https://api.github.com/repos/\( {REPO}/contents/ \){FILE_PATH}`;
   let sha = null;
 
   try {
-    const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` }});
+    const res = await fetch(url, { headers: { Authorization: `token ${GITHUB_TOKEN}` } });
     const data = await res.json();
     if (data.sha) sha = data.sha;
   } catch {}
@@ -229,8 +228,7 @@ async function updateGitHub(newArticles) {
     message: `🔥 Beast 500-word Update - ${newArticles.length} articles`,
     content: Buffer.from(JSON.stringify({
       articles: newArticles,
-      updated: new Date().toISOString(),
-      count: newArticles.length
+      updated: new Date().toISOString()
     }, null, 2)).toString("base64"),
     ...(sha && { sha })
   };
@@ -243,14 +241,13 @@ async function updateGitHub(newArticles) {
     },
     body: JSON.stringify(body)
   });
-  console.log("✅ GitHub updated");
+  console.log("✅ GitHub updated successfully");
 }
 
-// Run Bot
+// Run
 async function runBot() {
-  console.log("🚀 Starting Beast Mode...");
+  console.log("🚀 Running Beast Mode update...");
   const news = await getNews();
-
   if (news.length > 5) {
     global.articles = news;
     await updateGitHub(news);
@@ -258,15 +255,17 @@ async function runBot() {
 }
 
 runBot();
-setInterval(runBot, 30 * 60 * 1000);
+setInterval(runBot, 35 * 60 * 1000);  // 35 minutes
 
 app.get("/force-run", async (req, res) => {
   await runBot();
-  res.send("🔥 Force run completed");
+  res.send("🔥 Beast Mode force run completed");
 });
 
-app.get("/", (req, res) => res.send("Beast Mode Backend Running"));
+app.get("/", (req, res) => {
+  res.send(`Beast Mode Server Running | Articles: ${global.articles?.length || 0}`);
+});
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on ${PORT}`);
+  console.log(`🔥 Server running on port ${PORT}`);
 });
