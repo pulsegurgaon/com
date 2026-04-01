@@ -3,9 +3,9 @@ import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 
 const app = express();
-
 const PORT = process.env.PORT || 10000;
 
+// 🔐 ENV
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const OPENROUTER_KEYS = [
@@ -13,7 +13,8 @@ const OPENROUTER_KEYS = [
   process.env.OPENROUTER_KEY_2,
   process.env.OPENROUTER_KEY_3,
   process.env.OPENROUTER_KEY_4,
-  process.env.OPENROUTER_KEY_5
+  process.env.OPENROUTER_KEY_5,
+  process.env.OPENROUTER_KEY_6
 ].filter(Boolean);
 
 let keyIndex = 0;
@@ -23,13 +24,16 @@ function getKey(){
   return key;
 }
 
+// 📁 GITHUB
 const REPO = "pulsegurgaon/com";
 const FILE_PATH = "articles.json";
 
+// 🧹 CLEAN
 function clean(text=""){
   return text.replace(/<[^>]*>?/gm,"").trim();
 }
 
+// 🖼 IMAGE
 function getImage(item){
   return (
     item.enclosure?.[0]?.$.url ||
@@ -39,6 +43,7 @@ function getImage(item){
   );
 }
 
+// 🧠 CATEGORY
 function detectCategory(text=""){
   text = text.toLowerCase();
 
@@ -50,11 +55,10 @@ function detectCategory(text=""){
   return "General";
 }
 
-// 🔥 AI CALL WITH RETRY
+// 🔥 AI CALL (ROTATING KEYS)
 async function aiCall(prompt){
 
   for(let i=0;i<OPENROUTER_KEYS.length;i++){
-
     try{
       const key = getKey();
 
@@ -66,7 +70,8 @@ async function aiCall(prompt){
         },
         body:JSON.stringify({
           model:"meta-llama/llama-3-8b-instruct",
-          messages:[{ role:"user", content:prompt }]
+          messages:[{ role:"user", content:prompt }],
+          temperature:0.6
         })
       });
 
@@ -76,26 +81,26 @@ async function aiCall(prompt){
         return data.choices[0].message.content;
       }
 
-    }catch(e){
-      console.log("AI retry...");
+    }catch{
+      console.log("🔁 AI retry...");
     }
   }
 
   return "";
 }
 
-// 🔥 AI ARTICLE
+// 🧠 AI ARTICLE (SAFE JSON EXTRACTION)
 async function aiArticle(text){
 
-  if(!text || text.length < 40) return null;
+  if(!text || text.length < 60) return null;
 
   const prompt = `
-Return ONLY JSON:
+STRICT JSON ONLY:
 
 {
 "title":"string",
 "summary_points":["","",""],
-"article":"500 words",
+"article":"150-200 words",
 "timeline":["","","","","",""],
 "vocab":["","","",""]
 }
@@ -106,23 +111,30 @@ ${text}
 
   try{
     const raw = await aiCall(prompt);
+    if(!raw) return null;
 
-    const cleaned = raw
+    let cleaned = raw
       .replace(/```json/gi,"")
       .replace(/```/g,"")
-      .replace(/^[^{]*/,"")
-      .replace(/[^}]*$/,"")
+      .replace(/\n/g," ")
       .trim();
+
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+
+    if(start === -1 || end === -1) return null;
+
+    cleaned = cleaned.substring(start, end + 1);
 
     return JSON.parse(cleaned);
 
-  }catch(e){
-    console.log("AI JSON ERROR");
+  }catch{
+    console.log("❌ AI JSON ERROR");
     return null;
   }
 }
 
-// RSS
+// 🌐 RSS
 async function fetchRSS(url){
   try{
     const res = await fetch(url);
@@ -162,8 +174,10 @@ async function getNews(){
 
   const seen = new Set();
 
+  const limited = all.slice(0, 25); // ⚡ speed boost
+
   const processed = await Promise.all(
-    all.map(async (a)=>{
+    limited.map(async (a)=>{
 
       const key=(a.title+a.description)
         .toLowerCase()
@@ -176,43 +190,48 @@ async function getNews(){
       const title = clean(a.title);
       const raw = clean(a.description || a.title);
 
-      if(raw.length < 40) return null;
+      if(raw.length < 60) return null;
 
-      const ai = await aiArticle(raw);
+      let ai = await aiArticle(raw);
+
+      // 🛡️ NEVER EMPTY
+      if(!ai){
+        ai = {
+          title: title,
+          summary_points: [
+            raw.slice(0,80),
+            raw.slice(80,160),
+            raw.slice(160,240)
+          ],
+          article: raw.slice(0,500),
+          timeline: [
+            "Event started",
+            "Situation escalated",
+            "Authorities responded",
+            "Public reacted",
+            "Developments ongoing",
+            "Next steps expected"
+          ],
+          vocab: [
+            "event - happening",
+            "report - info",
+            "source - origin",
+            "impact - effect"
+          ]
+        };
+      }
 
       return {
         id: Date.now() + Math.random(),
 
-        title_en: ai?.title || title,
-
-        summary_points: ai?.summary_points || [
-          raw.slice(0,80),
-          raw.slice(80,160),
-          raw.slice(160,240)
-        ],
-
-        article_en: ai?.article || raw,
-
-        timeline: ai?.timeline || [
-          "Event started",
-          "Situation escalated",
-          "Authorities responded",
-          "Public reacted",
-          "Developments ongoing",
-          "Next steps expected"
-        ],
-
-        vocab_en: ai?.vocab || [
-          "event - happening",
-          "report - detailed info",
-          "source - origin",
-          "impact - effect"
-        ],
+        title_en: ai.title,
+        summary_points: ai.summary_points,
+        article_en: ai.article,
+        timeline: ai.timeline,
+        vocab_en: ai.vocab,
 
         image: a.image || `https://picsum.photos/seed/${encodeURIComponent(title)}/800/400`,
-
         category: detectCategory(title + raw),
-
         publishedAt: a.publishedAt
       };
 
@@ -222,7 +241,7 @@ async function getNews(){
   return processed.filter(Boolean).slice(0,150);
 }
 
-// 🔍 SEARCH API (🔥 IMPORTANT)
+// 🔍 SEARCH
 app.get("/search",(req,res)=>{
   const q = (req.query.q || "").toLowerCase();
 
@@ -236,7 +255,7 @@ app.get("/search",(req,res)=>{
   res.json(filtered.slice(0,20));
 });
 
-// 💾 GITHUB SAVE
+// 💾 GITHUB
 async function updateGitHub(newArticles){
 
   const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
@@ -273,9 +292,9 @@ async function updateGitHub(newArticles){
   console.log("✅ GitHub updated");
 }
 
-// 🤖 RUN BOT
+// 🤖 RUN
 async function runBot(){
-  console.log("🚀 Running bot...");
+  console.log("🚀 Running...");
 
   const news = await getNews();
 
@@ -283,18 +302,29 @@ async function runBot(){
     global.articles = news;
     await updateGitHub(news);
   }else{
-    console.log("❌ No news fetched");
+    console.log("❌ No news");
   }
 }
 
-// 🔁 AUTO RUN
+// 🔁 AUTO
 runBot();
 setInterval(runBot, 30 * 60 * 1000);
 
-// 🌐 SERVER
+// 🔥 FORCE
+app.get("/force-run", async (req,res)=>{
+  await runBot();
+  res.send("🔥 Forced update done");
+});
+
+// 🌐 ROOT
 app.get("/",(req,res)=>{
   res.send("🔥 AI News Server Running");
 });
+
+// ⚡ KEEP ALIVE
+setInterval(()=>{
+  fetch(`http://localhost:${PORT}`).catch(()=>{});
+}, 5 * 60 * 1000);
 
 app.listen(PORT,()=>{
   console.log("Server running on port", PORT);
