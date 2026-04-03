@@ -6,97 +6,70 @@
 <title>Admin Panel</title>
 
 <style>
-body{
-  margin:0;
-  font-family:Arial;
-  background:#f4f4f6;
-}
+body{margin:0;font-family:Arial;background:#f4f4f6}
 
 header{
-  padding:15px;
-  background:#111;
-  color:white;
-  display:flex;
-  justify-content:space-between;
+padding:15px;background:#111;color:white;
+display:flex;justify-content:space-between
 }
 
 .container{
-  padding:15px;
-  max-width:900px;
-  margin:auto;
+padding:15px;max-width:900px;margin:auto
 }
 
 .card{
-  background:white;
-  padding:15px;
-  border-radius:10px;
-  margin-bottom:20px;
+background:white;padding:15px;border-radius:10px;margin-bottom:20px
 }
 
-input, textarea{
-  width:100%;
-  padding:10px;
-  margin-top:8px;
-  margin-bottom:10px;
-  border:1px solid #ddd;
-  border-radius:6px;
+input,textarea{
+width:100%;padding:10px;margin:8px 0;
+border:1px solid #ddd;border-radius:6px
 }
 
 button{
-  padding:10px 14px;
-  border:none;
-  border-radius:6px;
-  background:#e11d48;
-  color:white;
-  cursor:pointer;
+padding:10px;border:none;border-radius:6px;
+background:#e11d48;color:white;cursor:pointer
 }
 
-.hidden{
-  display:none;
-}
+.hidden{display:none}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div>⚙️ Admin Panel</div>
+  <div>⚙️ PulseGurgaon Admin</div>
 </header>
 
 <div class="container">
 
-<!-- LOGIN -->
 <div id="loginBox" class="card">
   <h3>Login</h3>
   <input type="password" id="password" placeholder="Enter password">
   <button onclick="login()">Login</button>
 </div>
 
-<!-- DASHBOARD -->
 <div id="dashboard" class="hidden">
 
-  <!-- BLOG -->
   <div class="card">
     <h3>Add Blog</h3>
     <input id="blogTitle" placeholder="Title">
     <textarea id="blogContent" placeholder="Content"></textarea>
-    <input id="blogImage" placeholder="Image URL (optional)">
+    <input id="blogImage" placeholder="Image URL">
     <button onclick="addBlog()">Publish Blog</button>
   </div>
 
-  <!-- TICKER -->
   <div class="card">
-    <h3>Breaking News Ticker</h3>
-    <input id="tickerInput" placeholder="Enter ticker text">
-    <button onclick="saveTicker()">Save Ticker</button>
+    <h3>Breaking Ticker</h3>
+    <input id="tickerInput" placeholder="Ticker text">
+    <button onclick="saveTicker()">Save</button>
   </div>
 
-  <!-- ADS -->
   <div class="card">
-    <h3>Ads Control</h3>
-    <input id="adText" placeholder="Ad Text">
-    <input id="adLink" placeholder="Ad Link">
-    <button onclick="saveAds()">Save Ads</button>
+    <h3>Ads</h3>
+    <input id="adText" placeholder="Ad text">
+    <input id="adLink" placeholder="Ad link">
+    <button onclick="saveAds()">Save</button>
   </div>
 
 </div>
@@ -105,20 +78,17 @@ button{
 
 <script>
 
-const BACKEND = ""; // same domain
-
-// LOGIN
 function login(){
-  const pass = document.getElementById("password").value;
-
   fetch("/admin",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({password:pass})
+    body:JSON.stringify({
+      password:document.getElementById("password").value
+    })
   })
   .then(r=>r.json())
-  .then(data=>{
-    if(data.success){
+  .then(d=>{
+    if(d.success){
       document.getElementById("loginBox").style.display="none";
       document.getElementById("dashboard").classList.remove("hidden");
     }else{
@@ -127,54 +97,40 @@ function login(){
   });
 }
 
-// BLOG SAVE
 function addBlog(){
-
-  const blog = {
-    title: document.getElementById("blogTitle").value,
-    content: document.getElementById("blogContent").value,
-    image: document.getElementById("blogImage").value,
-    date: new Date().toISOString()
-  };
-
   fetch("/save-blog",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify(blog)
+    body:JSON.stringify({
+      title:blogTitle.value,
+      content:blogContent.value,
+      image:blogImage.value
+    })
   });
-
-  alert("Blog added!");
+  alert("Blog added");
 }
 
-// TICKER
 function saveTicker(){
-
-  const text = document.getElementById("tickerInput").value;
-
   fetch("/save-ticker",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({text})
+    body:JSON.stringify({
+      text:tickerInput.value
+    })
   });
-
-  alert("Ticker updated!");
+  alert("Ticker updated");
 }
 
-// ADS
 function saveAds(){
-
-  const ad = {
-    text: document.getElementById("adText").value,
-    link: document.getElementById("adLink").value
-  };
-
   fetch("/save-ads",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify(ad)
+    body:JSON.stringify({
+      text:adText.value,
+      link:adLink.value
+    })
   });
-
-  alert("Ads updated!");
+  alert("Ads updated");
 }
 
 </script>
