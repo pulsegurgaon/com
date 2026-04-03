@@ -7,10 +7,12 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 10000;
 
+// ENV
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-const OPENROUTER_KEYS = [
+// OPENROUTER KEYS
+const KEYS = [
   process.env.OPENROUTER_KEY_1,
   process.env.OPENROUTER_KEY_2,
   process.env.OPENROUTER_KEY_3,
@@ -20,74 +22,38 @@ const OPENROUTER_KEYS = [
 ].filter(Boolean);
 
 let keyIndex = 0;
-function getKey(){
-  const key = OPENROUTER_KEYS[keyIndex % OPENROUTER_KEYS.length];
-  keyIndex++;
-  return key;
-}
+const getKey = () => KEYS[keyIndex++ % KEYS.length];
 
+// GITHUB
 const REPO = "pulsegurgaon/com";
-const FILE_PATH = "articles.json";
+const FILE = "articles.json";
 
-// ---------- CLEAN ----------
-function clean(t=""){
-  return t.replace(/<[^>]*>?/gm,"").trim();
-}
+// MEMORY STORE
+let articles = [];
+let blogs = [];
+let ticker = "🚀 PulseGurgaon Live News";
+let ads = { text: "Advertise here", link: "#" };
 
-// ---------- IMAGE ----------
-function getImage(item){
-  return (
-    item.enclosure?.[0]?.$.url ||
-    item["media:content"]?.[0]?.$.url ||
-    item["media:thumbnail"]?.[0]?.$.url ||
-    `https://picsum.photos/seed/${Math.random()}/800/400`
-  );
-}
+// ---------- HELPERS ----------
+const clean = t => (t || "").replace(/<[^>]*>/g,"").trim();
 
-// ---------- CATEGORY ----------
-function detectCategory(text=""){
-  text = text.toLowerCase();
-  if(/india|delhi|gurgaon/.test(text)) return "India";
-  if(/stock|market|finance|crypto|economy/.test(text)) return "Finance";
-  if(/ai|tech|software|startup/.test(text)) return "Technology";
-  if(/usa|china|war|world/.test(text)) return "World";
+const getImage = item =>
+  item.enclosure?.[0]?.$.url ||
+  item["media:content"]?.[0]?.$.url ||
+  item["media:thumbnail"]?.[0]?.$.url ||
+  `https://picsum.photos/seed/${Math.random()}/800/400`;
+
+const category = t => {
+  t = t.toLowerCase();
+  if(/india|delhi/.test(t)) return "India";
+  if(/finance|stock|market|crypto/.test(t)) return "Finance";
+  if(/ai|tech|startup/.test(t)) return "Technology";
+  if(/world|usa|china|war/.test(t)) return "World";
   return "General";
-}
+};
 
 // ---------- AI ----------
-async function aiCall(prompt){
-
-  for(let i=0;i<OPENROUTER_KEYS.length;i++){
-    try{
-      const key = getKey();
-
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
-        method:"POST",
-        headers:{
-          "Authorization":`Bearer ${key}`,
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify({
-          model:"meta-llama/llama-3-8b-instruct",
-          messages:[{ role:"user", content:prompt }]
-        })
-      });
-
-      const data = await res.json();
-      const output = data?.choices?.[0]?.message?.content;
-
-      if(output && output.length > 50){
-        return output;
-      }
-
-    }catch{}
-  }
-
-  return "";
-}
-
-// ---------- AI ARTICLE ----------
-async function generateArticle(text){
+async function aiGenerate(text){
 
   const prompt = `
 Return ONLY JSON:
@@ -104,28 +70,37 @@ Rules:
 - summary = 3 points
 - article = 500 words
 - timeline = 6 points
-- vocab = 4 items
+- vocab = 4 words
 - NO extra text
 
 News:
 ${text}
 `;
 
-  try{
-    const raw = await aiCall(prompt);
+  for(let i=0;i<KEYS.length;i++){
+    try{
+      const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
+        method:"POST",
+        headers:{
+          "Authorization":`Bearer ${getKey()}`,
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          model:"meta-llama/llama-3-8b-instruct",
+          messages:[{ role:"user", content:prompt }]
+        })
+      });
 
-    const cleaned = raw
-      .replace(/```json/gi,"")
-      .replace(/```/g,"")
-      .replace(/^[^{]*/,"")
-      .replace(/[^}]*$/,"")
-      .trim();
+      const data = await res.json();
+      let out = data?.choices?.[0]?.message?.content || "";
 
-    return JSON.parse(cleaned);
+      out = out.replace(/```json|```/g,"").trim();
+      return JSON.parse(out);
 
-  }catch{
-    return null;
+    }catch{}
   }
+
+  return null;
 }
 
 // ---------- RSS ----------
@@ -134,118 +109,92 @@ async function fetchRSS(url){
     const res = await fetch(url);
     const xml = await res.text();
     const parsed = await parseStringPromise(xml);
-
     const items = parsed?.rss?.channel?.[0]?.item || [];
 
     return items.map(i=>({
       title:i.title?.[0]||"",
-      description:i.description?.[0]||"",
+      desc:i.description?.[0]||"",
       image:getImage(i),
-      publishedAt:i.pubDate?.[0] || new Date().toISOString()
+      date:i.pubDate?.[0]||new Date().toISOString()
     }));
-
   }catch{
     return [];
   }
 }
 
-// ---------- FETCH NEWS ----------
-async function getNews(){
+// ---------- MAIN ----------
+async function generateNews(){
 
-  const sources=[
+  const feeds=[
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
     "https://www.thehindu.com/news/national/feeder/default.rss",
     "https://feeds.bbci.co.uk/news/world/rss.xml",
     "https://rss.nytimes.com/services/xml/rss/nyt/World.xml",
     "https://www.moneycontrol.com/rss/latestnews.xml",
-    "https://feeds.a.dj.com/rss/RSSMarketsMain.xml",
     "https://feeds.feedburner.com/TechCrunch/",
     "https://www.theverge.com/rss/index.xml"
   ];
 
-  const results = await Promise.all(sources.map(fetchRSS));
-  const all = results.flat();
+  const all = (await Promise.all(feeds.map(fetchRSS))).flat();
 
   const seen = new Set();
-  const final = [];
+  const result = [];
 
   for(let a of all){
 
-    const key=(a.title+a.description)
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g,"")
-      .slice(0,80);
-
-    if(!a.title || seen.has(key)) continue;
+    const key = (a.title+a.desc).toLowerCase().slice(0,80);
+    if(seen.has(key)) continue;
     seen.add(key);
 
-    const raw = clean(a.description || a.title);
-    if(raw.length < 40) continue;
+    const text = clean(a.desc || a.title);
+    if(text.length < 40) continue;
 
-    const ai = await generateArticle(raw);
+    const ai = await aiGenerate(text);
 
-    final.push({
+    result.push({
       id: Date.now()+Math.random(),
 
       title_en: ai?.title || clean(a.title),
 
       summary_points: ai?.summary || [
-        raw.slice(0,80),
-        raw.slice(80,160),
-        raw.slice(160,240)
+        text.slice(0,80),
+        text.slice(80,160),
+        text.slice(160,240)
       ],
 
-      article_en: ai?.article || raw,
+      article_en: ai?.article || text,
 
       timeline: ai?.timeline || [
-        "Start",
-        "Development",
-        "Escalation",
-        "Reaction",
-        "Current state",
-        "Next steps"
+        "Start","Update","Escalation","Reaction","Current","Next"
       ],
 
       vocab_en: ai?.vocab || [
         "event - happening",
-        "report - info",
         "impact - effect",
+        "report - info",
         "source - origin"
       ],
 
       image: a.image,
-
-      category: detectCategory(raw),
-      publishedAt: a.publishedAt
+      category: category(text),
+      publishedAt: a.date
     });
   }
 
-  return final.slice(0,200);
+  return result.slice(0,150);
 }
 
 // ---------- GITHUB SAVE ----------
-async function saveArticles(newArticles){
+async function saveToGitHub(data){
 
-  const url = `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`;
-
+  const url=`https://api.github.com/repos/${REPO}/contents/${FILE}`;
   let sha=null;
 
   try{
-    const res = await fetch(url,{
-      headers:{ Authorization:`token ${GITHUB_TOKEN}` }
-    });
-    const data = await res.json();
-    if(data.sha) sha=data.sha;
+    const res=await fetch(url,{headers:{Authorization:`token ${GITHUB_TOKEN}`}});
+    const d=await res.json();
+    if(d.sha) sha=d.sha;
   }catch{}
-
-  const body={
-    message:"news update",
-    content:Buffer.from(JSON.stringify({
-      articles:newArticles,
-      updated:new Date().toISOString()
-    },null,2)).toString("base64"),
-    ...(sha && { sha })
-  };
 
   await fetch(url,{
     method:"PUT",
@@ -253,26 +202,24 @@ async function saveArticles(newArticles){
       Authorization:`token ${GITHUB_TOKEN}`,
       "Content-Type":"application/json"
     },
-    body:JSON.stringify(body)
+    body:JSON.stringify({
+      message:"update",
+      content:Buffer.from(JSON.stringify({articles:data},null,2)).toString("base64"),
+      ...(sha && {sha})
+    })
   });
 }
 
 // ---------- RUN ----------
-let cache=[];
-
 async function run(){
-  console.log("🚀 fetching news...");
-  const news = await getNews();
-
+  console.log("🔥 updating news...");
+  const news = await generateNews();
   if(news.length){
-    cache = news;
-    await saveArticles(news);
-    console.log("✅ updated");
-  }else{
-    console.log("❌ no news");
+    articles = news;
+    await saveToGitHub(news);
+    console.log("✅ done");
   }
 }
-
 run();
 setInterval(run,30*60*1000);
 
@@ -282,35 +229,50 @@ app.get("/search",(req,res)=>{
   const from=req.query.from;
   const to=req.query.to;
 
-  let result = cache;
+  let data = articles;
 
   if(q){
-    result = result.filter(a =>
+    data = data.filter(a =>
       a.title_en.toLowerCase().includes(q) ||
       a.article_en.toLowerCase().includes(q)
     );
   }
 
-  if(from){
-    result = result.filter(a=> new Date(a.publishedAt)>=new Date(from));
-  }
+  if(from) data = data.filter(a=>new Date(a.publishedAt)>=new Date(from));
+  if(to) data = data.filter(a=>new Date(a.publishedAt)<=new Date(to));
 
-  if(to){
-    result = result.filter(a=> new Date(a.publishedAt)<=new Date(to));
-  }
-
-  res.json(result.slice(0,20));
+  res.json(data.slice(0,20));
 });
+
+// ---------- BLOGS ----------
+app.post("/save-blog",(req,res)=>{
+  blogs.unshift({
+    ...req.body,
+    id:Date.now(),
+    date:new Date().toISOString()
+  });
+  res.json({success:true});
+});
+
+app.get("/blogs",(req,res)=>res.json(blogs));
+
+// ---------- TICKER ----------
+app.post("/save-ticker",(req,res)=>{
+  ticker = req.body.text;
+  res.json({success:true});
+});
+app.get("/ticker",(req,res)=>res.json({text:ticker}));
+
+// ---------- ADS ----------
+app.post("/save-ads",(req,res)=>{
+  ads = req.body;
+  res.json({success:true});
+});
+app.get("/ads",(req,res)=>res.json(ads));
 
 // ---------- ADMIN ----------
 app.post("/admin",(req,res)=>{
-  const {password} = req.body;
-
-  if(password===ADMIN_PASSWORD){
-    res.json({success:true});
-  }else{
-    res.json({success:false});
-  }
+  res.json({success:req.body.password===ADMIN_PASSWORD});
 });
 
 // ---------- ROOT ----------
@@ -318,4 +280,4 @@ app.get("/",(req,res)=>{
   res.send("🔥 PulseGurgaon Backend Running");
 });
 
-app.listen(PORT,()=>console.log("Server running",PORT));
+app.listen(PORT,()=>console.log("🚀 Server running"));
