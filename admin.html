@@ -1,73 +1,180 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
-<title>PulseGurgaon Admin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
 
 <style>
-
 body{
-font-family:Arial;
-background:#f4f4f6;
+  margin:0;
+  font-family:Arial;
+  background:#f4f4f6;
 }
 
-.box{
-max-width:400px;
-margin:150px auto;
-background:white;
-padding:30px;
-border-radius:10px;
-text-align:center;
+header{
+  padding:15px;
+  background:#111;
+  color:white;
+  display:flex;
+  justify-content:space-between;
 }
 
-input{
-padding:10px;
-width:90%;
-margin-bottom:10px;
+.container{
+  padding:15px;
+  max-width:900px;
+  margin:auto;
+}
+
+.card{
+  background:white;
+  padding:15px;
+  border-radius:10px;
+  margin-bottom:20px;
+}
+
+input, textarea{
+  width:100%;
+  padding:10px;
+  margin-top:8px;
+  margin-bottom:10px;
+  border:1px solid #ddd;
+  border-radius:6px;
 }
 
 button{
-padding:10px 20px;
-background:#ff7a18;
-border:none;
-color:white;
-border-radius:5px;
-cursor:pointer;
+  padding:10px 14px;
+  border:none;
+  border-radius:6px;
+  background:#e11d48;
+  color:white;
+  cursor:pointer;
 }
 
+.hidden{
+  display:none;
+}
 </style>
-
 </head>
 
 <body>
 
-<div class="box">
+<header>
+  <div>⚙️ Admin Panel</div>
+</header>
 
-<h2>Admin Login</h2>
+<div class="container">
 
-<input id="pass" type="password" placeholder="Password">
+<!-- LOGIN -->
+<div id="loginBox" class="card">
+  <h3>Login</h3>
+  <input type="password" id="password" placeholder="Enter password">
+  <button onclick="login()">Login</button>
+</div>
 
-<button onclick="login()">Login</button>
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
 
-<p id="error" style="color:red"></p>
+  <!-- BLOG -->
+  <div class="card">
+    <h3>Add Blog</h3>
+    <input id="blogTitle" placeholder="Title">
+    <textarea id="blogContent" placeholder="Content"></textarea>
+    <input id="blogImage" placeholder="Image URL (optional)">
+    <button onclick="addBlog()">Publish Blog</button>
+  </div>
+
+  <!-- TICKER -->
+  <div class="card">
+    <h3>Breaking News Ticker</h3>
+    <input id="tickerInput" placeholder="Enter ticker text">
+    <button onclick="saveTicker()">Save Ticker</button>
+  </div>
+
+  <!-- ADS -->
+  <div class="card">
+    <h3>Ads Control</h3>
+    <input id="adText" placeholder="Ad Text">
+    <input id="adLink" placeholder="Ad Link">
+    <button onclick="saveAds()">Save Ads</button>
+  </div>
+
+</div>
 
 </div>
 
 <script>
 
+const BACKEND = ""; // same domain
+
+// LOGIN
 function login(){
+  const pass = document.getElementById("password").value;
 
-if(document.getElementById("pass").value=="hello@123"){
-
-alert("Welcome Admin")
-
-}else{
-
-document.getElementById("error").innerText="Wrong password"
-
+  fetch("/admin",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({password:pass})
+  })
+  .then(r=>r.json())
+  .then(data=>{
+    if(data.success){
+      document.getElementById("loginBox").style.display="none";
+      document.getElementById("dashboard").classList.remove("hidden");
+    }else{
+      alert("Wrong password");
+    }
+  });
 }
 
+// BLOG SAVE
+function addBlog(){
+
+  const blog = {
+    title: document.getElementById("blogTitle").value,
+    content: document.getElementById("blogContent").value,
+    image: document.getElementById("blogImage").value,
+    date: new Date().toISOString()
+  };
+
+  fetch("/save-blog",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(blog)
+  });
+
+  alert("Blog added!");
+}
+
+// TICKER
+function saveTicker(){
+
+  const text = document.getElementById("tickerInput").value;
+
+  fetch("/save-ticker",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({text})
+  });
+
+  alert("Ticker updated!");
+}
+
+// ADS
+function saveAds(){
+
+  const ad = {
+    text: document.getElementById("adText").value,
+    link: document.getElementById("adLink").value
+  };
+
+  fetch("/save-ads",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify(ad)
+  });
+
+  alert("Ads updated!");
 }
 
 </script>
