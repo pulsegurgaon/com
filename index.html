@@ -5,9 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
-<div id="google_translate_element"></div>
 <meta name="google" content="notranslate">
 <meta http-equiv="Content-Language" content="en">
+
+<div id="google_translate_element"></div>
+
 <script>
 function googleTranslateElementInit() {
   new google.translate.TranslateElement({
@@ -21,10 +23,8 @@ function googleTranslateElementInit() {
 
 <style>
 body{margin:0;font-family:Arial;background:#f4f4f6}
-
-/* Remove Google Translate Bar */
-.goog-te-banner-frame.skiptranslate { display:none !important; }
-body { top:0px !important; }
+.goog-te-banner-frame.skiptranslate{display:none !important;}
+body{top:0 !important}
 
 header{
 display:flex;justify-content:space-between;align-items:center;
@@ -75,8 +75,10 @@ background:linear-gradient(transparent,rgba(0,0,0,0.9))
 
 .card{
 background:white;border-radius:12px;overflow:hidden;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer
+box-shadow:0 4px 12px rgba(0,0,0,0.08);cursor:pointer;
+transition:0.2s;
 }
+.card:hover{transform:scale(1.02)}
 
 .card img{width:100%;height:160px;object-fit:cover}
 .cardText{padding:10px}
@@ -88,8 +90,21 @@ padding:3px 6px;border-radius:20px
 
 .sidebar{background:white;padding:12px;border-radius:10px}
 
-.blog{display:flex;gap:8px;margin-bottom:10px;cursor:pointer}
-.blog img{width:60px;height:50px;border-radius:5px}
+.blog{
+display:flex;gap:10px;margin-bottom:12px;cursor:pointer;
+background:#fff;padding:8px;border-radius:8px;
+transition:0.2s;
+}
+.blog:hover{transform:scale(1.03)}
+
+.blog img{
+width:60px;height:50px;object-fit:cover;border-radius:5px
+}
+
+.ads{
+background:#fff3cd;padding:10px;border-radius:10px;margin-bottom:15px;
+text-align:center;
+}
 
 footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30px}
 
@@ -140,8 +155,12 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 </div>
 
 <div class="sidebar">
+
+<div class="ads" id="adsBox">Loading Ads...</div>
+
 <h4>Trending Blogs</h4>
 <div id="blogs"></div>
+
 </div>
 </div>
 
@@ -149,165 +168,163 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 
 <script>
 
-let currentLang = "en";
+let currentLang="en";
 
 function toggleLang(){
-  const select = document.querySelector(".goog-te-combo");
-  if(!select){
-    alert("Translator loading...");
-    return;
-  }
-  if(currentLang === "en"){
-    select.value = "hi";
-    currentLang = "hi";
-  } else {
-    select.value = "en";
-    currentLang = "en";
-  }
-  select.dispatchEvent(new Event("change"));
+const select=document.querySelector(".goog-te-combo");
+if(!select){alert("Loading...");return;}
+select.value=currentLang==="en"?"hi":"en";
+currentLang=currentLang==="en"?"hi":"en";
+select.dispatchEvent(new Event("change"));
 }
 
-let originalArticles = [];
-let filteredArticles = [];
-let currentPage = 1;
-const perPage = 10;
+let originalArticles=[],filteredArticles=[];
+let currentPage=1,perPage=10;
 
-// Fetch articles from GitHub Pages
-fetch("articles.json?v=" + Date.now())
-  .then(r => r.json())
-  .then(data => {
-    originalArticles = data.articles || [];
-    originalArticles.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-    filteredArticles = [...originalArticles];
-    render();
-    updateTicker();
-  })
-  .catch(err => {
-    console.error("Failed to load articles:", err);
-    document.getElementById("news").innerHTML = "<p style='color:red'>Failed to load news. Please try again later.</p>";
-  });
-
-function getTitle(a) {
-  return a.title_en || a.title || "No title";
-}
-
-function getSummary(a) {
-  if (a.summary_en) return a.summary_en;
-  if (Array.isArray(a.summary_points) && a.summary_points.length > 0) {
-    return a.summary_points.join(" • ");
-  }
-  if (a.article_en) {
-    return a.article_en.substring(0, 160) + "...";
-  }
-  return "No summary available";
-}
-
-function getImage(a) {
-  return a.image || "https://picsum.photos/800/400";
-}
-
-function render() {
-  const hero = document.getElementById("hero");
-  const news = document.getElementById("news");
-
-  if (filteredArticles.length === 0) {
-    news.innerHTML = "<p>No news available at the moment.</p>";
-    return;
-  }
-
-  // Hero Section - First Article
-  const first = filteredArticles[0];
-  hero.innerHTML = `
-    <img src="${getImage(first)}">
-    <div class="heroOverlay">
-      <h2>${getTitle(first)}</h2>
-      <p>${getSummary(first)}</p>
-    </div>
-  `;
-
-  // Cards Section
-  const start = (currentPage - 1) * perPage;
-  const pageData = filteredArticles.slice(start, start + perPage);
-
-  news.innerHTML = "";
-
-  pageData.forEach((a, i) => {
-    if (currentPage === 1 && i === 0) return; // Skip first article as it's in hero
-
-    const card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${getImage(a)}">
-      <div class="cardText">
-        <span class="badge">${a.category || "General"}</span>
-        <h3>${getTitle(a)}</h3>
-        <p>${getSummary(a)}</p>
-      </div>
-    `;
-
-    card.onclick = () => {
-      const cleanArticle = {
-        title: getTitle(a),
-        summary: getSummary(a),
-        article: a.article_en || a.article || getSummary(a),
-        image: getImage(a),
-        category: a.category || "General",
-        timeline: a.timeline || [],
-        vocab_en: a.vocab_en || []
-      };
-      localStorage.setItem("currentArticle", JSON.stringify(cleanArticle));
-      window.location.href = "article.html";
-    };
-
-    news.appendChild(card);
-  });
-
-  renderPagination();
-}
-
-function renderPagination() {
-  const totalPages = Math.ceil(filteredArticles.length / perPage);
-  const container = document.getElementById("pagination");
-  container.innerHTML = "";
-
-  for (let i = 1; i <= totalPages; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = i;
-    if (i === currentPage) btn.classList.add("active");
-
-    btn.onclick = () => {
-      currentPage = i;
-      render();
-      window.scrollTo(0, 0);
-    };
-    container.appendChild(btn);
-  }
-}
-
-function filterCategory(cat) {
-  currentPage = 1;
-  filteredArticles = cat === "All" 
-    ? [...originalArticles] 
-    : originalArticles.filter(a => a.category === cat);
-  render();
-}
-
-document.getElementById("searchInput").addEventListener("input", function() {
-  const q = this.value.toLowerCase();
-  currentPage = 1;
-
-  filteredArticles = originalArticles.filter(a =>
-    getTitle(a).toLowerCase().includes(q) ||
-    getSummary(a).toLowerCase().includes(q)
-  );
-
-  render();
+// NEWS
+fetch("articles.json?v="+Date.now())
+.then(r=>r.json())
+.then(data=>{
+originalArticles=data.articles||[];
+originalArticles.sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt));
+filteredArticles=[...originalArticles];
+render();
+updateTicker();
 });
 
-function updateTicker() {
-  const headlines = originalArticles.slice(0, 15).map(a => getTitle(a)).join(" • ");
-  document.getElementById("ticker").innerText = headlines;
+// BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
+const box=document.getElementById("blogs");
+if(!data.length){box.innerHTML="No blogs";return;}
+
+data.slice(0,6).forEach(b=>{
+box.innerHTML+=`
+<div class="blog" onclick='openBlog(${JSON.stringify(b)})'>
+<img src="${b.image||"https://picsum.photos/100"}">
+<div><b>${b.title}</b></div>
+</div>`;
+});
+});
+
+// ADS
+fetch("/ads")
+.then(r=>r.json())
+.then(ad=>{
+document.getElementById("adsBox").innerHTML=
+`<a href="${ad.link}" target="_blank">${ad.text}</a>`;
+});
+
+// TICKER
+function updateTicker(){
+fetch("/ticker")
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("ticker").innerText=d.text;
+});
+}
+
+// FUNCTIONS
+function getTitle(a){return a.title_en||"No title";}
+function getSummary(a){
+if(a.summary_points) return a.summary_points.join(" • ");
+return (a.article_en||"").slice(0,120);
+}
+function getImage(a){return a.image||"https://picsum.photos/800";}
+
+// RENDER
+function render(){
+const hero=document.getElementById("hero");
+const news=document.getElementById("news");
+
+if(!filteredArticles.length){
+news.innerHTML="No news";return;
+}
+
+const first=filteredArticles[0];
+
+hero.innerHTML=`
+<img src="${getImage(first)}">
+<div class="heroOverlay">
+<h2>${getTitle(first)}</h2>
+<p>${getSummary(first)}</p>
+</div>
+`;
+
+const start=(currentPage-1)*perPage;
+const page=filteredArticles.slice(start,start+perPage);
+
+news.innerHTML="";
+
+page.forEach((a,i)=>{
+if(currentPage===1 && i===0) return;
+
+const card=document.createElement("div");
+card.className="card";
+
+card.innerHTML=`
+<img src="${getImage(a)}">
+<div class="cardText">
+<span class="badge">${a.category}</span>
+<h3>${getTitle(a)}</h3>
+<p>${getSummary(a)}</p>
+</div>`;
+
+card.onclick=()=>{
+localStorage.setItem("currentArticle",JSON.stringify(a));
+location.href="article.html";
+};
+
+news.appendChild(card);
+});
+
+renderPagination();
+}
+
+function renderPagination(){
+const total=Math.ceil(filteredArticles.length/perPage);
+const box=document.getElementById("pagination");
+box.innerHTML="";
+
+for(let i=1;i<=total;i++){
+const btn=document.createElement("button");
+btn.innerText=i;
+if(i===currentPage) btn.classList.add("active");
+
+btn.onclick=()=>{
+currentPage=i;
+render();
+window.scrollTo(0,0);
+};
+box.appendChild(btn);
+}
+}
+
+// SEARCH
+searchInput.addEventListener("input",function(){
+const q=this.value.toLowerCase();
+filteredArticles=originalArticles.filter(a=>
+getTitle(a).toLowerCase().includes(q)||
+getSummary(a).toLowerCase().includes(q)
+);
+currentPage=1;
+render();
+});
+
+// CATEGORY
+function filterCategory(cat){
+filteredArticles=cat==="All"
+?[...originalArticles]
+:originalArticles.filter(a=>a.category===cat);
+currentPage=1;
+render();
+}
+
+// BLOG OPEN
+function openBlog(b){
+localStorage.setItem("currentBlog",JSON.stringify(b));
+location.href="blog.html";
 }
 
 </script>
