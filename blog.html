@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f4f4f6}
+
+header{
+padding:15px;
+background:white;
+display:flex;
+justify-content:space-between;
+box-shadow:0 2px 10px rgba(0,0,0,0.08)
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:15px;
+}
+
+img{
+width:100%;
+border-radius:12px;
+}
+
+h1{
+margin-top:15px;
+}
+
+.content{
+background:white;
+padding:15px;
+border-radius:10px;
+line-height:1.6;
+}
+
+button{
+padding:8px 12px;
+border:none;
+border-radius:20px;
+background:#111;
+color:white;
+cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div><b>PulseGurgaon Blog</b></div>
+  <button onclick="history.back()">← Back</button>
+</header>
+
+<div class="container">
+
+<img id="image">
+
+<h1 id="title"></h1>
+
+<div class="content" id="content"></div>
+
+</div>
+
+<script>
+
+const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
+
+document.getElementById("image").src =
+  blog.image || "https://picsum.photos/800/400";
+
+document.getElementById("title").innerText =
+  blog.title || "No title";
+
+document.getElementById("content").innerText =
+  blog.content || "No content";
+
+</script>
+
+</body>
+</html>
