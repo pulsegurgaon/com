@@ -17,7 +17,7 @@ function googleTranslateElementInit() {
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
-/* Force Desktop Layout Even on Mobile */
+/* Force Desktop Layout on Mobile */
 .container {
   max-width: 1280px;
   margin: 20px auto;
@@ -69,21 +69,20 @@ header {
   background:white; padding:20px; border-radius:14px; box-shadow:0 6px 15px rgba(0,0,0,0.1);
 }
 .blog-item {
-  display:flex; gap:12px; margin-bottom:18px; cursor:pointer;
+  display:flex; gap:12px; margin-bottom:16px; cursor:pointer;
 }
 .blog-item img { width:85px; height:60px; object-fit:cover; border-radius:8px; }
 .blog-item .text { font-size:14.5px; line-height:1.4; }
 
-/* Long Full Sidebar Ad */
+/* Full Height Ad after 10 blogs */
 .long-ad {
   margin-top:30px;
   background:#fff0f0;
-  padding:40px 20px;
+  padding:50px 25px;
   border-radius:14px;
   text-align:center;
   border:2px dashed #e11d48;
-  font-size:15px;
-  min-height:380px;
+  min-height:420px;
   display:flex;
   flex-direction:column;
   justify-content:center;
@@ -93,9 +92,9 @@ header {
 .pagination { text-align:center; margin:30px 0; }
 .pagination button { padding:10px 20px; margin:0 6px; background:#e11d48; color:white; border:none; border-radius:8px; cursor:pointer; }
 
-/* Mobile Force Desktop */
+/* Force Desktop on Mobile */
 @media (max-width: 768px) {
-  .container { grid-template-columns:7fr 3fr; min-width:1100px; overflow-x:auto; }
+  .container { grid-template-columns:7fr 3fr; overflow-x:auto; min-width:1100px; }
 }
 </style>
 </head>
@@ -139,7 +138,7 @@ header {
     <h4>🔥 Trending Blogs</h4>
     <div id="blogPreview"></div>
 
-    <!-- Full covering ad after 6 blogs -->
+    <!-- Full covering ad after 10 blogs -->
     <div class="long-ad">
       <strong>ADVERTISEMENT</strong><br><br>
       Boost Your Business with PulseGurgaon<br>
@@ -191,7 +190,7 @@ function safe(a) {
   };
 }
 
-// Render news
+// Render news - Ad after first article, then after every 4 articles
 function renderNews() {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
@@ -200,9 +199,11 @@ function renderNews() {
   const pageData = filteredArticles.slice(start, start+newsPerPage);
 
   pageData.forEach((article, i) => {
-    if (i % 3 === 0 && i !== 0) {
+    // Ad after first article, then after every 4
+    if ((i === 1) || (i > 1 && (i-1) % 4 === 0)) {
       grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
     }
+
     const d = safe(article);
     const card = document.createElement("div");
     card.className = "card";
@@ -235,7 +236,7 @@ function renderPagination() {
 function prevPage(){ if(currentPage>1){currentPage--;renderNews();window.scrollTo(0,0);} }
 function nextPage(){ if(currentPage < Math.ceil(filteredArticles.length/newsPerPage)){currentPage++;renderNews();window.scrollTo(0,0);} }
 
-// Trending Blogs - 6 items
+// Trending Blogs - 10 items
 function renderBlogPreview() {
   const container = document.getElementById("blogPreview");
   container.innerHTML = `
@@ -245,6 +246,10 @@ function renderBlogPreview() {
     <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/401/85/60"><div class="text">The future of electric mobility in India</div></div>
     <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/501/85/60"><div class="text">Gurgaon real estate boom 2026</div></div>
     <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/601/85/60"><div class="text">Why startups are moving to Gurgaon</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/701/85/60"><div class="text">Impact of AI on Indian education</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/801/85/60"><div class="text">The rise of Gurgaon as tech hub</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/901/85/60"><div class="text">Delhi vs Gurgaon - Which is better?</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/1001/85/60"><div class="text">Future of Indian cricket in 2026</div></div>
   `;
 }
 
