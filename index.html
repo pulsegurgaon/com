@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
-<!-- Google Translate -->
 <div id="google_translate_element" style="display:none;"></div>
 <script>
 function googleTranslateElementInit() {
@@ -16,9 +15,9 @@ function googleTranslateElementInit() {
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: Arial, sans-serif; background:#f8f9fa; min-height:100vh; }
+body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
-/* Force Desktop View */
+/* Force Desktop Layout Even on Mobile */
 .container {
   max-width: 1280px;
   margin: 20px auto;
@@ -30,167 +29,73 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; min-height:100vh; }
 
 /* Header */
 header {
-  background: #e11d48;
-  color: white;
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  background:#e11d48; color:white; padding:14px 20px;
+  display:flex; align-items:center; justify-content:space-between;
 }
-.logo { font-size: 24px; font-weight: bold; }
-.search {
-  flex: 1;
-  max-width: 480px;
-  margin: 0 20px;
-  padding: 10px 18px;
-  border-radius: 30px;
-  border: none;
-  font-size: 16px;
-}
-.nav-buttons button {
-  background: rgba(255,255,255,0.25);
-  color: white;
-  border: none;
-  padding: 9px 16px;
-  margin-left: 10px;
-  border-radius: 20px;
-  font-size: 14px;
-  cursor: pointer;
-}
+.logo { font-size:24px; font-weight:bold; }
+.search { flex:1; max-width:480px; margin:0 20px; padding:10px 18px; border-radius:30px; border:none; }
+.nav-buttons button { background:rgba(255,255,255,0.25); color:white; border:none; padding:9px 16px; margin-left:10px; border-radius:20px; cursor:pointer; }
 
 /* Ticker */
-.ticker {
-  background: #111;
-  color: white;
-  padding: 10px 20px;
-  overflow: hidden;
-  white-space: nowrap;
-}
-.ticker span {
-  display: inline-block;
-  animation: ticker 35s linear infinite;
-}
-@keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+.ticker { background:#111; color:white; padding:10px 20px; overflow:hidden; white-space:nowrap; }
+.ticker span { display:inline-block; animation:ticker 35s linear infinite; }
+@keyframes ticker { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
 
 /* Categories */
-.categories {
-  background: white;
-  padding: 12px 20px;
-  display: flex;
-  gap: 22px;
-  overflow-x: auto;
-  border-bottom: 1px solid #eee;
-  font-size: 15px;
-}
-.categories span {
-  cursor: pointer;
-  padding-bottom: 6px;
-  white-space: nowrap;
-}
-.categories span.active {
-  color: #e11d48;
-  border-bottom: 3px solid #e11d48;
-}
+.categories { background:white; padding:12px 20px; display:flex; gap:22px; overflow-x:auto; border-bottom:1px solid #eee; }
+.categories span { cursor:pointer; white-space:nowrap; padding-bottom:6px; font-size:15px; }
+.categories span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
 
 /* News Grid */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 22px;
-}
+.grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
 .card {
-  background: white;
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
+  background:white; border-radius:14px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.1);
+  cursor:pointer;
 }
-.card:hover { transform: translateY(-4px); }
-.card img {
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
-}
-.cardText { padding: 14px; }
-.badge {
-  font-size: 12px;
-  padding: 4px 12px;
-  border-radius: 20px;
-  background: #e11d48;
-  color: white;
-  display: inline-block;
-  margin-bottom: 8px;
-}
-.card h3 { font-size: 16.5px; margin: 8px 0; line-height: 1.4; }
-.card p { font-size: 13.8px; color: #555; }
+.card img { width:100%; height:210px; object-fit:cover; }
+.cardText { padding:14px; }
+.badge { font-size:12px; padding:4px 12px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
+.card h3 { font-size:16.5px; margin:8px 0; line-height:1.4; }
+.card p { font-size:13.8px; color:#555; }
 
 /* Ad */
 .ad {
-  grid-column: 1 / -1;
-  background: #fff0f0;
-  border: 2px dashed #e11d48;
-  padding: 25px;
-  text-align: center;
-  border-radius: 14px;
-  font-weight: bold;
-  color: #e11d48;
+  grid-column:1/-1;
+  background:#fff0f0; border:2px dashed #e11d48; padding:25px; text-align:center; border-radius:14px; font-weight:bold; color:#e11d48;
 }
 
 /* Sidebar */
 .sidebar {
-  background: white;
-  padding: 20px;
-  border-radius: 14px;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  background:white; padding:20px; border-radius:14px; box-shadow:0 6px 15px rgba(0,0,0,0.1);
 }
 .blog-item {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 18px;
-  cursor: pointer;
+  display:flex; gap:12px; margin-bottom:18px; cursor:pointer;
 }
-.blog-item img {
-  width: 85px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-.blog-item .text { font-size: 14.5px; line-height: 1.4; }
+.blog-item img { width:85px; height:60px; object-fit:cover; border-radius:8px; }
+.blog-item .text { font-size:14.5px; line-height:1.4; }
 
-/* Long Sidebar Ad */
+/* Long Full Sidebar Ad */
 .long-ad {
-  margin-top: 30px;
-  background: #fff0f0;
-  padding: 30px 20px;
-  border-radius: 14px;
-  text-align: center;
-  border: 2px dashed #e11d48;
-  font-size: 15px;
+  margin-top:30px;
+  background:#fff0f0;
+  padding:40px 20px;
+  border-radius:14px;
+  text-align:center;
+  border:2px dashed #e11d48;
+  font-size:15px;
+  min-height:380px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 
 /* Pagination */
-.pagination {
-  text-align: center;
-  margin: 30px 0;
-}
-.pagination button {
-  padding: 10px 18px;
-  margin: 0 6px;
-  background: #e11d48;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
+.pagination { text-align:center; margin:30px 0; }
+.pagination button { padding:10px 20px; margin:0 6px; background:#e11d48; color:white; border:none; border-radius:8px; cursor:pointer; }
 
 /* Mobile Force Desktop */
 @media (max-width: 768px) {
-  .container { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: repeat(2, 1fr); }
+  .container { grid-template-columns:7fr 3fr; min-width:1100px; overflow-x:auto; }
 }
 </style>
 </head>
@@ -207,12 +112,10 @@ header {
   </div>
 </header>
 
-<!-- Breaking Ticker -->
 <div class="ticker" id="ticker">
-  <span id="tickerText">🔥 Loading latest updates...</span>
+  <span id="tickerText">🔥 Loading breaking news...</span>
 </div>
 
-<!-- Categories -->
 <div class="categories" id="categoryTabs">
   <span onclick="filterCategory('All')" class="active">All</span>
   <span onclick="filterCategory('India')">India</span>
@@ -224,7 +127,7 @@ header {
 
 <div class="container">
 
-  <!-- Main News Area -->
+  <!-- Main News -->
   <div>
     <h2>Latest News</h2>
     <div class="grid" id="newsGrid"></div>
@@ -236,16 +139,20 @@ header {
     <h4>🔥 Trending Blogs</h4>
     <div id="blogPreview"></div>
 
-    <!-- Long Ad after blogs -->
+    <!-- Full covering ad after 6 blogs -->
     <div class="long-ad">
       <strong>ADVERTISEMENT</strong><br><br>
       Boost Your Business with PulseGurgaon<br>
-      Reach thousands daily<br><br>
-      <button style="background:#e11d48;color:white;border:none;padding:12px 28px;border-radius:8px;cursor:pointer;">Advertise Now</button>
+      Reach thousands of readers daily<br><br>
+      <button style="background:#e11d48;color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;">Advertise Now</button>
     </div>
   </div>
 
 </div>
+
+<footer style="text-align:center;padding:25px;background:#111;color:white;margin-top:40px;">
+  PulseGurgaon • AI Powered News
+</footer>
 
 <script>
 // Translate
@@ -278,25 +185,24 @@ fetch("articles.json?v=" + Date.now())
 function safe(a) {
   return {
     title: a.title_en || "No Title",
-    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0, 140) + "...",
-    image: a.image || "https://picsum.photos/id/" + Math.floor(Math.random()*300) + "/700/400",
+    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0,140)+"...",
+    image: a.image || "https://picsum.photos/id/"+Math.floor(Math.random()*300)+"/700/400",
     category: a.category || "General"
   };
 }
 
-// Render with 2 cards + ad pattern
+// Render news
 function renderNews() {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
 
-  const start = (currentPage - 1) * newsPerPage;
-  const pageData = filteredArticles.slice(start, start + newsPerPage);
+  const start = (currentPage-1)*newsPerPage;
+  const pageData = filteredArticles.slice(start, start+newsPerPage);
 
   pageData.forEach((article, i) => {
     if (i % 3 === 0 && i !== 0) {
       grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
     }
-
     const d = safe(article);
     const card = document.createElement("div");
     card.className = "card";
@@ -318,7 +224,6 @@ function renderNews() {
   renderPagination();
 }
 
-// Pagination
 function renderPagination() {
   const totalPages = Math.ceil(filteredArticles.length / newsPerPage);
   const pagination = document.getElementById("pagination");
@@ -327,32 +232,26 @@ function renderPagination() {
     <button onclick="nextPage()" ${currentPage===totalPages?'disabled':''}>Next</button>
   `;
 }
-function prevPage() { if(currentPage>1){ currentPage--; renderNews(); window.scrollTo(0,0); } }
-function nextPage() { if(currentPage < Math.ceil(filteredArticles.length/newsPerPage)){ currentPage++; renderNews(); window.scrollTo(0,0); } }
+function prevPage(){ if(currentPage>1){currentPage--;renderNews();window.scrollTo(0,0);} }
+function nextPage(){ if(currentPage < Math.ceil(filteredArticles.length/newsPerPage)){currentPage++;renderNews();window.scrollTo(0,0);} }
 
-// Trending Blogs
+// Trending Blogs - 6 items
 function renderBlogPreview() {
   const container = document.getElementById("blogPreview");
   container.innerHTML = `
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/1015/85/60" alt="">
-      <div class="text">Why AI will change Indian journalism forever</div>
-    </div>
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/201/85/60" alt="">
-      <div class="text">The real story behind Gurgaon's startup boom</div>
-    </div>
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/301/85/60" alt="">
-      <div class="text">How Delhi became India's EV capital</div>
-    </div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/1015/85/60"><div class="text">Why AI will change Indian journalism forever</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/201/85/60"><div class="text">The real story behind Gurgaon's startup boom</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/301/85/60"><div class="text">How Delhi became India's EV capital</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/401/85/60"><div class="text">The future of electric mobility in India</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/501/85/60"><div class="text">Gurgaon real estate boom 2026</div></div>
+    <div class="blog-item" onclick="alert('Blog opened')"><img src="https://picsum.photos/id/601/85/60"><div class="text">Why startups are moving to Gurgaon</div></div>
   `;
 }
 
 // Auto Ticker
 function generateTicker() {
   if (originalArticles.length === 0) return;
-  const text = originalArticles.slice(0, 6).map(a => a.title_en || "Breaking News").join("   🔥   ");
+  const text = originalArticles.slice(0,8).map(a => a.title_en || "Breaking News").join("   🔥   ");
   document.getElementById("tickerText").innerHTML = text;
 }
 
@@ -360,10 +259,8 @@ function generateTicker() {
 function filterCategory(cat) {
   document.querySelectorAll('#categoryTabs span').forEach(s => s.classList.remove('active'));
   event.target.classList.add('active');
-
   if (cat === 'All') filteredArticles = [...originalArticles];
   else filteredArticles = originalArticles.filter(a => a.category === cat);
-
   currentPage = 1;
   renderNews();
 }
