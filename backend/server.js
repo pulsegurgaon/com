@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { Groq } from 'groq-sdk';
 
 const app = express();
 app.use(express.json());
@@ -17,19 +18,18 @@ app.use(express.static(path.join(__dirname, "..")));
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-// ---------- OPENROUTER ----------
-const KEYS = [
-  process.env.OPENROUTER_KEY_1,
-  process.env.OPENROUTER_KEY_2,
-  process.env.OPENROUTER_KEY_3,
-  process.env.OPENROUTER_KEY_4,
-  process.env.OPENROUTER_KEY_5,
-  process.env.OPENROUTER_KEY_6
+// ---------- GROQ ----------
+const GROQ_KEYS = [
+  process.env.GROQ_KEY_1,
+  process.env.GROQ_KEY_2,
+  process.env.GROQ_KEY_3,
+  process.env.GROQ_KEY_4,
+  process.env.GROQ_KEY_5,
+  process.env.GROQ_KEY_6
 ].filter(Boolean);
 
 let keyIndex = 0;
-const getKey = () => KEYS[keyIndex++ % KEYS.length];
-
+const getGroqKey = () => GROQ_KEYS[keyIndex++ % GROQ_KEYS.length];
 // ---------- GITHUB ----------
 const REPO = "pulsegurgaon/com";
 const FILE = "articles.json";
@@ -73,25 +73,24 @@ News:
 ${text}
 `;
 
-  for (let i = 0; i < KEYS.length; i++) {
+  for (let i = 0; i < GROQ_KEYS.length; i++) {
     try {
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${getKey()}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "meta-llama/llama-3-8b-instruct",
-          messages: [{ role: "user", content: prompt }]
-        })
+      const groq = new Groq({ apiKey: getGroqKey() });
+      
+      const chatCompletion = await groq.chat.completions.create({
+        messages: [{ role: "user", content: prompt }],
+        model: "meta-llama/llama-4-scout-17b-16e-instruct",
+        temperature: 1,
+        max_completion_tokens: 1024,
+        top_p: 1,
+        stream: false
       });
 
-      const data = await res.json();
-      let out = data?.choices?.[0]?.message?.content || "";
+      let out = chatCompletion.choices[0]?.message?.content || "";
       out = out.replace(/```json|```/g, "").trim();
       return JSON.parse(out);
-    } catch {}
+    } catch (e) {
+    }
   }
 
   return null;
