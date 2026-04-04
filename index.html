@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
-<meta name="google" content="notranslate">
-
-<!-- GOOGLE TRANSLATE -->
+<!-- Google Translate -->
 <div id="google_translate_element" style="display:none;"></div>
 <script>
 function googleTranslateElementInit() {
@@ -21,275 +19,241 @@ function googleTranslateElementInit() {
 <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Arial, sans-serif; background:#f8f9fa; line-height:1.5; }
 
-body{margin:0;font-family:Arial;background:#f5f6fa}
-
-/* HEADER */
-header{
-background:#e11d48;color:white;
-display:flex;align-items:center;justify-content:space-between;
-padding:12px 16px;
+header {
+  background:#e11d48; color:white; padding:12px 15px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:1000;
 }
-.logo{font-weight:bold;font-size:18px}
-
-.topNav{display:flex;gap:15px;font-size:14px}
-
-.search{
-padding:8px 12px;border-radius:20px;border:none;width:200px
+.logo { font-size:22px; font-weight:bold; }
+.search {
+  flex:1; max-width:420px; margin:0 15px; padding:9px 16px;
+  border-radius:30px; border:none; font-size:15px;
 }
-
-/* CATEGORY */
-.categories{
-display:flex;gap:15px;
-padding:10px 15px;background:white;border-bottom:1px solid #eee;
-overflow-x:auto;
-}
-.categories span{cursor:pointer;font-size:13px}
-.active{color:#e11d48;border-bottom:2px solid #e11d48}
-
-/* BREAKING */
-.breaking{background:#e11d48;color:white;font-size:13px}
-.ticker{padding:6px 15px}
-
-/* LAYOUT */
-.container{
-max-width:1100px;margin:auto;padding:15px;
-display:grid;grid-template-columns:3fr 1fr;gap:20px;
+.nav-buttons button {
+  background:rgba(255,255,255,0.2); color:white; border:none;
+  padding:8px 14px; margin-left:8px; border-radius:20px; font-size:14px;
 }
 
-/* FILTERS */
-.filters{
-background:white;padding:10px;border-radius:10px;margin-bottom:15px;
-display:flex;gap:10px;flex-wrap:wrap;
+/* Top Categories */
+.categories {
+  background:white; padding:10px 15px; display:flex; gap:18px;
+  overflow-x:auto; border-bottom:1px solid #eee; font-size:15px;
 }
-.filters select,.filters button{
-padding:6px;border-radius:6px;border:1px solid #ddd;
+.categories span {
+  cursor:pointer; white-space:nowrap; padding-bottom:4px;
 }
-.filters button{background:#e11d48;color:white;border:none}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(2,1fr);
-gap:15px;
+.categories span.active {
+  color:#e11d48; border-bottom:3px solid #e11d48;
 }
 
-/* CARD */
-.card{
-background:white;border-radius:12px;
-overflow:hidden;box-shadow:0 4px 10px rgba(0,0,0,0.08);
-cursor:pointer;
+/* Latest News */
+.container {
+  max-width:1200px; margin:20px auto; padding:0 15px;
 }
-.card img{
-width:100%;height:160px;object-fit:cover;
-}
-.cardText{padding:10px}
-.badge{
-font-size:10px;background:#e11d48;color:white;
-padding:3px 6px;border-radius:20px;
-}
-.card h3{font-size:14px;margin:5px 0}
-.card p{font-size:12px;color:#555}
+h2 { font-size:24px; margin-bottom:12px; }
 
-/* INLINE AD */
-.ad{
-grid-column:span 2;
-background:#fff;
-border-radius:10px;
-padding:15px;
-text-align:center;
+.filters {
+  display:flex; gap:10px; margin-bottom:15px; flex-wrap:wrap;
+}
+.filters select, .filters button {
+  padding:8px 12px; border-radius:8px; border:1px solid #ddd;
+}
+.filters button { background:#e11d48; color:white; border:none; }
+
+.grid {
+  display:grid; gap:18px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* SIDEBAR */
-.sidebar{
-background:white;padding:12px;border-radius:10px;
+.card {
+  background:white; border-radius:12px; overflow:hidden;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;
 }
-.sideAd{
-height:250px;background:#eee;
-display:flex;align-items:center;justify-content:center;
+.card img {
+  width:100%; height:180px; object-fit:cover;
+}
+.cardText { padding:12px; }
+.badge {
+  font-size:11px; padding:3px 10px; border-radius:20px;
+  display:inline-block; margin-bottom:8px;
+}
+.card h3 { font-size:16px; margin:6px 0; line-height:1.4; }
+.card p { font-size:13.5px; color:#555; }
+
+/* Ad */
+.ad {
+  grid-column: 1 / -1;
+  background:#fff0f0; border:2px dashed #e11d48;
+  padding:20px; text-align:center; border-radius:12px;
+  font-weight:bold; color:#e11d48;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-.container{grid-template-columns:1fr}
-.grid{grid-template-columns:1fr}
-.ad{grid-column:span 1}
-.search{width:120px}
+/* Responsive */
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .search { max-width:200px; }
 }
 
-/* TOP BANNER */
-.banner{
-position:fixed;bottom:0;width:100%;
-background:#e11d48;color:white;
-padding:10px;text-align:center;
-z-index:9999;
+footer {
+  text-align:center; padding:20px; background:#111; color:white;
+  font-size:14px; margin-top:40px;
 }
-.close{position:absolute;right:15px;cursor:pointer}
-
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo">PulseGurgaon</div>
-
-<div class="topNav">
-<span>News</span>
-<span>Blogs</span>
-<span>AI Search</span>
-</div>
-
-<input id="searchInput" class="search" placeholder="Search...">
-
-<button onclick="toggleLang()">EN/HI</button>
+  <div class="logo">PulseGurgaon</div>
+  <input id="searchInput" class="search" placeholder="Search news...">
+  <div class="nav-buttons">
+    <button onclick="toggleLang()">EN / HI</button>
+    <button onclick="location.href='admin.html'">ADMIN</button>
+  </div>
 </header>
 
-<div class="categories">
-<span onclick="filter('All')" class="active">All</span>
-<span onclick="filter('India')">India</span>
-<span onclick="filter('World')">World</span>
-<span onclick="filter('Technology')">Technology</span>
-<span onclick="filter('Finance')">Finance</span>
-</div>
-
-<div class="breaking">
-<div class="ticker" id="ticker">🔥 Loading...</div>
+<div class="categories" id="categoryTabs">
+  <span onclick="filterCategory('All')" class="active">All</span>
+  <span onclick="filterCategory('India')">India</span>
+  <span onclick="filterCategory('World')">World</span>
+  <span onclick="filterCategory('Technology')">Technology</span>
+  <span onclick="filterCategory('Finance')">Finance</span>
+  <span onclick="filterCategory('General')">General</span>
 </div>
 
 <div class="container">
+  <h2>Latest News</h2>
 
-<div>
+  <div class="filters">
+    <select id="dateFilter">
+      <option value="">Date Range</option>
+      <option value="today">Today</option>
+      <option value="week">This Week</option>
+    </select>
+    <select id="catFilter">
+      <option value="">Category</option>
+      <option value="India">India</option>
+      <option value="World">World</option>
+      <option value="Technology">Technology</option>
+      <option value="Finance">Finance</option>
+    </select>
+    <button onclick="applyFilters()">Search</button>
+  </div>
 
-<h2>Latest News</h2>
-
-<div class="filters">
-<select id="cat">
-<option value="">Category</option>
-<option>India</option>
-<option>World</option>
-<option>Technology</option>
-<option>Finance</option>
-</select>
-<button onclick="applyFilter()">Search</button>
+  <div class="grid" id="newsGrid"></div>
 </div>
 
-<div class="grid" id="news"></div>
-
-</div>
-
-<div class="sidebar">
-<div class="sideAd" id="adsBox">Ad</div>
-</div>
-
-</div>
-
-<div id="banner" class="banner">
-🔥 Limited Offer - Click Now
-<span class="close" onclick="closeBanner()">✕</span>
-</div>
+<footer>PulseGurgaon • AI Powered News</footer>
 
 <script>
-
-// TRANSLATE
-function toggleLang(){
-const select=document.querySelector(".goog-te-combo");
-if(select){
-select.value=select.value==="hi"?"en":"hi";
-select.dispatchEvent(new Event("change"));
-}
-}
-
-// BANNER AUTO CLOSE
-setTimeout(()=>closeBanner(),2000);
-function closeBanner(){
-document.getElementById("banner").style.display="none";
+// Google Translate
+function toggleLang() {
+  const select = document.querySelector(".goog-te-combo");
+  if (select) {
+    select.value = select.value === "hi" ? "en" : "hi";
+    select.dispatchEvent(new Event("change"));
+  }
 }
 
-// FETCH ADS
-fetch("/ads")
-.then(r=>r.json())
-.then(ad=>{
-document.getElementById("adsBox").innerHTML=
-`<a href="${ad.link}" target="_blank">${ad.text}</a>`;
-});
+// Data
+let originalArticles = [];
+let filteredArticles = [];
 
-// FETCH TICKER
-fetch("/ticker")
-.then(r=>r.json())
-.then(d=>{
-document.getElementById("ticker").innerText=d.text;
-});
+// Fetch news
+fetch("articles.json?v=" + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    originalArticles = data.articles || [];
+    filteredArticles = [...originalArticles];
+    renderNews();
+  });
 
-// NEWS
-let original=[],filtered=[];
-
-fetch("articles.json?v="+Date.now())
-.then(r=>r.json())
-.then(data=>{
-original=data.articles||[];
-filtered=[...original];
-render();
-});
-
-// SAFE
-function safe(a){
-return {
-title:a.title_en||"Breaking News",
-summary:(a.summary_points||[]).join(" • ") || (a.article_en||"").slice(0,100),
-image:a.image||"https://picsum.photos/400",
-category:a.category||"General"
-};
+// Safe render function
+function safe(a) {
+  return {
+    title: a.title_en || "No Title",
+    summary: (a.summary_points && a.summary_points.length) 
+      ? a.summary_points.join(" • ") 
+      : (a.article_en || "").substring(0, 130) + "...",
+    image: a.image || "https://picsum.photos/id/" + Math.floor(Math.random()*100) + "/600/380",
+    category: a.category || "General"
+  };
 }
 
-// RENDER
-function render(){
-const box=document.getElementById("news");
-box.innerHTML="";
+// Render cards
+function renderNews() {
+  const grid = document.getElementById("newsGrid");
+  grid.innerHTML = "";
 
-filtered.slice(0,20).forEach((a,i)=>{
+  filteredArticles.slice(0, 20).forEach((article, index) => {
+    const d = safe(article);
 
-if(i===4){
-box.innerHTML+=`<div class="ad">ADVERTISEMENT</div>`;
+    // Insert ad after every 4 cards
+    if (index % 4 === 0 && index !== 0) {
+      grid.innerHTML += `
+        <div class="ad">
+          <strong>ADVERTISEMENT</strong><br>
+          Boost Your Business with PulseGurgaon
+        </div>`;
+    }
+
+    const cardHTML = `
+      <div class="card" onclick="openArticle(${JSON.stringify(article).replace(/"/g, '&quot;')})">
+        <img src="${d.image}" alt="">
+        <div class="cardText">
+          <span class="badge" style="background:#e11d48">${d.category}</span>
+          <h3>${d.title}</h3>
+          <p>${d.summary}</p>
+        </div>
+      </div>`;
+    grid.innerHTML += cardHTML;
+  });
+
+  if (filteredArticles.length === 0) {
+    grid.innerHTML = "<p style='grid-column:1/-1;text-align:center;padding:40px;color:#666'>No news available at the moment.</p>";
+  }
 }
 
-const d=safe(a);
-
-const card=document.createElement("div");
-card.className="card";
-
-card.innerHTML=`
-<img src="${d.image}">
-<div class="cardText">
-<span class="badge">${d.category}</span>
-<h3>${d.title}</h3>
-<p>${d.summary}</p>
-</div>
-`;
-
-card.onclick=()=>{
-localStorage.setItem("currentArticle",JSON.stringify(a));
-location.href="article.html";
-};
-
-box.appendChild(card);
-});
+// Open article
+function openArticle(article) {
+  localStorage.setItem("currentArticle", JSON.stringify(article));
+  window.location.href = "article.html";
 }
 
-// FILTER
-function applyFilter(){
-const cat=document.getElementById("cat").value;
-filtered=cat?original.filter(a=>a.category===cat):[...original];
-render();
+// Category filter
+function filterCategory(cat) {
+  document.querySelectorAll('#categoryTabs span').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+
+  if (cat === 'All') {
+    filteredArticles = [...originalArticles];
+  } else {
+    filteredArticles = originalArticles.filter(a => a.category === cat);
+  }
+  renderNews();
 }
 
-// SEARCH
-searchInput.addEventListener("input",function(){
-const q=this.value.toLowerCase();
-filtered=original.filter(a=>
-(a.title_en||"").toLowerCase().includes(q)
-);
-render();
+// Advanced filters
+function applyFilters() {
+  let temp = [...originalArticles];
+
+  const cat = document.getElementById("catFilter").value;
+  if (cat) temp = temp.filter(a => a.category === cat);
+
+  filteredArticles = temp;
+  renderNews();
+}
+
+// Search
+document.getElementById("searchInput").addEventListener("input", function() {
+  const q = this.value.toLowerCase().trim();
+  filteredArticles = originalArticles.filter(a =>
+    (a.title_en || "").toLowerCase().includes(q)
+  );
+  renderNews();
 });
 
 </script>
