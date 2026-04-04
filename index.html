@@ -190,7 +190,7 @@ function safe(a) {
   };
 }
 
-// Render news - Ad after first article, then after every 4 articles
+// Render news - First 2 articles, then ad, then after every 4 articles
 function renderNews() {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
@@ -199,8 +199,8 @@ function renderNews() {
   const pageData = filteredArticles.slice(start, start+newsPerPage);
 
   pageData.forEach((article, i) => {
-    // Ad after first article, then after every 4
-    if ((i === 1) || (i > 1 && (i-1) % 4 === 0)) {
+    // Ad after first 2 articles, then after every 4
+    if (i === 2 || (i > 2 && (i - 2) % 4 === 0)) {
       grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
     }
 
