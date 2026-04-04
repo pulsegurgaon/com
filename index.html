@@ -20,7 +20,6 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 header {
   background:#e11d48; color:white; padding:12px 15px;
   display:flex; align-items:center; justify-content:space-between;
-  position:sticky; top:0; z-index:1000;
 }
 .logo { font-size:22px; font-weight:bold; }
 .search { flex:1; max-width:420px; margin:0 15px; padding:9px 16px; border-radius:30px; border:none; }
@@ -28,9 +27,10 @@ header {
 
 /* Ticker */
 .ticker {
-  background:#111; color:white; padding:8px 15px; font-size:14px; overflow:hidden; white-space:nowrap;
+  background:#111; color:white; padding:8px 15px; overflow:hidden; white-space:nowrap;
 }
-.ticker span { display:inline-block; animation: ticker 25s linear infinite; }
+.ticker span { display:inline-block; animation: ticker 30s linear infinite; }
+@keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
 /* Categories */
 .categories {
@@ -39,24 +39,24 @@ header {
 .categories span { cursor:pointer; white-space:nowrap; padding-bottom:4px; font-size:15px; }
 .categories span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
 
-/* Main Layout */
+/* Layout */
 .container {
   max-width:1200px; margin:20px auto; padding:0 15px;
-  display:grid; grid-template-columns: 3fr 1fr; gap:25px;
+  display:grid; grid-template-columns: 7fr 3fr; gap:25px;
 }
 .grid {
-  display:grid; gap:18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display:grid; gap:20px; grid-template-columns: 1fr 1fr;
 }
 
 /* Card */
 .card {
   background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;
 }
-.card img { width:100%; height:180px; object-fit:cover; }
+.card img { width:100%; height:190px; object-fit:cover; }
 .cardText { padding:12px; }
-.badge { font-size:11px; padding:3px 10px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
-.card h3 { font-size:16px; margin:6px 0; line-height:1.4; }
-.card p { font-size:13.5px; color:#555; }
+.badge { font-size:11px; padding:4px 10px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
+.card h3 { font-size:15.5px; margin:6px 0; line-height:1.4; }
+.card p { font-size:13px; color:#555; }
 
 /* Ad */
 .ad {
@@ -66,27 +66,33 @@ header {
 
 /* Sidebar */
 .sidebar {
-  background:white; padding:15px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  background:white; padding:18px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
-.blog-preview h4 { margin-bottom:12px; }
 .blog-item {
-  display:flex; gap:10px; margin-bottom:15px; cursor:pointer;
+  display:flex; gap:12px; margin-bottom:18px; cursor:pointer;
 }
-.blog-item img { width:70px; height:50px; object-fit:cover; border-radius:6px; }
-.blog-item .text { font-size:13.5px; }
+.blog-item img { width:80px; height:55px; object-fit:cover; border-radius:8px; }
+.blog-item .text { font-size:14px; line-height:1.4; }
+
+/* Pagination */
+.pagination {
+  text-align:center; margin:25px 0;
+}
+.pagination button {
+  padding:8px 16px; margin:0 5px; border:none; background:#e11d48; color:white; border-radius:8px; cursor:pointer;
+}
 
 /* Top Banner Ad */
 .top-banner {
-  position:fixed; top:0; left:0; right:0; background:#e11d48; color:white;
-  padding:12px 15px; text-align:center; z-index:9999; font-size:15px; display:none;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  background:#e11d48; color:white; padding:14px; text-align:center; margin:15px auto; max-width:40%; border-radius:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2); position:relative;
 }
-.top-banner .close { position:absolute; right:15px; top:12px; font-size:20px; cursor:pointer; }
+.top-banner .close { position:absolute; right:12px; top:10px; font-size:22px; cursor:pointer; }
 
-/* Mobile */
 @media (max-width: 768px) {
   .container { grid-template-columns: 1fr; }
   .grid { grid-template-columns: 1fr; }
+  .top-banner { max-width:90%; }
 }
 </style>
 </head>
@@ -103,9 +109,9 @@ header {
   </div>
 </header>
 
-<!-- Breaking News Ticker -->
+<!-- Breaking Ticker -->
 <div class="ticker" id="ticker">
-  <span id="tickerText">🔥 Breaking: PM Modi takes 'rajkumar' dig at Congress in Rajasthan...</span>
+  <span id="tickerText">🔥 Loading breaking news...</span>
 </div>
 
 <!-- Categories -->
@@ -120,10 +126,11 @@ header {
 
 <div class="container">
 
-  <!-- Main News -->
+  <!-- Main Content -->
   <div>
     <h2>Latest News</h2>
     <div class="grid" id="newsGrid"></div>
+    <div class="pagination" id="pagination"></div>
   </div>
 
   <!-- Sidebar -->
@@ -131,28 +138,28 @@ header {
     <h4>🔥 Trending Blogs</h4>
     <div id="blogPreview"></div>
 
-    <!-- Ad below blogs -->
-    <div style="margin-top:25px; background:#fff0f0; padding:18px; border-radius:12px; text-align:center; border:2px dashed #e11d48;">
+    <!-- Ad in sidebar -->
+    <div style="margin-top:25px; background:#fff0f0; padding:20px; border-radius:12px; text-align:center; border:2px dashed #e11d48;">
       <strong>ADVERTISEMENT</strong><br>
       Boost Your Business with PulseGurgaon<br>
-      <button style="margin-top:10px; background:#e11d48; color:white; border:none; padding:10px 20px; border-radius:8px;">Advertise Now</button>
+      <button style="margin-top:12px; background:#e11d48; color:white; border:none; padding:10px 22px; border-radius:8px; cursor:pointer;">Advertise Now</button>
     </div>
   </div>
 
 </div>
 
-<!-- Top Banner Ad (10% height, auto hide after 3 seconds) -->
-<div id="topBanner" class="top-banner">
-  🔥 Limited Offer - Get 50% Off on First Month Advertising
+<!-- Top Banner Ad (40% width) -->
+<div id="topBanner" class="top-banner" style="display:none;">
+  🔥 Limited Time Offer - Advertise on PulseGurgaon
   <span class="close" onclick="closeTopBanner()">✕</span>
 </div>
 
-<footer style="text-align:center; padding:20px; background:#111; color:white; margin-top:40px;">
+<footer style="text-align:center; padding:25px; background:#111; color:white; margin-top:40px;">
   PulseGurgaon • AI Powered News
 </footer>
 
 <script>
-// Google Translate
+// Translate
 function toggleLang() {
   const select = document.querySelector(".goog-te-combo");
   if (select) {
@@ -161,22 +168,13 @@ function toggleLang() {
   }
 }
 
-// Top Banner Ad
-function showTopBanner() {
-  const banner = document.getElementById("topBanner");
-  banner.style.display = "block";
-  setTimeout(() => {
-    closeTopBanner();
-  }, 3000);
-}
-function closeTopBanner() {
-  document.getElementById("topBanner").style.display = "none";
-}
-
-// Fetch news
+// Data
 let originalArticles = [];
 let filteredArticles = [];
+let currentPage = 1;
+const newsPerPage = 10;
 
+// Fetch articles
 fetch("articles.json?v=" + Date.now())
   .then(r => r.json())
   .then(data => {
@@ -184,30 +182,31 @@ fetch("articles.json?v=" + Date.now())
     filteredArticles = [...originalArticles];
     renderNews();
     renderBlogPreview();
-    showTopBanner();        // show banner
-  })
-  .catch(() => {
-    document.getElementById("newsGrid").innerHTML = "<p style='grid-column:1/-1;text-align:center;padding:40px;color:#666'>No news available at the moment.</p>";
+    generateTicker();
+    showTopBanner();
   });
 
 // Safe data
 function safe(a) {
   return {
     title: a.title_en || "No Title",
-    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0, 130) + "...",
-    image: a.image || "https://picsum.photos/id/" + Math.floor(Math.random()*100) + "/600/380",
+    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0, 140) + "...",
+    image: a.image || "https://picsum.photos/id/" + Math.floor(Math.random()*200) + "/600/380",
     category: a.category || "General"
   };
 }
 
-// Render news grid with ad after every 3 cards
+// Render news with 2 cards + ad pattern
 function renderNews() {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
 
-  filteredArticles.slice(0, 20).forEach((article, i) => {
-    if (i % 3 === 0 && i !== 0) {
-      grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business</div>`;
+  const start = (currentPage - 1) * newsPerPage;
+  const pageData = filteredArticles.slice(start, start + newsPerPage);
+
+  pageData.forEach((article, i) => {
+    if (i % 2 === 0 && i !== 0) {
+      grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
     }
 
     const d = safe(article);
@@ -227,37 +226,74 @@ function renderNews() {
     };
     grid.appendChild(card);
   });
+
+  renderPagination();
 }
 
-// Trending Blogs Preview (static for now)
+// Pagination
+function renderPagination() {
+  const totalPages = Math.ceil(filteredArticles.length / newsPerPage);
+  const pagination = document.getElementById("pagination");
+  pagination.innerHTML = "";
+
+  const prev = document.createElement("button");
+  prev.innerText = "Previous";
+  prev.disabled = currentPage === 1;
+  prev.onclick = () => { currentPage--; renderNews(); window.scrollTo(0,0); };
+  pagination.appendChild(prev);
+
+  const next = document.createElement("button");
+  next.innerText = "Next";
+  next.disabled = currentPage === totalPages;
+  next.onclick = () => { currentPage++; renderNews(); window.scrollTo(0,0); };
+  pagination.appendChild(next);
+}
+
+// Trending Blogs Preview
 function renderBlogPreview() {
   const container = document.getElementById("blogPreview");
   container.innerHTML = `
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/1015/70/50" alt="">
+    <div class="blog-item" onclick="alert('Opening blog...')">
+      <img src="https://picsum.photos/id/1015/80/55" alt="">
       <div class="text">Why AI will change Indian journalism forever</div>
     </div>
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/201/70/50" alt="">
+    <div class="blog-item" onclick="alert('Opening blog...')">
+      <img src="https://picsum.photos/id/201/80/55" alt="">
       <div class="text">The real story behind Gurgaon's startup boom</div>
     </div>
-    <div class="blog-item" onclick="alert('Blog opened')">
-      <img src="https://picsum.photos/id/301/70/50" alt="">
+    <div class="blog-item" onclick="alert('Opening blog...')">
+      <img src="https://picsum.photos/id/301/80/55" alt="">
       <div class="text">How Delhi became India's EV capital</div>
     </div>
   `;
 }
 
-// Category filter
+// Auto Ticker from articles
+function generateTicker() {
+  if (originalArticles.length === 0) return;
+  const titles = originalArticles.slice(0, 8).map(a => a.title_en || "Breaking News").join("   🔥   ");
+  document.getElementById("tickerText").innerHTML = titles;
+}
+
+// Top Banner (40% width)
+function showTopBanner() {
+  const banner = document.getElementById("topBanner");
+  banner.style.display = "block";
+  setTimeout(() => closeTopBanner(), 4000);
+}
+function closeTopBanner() {
+  document.getElementById("topBanner").style.display = "none";
+}
+
+// Category Filter
 function filterCategory(cat) {
   document.querySelectorAll('#categoryTabs span').forEach(s => s.classList.remove('active'));
   event.target.classList.add('active');
 
-  if (cat === 'All') {
-    filteredArticles = [...originalArticles];
-  } else {
-    filteredArticles = originalArticles.filter(a => a.category === cat);
-  }
+  if (cat === 'All') filteredArticles = [...originalArticles];
+  else filteredArticles = originalArticles.filter(a => a.category === cat);
+
+  currentPage = 1;
   renderNews();
 }
 
@@ -265,8 +301,10 @@ function filterCategory(cat) {
 document.getElementById("searchInput").addEventListener("input", function() {
   const q = this.value.toLowerCase().trim();
   filteredArticles = originalArticles.filter(a => (a.title_en || "").toLowerCase().includes(q));
+  currentPage = 1;
   renderNews();
 });
+
 </script>
 
 </body>
