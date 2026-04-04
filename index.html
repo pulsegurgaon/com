@@ -6,69 +6,78 @@
 <title>PulseGurgaon</title>
 
 <style>
-
 body{
 margin:0;
-font-family: 'Segoe UI',sans-serif;
-background:#f5f6fa;
+font-family:Segoe UI,Arial;
+background:#f5f5f5;
+}
+
+/* TOP AD */
+.topAd{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:20vh;
+background:#000;
+z-index:9999;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.topAd img{width:100%;height:100%;object-fit:cover}
+.closeAd{
+position:absolute;right:15px;top:10px;
+color:white;font-size:18px;cursor:pointer;
 }
 
 /* HEADER */
 header{
-position:sticky;
-top:0;
-z-index:1000;
+background:#e11d48;
+color:white;
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:14px 20px;
-background:linear-gradient(90deg,#e11d48,#ff416c);
-color:white;
-box-shadow:0 4px 15px rgba(0,0,0,0.2);
+padding:12px 15px;
+position:sticky;
+top:0;
+z-index:1000;
 }
-
-.logo{font-size:22px;font-weight:bold}
+.logo{font-size:20px;font-weight:bold}
 
 .search{
-border:none;
-padding:10px 14px;
-border-radius:25px;
-width:40%;
-outline:none;
-}
-
-.admin,.lang{
-border:none;
 padding:8px 12px;
+border:none;
 border-radius:20px;
-cursor:pointer;
-margin-left:5px;
+width:40%;
 }
 
-.admin{background:#ff7a18;color:white}
-.lang{background:#111;color:white}
+/* NAV */
+.nav{
+display:flex;
+gap:20px;
+padding:10px 15px;
+background:white;
+border-bottom:1px solid #eee;
+overflow-x:auto;
+}
+.nav span{cursor:pointer;color:#555}
 
-/* FILTER BAR */
+/* FILTER */
 .filters{
 display:flex;
 gap:10px;
 padding:15px;
 background:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.05);
 flex-wrap:wrap;
 }
-
 .filters select,.filters button{
-padding:8px 12px;
+padding:8px;
 border-radius:8px;
 border:1px solid #ddd;
 }
-
 .filters button{
-background:#e11d48;
-color:white;
-border:none;
-cursor:pointer;
+background:#e11d48;color:white;border:none;
 }
 
 /* BREAKING */
@@ -77,166 +86,94 @@ background:#e11d48;
 color:white;
 overflow:hidden;
 }
-
 .ticker{
 white-space:nowrap;
 padding:8px;
-animation:scroll 40s linear infinite;
+animation:scroll 30s linear infinite;
 }
-
 @keyframes scroll{
 0%{transform:translateX(100%)}
 100%{transform:translateX(-100%)}
 }
 
 /* LAYOUT */
-.layout{
+.container{
 display:grid;
-grid-template-columns:200px 3fr 300px;
+grid-template-columns:3fr 1fr;
 gap:20px;
-padding:20px;
-}
-
-/* LEFT ADS */
-.leftAds{
-background:white;
-border-radius:12px;
-height:600px;
-display:flex;
-align-items:center;
-justify-content:center;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-}
-
-/* HERO */
-.hero{
-position:relative;
-border-radius:14px;
-overflow:hidden;
-margin-bottom:20px;
-}
-
-.hero img{
-width:100%;
-height:300px;
-object-fit:cover;
-}
-
-.heroOverlay{
-position:absolute;
-bottom:0;
-padding:20px;
-color:white;
-background:linear-gradient(transparent,rgba(0,0,0,0.9));
+padding:15px;
 }
 
 /* CARDS */
 .cards{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-gap:20px;
+grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+gap:15px;
 }
 
 .card{
 background:white;
-border-radius:14px;
-padding:16px;
-box-shadow:0 6px 18px rgba(0,0,0,0.08);
-transition:0.25s;
+padding:15px;
+border-radius:12px;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 cursor:pointer;
-display:flex;
-flex-direction:column;
-justify-content:space-between;
+transition:0.2s;
 }
-
-.card:hover{
-transform:translateY(-6px);
-box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-.card img{
-width:100%;
-height:160px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.card h3{
-font-size:16px;
-margin:10px 0;
-}
-
-.card p{
-font-size:13px;
-color:#555;
-}
+.card:hover{transform:translateY(-5px)}
 
 .badge{
-display:inline-block;
 font-size:11px;
+background:#eee;
 padding:4px 8px;
 border-radius:20px;
-background:#eee;
+display:inline-block;
+margin-bottom:8px;
 }
 
 /* SIDEBAR */
 .sidebar{
 background:white;
-padding:15px;
-border-radius:12px;
-box-shadow:0 4px 15px rgba(0,0,0,0.08);
-}
-
-.blog{
-display:flex;
-gap:10px;
-margin-bottom:12px;
-cursor:pointer;
-}
-
-.blog img{
-width:60px;height:50px;border-radius:6px;
-}
-
-/* ADS */
-.ads{
-background:#fff3cd;
-padding:15px;
+padding:10px;
 border-radius:10px;
-margin-bottom:15px;
-text-align:center;
 }
 
-/* FOOTER */
+/* MOBILE */
+@media(max-width:768px){
+.container{grid-template-columns:1fr}
+.search{width:60%}
+}
+
 footer{
 background:#111;
 color:white;
 text-align:center;
 padding:20px;
-margin-top:30px;
+margin-top:20px;
 }
-
-/* MOBILE */
-@media(max-width:768px){
-.layout{grid-template-columns:1fr}
-.leftAds{display:none}
-.search{width:55%}
-.hero img{height:220px}
-}
-
 </style>
 </head>
 
 <body>
 
+<!-- TOP AD -->
+<div id="topAd" class="topAd">
+<span class="closeAd" onclick="closeAd()">✕</span>
+<a href="#"><img id="adImage" src="https://picsum.photos/1200/200"></a>
+</div>
+
 <header>
 <div class="logo">PulseGurgaon</div>
 <input id="searchInput" class="search" placeholder="Search news...">
-<div>
-<button class="admin" onclick="location.href='admin.html'">ADMIN</button>
-<button class="lang">EN / HI</button>
-</div>
 </header>
+
+<div class="nav">
+<span>All</span>
+<span>India</span>
+<span>World</span>
+<span>Technology</span>
+<span>Finance</span>
+<span>General</span>
+</div>
 
 <div class="filters">
 <select id="categoryFilter">
@@ -251,32 +188,26 @@ margin-top:30px;
 <option value="">Date</option>
 <option value="1">24h</option>
 <option value="7">7 days</option>
-<option value="30">30 days</option>
 </select>
 
 <button onclick="applyFilters()">Search</button>
 </div>
 
 <div class="breaking">
-<div class="ticker" id="ticker">Loading news...</div>
+<div class="ticker" id="ticker">🔥 Breaking news loading...</div>
 </div>
 
-<div class="layout">
-
-<div class="leftAds" id="leftAds">Ad Space</div>
+<div class="container">
 
 <div>
-<div class="hero" id="hero"></div>
+<h2>Latest News</h2>
 <div class="cards" id="news"></div>
 </div>
 
 <div class="sidebar">
-
-<div class="ads" id="adsBox">Ads</div>
-
-<h3>Trending Blogs</h3>
+<div id="adsBox">Ad</div>
+<h4>Trending Blogs</h4>
 <div id="blogs"></div>
-
 </div>
 
 </div>
@@ -285,9 +216,27 @@ margin-top:30px;
 
 <script>
 
+// CLOSE AD
+function closeAd(){
+document.getElementById("topAd").style.display="none";
+}
+
+// AUTO HIDE AFTER 2s
+setTimeout(()=>{
+const ad=document.getElementById("topAd");
+if(ad) ad.style.display="none";
+},2000);
+
+// LOAD ADS
+fetch("/ads")
+.then(r=>r.json())
+.then(ad=>{
+document.getElementById("adImage").src=ad.image||"https://picsum.photos/1200/200";
+});
+
+// NEWS
 let originalArticles=[],filteredArticles=[];
 
-// LOAD NEWS
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(data=>{
@@ -298,35 +247,19 @@ render();
 
 // RENDER
 function render(){
+const box=document.getElementById("news");
+box.innerHTML="";
 
-const hero=document.getElementById("hero");
-const news=document.getElementById("news");
+filteredArticles.slice(0,20).forEach((a,i)=>{
 
-if(!filteredArticles.length){
-news.innerHTML="No news";return;
-}
-
-const first=filteredArticles[0];
-
-hero.innerHTML=`
-<img src="${first.image}">
-<div class="heroOverlay">
-<h2>${first.title_en}</h2>
-<p>${first.summary_points?.join(" • ")}</p>
-</div>
-`;
-
-news.innerHTML="";
-
-filteredArticles.slice(1,20).forEach((a,i)=>{
-
+// AD CARD
 if(i!==0 && i%4===0){
-news.innerHTML+=`
+box.innerHTML+=`
 <div class="card">
 <p style="text-align:center;font-size:12px;color:#999">ADVERTISEMENT</p>
-<img src="https://picsum.photos/300/200">
+<img src="https://picsum.photos/300/200" style="width:100%">
 <br>
-<a href="#" style="background:#e11d48;color:white;padding:8px;border-radius:6px;text-decoration:none">Shop Now</a>
+<button style="background:#e11d48;color:white;border:none;padding:8px;border-radius:6px">Shop Now</button>
 </div>`;
 }
 
@@ -334,7 +267,6 @@ const card=document.createElement("div");
 card.className="card";
 
 card.innerHTML=`
-<img src="${a.image}">
 <span class="badge">${a.category}</span>
 <h3>${a.title_en}</h3>
 <p>${a.summary_points?.join(" • ")}</p>
@@ -352,29 +284,18 @@ vocab:a.vocab_en
 location.href="article.html";
 };
 
-news.appendChild(card);
+box.appendChild(card);
 
 });
 }
 
 // FILTER
 function applyFilters(){
-
 const cat=document.getElementById("categoryFilter").value;
-const days=document.getElementById("dateFilter").value;
 
 filteredArticles=originalArticles.filter(a=>{
-
-let ok=true;
-
-if(cat && a.category!==cat) ok=false;
-
-if(days){
-const diff=(Date.now()-new Date(a.publishedAt))/86400000;
-if(diff>days) ok=false;
-}
-
-return ok;
+if(cat && a.category!==cat) return false;
+return true;
 });
 
 render();
