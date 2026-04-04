@@ -58,9 +58,22 @@ overflow-x:auto
 100%{transform:translateX(-100%)}
 }
 
+/* NEW LAYOUT WITH ADS */
 .layout{
-display:grid;grid-template-columns:3fr 1fr;
-gap:20px;padding:15px
+display:grid;
+grid-template-columns:200px 3fr 300px;
+gap:20px;
+padding:15px;
+}
+
+.leftAds{
+background:#fff3cd;
+border-radius:10px;
+height:600px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
 }
 
 .hero{position:relative;border-radius:12px;overflow:hidden;margin-bottom:15px}
@@ -102,8 +115,12 @@ width:60px;height:50px;object-fit:cover;border-radius:5px
 }
 
 .ads{
-background:#fff3cd;padding:10px;border-radius:10px;margin-bottom:15px;
+background:#fff3cd;
+padding:15px;
+border-radius:10px;
+margin-bottom:15px;
 text-align:center;
+min-height:120px;
 }
 
 footer{background:#111;color:white;text-align:center;padding:20px;margin-top:30px}
@@ -119,6 +136,7 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 .cards{grid-template-columns:1fr}
 .hero img{height:220px}
 .search{width:55%;font-size:12px}
+.leftAds{display:none}
 }
 </style>
 </head>
@@ -147,6 +165,11 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 </div>
 
 <div class="layout">
+
+<!-- LEFT ADS -->
+<div class="leftAds" id="leftAds">Ad Space</div>
+
+<!-- MAIN -->
 <div>
 <div class="hero" id="hero"></div>
 <h3>Latest Headlines</h3>
@@ -154,14 +177,17 @@ margin:4px;padding:6px 10px;border:none;background:#eee;cursor:pointer;border-ra
 <div id="pagination"></div>
 </div>
 
+<!-- RIGHT -->
 <div class="sidebar">
 
 <div class="ads" id="adsBox">Loading Ads...</div>
+<div class="ads" id="adsBox2">Loading Ads...</div>
 
 <h4>Trending Blogs</h4>
 <div id="blogs"></div>
 
 </div>
+
 </div>
 
 <footer>PulseGurgaon • AI Powered News</footer>
@@ -212,8 +238,16 @@ box.innerHTML+=`
 fetch("/ads")
 .then(r=>r.json())
 .then(ad=>{
+
 document.getElementById("adsBox").innerHTML=
 `<a href="${ad.link}" target="_blank">${ad.text}</a>`;
+
+document.getElementById("adsBox2").innerHTML=
+`<a href="${ad.link}" target="_blank">${ad.text}</a>`;
+
+document.getElementById("leftAds").innerHTML=
+`<a href="${ad.link}" target="_blank">${ad.text}</a>`;
+
 });
 
 // TICKER
@@ -225,7 +259,7 @@ document.getElementById("ticker").innerText=d.text;
 });
 }
 
-// FUNCTIONS
+// HELPERS
 function getTitle(a){return a.title_en||"No title";}
 function getSummary(a){
 if(a.summary_points) return a.summary_points.join(" • ");
@@ -271,8 +305,25 @@ card.innerHTML=`
 <p>${getSummary(a)}</p>
 </div>`;
 
+// 🔥 FIXED ARTICLE DATA
 card.onclick=()=>{
-localStorage.setItem("currentArticle",JSON.stringify(a));
+
+const cleanArticle={
+title:a.title_en||"No title",
+summary:(a.summary_points && a.summary_points.length)
+?a.summary_points.join(" • ")
+:"No summary",
+article:a.article_en||"No article",
+image:a.image||"https://picsum.photos/800/400",
+timeline:(a.timeline && a.timeline.length)
+?a.timeline
+:["No timeline available"],
+vocab:(a.vocab_en && a.vocab_en.length)
+?a.vocab_en
+:["No vocab available"]
+};
+
+localStorage.setItem("currentArticle",JSON.stringify(cleanArticle));
 location.href="article.html";
 };
 
