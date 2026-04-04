@@ -1,7 +1,7 @@
 {
   "articles": [
     {
-      "id": 1775315326844.9463,
+      "id": 1775316736354.8184,
       "title_en": "'Special measures to ensure safe passage of ships from friendly nations like India': Iran envoy",
       "summary_points": [
         "'Special measures to ensure safe passage of ships from friendly nations like Ind",
@@ -28,7 +28,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:08:08 +0530"
     },
     {
-      "id": 1775315327437.2073,
+      "id": 1775316736583.2788,
       "title_en": "'All they care about is politics and power': PM Modi slams Cong for 'endangering' Indians in Gulf",
       "summary_points": [
         "Prime Minister Narendra Modi accused Congress leaders of endangering Indians in ",
@@ -55,7 +55,7 @@
       "publishedAt": "Sat, 04 Apr 2026 17:06:08 +0530"
     },
     {
-      "id": 1775315327510.8071,
+      "id": 1775316736703.105,
       "title_en": "'BJP to take away Lakshmi Bhandar money': CM Mamata to woman voters in Bengal",
       "summary_points": [
         "West Bengal chief minister Mamata Banerjee has warned women voters against shari",
@@ -82,7 +82,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:58:17 +0530"
     },
     {
-      "id": 1775315327593.87,
+      "id": 1775316736773.829,
       "title_en": "Amid job cuts, Canadian billionaire Kevin O’Leary points out a good thing about AI layoffs",
       "summary_points": [
         "Kevin O'Leary, the Canadian billionaire, asserts that artificial intelligence is",
@@ -109,7 +109,7 @@
       "publishedAt": "Sat, 04 Apr 2026 08:18:46 +0530"
     },
     {
-      "id": 1775315327672.3909,
+      "id": 1775316736832.5972,
       "title_en": "Who is Suresh? Meet 21-yo Indian boxer who knocked out World No. 1",
       "summary_points": [
         "Indian boxer Vishvanath Suresh shocked world No. 1 Sanzhar Tashkenbay with a kno",
@@ -136,7 +136,34 @@
       "publishedAt": "Sat, 04 Apr 2026 20:20:17 +0530"
     },
     {
-      "id": 1775315327760.4844,
+      "id": 1775316736890.8972,
+      "title_en": "Is Donald Trump’s triumphal tone on Iran facing a reality check?",
+      "summary_points": [
+        "President Trump's claims of 'decimating' Iran are challenged by two US warplane ",
+        "losses. Allies are distancing themselves, with France and Britain focusing on re",
+        "opening the Strait of Hormuz. Iran's actions are deepening economic fallout by d"
+      ],
+      "article_en": "President Trump's claims of 'decimating' Iran are challenged by two US warplane losses. Allies are distancing themselves, with France and Britain focusing on reopening the Strait of Hormuz. Iran's actions are deepening economic fallout by disrupting oil flows. Diplomatic efforts continue amidst regional escalations.",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://static.toiimg.com/photo/msid-130022108,imgsize-96496.cms",
+      "category": "Technology",
+      "publishedAt": "Sat, 04 Apr 2026 20:33:46 +0530"
+    },
+    {
+      "id": 1775316736972.619,
       "title_en": "West Bengal polls: EC suspends 4 police officers after TMC workers gatecrash Amit Shah’s roadshow",
       "summary_points": [
         "West Bengal polls: EC suspends 4 police officers after TMC workers gatecrash Ami",
@@ -163,7 +190,7 @@
       "publishedAt": "Sat, 04 Apr 2026 18:53:15 +0530"
     },
     {
-      "id": 1775315327834.1663,
+      "id": 1775316737032.2974,
       "title_en": "Reason the 6am email from 'Oracle leadership' told thousands of laid-off employees",
       "summary_points": [
         "Oracle has begun its largest-ever round of layoffs, with employees receiving ter",
@@ -190,7 +217,7 @@
       "publishedAt": "Fri, 03 Apr 2026 16:08:56 +0530"
     },
     {
-      "id": 1775315327907.7944,
+      "id": 1775316737094.1409,
       "title_en": "Sooryavanshi, Jaiswal script IPL history, become fastest Indian pair to...",
       "summary_points": [
         "Yashasvi Jaiswal and Vaibhav Sooryavanshi became the fastest Indian pair to 500 ",
@@ -217,7 +244,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:55:25 +0530"
     },
     {
-      "id": 1775315327988.4502,
+      "id": 1775316737196.1091,
       "title_en": "Another global trade chokepoint at risk? After Hormuz, Iran signals Bab el-Mandeb move",
       "summary_points": [
         "Iran's top parliamentarian has hinted at extending maritime pressure to the Bab ",
@@ -244,7 +271,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:05:55 +0530"
     },
     {
-      "id": 1775315328059.0156,
+      "id": 1775316737271.3025,
       "title_en": "OpenClaw creator, who Sam Altman hired for millions, reacts to Anthropic banning his AI Agent",
       "summary_points": [
         "Anthropic has stopped supporting OpenClaw for its Claude subscriptions. This dec",
@@ -271,7 +298,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:22:14 +0530"
     },
     {
-      "id": 1775315328131.6204,
+      "id": 1775316737330.4133,
       "title_en": "IPL: Rizvi's masterclass floors Mumbai; Delhi make it two in a row",
       "summary_points": [
         "Sameer Rizvi’s explosive 90 powered Delhi Capitals to a five-wicket win over Mum",
@@ -298,7 +325,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:25:08 +0530"
     },
     {
-      "id": 1775315328203.129,
+      "id": 1775316737402.055,
       "title_en": "Rajinikanth on Jailer 2, KHxRK while dodging Tamil Nadu poll questions",
       "summary_points": [
         "Superstar Rajinikanth has confirmed 'Jailer 2' is nearing completion and will so",
@@ -325,7 +352,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:54:44 +0530"
     },
     {
-      "id": 1775315328270.4597,
+      "id": 1775316737472.3345,
       "title_en": "'Dhurandhar 2' BO day 17: Ranveer Singh film eyes Rs 1,000 crore India net",
       "summary_points": [
         "Aditya Dhar’s 'Dhurandhar 2: The Revenge' is on the verge of history, eyeing the",
@@ -352,7 +379,7 @@
       "publishedAt": "Sat, 04 Apr 2026 12:53:46 +0530"
     },
     {
-      "id": 1775315328338.8738,
+      "id": 1775316737531.7803,
       "title_en": "IPL: No Shubman Gill for GT as RR bat first in Ahmedabad - check full playing XI",
       "summary_points": [
         "\"Gill has a muscle spasm, hopefully he will be back soon,\" Rashid Khan said at t",
@@ -379,7 +406,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:13:35 +0530"
     },
     {
-      "id": 1775315328406.4048,
+      "id": 1775316737591.1724,
       "title_en": "'Felt like falling out of sky': Artemis II astronaut on Moon-bound journey",
       "summary_points": [
         "Artemis II astronauts have surpassed 150,000 miles from Earth, nearing the first",
@@ -406,7 +433,7 @@
       "publishedAt": "Sat, 04 Apr 2026 18:13:58 +0530"
     },
     {
-      "id": 1775315328476.158,
+      "id": 1775316737664.1323,
       "title_en": "'Ghayal hoon isliye ghatak hoon': Raghav Chadha tears into AAP charges with Dhurandhar reference",
       "summary_points": [
         "Raghav Chadha refuted allegations after being replaced as AAP's Rajya Sabha depu",
@@ -433,7 +460,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:47:10 +0530"
     },
     {
-      "id": 1775315328560.7754,
+      "id": 1775316737764.8877,
       "title_en": "What would aliens make of us? Why UFO fascination is rising again in America",
       "summary_points": [
         "As America eyes the moon again, UFO interest surges, fueled by Obama's 'real' al",
@@ -460,7 +487,7 @@
       "publishedAt": "Sat, 04 Apr 2026 18:51:01 +0530"
     },
     {
-      "id": 1775315328660.3076,
+      "id": 1775316737875.8186,
       "title_en": "BCB meets in Dhaka, talks India ties amid push for better BCCI relations",
       "summary_points": [
         "The meeting took place after​​ a communication had earlier been sent to the Boar",
@@ -487,7 +514,7 @@
       "publishedAt": "Sat, 04 Apr 2026 18:02:01 +0530"
     },
     {
-      "id": 1775315328770.9448,
+      "id": 1775316737953.0059,
       "title_en": "Watch: Magnus Carlsen poses for selfie, then gets her phone seized",
       "summary_points": [
         "At the Grenke Chess Festival, Alua Nurman took a selfie with Magnus Carlsen befo",
@@ -514,7 +541,7 @@
       "publishedAt": "Sat, 04 Apr 2026 17:07:29 +0530"
     },
     {
-      "id": 1775315328861.8037,
+      "id": 1775316738010.2373,
       "title_en": "11-year-old Indian-origin Bodhana becomes England No. 1",
       "summary_points": [
         "Indian-origin chess talent Bodhana Sivanandan, 11, is now England’s top-rated fe",
@@ -541,7 +568,7 @@
       "publishedAt": "Sat, 04 Apr 2026 17:44:30 +0530"
     },
     {
-      "id": 1775315328948.423,
+      "id": 1775316738154.987,
       "title_en": "Tamil Nadu election 2026: The big Annamalai question — what BJP gains, what it risks",
       "summary_points": [
         "BJP leader K Annamalai clarified he chose not to contest the Tamil Nadu assembly",
@@ -568,7 +595,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:30:56 +0530"
     },
     {
-      "id": 1775315329038.3948,
+      "id": 1775316738212.1987,
       "title_en": "‘Devil’ and gang: UP ATS cracks Pakistan-backed module targeting rail infrastructure",
       "summary_points": [
         "Uttar Pradesh ATS arrested four individuals for allegedly operating a terror mod",
@@ -595,7 +622,7 @@
       "publishedAt": "Sat, 04 Apr 2026 15:57:47 +0530"
     },
     {
-      "id": 1775315329177.8115,
+      "id": 1775316738296.3926,
       "title_en": "Why did Suryakumar Yadav replace Hardik Pandya as MI captain?",
       "summary_points": [
         "Suryakumar Yadav led Mumbai Indians against Delhi Capitals.  Hardik Pandya was u",
@@ -622,7 +649,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:17:50 +0530"
     },
     {
-      "id": 1775315329243.1323,
+      "id": 1775316738486.1804,
       "title_en": "Trump mulls big Cabinet shake-up as Iran war backlash deepens: Report",
       "summary_points": [
         "US President Trump is reportedly considering a significant Cabinet reshuffle ami",
@@ -649,7 +676,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:15:46 +0530"
     },
     {
-      "id": 1775315329437.895,
+      "id": 1775316738564.8848,
       "title_en": "Cristiano Ronaldo not selfish: Jorge Jesus explains Al-Nassr sub",
       "summary_points": [
         "Cristiano Ronaldo made a strong return for Al-Nassr in their 5-2 win over Al-Naj",
@@ -676,7 +703,7 @@
       "publishedAt": "Sat, 04 Apr 2026 16:30:47 +0530"
     },
     {
-      "id": 1775315329537.3884,
+      "id": 1775316738623.0625,
       "title_en": "A land that floats, a deer that ‘dances’: Inside world’s only floating national park in Manipur",
       "summary_points": [
         "Manipur's Keibul Lamjao National Park, home to the world's only floating nationa",
@@ -703,7 +730,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:05:09 +0530"
     },
     {
-      "id": 1775315329651.0889,
+      "id": 1775316738694.4695,
       "title_en": "Delhi govt tightens noose: Businesses to get LPG only if they apply for PNG connection",
       "summary_points": [
         "Delhi's commercial LPG supply now requires users to register for piped natural g",
@@ -730,7 +757,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:39:39 +0530"
     },
     {
-      "id": 1775315329778.9807,
+      "id": 1775316738793.4666,
       "title_en": "Why is Hardik Pandya not playing vs Delhi Capitals?",
       "summary_points": [
         "Delhi Capitals captain Axar Patel won the toss and chose to bowl against Mumbai ",
@@ -757,7 +784,7 @@
       "publishedAt": "Sat, 04 Apr 2026 15:13:54 +0530"
     },
     {
-      "id": 1775315329875.0107,
+      "id": 1775316738872.6477,
       "title_en": "Why Pat Cummins left SRH camp and travelled back home - Explained",
       "summary_points": [
         "Sunrisers Hyderabad's Pat Cummins has flown back to Australia for a scheduled sc",
@@ -784,7 +811,7 @@
       "publishedAt": "Sat, 04 Apr 2026 15:36:46 +0530"
     },
     {
-      "id": 1775315329969.1494,
+      "id": 1775316738979.4702,
       "title_en": "Watch: 60-foot-high swing ride carrying 80 people collapses in UP",
       "summary_points": [
         "A 60-foot-high swing ride at the Bhainsaha Mela in Kushinagar collapsed mid-oper",
@@ -811,7 +838,7 @@
       "publishedAt": "Fri, 03 Apr 2026 07:53:00 +0530"
     },
     {
-      "id": 1775315330038.6,
+      "id": 1775316739038.8242,
       "title_en": "Russia attacks Ukraine with drones: 5 killed, 19 injured as strikes hit Nikopol market",
       "summary_points": [
         "A Russian drone strike on a market in Nikopol, Ukraine, resulted in at least fiv",
@@ -838,7 +865,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:49:18 +0530"
     },
     {
-      "id": 1775315330106.619,
+      "id": 1775316739097.3083,
       "title_en": "India rejects 'payment issues' claim over Iranian crude tanker's diversion to China",
       "summary_points": [
         "Reports of an Iranian crude oil shipment rerouted to China due to payment issues",
@@ -865,7 +892,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:01:04 +0530"
     },
     {
-      "id": 1775315330183.2483,
+      "id": 1775316739173.0159,
       "title_en": "Temple today, mosque tomorrow: It’s election season",
       "summary_points": [
         "As elections approach, political campaigns are transcending religious and caste ",
@@ -892,7 +919,7 @@
       "publishedAt": "Sat, 04 Apr 2026 13:30:40 +0530"
     },
     {
-      "id": 1775315330363.6753,
+      "id": 1775316739280.0056,
       "title_en": "‘This has happened before’: How science explains Déjà Vu and the feeling of life on replay",
       "summary_points": [
         "An uncanny feeling of having lived a moment before, known as déjà vu, is explore",
@@ -919,7 +946,7 @@
       "publishedAt": "Sat, 04 Apr 2026 13:15:16 +0530"
     },
     {
-      "id": 1775315330454.1133,
+      "id": 1775316739363.7334,
       "title_en": "Salman Khan’s Panvel farmhouse: Gym to stables, pool and more",
       "summary_points": [
         "Salman Khan's luxurious Panvel estate, Arpita Farms, sprawls over 150 acres and ",
@@ -946,7 +973,7 @@
       "publishedAt": "Sat, 04 Apr 2026 12:54:52 +0530"
     },
     {
-      "id": 1775315330525.7083,
+      "id": 1775316739453.9326,
       "title_en": "'Nothing left in Left': Rahul Gandhi alleges ‘BJP-RSS-LDF nexus’ during Kerala poll rally",
       "summary_points": [
         "Rahul Gandhi accused Kerala's LDF and BJP of a hidden understanding, claiming Ch",
@@ -973,7 +1000,7 @@
       "publishedAt": "Sat, 04 Apr 2026 12:22:43 +0530"
     },
     {
-      "id": 1775315330639.7183,
+      "id": 1775316739510.265,
       "title_en": "India’s Bangladesh tour back on track? BCB reaches out to BCCI for September series",
       "summary_points": [
         "The Bangladesh Cricket Board has reached out to the BCCI to explore new avenues ",
@@ -1000,7 +1027,7 @@
       "publishedAt": "Sat, 04 Apr 2026 13:39:45 +0530"
     },
     {
-      "id": 1775315330753.0413,
+      "id": 1775316739565.101,
       "title_en": "'17 calls between Eknath Shinde &amp; Nashik astrologer Ashok Kharat': Activist Anjali Damania",
       "summary_points": [
         "Maharashtra Industries Minister Uday Samant has demanded an investigation into t",
@@ -1027,7 +1054,7 @@
       "publishedAt": "Sat, 04 Apr 2026 05:10:00 +0530"
     },
     {
-      "id": 1775315330860.255,
+      "id": 1775316739622.4492,
       "title_en": "'Didn’t grant statehood to Puducherry': Vijay slams BJP, Congress ahead of polls",
       "summary_points": [
         "'Didn’t grant statehood to Puducherry': Vijay slams BJP, Congress ahead of polls",
@@ -1054,14 +1081,14 @@
       "publishedAt": "Sat, 04 Apr 2026 13:40:12 +0530"
     },
     {
-      "id": 1775315330951.897,
-      "title_en": "'Please don’t tell my mother': 23-year-old lands in ICU after selling his kidney",
+      "id": 1775316739681.0745,
+      "title_en": "Mobile phones stealing spree at Chinnaswamy Stadium: 70 phones recovered, 13 arrested",
       "summary_points": [
-        "A young man, Ayush, allegedly sold his kidney to fund his MBA education due to s",
-        "evere financial hardship. He received only a portion of the promised payment and",
-        " is now in the ICU battling for his life. The incident highlights the desperatio"
+        "Mobile phones stealing spree at Chinnaswamy Stadium: 70 phones recovered, 13 arr",
+        "ested",
+        ""
       ],
-      "article_en": "A young man, Ayush, allegedly sold his kidney to fund his MBA education due to severe financial hardship. He received only a portion of the promised payment and is now in the ICU battling for his life. The incident highlights the desperation faced by vulnerable individuals in pursuit of education.",
+      "article_en": "Mobile phones stealing spree at Chinnaswamy Stadium: 70 phones recovered, 13 arrested",
       "timeline": [
         "Start",
         "Update",
@@ -1076,12 +1103,417 @@
         "report",
         "source"
       ],
-      "image": "https://static.toiimg.com/photo/msid-130015965,imgsize-39760.cms",
+      "image": "https://th-i.thgim.com/public/incoming/ih5zrd/article70824158.ece/alternates/LANDSCAPE_1200/th30-insta-patiGERFPG584.3.jpg.jpg",
       "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 14:05:16 +0530"
+      "publishedAt": "Sat, 04 Apr 2026 21:00:33 +0530"
     },
     {
-      "id": 1775315331020.1658,
+      "id": 1775316739739.5627,
+      "title_en": "Price crash drives Bengal potato farmers into distress",
+      "summary_points": [
+        "Three farmer deaths linked to falling prices; Opposition, ruling party trade cha",
+        "rges",
+        ""
+      ],
+      "article_en": "Three farmer deaths linked to falling prices; Opposition, ruling party trade charges",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/news/national/mlyr9i/article70823778.ece/alternates/LANDSCAPE_1200/Potato.jpg",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:58:47 +0530"
+    },
+    {
+      "id": 1775316739810.5115,
+      "title_en": "JNN college in Shivamogga celebrates management and cultural festival",
+      "summary_points": [
+        "JNN college in Shivamogga celebrates management and cultural festival",
+        "",
+        ""
+      ],
+      "article_en": "JNN college in Shivamogga celebrates management and cultural festival",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/pf14xn/article70824143.ece/alternates/LANDSCAPE_1200/9911_4_4_2026_19_53_39_1_UTTHANA_1.JPEG",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:57:00 +0530"
+    },
+    {
+      "id": 1775316739902.9385,
+      "title_en": "Telangana Governor emphasizes strengthening trauma care systems amid rising accidents",
+      "summary_points": [
+        "Telangana Governor emphasizes strengthening trauma care systems amid rising acci",
+        "dents",
+        ""
+      ],
+      "article_en": "Telangana Governor emphasizes strengthening trauma care systems amid rising accidents",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.9515918484470833/800/400",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:56:03 +0530"
+    },
+    {
+      "id": 1775316739959.5483,
+      "title_en": "Polytechnic contract lecturers seek regularisation of services",
+      "summary_points": [
+        "Polytechnic contract lecturers seek regularisation of services",
+        "",
+        ""
+      ],
+      "article_en": "Polytechnic contract lecturers seek regularisation of services",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.42749880871865154/800/400",
+      "category": "Technology",
+      "publishedAt": "Sat, 04 Apr 2026 20:55:24 +0530"
+    },
+    {
+      "id": 1775316740282.5417,
+      "title_en": "Kerala Assembly polls 2026: UDF spreading lies to mislead people, LDF will retain power in Kerala: T.P. Ramakrishnan",
+      "summary_points": [
+        "Says the government has been able to implement numerous development projects in ",
+        "the past 10 years",
+        ""
+      ],
+      "article_en": "Says the government has been able to implement numerous development projects in the past 10 years",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/4jnxxq/article70823879.ece/alternates/LANDSCAPE_1200/80692_2_4_2026_14_6_15_1_03TVKZTPRAMAKRISHNAN.JPG",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:55:15 +0530"
+    },
+    {
+      "id": 1775316740374.0657,
+      "title_en": "Drinking water scarcity in 324 villages across 60 taluks in 20 districts in Karnataka: Priyank Kharge",
+      "summary_points": [
+        "Drinking water scarcity in 324 villages across 60 taluks in 20 districts in Karn",
+        "ataka: Priyank Kharge",
+        ""
+      ],
+      "article_en": "Drinking water scarcity in 324 villages across 60 taluks in 20 districts in Karnataka: Priyank Kharge",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/tvo2a2/article70824089.ece/alternates/LANDSCAPE_1200/_DSC7407.JPG",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:53:43 +0530"
+    },
+    {
+      "id": 1775316740462.6655,
+      "title_en": "Anakapalli officials study services of Konaseema Centre for Migration",
+      "summary_points": [
+        "Anakapalli officials study services of Konaseema Centre for Migration",
+        "",
+        ""
+      ],
+      "article_en": "Anakapalli officials study services of Konaseema Centre for Migration",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.1193879248957066/800/400",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:52:19 +0530"
+    },
+    {
+      "id": 1775316740520.9001,
+      "title_en": "Andhra Pradesh unveils 10-point plan to arrest declining fertility rate",
+      "summary_points": [
+        "Government shifts from population control to population care; 12-month parental ",
+        "leave and workplace childcare centres among key measures, says Health Minister",
+        ""
+      ],
+      "article_en": "Government shifts from population control to population care; 12-month parental leave and workplace childcare centres among key measures, says Health Minister",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.7837483562820491/800/400",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:43:10 +0530"
+    },
+    {
+      "id": 1775316740581.513,
+      "title_en": "Congress raised ₹5.38 crore for Wayanad rehabilitation, says Sunny Joseph",
+      "summary_points": [
+        "KPCC president accuses the CPI(M) of spreading baseless allegations; he says all",
+        " transactions were traceable and open for verification; raises the issue of poll",
+        " irregularities in Kannur"
+      ],
+      "article_en": "KPCC president accuses the CPI(M) of spreading baseless allegations; he says all transactions were traceable and open for verification; raises the issue of poll irregularities in Kannur",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.44931490961909093/800/400",
+      "category": "Technology",
+      "publishedAt": "Sat, 04 Apr 2026 20:42:52 +0530"
+    },
+    {
+      "id": 1775316740632.9856,
+      "title_en": "Chief Minister Chandrababu Naidu reviews Amaravati capital, emphasises on timelines and quality",
+      "summary_points": [
+        "The Chief Minister stressed that building the capital city should not be treated",
+        " merely as a contract assignment but as a historic responsibility",
+        ""
+      ],
+      "article_en": "The Chief Minister stressed that building the capital city should not be treated merely as a contract assignment but as a historic responsibility",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/dd8d7z/article70824060.ece/alternates/LANDSCAPE_1200/10215_4_4_2026_17_59_52_1_WHATSAPPIMAGE2026_04_04AT20600PM1.JPEG",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:42:45 +0530"
+    },
+    {
+      "id": 1775316740693.685,
+      "title_en": "Two arrested with ₹90 lakh worth banned cotton seeds near Medchal",
+      "summary_points": [
+        "Two arrested with ₹90 lakh worth banned cotton seeds near Medchal",
+        "",
+        ""
+      ],
+      "article_en": "Two arrested with ₹90 lakh worth banned cotton seeds near Medchal",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/nolb6g/article70823712.ece/alternates/LANDSCAPE_1200/spurious%20seeds%20.jpeg",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:40:25 +0530"
+    },
+    {
+      "id": 1775316740751.4072,
+      "title_en": "Kerala Assembly Poll 2026: Kit row rocks Thrissur as campaign heats up",
+      "summary_points": [
+        "LDF, Congress allege voter influence attempt; BJP denies role as police shut dow",
+        "n supermarket",
+        ""
+      ],
+      "article_en": "LDF, Congress allege voter influence attempt; BJP denies role as police shut down supermarket",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.9345673716641538/800/400",
+      "category": "Finance",
+      "publishedAt": "Sat, 04 Apr 2026 20:39:42 +0530"
+    },
+    {
+      "id": 1775316740807.8413,
+      "title_en": "SC Welfare Minister backs Centre for Dalit Studies, promises funds",
+      "summary_points": [
+        "SC Welfare Minister backs Centre for Dalit Studies, promises funds",
+        "",
+        ""
+      ],
+      "article_en": "SC Welfare Minister backs Centre for Dalit Studies, promises funds",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.7354512365987311/800/400",
+      "category": "General",
+      "publishedAt": "Sat, 04 Apr 2026 20:38:33 +0530"
+    },
+    {
+      "id": 1775316740865.6733,
+      "title_en": "Telangana to observe health week from April 6 to 11 with focus on awareness, cancer care, public health outreach",
+      "summary_points": [
+        "Telangana to observe health week from April 6 to 11 with focus on awareness, can",
+        "cer care, public health outreach",
+        ""
+      ],
+      "article_en": "Telangana to observe health week from April 6 to 11 with focus on awareness, cancer care, public health outreach",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://th-i.thgim.com/public/incoming/38sqpk/article70823988.ece/alternates/LANDSCAPE_1200/IMG-20260311-WA0026.jpg",
+      "category": "World",
+      "publishedAt": "Sat, 04 Apr 2026 20:37:30 +0530"
+    },
+    {
+      "id": 1775316740920.5908,
+      "title_en": "Four arrested with ganja worth ₹50 lakh near Secunderabad Railway Station",
+      "summary_points": [
+        "Four arrested with ganja worth ₹50 lakh near Secunderabad Railway Station",
+        "",
+        ""
+      ],
+      "article_en": "Four arrested with ganja worth ₹50 lakh near Secunderabad Railway Station",
+      "timeline": [
+        "Start",
+        "Update",
+        "Escalation",
+        "Reaction",
+        "Current",
+        "Next"
+      ],
+      "vocab_en": [
+        "event",
+        "impact",
+        "report",
+        "source"
+      ],
+      "image": "https://picsum.photos/seed/0.28285981484975253/800/400",
+      "category": "Technology",
+      "publishedAt": "Sat, 04 Apr 2026 20:37:04 +0530"
+    },
+    {
+      "id": 1775316740976.9658,
       "title_en": "Government to invest ₹40,000 crore to develop Rayalaseema into horticulture hub, says Minister",
       "summary_points": [
         "Government to invest ₹40,000 crore to develop Rayalaseema into horticulture hub,",
@@ -1108,7 +1540,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:31:41 +0530"
     },
     {
-      "id": 1775315331097.5354,
+      "id": 1775316741031.9937,
       "title_en": "Three held for allegedly blocking Tharoor’s car, assaulting his gunman, driver",
       "summary_points": [
         "Three held for allegedly blocking Tharoor’s car, assaulting his gunman, driver",
@@ -1130,12 +1562,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.4188932450501657/800/400",
+      "image": "https://picsum.photos/seed/0.7697785129990256/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:28:19 +0530"
     },
     {
-      "id": 1775315331174.308,
+      "id": 1775316741089.1516,
       "title_en": "Singareni rolls out ₹10 lakh cover for natural death after ₹1 cr. accident insurance",
       "summary_points": [
         "Singareni rolls out ₹10 lakh cover for natural death after ₹1 cr. accident insur",
@@ -1157,12 +1589,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.572098358464838/800/400",
+      "image": "https://picsum.photos/seed/0.20823546881565602/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:23:57 +0530"
     },
     {
-      "id": 1775315331272.0198,
+      "id": 1775316741142.0322,
       "title_en": "‘Have done a pious job’: Follower-turned-whistleblower of arrested Nashik godman reveals shocking details",
       "summary_points": [
         "Ashok Kharat is currently lodged in police custody in a rape and black magic cas",
@@ -1189,7 +1621,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:22:17 +0530"
     },
     {
-      "id": 1775315331349.1187,
+      "id": 1775316741201.0854,
       "title_en": "NASA’s Artemis II mission will be a grand success: ISRO chairman V. Narayanan",
       "summary_points": [
         "Recalling past human landings on the moon, Dr. Narayanan said the Artemis progra",
@@ -1216,7 +1648,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:21:57 +0530"
     },
     {
-      "id": 1775315331741.6155,
+      "id": 1775316741261.2957,
       "title_en": "HC order triggered by government inaction on fee reimbursement transfers burden to students",
       "summary_points": [
         "While college managements termed the HC order as a historic move the students’ u",
@@ -1238,12 +1670,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.16294477181393252/800/400",
+      "image": "https://picsum.photos/seed/0.003981225822477175/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:21:19 +0530"
     },
     {
-      "id": 1775315331871.5933,
+      "id": 1775316741353.056,
       "title_en": "Will stand with State government on developmental issues: Kumaraswamy",
       "summary_points": [
         "Will stand with State government on developmental issues: Kumaraswamy",
@@ -1270,7 +1702,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:20:43 +0530"
     },
     {
-      "id": 1775315331963.1118,
+      "id": 1775316741412.671,
       "title_en": "Woman injured as elephant runs amok at Nemmara",
       "summary_points": [
         "The incident occurred during the Nemmara-Vallanghi temple festival procession",
@@ -1292,12 +1724,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.2635087932988256/800/400",
+      "image": "https://picsum.photos/seed/0.7452315737271507/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:19:41 +0530"
     },
     {
-      "id": 1775315332041.9207,
+      "id": 1775316741473.5886,
       "title_en": "Class VIII student killed as RTC bus hits motorcycle in Jubilee Hills",
       "summary_points": [
         "Class VIII student killed as RTC bus hits motorcycle in Jubilee Hills",
@@ -1319,12 +1751,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.28041245650610924/800/400",
+      "image": "https://picsum.photos/seed/0.3324166437860818/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:17:57 +0530"
     },
     {
-      "id": 1775315332138.5552,
+      "id": 1775316741536.0781,
       "title_en": "Kerala elections: Rahul Gandhi to hit campaign trail in Thrissur on April 6",
       "summary_points": [
         "UDF eyes momentum boost as Congress leader addresses two major rallies in final ",
@@ -1346,12 +1778,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.10359515167038924/800/400",
+      "image": "https://picsum.photos/seed/0.582042872379203/800/400",
       "category": "Technology",
       "publishedAt": "Sat, 04 Apr 2026 20:14:47 +0530"
     },
     {
-      "id": 1775315332209.322,
+      "id": 1775316741599.815,
       "title_en": "Hazardous chemicals found in milk during raids across East Godavari",
       "summary_points": [
         "Animal Husbandry and Food Safety authorities intensify inspections after 16 deat",
@@ -1378,7 +1810,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:13:52 +0530"
     },
     {
-      "id": 1775315332291.4658,
+      "id": 1775316741682.3076,
       "title_en": "West Asia conflict hits coffee prices; Karnataka growers hold back produce",
       "summary_points": [
         "Planters say prices, which remained stable and favourable during the harvesting ",
@@ -1405,7 +1837,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:13:17 +0530"
     },
     {
-      "id": 1775315332376.4673,
+      "id": 1775316741738.6516,
       "title_en": "National digital wellbeing mission launched amid rising concerns over screen addiction and online risks",
       "summary_points": [
         "National digital wellbeing mission launched amid rising concerns over screen add",
@@ -1432,7 +1864,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:13:06 +0530"
     },
     {
-      "id": 1775315332474.2961,
+      "id": 1775316741797.9,
       "title_en": "NGT stays Assam order deploying forest personnel for poll duty, flags biodiversity risks",
       "summary_points": [
         "The tribunal issued notices to the respondents and fixed April 6 for the next he",
@@ -1459,7 +1891,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:12:03 +0530"
     },
     {
-      "id": 1775315332546.5017,
+      "id": 1775316741852.031,
       "title_en": "Assembly Elections LIVE: PM Modi holds roadshow in Kerala; Rahul Gandhi reiterates BJP-LDF nexus to defeat UDF",
       "summary_points": [
         "The real culprits behind Malda violence escaped and the NIA targets innocent peo",
@@ -1481,12 +1913,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8314197704238055/800/400",
+      "image": "https://picsum.photos/seed/0.8035770718394779/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:11:55 +0530"
     },
     {
-      "id": 1775315332625.7896,
+      "id": 1775316741907.125,
       "title_en": "IIITDM Kurnool bags fourth spot in Inter-IIIT Sports Meet",
       "summary_points": [
         "IIITM Gwalior emerges first in the overall institute rankings, followed by IIIT ",
@@ -1508,12 +1940,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.39735051054321513/800/400",
+      "image": "https://picsum.photos/seed/0.1098327956457581/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 20:11:44 +0530"
     },
     {
-      "id": 1775315332701.7458,
+      "id": 1775316741973.6113,
       "title_en": "War of words intensifies in poll-bound Assam",
       "summary_points": [
         "Chief Minister Himanta Biswa Sarma says top Congress leaders will have to be reb",
@@ -1540,34 +1972,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:08:01 +0530"
     },
     {
-      "id": 1775315332809.7283,
-      "title_en": "Kerala Assembly polls 2026: UDF spreading lies to mislead people, LDF will retain power in Kerala: T.P. Ramakrishnan",
-      "summary_points": [
-        "Says  government has been able to implement numerous development projects in the",
-        " past 10 years",
-        ""
-      ],
-      "article_en": "Says  government has been able to implement numerous development projects in the past 10 years",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/4jnxxq/article70823879.ece/alternates/LANDSCAPE_1200/80692_2_4_2026_14_6_15_1_03TVKZTPRAMAKRISHNAN.JPG",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 20:07:41 +0530"
-    },
-    {
-      "id": 1775315332882.4016,
+      "id": 1775316742031.413,
       "title_en": "High school teachers and PU lecturers say their academic calendar clashes with census work",
       "summary_points": [
         "Teachers and lecturers have urged the govt. to release them from Census 2027 wor",
@@ -1594,7 +1999,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:07:32 +0530"
     },
     {
-      "id": 1775315332977.3586,
+      "id": 1775316742105.5244,
       "title_en": "Treat Western Ghats to coast as one ecosystem, says policy document",
       "summary_points": [
         "Treat Western Ghats to coast as one ecosystem, says policy document",
@@ -1621,7 +2026,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:01:49 +0530"
     },
     {
-      "id": 1775315333052.1628,
+      "id": 1775316742182.68,
       "title_en": "Miniature artist from Yemmiganur carves a niche for himself",
       "summary_points": [
         "Having made it to India Book of Records and the Guinness Book, Shiva Keshava Mac",
@@ -1648,7 +2053,7 @@
       "publishedAt": "Sat, 04 Apr 2026 20:01:39 +0530"
     },
     {
-      "id": 1775315333121.4531,
+      "id": 1775316742251.9707,
       "title_en": "Malkajgiri cyber crime police arrest 13 persons in six cyber fraud cases",
       "summary_points": [
         "Malkajgiri cyber crime police arrest 13 persons in six cyber fraud cases",
@@ -1670,12 +2075,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.9345819196600211/800/400",
+      "image": "https://picsum.photos/seed/0.2620095697827578/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:58:24 +0530"
     },
     {
-      "id": 1775315333238.651,
+      "id": 1775316742309.6167,
       "title_en": "BRS condemns ‘attack’ on KCR’s camp office at Gajwel, demands arrest of those involved",
       "summary_points": [
         "Party leaders ask ruling Congress whether attacking elected  representatives of ",
@@ -1697,12 +2102,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8807218575652234/800/400",
+      "image": "https://picsum.photos/seed/0.31216848683725185/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:57:45 +0530"
     },
     {
-      "id": 1775315333325.8247,
+      "id": 1775316742365.721,
       "title_en": "Government’s efforts to combat drug menace in A.P. limited to publicity, allege DYFI",
       "summary_points": [
         "Government’s efforts to combat drug menace in A.P. limited to publicity, allege ",
@@ -1724,12 +2129,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.44386249761511243/800/400",
+      "image": "https://picsum.photos/seed/0.0948623515171878/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:57:42 +0530"
     },
     {
-      "id": 1775315333395.3157,
+      "id": 1775316742429.0298,
       "title_en": "Kerala Assembly Elections 2026: UDF attempting ‘in secrecy’ to form unholy alliance with BJP, says INL chief",
       "summary_points": [
         "Kerala Assembly Elections 2026: UDF attempting ‘in secrecy’ to form unholy allia",
@@ -1751,12 +2156,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.22416289602723105/800/400",
+      "image": "https://picsum.photos/seed/0.5355863416309914/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:54:10 +0530"
     },
     {
-      "id": 1775315333466.767,
+      "id": 1775316742488.0276,
       "title_en": "Special trains between Mysuru and Jodhpur",
       "summary_points": [
         "Special trains between Mysuru and Jodhpur",
@@ -1778,12 +2183,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.26751649972282965/800/400",
+      "image": "https://picsum.photos/seed/0.9677399876114792/800/400",
       "category": "Technology",
       "publishedAt": "Sat, 04 Apr 2026 19:52:19 +0530"
     },
     {
-      "id": 1775315333538.567,
+      "id": 1775316742549.357,
       "title_en": "Locals attack police, snatch their arms after a man dies in custody in Bihar’s Katihar",
       "summary_points": [
         "Police claim that the youth tried to end his life by hanging himself in the cell",
@@ -1805,12 +2210,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.42062903508336524/800/400",
+      "image": "https://picsum.photos/seed/0.9412886567180649/800/400",
       "category": "Technology",
       "publishedAt": "Sat, 04 Apr 2026 19:48:36 +0530"
     },
     {
-      "id": 1775315333611.004,
+      "id": 1775316742611.954,
       "title_en": "Expo of board games in craft forms begins in Mysuru",
       "summary_points": [
         "Expo of board games in craft forms begins in Mysuru",
@@ -1832,12 +2237,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8518329811122396/800/400",
+      "image": "https://picsum.photos/seed/0.04191625769908791/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:48:04 +0530"
     },
     {
-      "id": 1775315333696.491,
+      "id": 1775316742753.1182,
       "title_en": "GBA nudge to corporations to transfer funds raised through municipal bonds to BSMILE, opposed",
       "summary_points": [
         "GBA nudge to corporations to transfer funds raised through municipal bonds to BS",
@@ -1864,7 +2269,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:47:46 +0530"
     },
     {
-      "id": 1775315333769.1653,
+      "id": 1775316742813.4646,
       "title_en": "Decomposed body found in Khanapur, police suspect suicide about 10 days ago",
       "summary_points": [
         "Decomposed body found in Khanapur, police suspect suicide about 10 days ago",
@@ -1886,12 +2291,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.6472992990362698/800/400",
+      "image": "https://picsum.photos/seed/0.6733558579039463/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:47:11 +0530"
     },
     {
-      "id": 1775315333850.0671,
+      "id": 1775316742897.2737,
       "title_en": "Kerala Assembly Polls 2026: EVM commissioning begins in Kollam",
       "summary_points": [
         "Kerala Assembly Polls 2026: EVM commissioning begins in Kollam",
@@ -1913,12 +2318,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.3969476345131542/800/400",
+      "image": "https://picsum.photos/seed/0.7941623244339635/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:46:28 +0530"
     },
     {
-      "id": 1775315333940.8052,
+      "id": 1775316742960.6667,
       "title_en": "Kerala Assembly elections 2026: Tamil-speaking electorate holds key to Devikulam constituency",
       "summary_points": [
         "The Devikulam constituency will feature a notable “battle of Rajas,” with candid",
@@ -1940,12 +2345,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.6064067311056975/800/400",
+      "image": "https://picsum.photos/seed/0.5833231147765772/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:46:02 +0530"
     },
     {
-      "id": 1775315334025.6917,
+      "id": 1775316743053.5105,
       "title_en": "Close contest between three-time MLA and new face with family legacy",
       "summary_points": [
         "Among the key issues before the people is the long-pending demand of increased c",
@@ -1972,7 +2377,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:45:08 +0530"
     },
     {
-      "id": 1775315334103.8042,
+      "id": 1775316743123.188,
       "title_en": "Youths held with 550 grams of suspected MDMA",
       "summary_points": [
         "Youths held with 550 grams of suspected MDMA",
@@ -1994,39 +2399,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.4886259453884132/800/400",
+      "image": "https://picsum.photos/seed/0.7470646952954199/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:43:59 +0530"
     },
     {
-      "id": 1775315334172.484,
-      "title_en": "Price crash drives Bengal potato farmers into distress",
-      "summary_points": [
-        "Three farmer deaths linked to falling prices; Opposition, ruling party trade cha",
-        "rges",
-        ""
-      ],
-      "article_en": "Three farmer deaths linked to falling prices; Opposition, ruling party trade charges",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/news/national/mlyr9i/article70823778.ece/alternates/LANDSCAPE_1200/Potato.jpg",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:42:50 +0530"
-    },
-    {
-      "id": 1775315334244.8723,
+      "id": 1775316743202.9194,
       "title_en": "Pinarayi slams Rahul for drawing equivalence between LDF and Hindutva forces in Chhattisgarh",
       "summary_points": [
         "Kerala Chief Minister says the Congress leader’s “brazenly misleading” statement",
@@ -2053,7 +2431,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:41:36 +0530"
     },
     {
-      "id": 1775315334310.9204,
+      "id": 1775316743284.7864,
       "title_en": "Jagan’s ‘MAVIGUN’ plan a new political drama, says Agriculture Minister Atchannaidu",
       "summary_points": [
         "The former Chief Minister destroyed the Amaravati project when in power, he says",
@@ -2080,7 +2458,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:41:20 +0530"
     },
     {
-      "id": 1775315334377.5032,
+      "id": 1775316743353.245,
       "title_en": "Kerala Assembly Polls 2026: LDF, UDF and NDA in a no-holds barred battle for supremacy in south Kerala",
       "summary_points": [
         "Kerala Assembly Polls 2026: LDF, UDF and NDA in a no-holds barred battle for sup",
@@ -2102,12 +2480,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.5950394265803158/800/400",
+      "image": "https://picsum.photos/seed/0.7738203911322534/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 19:40:36 +0530"
     },
     {
-      "id": 1775315334447.3013,
+      "id": 1775316743414.4062,
       "title_en": "T.N. Assembly election: discrepancies surface in affidavits filed by Vijay for Tiruchi East and Perambur",
       "summary_points": [
         "These are with respect to personal details, criminal disclosures, and asset decl",
@@ -2134,7 +2512,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:37:50 +0530"
     },
     {
-      "id": 1775315334520.1433,
+      "id": 1775316743482.681,
       "title_en": "Telangana tourism’s heritage walk aims to spotlight Hyderabad’s cultural legacy",
       "summary_points": [
         "Telangana tourism’s heritage walk aims to spotlight Hyderabad’s cultural legacy",
@@ -2161,7 +2539,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:37:22 +0530"
     },
     {
-      "id": 1775315334585.4768,
+      "id": 1775316743538.8887,
       "title_en": "Learn to face challenges and failures with grit, Lokesh tells students",
       "summary_points": [
         "Citing his own example of how hard work leads to success, the HRD Minister says ",
@@ -2188,7 +2566,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:37:05 +0530"
     },
     {
-      "id": 1775315334657.957,
+      "id": 1775316743774.5886,
       "title_en": "Forest official clears proposal for diversion of over 10 acres of forest land for Sigandoor temple activities in Shivamogga",
       "summary_points": [
         "The trust that manages Sigandoor temple had sought the forest land for its activ",
@@ -2215,7 +2593,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:36:48 +0530"
     },
     {
-      "id": 1775315334738.307,
+      "id": 1775316743836.418,
       "title_en": "Surjewala condemns Pratap Simha’s remark against Chief Minister",
       "summary_points": [
         "Surjewala condemns Pratap Simha’s remark against Chief Minister",
@@ -2242,7 +2620,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:32:40 +0530"
     },
     {
-      "id": 1775315334838.5554,
+      "id": 1775316743900.2717,
       "title_en": "Bhatti attacks LDF record in Kerala, promises good governance",
       "summary_points": [
         "Bhatti attacks LDF record in Kerala, promises good governance",
@@ -2269,385 +2647,7 @@
       "publishedAt": "Sat, 04 Apr 2026 19:29:38 +0530"
     },
     {
-      "id": 1775315334969.2517,
-      "title_en": "Telugu inscription of Achyuta Deva Raya time found in Sri Chintala Venkataramana Swamy temple at Tadipatri: Historian MyNaa Swamy",
-      "summary_points": [
-        "MyNaa Swamy appealed to historians and research scholars to focus on the archite",
-        "ctural wealth and history of these temples and make them more visible to the out",
-        "side world"
-      ],
-      "article_en": "MyNaa Swamy appealed to historians and research scholars to focus on the architectural wealth and history of these temples and make them more visible to the outside world",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/owx6sf/article70823649.ece/alternates/LANDSCAPE_1200/10215_4_4_2026_18_1_10_1_WHATSAPPIMAGE2026_04_04AT94618AM.JPEG",
-      "category": "World",
-      "publishedAt": "Sat, 04 Apr 2026 19:27:40 +0530"
-    },
-    {
-      "id": 1775315335040.2297,
-      "title_en": "Kerala’s wait for high-speed rail to linger on",
-      "summary_points": [
-        "The Union government had kept the DPR of the semi-high-speed rail project submit",
-        "ted by Kerala under the wraps for years",
-        ""
-      ],
-      "article_en": "The Union government had kept the DPR of the semi-high-speed rail project submitted by Kerala under the wraps for years",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/kuzynz/article70823614.ece/alternates/LANDSCAPE_1200/11_RVM7828.jpg",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:26:15 +0530"
-    },
-    {
-      "id": 1775315335125.7183,
-      "title_en": "Cyberabad civic body pushes for time-bound clearances, enforcement drive against illegal constructions",
-      "summary_points": [
-        "Cyberabad civic body pushes for time-bound clearances, enforcement drive against",
-        " illegal constructions",
-        ""
-      ],
-      "article_en": "Cyberabad civic body pushes for time-bound clearances, enforcement drive against illegal constructions",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/pas3ge/article70823256.ece/alternates/LANDSCAPE_1200/IMG-20260404-WA0013.jpg",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:25:14 +0530"
-    },
-    {
-      "id": 1775315335190.396,
-      "title_en": "Kodagu: Scanning centres under watch as panel orders surprise inspections",
-      "summary_points": [
-        "Kodagu: Scanning centres under watch as panel orders surprise inspections",
-        "",
-        ""
-      ],
-      "article_en": "Kodagu: Scanning centres under watch as panel orders surprise inspections",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.5942761289772953/800/400",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:24:44 +0530"
-    },
-    {
-      "id": 1775315335255.6921,
-      "title_en": "Kerala Assembly Elections 2026: Home voting sees strong response in Kottayam",
-      "summary_points": [
-        "As many as 15,681 voters in the district have availed the facility",
-        "",
-        ""
-      ],
-      "article_en": "As many as 15,681 voters in the district have availed the facility",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.1706190313476148/800/400",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:23:47 +0530"
-    },
-    {
-      "id": 1775315335320.9292,
-      "title_en": "JSS STU’s Hack-Olympic 2026 held in Mysuru",
-      "summary_points": [
-        "JSS STU’s Hack-Olympic 2026 held in Mysuru",
-        "",
-        ""
-      ],
-      "article_en": "JSS STU’s Hack-Olympic 2026 held in Mysuru",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.910517257915187/800/400",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:22:35 +0530"
-    },
-    {
-      "id": 1775315335392.0466,
-      "title_en": "From Mallige to Rasabale: CFTRI celebrates Mysuru’s heritage with GI-tagged product showcase",
-      "summary_points": [
-        "From Mallige to Rasabale: CFTRI celebrates Mysuru’s heritage with GI-tagged prod",
-        "uct showcase",
-        ""
-      ],
-      "article_en": "From Mallige to Rasabale: CFTRI celebrates Mysuru’s heritage with GI-tagged product showcase",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/iprct9/article70823626.ece/alternates/LANDSCAPE_1200/2303_4_4_2026_16_21_43_1_GIPRODUCTS.JPEG",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:20:27 +0530"
-    },
-    {
-      "id": 1775315335458.9531,
-      "title_en": "Advisory issued against registration of documents relating to land classified as waterbodies",
-      "summary_points": [
-        "Advisory issued against registration of documents relating to land classified as",
-        " waterbodies",
-        ""
-      ],
-      "article_en": "Advisory issued against registration of documents relating to land classified as waterbodies",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.9692895685314364/800/400",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:16:15 +0530"
-    },
-    {
-      "id": 1775315335524.501,
-      "title_en": "Prime Minister Modi holds meeting with T.N. BJP leaders regarding election-related work",
-      "summary_points": [
-        "Prime Minister Modi holds meeting with T.N. BJP leaders regarding election-relat",
-        "ed work",
-        ""
-      ],
-      "article_en": "Prime Minister Modi holds meeting with T.N. BJP leaders regarding election-related work",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/t1msec/article70823385.ece/alternates/LANDSCAPE_1200/DSC_5639.JPG.jpeg",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:10:43 +0530"
-    },
-    {
-      "id": 1775315335591.042,
-      "title_en": "Shivamogga: JD(S) protests transfer of specialist doctors from CHCs",
-      "summary_points": [
-        "Shivamogga: JD(S) protests transfer of specialist doctors from CHCs",
-        "",
-        ""
-      ],
-      "article_en": "Shivamogga: JD(S) protests transfer of specialist doctors from CHCs",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/rpe3r9/article70823553.ece/alternates/LANDSCAPE_1200/9911_4_4_2026_16_46_33_2_JDS_2.JPG",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:08:52 +0530"
-    },
-    {
-      "id": 1775315335659.9038,
-      "title_en": "Doctors’ body seeks waiting lists in Telangana medical recruitments as vacancies remain unfilled despite available candidates",
-      "summary_points": [
-        "Doctors’ body seeks waiting lists in Telangana medical recruitments as vacancies",
-        " remain unfilled despite available candidates",
-        ""
-      ],
-      "article_en": "Doctors’ body seeks waiting lists in Telangana medical recruitments as vacancies remain unfilled despite available candidates",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/f172ag/article70823192.ece/alternates/LANDSCAPE_1200/IMG-20260404-WA0009.jpg",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:06:24 +0530"
-    },
-    {
-      "id": 1775315335863.7422,
-      "title_en": "Vigilance officials bust interstate sand smuggling racket, seize three tippers in Khammam",
-      "summary_points": [
-        "Vigilance officials bust interstate sand smuggling racket, seize three tippers i",
-        "n Khammam",
-        ""
-      ],
-      "article_en": "Vigilance officials bust interstate sand smuggling racket, seize three tippers in Khammam",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.4690294755394908/800/400",
-      "category": "General",
-      "publishedAt": "Sat, 04 Apr 2026 19:06:23 +0530"
-    },
-    {
-      "id": 1775315335960.7769,
-      "title_en": "‘X³ Tech Fest 2026’ celebrates student-led innovation at SRM University-A.P.",
-      "summary_points": [
-        "‘X³ Tech Fest 2026’ celebrates student-led innovation at SRM University-A.P.",
-        "",
-        ""
-      ],
-      "article_en": "‘X³ Tech Fest 2026’ celebrates student-led innovation at SRM University-A.P.",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://picsum.photos/seed/0.2704415046808546/800/400",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 19:03:39 +0530"
-    },
-    {
-      "id": 1775315336036.8562,
-      "title_en": "YSRCP leader Vanitha alleges deterioration in women’s safety in A.P.",
-      "summary_points": [
-        "Police are failing to register complaints made by the victims and targeting the ",
-        "leaders of the opposition parties, says the former Home Minister",
-        ""
-      ],
-      "article_en": "Police are failing to register complaints made by the victims and targeting the leaders of the opposition parties, says the former Home Minister",
-      "timeline": [
-        "Start",
-        "Update",
-        "Escalation",
-        "Reaction",
-        "Current",
-        "Next"
-      ],
-      "vocab_en": [
-        "event",
-        "impact",
-        "report",
-        "source"
-      ],
-      "image": "https://th-i.thgim.com/public/incoming/2396iy/article70823476.ece/alternates/LANDSCAPE_1200/IMG_Taneti__1_.JPG_2_1_FC9HBCSU.jpg",
-      "category": "Technology",
-      "publishedAt": "Sat, 04 Apr 2026 18:57:56 +0530"
-    },
-    {
-      "id": 1775315336102.469,
+      "id": 1775316743954.8916,
       "title_en": "Rescue team in Iran face 'harrowing and dangerous' search for US crew member",
       "summary_points": [
         "A former US marine tells the BBC the priority of any recovery team would be to l",
@@ -2674,7 +2674,7 @@
       "publishedAt": "Sat, 04 Apr 2026 10:41:38 GMT"
     },
     {
-      "id": 1775315336175.2249,
+      "id": 1775316744009.8093,
       "title_en": "Russian attack on Ukraine market kills five",
       "summary_points": [
         "A Russian drone hit a busy spot in the southern Ukrainian town on Saturday morni",
@@ -2701,7 +2701,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:00:31 GMT"
     },
     {
-      "id": 1775315336264.6724,
+      "id": 1775316744163.4915,
       "title_en": "Artemis II crew now halfway to Moon as they take 'spectacular' image of Earth",
       "summary_points": [
         "The snap was taken aboard the Orion capsule by its commander, Reid Wiseman, as t",
@@ -2728,7 +2728,7 @@
       "publishedAt": "Sat, 04 Apr 2026 06:42:48 GMT"
     },
     {
-      "id": 1775315336399.7866,
+      "id": 1775316744261.9626,
       "title_en": "After 16 years in power, could Viktor Orban finally be unseated?",
       "summary_points": [
         "Hungary is going to the polls in nine days - after 16 years in power, can Viktor",
@@ -2755,7 +2755,7 @@
       "publishedAt": "Fri, 03 Apr 2026 23:04:24 GMT"
     },
     {
-      "id": 1775315336466.0535,
+      "id": 1775316744325.561,
       "title_en": "Fugitive mafia boss wanted for murder arrested in Amalfi Coast luxury villa",
       "summary_points": [
         "Roberto Mazzarella has been on the run for more than a year and was living under",
@@ -2782,7 +2782,7 @@
       "publishedAt": "Sat, 04 Apr 2026 11:10:28 GMT"
     },
     {
-      "id": 1775315336538.3552,
+      "id": 1775316744381.439,
       "title_en": "Trump seeks $152m to reopen notorious Alcatraz prison",
       "summary_points": [
         "Former Speaker of the House Nancy Pelosi calls the plan a \"stupid notion that wo",
@@ -2809,7 +2809,7 @@
       "publishedAt": "Sat, 04 Apr 2026 09:17:10 GMT"
     },
     {
-      "id": 1775315336608.5005,
+      "id": 1775316744453.174,
       "title_en": "Australians told to continue Easter travel plans despite fuel shortages",
       "summary_points": [
         "Hundreds of petrol stations across Australia have run out of fuel as the Iran wa",
@@ -2836,7 +2836,7 @@
       "publishedAt": "Sat, 04 Apr 2026 12:10:10 GMT"
     },
     {
-      "id": 1775315336674.5544,
+      "id": 1775316744512.1719,
       "title_en": "Football rally in Peru leaves one dead and dozens injured",
       "summary_points": [
         "Hundreds of Alianza Lima fans had gathered for a pregame rally ahead of a match ",
@@ -2863,7 +2863,7 @@
       "publishedAt": "Sat, 04 Apr 2026 06:34:56 GMT"
     },
     {
-      "id": 1775315336743.485,
+      "id": 1775316744573.0906,
       "title_en": "Senegal bans ministers from foreign travel as oil price rise bites",
       "summary_points": [
         "The fuel cost is nearly double what the government budgeted for putting pressure",
@@ -2890,7 +2890,7 @@
       "publishedAt": "Sat, 04 Apr 2026 10:15:01 GMT"
     },
     {
-      "id": 1775315336870.5996,
+      "id": 1775316744628.089,
       "title_en": "French-owned ship passes through Strait of Hormuz",
       "summary_points": [
         "It appears to be the first ship owned by a major European firm to go through the",
@@ -2917,7 +2917,7 @@
       "publishedAt": "Fri, 03 Apr 2026 17:45:46 GMT"
     },
     {
-      "id": 1775315336939.506,
+      "id": 1775316744691.772,
       "title_en": "Rapper Gucci Mane kidnapped and robbed by fellow artist, prosecutors say",
       "summary_points": [
         "Officials say the hip-hop star was forced to sign papers releasing a rapper know",
@@ -2944,7 +2944,7 @@
       "publishedAt": "Fri, 03 Apr 2026 16:54:35 GMT"
     },
     {
-      "id": 1775315337006.9036,
+      "id": 1775316744762.6501,
       "title_en": "Russia chose 'Easter escalation' over ceasefire, says Zelensky",
       "summary_points": [
         "Six civilians were killed and 40 others injured as Russia launched hundreds of d",
@@ -2971,7 +2971,7 @@
       "publishedAt": "Sat, 04 Apr 2026 08:34:00 GMT"
     },
     {
-      "id": 1775315337070.28,
+      "id": 1775316744827.1597,
       "title_en": "Cuba begins releasing more than 2,000 prisoners as US pressure mounts",
       "summary_points": [
         "US President Trump has made clear his desire to change Cuba's leadership and has",
@@ -2998,7 +2998,7 @@
       "publishedAt": "Fri, 03 Apr 2026 20:59:48 GMT"
     },
     {
-      "id": 1775315337138.8164,
+      "id": 1775316744912.583,
       "title_en": "Trump seeks $1.5tn for defence alongside domestic spending cuts",
       "summary_points": [
         "The US president's new budget would cut non-defence spending by 10%, partly by s",
@@ -3025,7 +3025,7 @@
       "publishedAt": "Fri, 03 Apr 2026 15:45:25 GMT"
     },
     {
-      "id": 1775315337201.5815,
+      "id": 1775316744982.8877,
       "title_en": "US deports eight people 'of African origin' to Uganda",
       "summary_points": [
         "The Uganda Law Society criticises the deportation, saying it was illegal and \"de",
@@ -3052,7 +3052,7 @@
       "publishedAt": "Fri, 03 Apr 2026 16:22:45 GMT"
     },
     {
-      "id": 1775315337277.8042,
+      "id": 1775316745067.6836,
       "title_en": "France's Muslim gathering ban overturned by courts",
       "summary_points": [
         "The Paris police department had argued that the four-day gathering was a securit",
@@ -3079,7 +3079,7 @@
       "publishedAt": "Fri, 03 Apr 2026 12:20:28 GMT"
     },
     {
-      "id": 1775315337345.7856,
+      "id": 1775316745124.3762,
       "title_en": "Burkina Faso must 'forget' about democracy, military leader says",
       "summary_points": [
         "Capt Ibrahim Traoré, who seized power in 2023, says democratic rule would not wo",
@@ -3106,7 +3106,7 @@
       "publishedAt": "Fri, 03 Apr 2026 11:11:42 GMT"
     },
     {
-      "id": 1775315337413.4785,
+      "id": 1775316745198.1238,
       "title_en": "Italy's Uffizi Galleries targeted in cyber-attack but deny security breach",
       "summary_points": [
         "Hackers were reported to have infiltrated IT systems - but the gallery says its ",
@@ -3133,7 +3133,7 @@
       "publishedAt": "Fri, 03 Apr 2026 15:04:39 GMT"
     },
     {
-      "id": 1775315337481.8022,
+      "id": 1775316745290.3086,
       "title_en": "Pete Hegseth asks US Army's top general to step down",
       "summary_points": [
         "Gen Randy George was nominated for the role in 2023 by former President Joe Bide",
@@ -3160,7 +3160,7 @@
       "publishedAt": "Fri, 03 Apr 2026 13:03:57 GMT"
     },
     {
-      "id": 1775315337548.9814,
+      "id": 1775316745375.3806,
       "title_en": "Trump removes US Attorney General Pam Bondi",
       "summary_points": [
         "Bondi's time as top US law enforcement officer was overshadowed by her handling ",
@@ -3187,7 +3187,7 @@
       "publishedAt": "Fri, 03 Apr 2026 11:42:17 GMT"
     },
     {
-      "id": 1775315337618.3684,
+      "id": 1775316745438.551,
       "title_en": "Faced with new energy shock, Europe asks if reviving nuclear is the answer",
       "summary_points": [
         "As war drives up gas and fuel prices, Europeans turn again to the issue of energ",
@@ -3214,7 +3214,7 @@
       "publishedAt": "Fri, 03 Apr 2026 23:14:04 GMT"
     },
     {
-      "id": 1775315337685.9905,
+      "id": 1775316745501.2156,
       "title_en": "How Canada's largest gun control effort in decades is missing the mark",
       "summary_points": [
         "Canada recently banned 2,500 models of \"assault-style\" firearms - but a plan to ",
@@ -3241,7 +3241,7 @@
       "publishedAt": "Sat, 04 Apr 2026 00:32:45 GMT"
     },
     {
-      "id": 1775315337752.0085,
+      "id": 1775316745579.3184,
       "title_en": "How Bombay went from a fort city to a bustling metropolis",
       "summary_points": [
         "A new exhibition charts Bombay's passage through the centuries via paintings, ph",
@@ -3268,7 +3268,7 @@
       "publishedAt": "Sat, 04 Apr 2026 00:09:54 GMT"
     },
     {
-      "id": 1775315337818.051,
+      "id": 1775316745635.26,
       "title_en": "'We want a voice in our land' - the people evicted to build Nigeria's capital",
       "summary_points": [
         "People evicted to build Nigeria's capital accuse the government of failing to fu",
@@ -3295,7 +3295,7 @@
       "publishedAt": "Sat, 04 Apr 2026 00:17:20 GMT"
     },
     {
-      "id": 1775315337881.9531,
+      "id": 1775316745693.1106,
       "title_en": "Unanswered questions remain after Australia's most wanted fugitive killed in standoff",
       "summary_points": [
         "Double-murderer Dezi Freeman evaded capture for seven months in the bush but pol",
@@ -3322,7 +3322,7 @@
       "publishedAt": "Fri, 03 Apr 2026 19:19:02 GMT"
     },
     {
-      "id": 1775315337964.9666,
+      "id": 1775316745753.9797,
       "title_en": "Experts dispute US account of deadly Iran sports hall strike in Lamerd",
       "summary_points": [
         "Six weapons experts have contested the US claim that video evidence suggests an ",
@@ -3349,7 +3349,7 @@
       "publishedAt": "Fri, 03 Apr 2026 13:16:33 GMT"
     },
     {
-      "id": 1775315338030.651,
+      "id": 1775316745820.5388,
       "title_en": "Arlo Parks: 'I got out of my head and into my body'",
       "summary_points": [
         "The singer-songwriter found herself on the dancefloor. On a new album, she asks ",
@@ -3376,7 +3376,7 @@
       "publishedAt": "Thu, 02 Apr 2026 23:11:19 GMT"
     },
     {
-      "id": 1775315338171.9644,
+      "id": 1775316746024.7368,
       "title_en": "'This has got me worried': Iranians fear what comes next after US strike on Karaj bridge",
       "summary_points": [
         "President Trump has warned Iran of strikes on bridges and electric power plants ",
@@ -3403,7 +3403,7 @@
       "publishedAt": "Fri, 03 Apr 2026 10:35:55 GMT"
     },
     {
-      "id": 1775315338273.526,
+      "id": 1775316746130.4487,
       "title_en": "When will the Iran war end? Tracing the Trump administration's timelines",
       "summary_points": [
         "Experts say many US presidents have offered a timeline for a conflict - only to ",
@@ -3430,7 +3430,7 @@
       "publishedAt": "Fri, 03 Apr 2026 11:28:34 GMT"
     },
     {
-      "id": 1775315338347.5012,
+      "id": 1775316746205.2183,
       "title_en": "Researchers spent years interviewing 160 Bigfoot hunters - this is what they learnt",
       "summary_points": [
         "There have been thousands of reported Bigfoot sightings since it rose to promine",
@@ -3457,7 +3457,7 @@
       "publishedAt": "Fri, 03 Apr 2026 06:37:01 GMT"
     },
     {
-      "id": 1775315338414.8572,
+      "id": 1775316746276.3347,
       "title_en": "Who is Christopher LaNeve, set to lead the US Army?",
       "summary_points": [
         "He will replace Randy George, who was asked to step down from his post by Defenc",
@@ -3484,7 +3484,7 @@
       "publishedAt": "Fri, 03 Apr 2026 11:52:50 GMT"
     },
     {
-      "id": 1775315338480.1753,
+      "id": 1775316746381.6445,
       "title_en": "What we know so far about the search for missing US airman in Iran",
       "summary_points": [
         "US and Iranian forces are searching for a missing American crew member after a U",
@@ -3511,7 +3511,7 @@
       "publishedAt": "Sat, 04 Apr 2026 11:00:34 GMT"
     },
     {
-      "id": 1775315338546.3516,
+      "id": 1775316746455.7148,
       "title_en": "Watch: Artemis II's journey so far as it leaves Earth orbit... in 85 seconds",
       "summary_points": [
         "The crew will not land on the Moon on this current mission, though Nasa is prepa",
@@ -3538,7 +3538,7 @@
       "publishedAt": "Fri, 03 Apr 2026 13:06:18 GMT"
     },
     {
-      "id": 1775315338611.0051,
+      "id": 1775316746512.529,
       "title_en": "Watch: Artemis II astronauts speak from space",
       "summary_points": [
         "The crew on board the Artemis II spoke by video link, sharing messages for their",
@@ -3565,7 +3565,7 @@
       "publishedAt": "Fri, 03 Apr 2026 07:07:48 GMT"
     },
     {
-      "id": 1775315338674.0364,
+      "id": 1775316746609.3777,
       "title_en": "What to know about Acting Attorney General Todd Blanche",
       "summary_points": [
         "The former prosecutor has a long-standing relationship with President Trump, hav",
@@ -3592,7 +3592,7 @@
       "publishedAt": "Thu, 02 Apr 2026 21:44:16 GMT"
     },
     {
-      "id": 1775315338740.2341,
+      "id": 1775316746699.8928,
       "title_en": "Trump Wants to Make Deportation Deals. Autocrats Are Ready to Listen.",
       "summary_points": [
         "The White House has turned deportations, a signature domestic issue, into a majo",
@@ -3619,7 +3619,7 @@
       "publishedAt": "Sat, 04 Apr 2026 11:12:59 +0000"
     },
     {
-      "id": 1775315338810.3425,
+      "id": 1775316746819.8716,
       "title_en": "Iranians Seek Respite in Nature Amid the War",
       "summary_points": [
         "Families gathered for picnics and games this week to mark the end of the Iranian",
@@ -3646,7 +3646,7 @@
       "publishedAt": "Sat, 04 Apr 2026 09:02:03 +0000"
     },
     {
-      "id": 1775315338875.4116,
+      "id": 1775316746875.3357,
       "title_en": "Iran War Live Updates: U.S. Searches for Missing Airman as Israel Launches Fresh Strikes on Tehran",
       "summary_points": [
         "Iran downed an F-15E, the first U.S. warplane the country has shot down in the w",
@@ -3670,10 +3670,10 @@
       ],
       "image": "https://static01.nyt.com/images/2026/04/04/multimedia/04israel-iran-promo-11am-fmjq/04israel-iran-ru-university-fmjq-mediumSquareAt3X.jpg",
       "category": "World",
-      "publishedAt": "Sat, 04 Apr 2026 14:59:03 +0000"
+      "publishedAt": "Sat, 04 Apr 2026 15:22:35 +0000"
     },
     {
-      "id": 1775315338943.8044,
+      "id": 1775316746935.7456,
       "title_en": "Europe’s Options in the Strait of Hormuz: Few, and Risky",
       "summary_points": [
         "European leaders and other officials have ideas for bringing shipping back to th",
@@ -3700,7 +3700,7 @@
       "publishedAt": "Sat, 04 Apr 2026 09:01:35 +0000"
     },
     {
-      "id": 1775315339008.9395,
+      "id": 1775316746996.4954,
       "title_en": "Three Charged With Arson in Attack on U.K. Jewish Charity’s Ambulances",
       "summary_points": [
         "Two men and a teenager were arrested this week, the London police said, adding t",
@@ -3727,7 +3727,7 @@
       "publishedAt": "Sat, 04 Apr 2026 11:13:41 +0000"
     },
     {
-      "id": 1775315339073.65,
+      "id": 1775316747094.8147,
       "title_en": "Epstein Presented Himself to Indian Tycoon as a Trump White House Insider",
       "summary_points": [
         "The convicted sex offender gave Anil Ambani information on appointments and fore",
@@ -3754,7 +3754,7 @@
       "publishedAt": "Sat, 04 Apr 2026 04:01:09 +0000"
     },
     {
-      "id": 1775315339134.8699,
+      "id": 1775316747173.362,
       "title_en": "What We Know About the F-15E Strike Eagle Shot Down by Iran",
       "summary_points": [
         "An F-15E Strike Eagle was shot down over Iran and an A-10 Warthog crashed near t",
@@ -3781,7 +3781,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:37:40 +0000"
     },
     {
-      "id": 1775315339201.292,
+      "id": 1775316747232.0518,
       "title_en": "Ex-US Army Pilot Recalls Battle for Survival When Shot Down in Iraq",
       "summary_points": [
         "Ronald Young Jr. was in the Army when his Apache Longbow copter went down during",
@@ -3808,7 +3808,7 @@
       "publishedAt": "Fri, 03 Apr 2026 22:35:05 +0000"
     },
     {
-      "id": 1775315339263.7063,
+      "id": 1775316747303.7314,
       "title_en": "Could There Be a Popular Uprising in Cuba?",
       "summary_points": [
         "There is no organized opposition on the island because many critics of the regim",
@@ -3835,7 +3835,7 @@
       "publishedAt": "Fri, 03 Apr 2026 17:45:55 +0000"
     },
     {
-      "id": 1775315339325.0405,
+      "id": 1775316747375.5635,
       "title_en": "In Syria, Kidnappings of Women and Girls Fuel a Minority Group’s Fears",
       "summary_points": [
         "A Times investigation found that abductions of women and girls from Syria’s Alaw",
@@ -3862,7 +3862,7 @@
       "publishedAt": "Fri, 03 Apr 2026 04:01:13 +0000"
     },
     {
-      "id": 1775315339390.3667,
+      "id": 1775316747430.6672,
       "title_en": "Rima Hassan Is Charged With Glorifying Terrorism Online in Social Media Post",
       "summary_points": [
         "Rima Hassan, a member of the European Parliament, could face seven years in pris",
@@ -3889,7 +3889,7 @@
       "publishedAt": "Sat, 04 Apr 2026 10:45:07 +0000"
     },
     {
-      "id": 1775315339649.3018,
+      "id": 1775316747754.0327,
       "title_en": "Cosmopolitan Shanghai Is an Uneasy Fit in China’s Narrative of Western Sins",
       "summary_points": [
         "Shanghai’s many layers of architecture, culture and politics have made it a diff",
@@ -3916,7 +3916,7 @@
       "publishedAt": "Fri, 03 Apr 2026 18:18:38 +0000"
     },
     {
-      "id": 1775315339725.8408,
+      "id": 1775316747814.2354,
       "title_en": "Myanmar Junta Chief Ascends to President, Five Years After Coup",
       "summary_points": [
         "U Min Aung Hlaing’s elevation to the civilian post is the conclusion of election",
@@ -3943,7 +3943,7 @@
       "publishedAt": "Fri, 03 Apr 2026 06:42:53 +0000"
     },
     {
-      "id": 1775315339798.3687,
+      "id": 1775316747885.8484,
       "title_en": "A projectile hit near Iran’s Bushehr nuclear plant, killing a worker.",
       "summary_points": [
         "There was no reported increase in radiation levels. A string of recent attacks n",
@@ -3970,7 +3970,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:27:14 +0000"
     },
     {
-      "id": 1775315339873.123,
+      "id": 1775316747985.3486,
       "title_en": "Missing Airman Raises Concerns That Iran Could Gain Leverage Over the U.S.",
       "summary_points": [
         "Since 1979, Iran has repeatedly used Americans and Europeans detained on its ter",
@@ -3997,7 +3997,7 @@
       "publishedAt": "Sat, 04 Apr 2026 14:27:41 +0000"
     },
     {
-      "id": 1775315339943.84,
+      "id": 1775316748083.115,
       "title_en": "Living Space",
       "summary_points": [
         "We don’t have to travel to the moon to gain some of the insight that astronauts ",
@@ -4019,12 +4019,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8508328073544651/800/400",
+      "image": "https://picsum.photos/seed/0.8046238072517569/800/400",
       "category": "Technology",
       "publishedAt": "Sat, 04 Apr 2026 10:13:47 +0000"
     },
     {
-      "id": 1775315340011.299,
+      "id": 1775316748163.6643,
       "title_en": "Stephen Lewis Was a Singular Man on a Mission",
       "summary_points": [
         "Heartbreaking scenes of death from H.I.V. in Africa enraged and fueled the work ",
@@ -4046,12 +4046,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8190144660205376/800/400",
+      "image": "https://picsum.photos/seed/0.46148234501280805/800/400",
       "category": "Technology",
       "publishedAt": "Sat, 04 Apr 2026 13:09:37 +0000"
     },
     {
-      "id": 1775315340078.0566,
+      "id": 1775316748255.0916,
       "title_en": "Trump Pledged a Quick End to the Iran War, but He Hasn’t Explained How",
       "summary_points": [
         "President Trump bet that American firepower could cow Iran into compliance. So f",
@@ -4078,7 +4078,7 @@
       "publishedAt": "Sat, 04 Apr 2026 09:01:43 +0000"
     },
     {
-      "id": 1775315340148.2178,
+      "id": 1775316748313.0156,
       "title_en": "‘Iran Is Being Destroyed in Front of Our Eyes’: Tehran Is Gripped by Fear",
       "summary_points": [
         "Fifteen residents of Tehran said in telephone interviews and text messages that ",
@@ -4105,7 +4105,7 @@
       "publishedAt": "Sat, 04 Apr 2026 02:08:33 +0000"
     },
     {
-      "id": 1775315340215.932,
+      "id": 1775316748463.5225,
       "title_en": "Here’s What Happened in the War in the Middle East on Friday",
       "summary_points": [
         "An American fighter jet was shot down by Iran for the first time since the start",
@@ -4132,7 +4132,7 @@
       "publishedAt": "Sat, 04 Apr 2026 01:20:51 +0000"
     },
     {
-      "id": 1775315340284.0718,
+      "id": 1775316748573.3284,
       "title_en": "Iran’s Defenses Have Been Struck, but They Can Still Fire Missiles and Drones",
       "summary_points": [
         "Iran has sent waves of missiles and drones at Israel and Gulf states in recent w",
@@ -4159,7 +4159,7 @@
       "publishedAt": "Fri, 03 Apr 2026 21:53:54 +0000"
     },
     {
-      "id": 1775315340353.5037,
+      "id": 1775316748662.2854,
       "title_en": "In the Philippines, Rising Fuel Prices Force Travelers to Stay Home During Holy Week",
       "summary_points": [
         "Surging gasoline prices in the Philippines have forced some people to cancel or ",
@@ -4186,7 +4186,7 @@
       "publishedAt": "Sat, 04 Apr 2026 13:10:51 +0000"
     },
     {
-      "id": 1775315340426.4304,
+      "id": 1775316748719.2568,
       "title_en": "Iran Shoots Down U.S. Fighter Jet, Setting Off American Search and Rescue",
       "summary_points": [
         "One crew member was rescued. The risky operation to find the second airman came ",
@@ -4208,12 +4208,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.8327467739620857/800/400",
+      "image": "https://picsum.photos/seed/0.9100480090556982/800/400",
       "category": "Technology",
       "publishedAt": "Fri, 03 Apr 2026 21:58:08 +0000"
     },
     {
-      "id": 1775315340502.4976,
+      "id": 1775316748791.76,
       "title_en": "Iran Is Quickly Repairing Missile Bunkers, U.S. Intelligence Says",
       "summary_points": [
         "Reports cast doubt on how close the United States is to destroying Iran’s missil",
@@ -4240,7 +4240,7 @@
       "publishedAt": "Fri, 03 Apr 2026 23:07:31 +0000"
     },
     {
-      "id": 1775315340577.5613,
+      "id": 1775316748854.3223,
       "title_en": "The F-15E Strike Eagle: What to Know",
       "summary_points": [
         "The U.S. military aircraft with a two-person crew was shot down in Iran on Frida",
@@ -4267,7 +4267,7 @@
       "publishedAt": "Fri, 03 Apr 2026 21:55:33 +0000"
     },
     {
-      "id": 1775315340692.3018,
+      "id": 1775316749003.7576,
       "title_en": "Hegseth Says U.S. Troops Are Fighting for Jesus. The Pope Disagrees.",
       "summary_points": [
         "In sharp contrast to the Trump administration’s calls for Christian prayers for ",
@@ -4294,7 +4294,7 @@
       "publishedAt": "Fri, 03 Apr 2026 17:30:56 +0000"
     },
     {
-      "id": 1775315340792.6548,
+      "id": 1775316749073.4,
       "title_en": "What U.S. military Pilots Are Trained to Do if Shot Down",
       "summary_points": [
         "What U.S. military Pilots Are Trained to Do if Shot Down",
@@ -4321,7 +4321,7 @@
       "publishedAt": "Sat, 04 Apr 2026 13:44:25 +0000"
     },
     {
-      "id": 1775315340868.7246,
+      "id": 1775316749134.3743,
       "title_en": "Iranian media outlets say helicopters are searching for the crew of the downed jet.",
       "summary_points": [
         "Iranian media outlets say helicopters are searching for the crew of the downed j",
@@ -4343,12 +4343,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.35997269189082726/800/400",
+      "image": "https://picsum.photos/seed/0.40064943716535883/800/400",
       "category": "General",
       "publishedAt": "Fri, 03 Apr 2026 16:44:52 +0000"
     },
     {
-      "id": 1775315340935.8813,
+      "id": 1775316749201.4368,
       "title_en": "Israel plans to seize control of parts of southern Lebanon.",
       "summary_points": [
         "Israel plans to seize control of parts of southern Lebanon.",
@@ -4370,12 +4370,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.3666121758647032/800/400",
+      "image": "https://picsum.photos/seed/0.12878473781222732/800/400",
       "category": "General",
       "publishedAt": "Fri, 03 Apr 2026 12:32:43 +0000"
     },
     {
-      "id": 1775315341008.5432,
+      "id": 1775316749257.895,
       "title_en": "Kuwait Blames Iran for Attack on Power and Desalination Plants",
       "summary_points": [
         "In Kuwait, an Iranian attack on Friday damaged a power and water desalination pl",
@@ -4402,7 +4402,7 @@
       "publishedAt": "Fri, 03 Apr 2026 12:12:38 +0000"
     },
     {
-      "id": 1775315341079.795,
+      "id": 1775316749316.0532,
       "title_en": "How Do You Count 1.4 Billion People? India Is Trying.",
       "summary_points": [
         "India’s 2027 census will shape how wealth and power is distributed and inform po",
@@ -4429,7 +4429,7 @@
       "publishedAt": "Fri, 03 Apr 2026 14:56:41 +0000"
     },
     {
-      "id": 1775315341154.9973,
+      "id": 1775316749390.8838,
       "title_en": "At War With Iran Again, Some Israelis Fear Conflict Is Becoming Routine",
       "summary_points": [
         "A majority of Israelis support the war with Iran, but many doubt that it will so",
@@ -4456,7 +4456,7 @@
       "publishedAt": "Fri, 03 Apr 2026 09:07:18 +0000"
     },
     {
-      "id": 1775315341236.481,
+      "id": 1775316749443.7146,
       "title_en": "Cuba Says It Is Pardoning More Than 2,000 Prisoners",
       "summary_points": [
         "The Cuban government said the releases were a humanitarian gesture during Holy W",
@@ -4483,7 +4483,7 @@
       "publishedAt": "Fri, 03 Apr 2026 14:59:02 +0000"
     },
     {
-      "id": 1775315341315.467,
+      "id": 1775316749497.5413,
       "title_en": "Trump’s Strait of Hormuz Problem",
       "summary_points": [
         "Our White House reporter Zolan Kanno-Youngs parses some of President Trump’s con",
@@ -4505,12 +4505,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.04261211277335342/800/400",
+      "image": "https://picsum.photos/seed/0.9730569870269428/800/400",
       "category": "World",
       "publishedAt": "Fri, 03 Apr 2026 02:17:22 +0000"
     },
     {
-      "id": 1775315341471.5059,
+      "id": 1775316749746.7993,
       "title_en": "Here’s What Happened in the War in the Middle East on Thursday",
       "summary_points": [
         "President Trump’s prime-time address received a defiant response from a top lead",
@@ -4537,7 +4537,7 @@
       "publishedAt": "Thu, 02 Apr 2026 23:26:59 +0000"
     },
     {
-      "id": 1775315341547.766,
+      "id": 1775316749800.3696,
       "title_en": "Macron Voices Europe’s Frustration With Trump’s Handling of Iran War",
       "summary_points": [
         "President Emmanuel Macron of France expressed disapproval about President Trump’",
@@ -4564,7 +4564,7 @@
       "publishedAt": "Thu, 02 Apr 2026 23:16:43 +0000"
     },
     {
-      "id": 1775315341613.3813,
+      "id": 1775316749856.1733,
       "title_en": "Iranians hold a nature festival in the shadow of war.",
       "summary_points": [
         "Typically on Sizdah Bedar, families picnic outside, gather around rivers or stre",
@@ -4586,12 +4586,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.01907838431908604/800/400",
+      "image": "https://picsum.photos/seed/0.6460290130565565/800/400",
       "category": "General",
       "publishedAt": "Sat, 04 Apr 2026 01:12:08 +0000"
     },
     {
-      "id": 1775315341683.8286,
+      "id": 1775316749912.6174,
       "title_en": "The Race for the Future of the Moon",
       "summary_points": [
         "The Artemis II mission isn’t just about science and exploration. It’s part of a ",
@@ -4618,7 +4618,7 @@
       "publishedAt": "Fri, 03 Apr 2026 04:38:08 +0000"
     },
     {
-      "id": 1775315341760.7341,
+      "id": 1775316749967.8572,
       "title_en": "A Bid to Use Force to Open Strait of Hormuz Hits Roadblocks at U.N. Security Council",
       "summary_points": [
         "Several permanent members of the Security Council opposed the resolution, drafte",
@@ -4645,7 +4645,7 @@
       "publishedAt": "Fri, 03 Apr 2026 03:29:06 +0000"
     },
     {
-      "id": 1775315341829.468,
+      "id": 1775316750025.9749,
       "title_en": "Trump Hails Strike on Iranian Bridge, Warning ‘More to Follow’",
       "summary_points": [
         "Iran state media said eight people had been killed in the attack and dozens woun",
@@ -4672,7 +4672,7 @@
       "publishedAt": "Fri, 03 Apr 2026 00:57:48 +0000"
     },
     {
-      "id": 1775315341897.8506,
+      "id": 1775316750081.8757,
       "title_en": "Trump’s Cuts Have Eviscerated Once-Bipartisan Foreign Aid Programs",
       "summary_points": [
         "Acting mostly with approval from the Republican-led Congress, President Trump cl",
@@ -4699,7 +4699,7 @@
       "publishedAt": "Thu, 02 Apr 2026 20:51:14 +0000"
     },
     {
-      "id": 1775315341969.8274,
+      "id": 1775316750141.1204,
       "title_en": "Liamine Zeroual, Algerian President During Civil War, Dies at 84",
       "summary_points": [
         "Cutting short his five-year term amid a scarring conflict, he was perhaps a firs",
@@ -4726,7 +4726,7 @@
       "publishedAt": "Sat, 04 Apr 2026 05:18:18 +0000"
     },
     {
-      "id": 1775315342044.1248,
+      "id": 1775316750200.953,
       "title_en": "Iran Says It Will Oversee Strait of Hormuz Traffic, Even in Peacetime",
       "summary_points": [
         "The United States says Iran’s claims to control the strait are illegal, but Tehr",
@@ -4753,7 +4753,7 @@
       "publishedAt": "Thu, 02 Apr 2026 19:41:30 +0000"
     },
     {
-      "id": 1775315342118.7612,
+      "id": 1775316750259.2253,
       "title_en": "Trump Says He’ll End the Iran War in Weeks. What If He Can’t?",
       "summary_points": [
         "President Trump faces the possibility that at the end of his own two-to-three we",
@@ -4780,7 +4780,7 @@
       "publishedAt": "Thu, 02 Apr 2026 20:20:20 +0000"
     },
     {
-      "id": 1775315342188.6309,
+      "id": 1775316750320.8777,
       "title_en": "Legal experts express concerns over ‘violations of international law’ in the war.",
       "summary_points": [
         "Legal experts express concerns over ‘violations of international law’ in the war",
@@ -4807,7 +4807,7 @@
       "publishedAt": "Fri, 03 Apr 2026 09:12:30 +0000"
     },
     {
-      "id": 1775315342261.493,
+      "id": 1775316750379.7065,
       "title_en": "War With Iran Clarifies Trump’s Spending Priorities: The Military, Not Child Care",
       "summary_points": [
         "As the White House prepares to release its 2027 budget, President Trump said mil",
@@ -4834,7 +4834,7 @@
       "publishedAt": "Sat, 04 Apr 2026 00:02:20 +0000"
     },
     {
-      "id": 1775315342334.7568,
+      "id": 1775316750433.9558,
       "title_en": "Russia Is Sending a Second Oil Tanker to Fuel-Starved Cuba",
       "summary_points": [
         "The announcement of a second shipment follows the arrival of a first oil tanker ",
@@ -4861,7 +4861,7 @@
       "publishedAt": "Thu, 02 Apr 2026 17:14:36 +0000"
     },
     {
-      "id": 1775315342403.5645,
+      "id": 1775316750494.8718,
       "title_en": "Pope Leo Returns to Tradition, Washing Priests’ Feet",
       "summary_points": [
         "Pope Francis washed and kissed the feet of prisoners and refugees. On Thursday, ",
@@ -4888,7 +4888,7 @@
       "publishedAt": "Thu, 02 Apr 2026 18:48:11 +0000"
     },
     {
-      "id": 1775315342474.5544,
+      "id": 1775316750548.2793,
       "title_en": "Danish Warship Sunk by Britain’s Lord Nelson 225 Years Ago Is Found",
       "summary_points": [
         "The ship sank during the Battle of Copenhagen, an important moment in Danish and",
@@ -4915,7 +4915,7 @@
       "publishedAt": "Fri, 03 Apr 2026 13:28:59 +0000"
     },
     {
-      "id": 1775315342544.042,
+      "id": 1775316750605.7944,
       "title_en": "Storm Dave Cometh. But Why Is It Called That?",
       "summary_points": [
         "The conventions for naming storms are complicated by a mishmash of rules, nation",
@@ -4942,7 +4942,7 @@
       "publishedAt": "Thu, 02 Apr 2026 16:03:20 +0000"
     },
     {
-      "id": 1775315342612.4548,
+      "id": 1775316750724.5593,
       "title_en": "Ancient Artifacts Stolen in Dutch Museum Heist Are Recovered",
       "summary_points": [
         "The golden helmet of Cotofenesti, a highly regarded artifact from Romania, and t",
@@ -4969,7 +4969,7 @@
       "publishedAt": "Fri, 03 Apr 2026 15:03:20 +0000"
     },
     {
-      "id": 1775315342684.646,
+      "id": 1775316750786.543,
       "title_en": "U.K. to Host Talks on Securing Strait of Hormuz",
       "summary_points": [
         "It was not clear whether the talks, expected to involve dozens of countries, wou",
@@ -4996,7 +4996,7 @@
       "publishedAt": "Fri, 03 Apr 2026 09:27:40 +0000"
     },
     {
-      "id": 1775315342777.0964,
+      "id": 1775316750855.3289,
       "title_en": "Macron Snaps Back at Trump, Reflecting Europe’s Growing Anger Over Iran",
       "summary_points": [
         "President Emmanuel Macron of France is among several European officials to speak",
@@ -5023,7 +5023,7 @@
       "publishedAt": "Thu, 02 Apr 2026 21:32:14 +0000"
     },
     {
-      "id": 1775315342880.357,
+      "id": 1775316750985.7185,
       "title_en": "Iranian officials come out defiant after Trump’s war speech.",
       "summary_points": [
         "Iranian officials come out defiant after Trump’s war speech.",
@@ -5050,7 +5050,7 @@
       "publishedAt": "Thu, 02 Apr 2026 15:03:17 +0000"
     },
     {
-      "id": 1775315342945.7737,
+      "id": 1775316751062.4492,
       "title_en": "Volunteers in Helicopter Rescue Hiker’s Dog After a Week in the Wilderness",
       "summary_points": [
         "A hiker in New Zealand fell 180 feet down a waterfall and was evacuated without ",
@@ -5077,7 +5077,7 @@
       "publishedAt": "Thu, 02 Apr 2026 14:18:26 +0000"
     },
     {
-      "id": 1775315343008.1663,
+      "id": 1775316751119.9744,
       "title_en": "Every Trump Threat to Abandon NATO Hollows It Out",
       "summary_points": [
         "Doubts that the United States would come to the aid of NATO allies increase each",
@@ -5104,7 +5104,7 @@
       "publishedAt": "Thu, 02 Apr 2026 11:34:58 +0000"
     },
     {
-      "id": 1775315343073.137,
+      "id": 1775316751173.7278,
       "title_en": "Lost Friendships, Broken Relationships: How the War in Iran Is Dividing the Diaspora",
       "summary_points": [
         "Amid months of protest, repression and war in their native country, Iranians liv",
@@ -5131,7 +5131,7 @@
       "publishedAt": "Thu, 02 Apr 2026 09:22:05 +0000"
     },
     {
-      "id": 1775315343353.942,
+      "id": 1775316751453.5327,
       "title_en": "How I Get Free Traffic from ChatGPT in 2025 (AIO vs SEO)",
       "summary_points": [
         "Three weeks ago, I tested something that completely changed how I think about or",
@@ -5153,12 +5153,12 @@
         "report",
         "source"
       ],
-      "image": "https://picsum.photos/seed/0.24197580850311207/800/400",
+      "image": "https://picsum.photos/seed/0.4905592361120579/800/400",
       "category": "Finance",
       "publishedAt": "Thu, 04 Dec 2025 05:37:00 +0000"
     },
     {
-      "id": 1775315343452.0618,
+      "id": 1775316751514.0823,
       "title_en": "Top 10 AI Tools That Will Transform Your Content Creation in 2025",
       "summary_points": [
         "Looking to level up your content creation game in 2025? You're in the right plac",
@@ -5185,7 +5185,7 @@
       "publishedAt": "Thu, 02 Jan 2025 09:26:00 +0000"
     },
     {
-      "id": 1775315343563.8289,
+      "id": 1775316751570.8853,
       "title_en": "LimeWire AI Studio Review 2023: Details, Pricing & Features",
       "summary_points": [
         "&nbsp;In the rapidly advancing landscape of AI technology and innovation, LimeWi",
@@ -5212,7 +5212,7 @@
       "publishedAt": "Tue, 12 Dec 2023 16:10:00 +0000"
     },
     {
-      "id": 1775315343657.414,
+      "id": 1775316751646.7766,
       "title_en": "Top 10 AI Tools in 2023 That Will Make Your Life Easier",
       "summary_points": [
         "&nbsp;In this article, we explore the top 10 AI tools that are\ndriving innovatio",
@@ -5239,7 +5239,7 @@
       "publishedAt": "Wed, 25 Jan 2023 19:52:00 +0000"
     },
     {
-      "id": 1775315343762.6873,
+      "id": 1775316751709.7178,
       "title_en": "Top 10 AI Content Generator & Writer Tools in 2022",
       "summary_points": [
         "Are you looking for a way to create content that is both effective and efficient",
@@ -5266,7 +5266,7 @@
       "publishedAt": "Tue, 15 Nov 2022 08:58:00 +0000"
     },
     {
-      "id": 1775315343838.2515,
+      "id": 1775316751772.9114,
       "title_en": "Beginner Guide to CJ Affiliate (Commission Junction) in 2022",
       "summary_points": [
         "Image by vectorjuice on FreepikIn this CJ Affiliate guide, I will share with you",
@@ -5293,7 +5293,7 @@
       "publishedAt": "Sat, 10 Sep 2022 08:57:00 +0000"
     },
     {
-      "id": 1775315343913.276,
+      "id": 1775316751834.96,
       "title_en": "TOP 11 AI MARKETING TOOLS YOU SHOULD USE (Updated 2022)",
       "summary_points": [
         "&nbsp;&nbsp;&nbsp;The marketing industry is turning to artificial intelligence (",
@@ -5320,7 +5320,7 @@
       "publishedAt": "Wed, 13 Jul 2022 15:25:00 +0000"
     },
     {
-      "id": 1775315343991.662,
+      "id": 1775316751912.4053,
       "title_en": "Most Frequently Asked Questions About Affiliate Marketing",
       "summary_points": [
         "There are lots of questions floating around about how affiliate marketing works,",
@@ -5347,7 +5347,7 @@
       "publishedAt": "Wed, 01 Jun 2022 13:03:00 +0000"
     },
     {
-      "id": 1775315344071.163,
+      "id": 1775316751974.6233,
       "title_en": "What is Blockchain: Everything You Need to Know (2022)",
       "summary_points": [
         "If you want to pay online, you need to register an account and provide credit ca",
@@ -5374,7 +5374,7 @@
       "publishedAt": "Mon, 18 Apr 2022 05:49:00 +0000"
     },
     {
-      "id": 1775315344166.1992,
+      "id": 1775316752032.1084,
       "title_en": "ProWritingAid VS Grammarly: Which Grammar Checker is Better in (2022) ?",
       "summary_points": [
         "ProWritingAid VS Grammarly:&nbsp;&nbsp;When it comes to English grammar, there a",
