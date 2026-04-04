@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 import { parseStringPromise } from "xml2js";
 import path from "path";
 import { fileURLToPath } from "url";
-import { Groq } from 'groq-sdk';
+import { Groq } from "groq-sdk";
 
 const app = express();
 app.use(express.json());
@@ -30,6 +30,7 @@ const GROQ_KEYS = [
 
 let keyIndex = 0;
 const getGroqKey = () => GROQ_KEYS[keyIndex++ % GROQ_KEYS.length];
+
 // ---------- GITHUB ----------
 const REPO = "pulsegurgaon/com";
 const FILE = "articles.json";
@@ -37,8 +38,19 @@ const FILE = "articles.json";
 // ---------- MEMORY ----------
 let articles = [];
 let blogs = [];
+
 let ticker = "🚀 PulseGurgaon Live News";
-let ads = { text: "Advertise here", link: "#" };
+
+let adsList = [
+  {
+    text: "Advertise here",
+    link: "#",
+    image: "https://picsum.photos/300",
+    duration: 20000
+  }
+];
+
+let currentAdIndex = 0;
 
 // ---------- HELPERS ----------
 const clean = t => (t || "").replace(/<[^>]*>/g, "").trim();
@@ -51,10 +63,10 @@ const getImage = item =>
 
 const category = t => {
   t = t.toLowerCase();
-  if (/india|delhi/.test(t)) return "India";
-  if (/finance|stock|market|crypto/.test(t)) return "Finance";
-  if (/ai|tech|startup/.test(t)) return "Technology";
-  if (/world|usa|china|war/.test(t)) return "World";
+  if (/india|delhi|mumbai|bangalore/.test(t)) return "India";
+  if (/finance|stock|market|crypto|economy|bank|rupee|gdp/.test(t)) return "Finance";
+  if (/ai|tech|startup|software/.test(t)) return "Technology";
+  if (/world|usa|china|war|russia/.test(t)) return "World";
   return "General";
 };
 
@@ -76,21 +88,16 @@ ${text}
   for (let i = 0; i < GROQ_KEYS.length; i++) {
     try {
       const groq = new Groq({ apiKey: getGroqKey() });
-      
-      const chatCompletion = await groq.chat.completions.create({
+
+      const res = await groq.chat.completions.create({
         messages: [{ role: "user", content: prompt }],
-        model: "meta-llama/llama-4-scout-17b-16e-instruct",
-        temperature: 1,
-        max_completion_tokens: 1024,
-        top_p: 1,
-        stream: false
+        model: "llama3-8b-8192"
       });
 
-      let out = chatCompletion.choices[0]?.message?.content || "";
+      let out = res.choices[0]?.message?.content || "";
       out = out.replace(/```json|```/g, "").trim();
       return JSON.parse(out);
-    } catch (e) {
-    }
+    } catch {}
   }
 
   return null;
@@ -113,6 +120,40 @@ async function fetchRSS(url) {
   } catch {
     return [];
   }
+}
+
+// ---------- TRENDING TOPICS ----------
+async function getTrendingTopics() {
+  try {
+    const res = await fetch("https://trends.google.com/trends/trendingsearches/daily/rss?geo=IN");
+    const xml = await res.text();
+    const parsed = await parseStringPromise(xml);
+
+    return parsed?.rss?.channel?.[0]?.item?.map(i => i.title[0]) || [];
+  } catch {
+    return ["AI", "Startup", "India", "Stock Market", "Technology"];
+  }
+}
+
+// ---------- GENERATE BLOGS ----------
+async function generateBlogs() {
+  const topics = await getTrendingTopics();
+
+  for (let i = 0; i < 20; i++) {
+    const topic = topics[i % topics.length];
+
+    const ai = await aiGenerate(`Write a short trending blog on ${topic}`);
+
+    blogs.unshift({
+      id: Date.now() + Math.random(),
+      title: ai?.title || topic,
+      image: `https://picsum.photos/seed/${Math.random()}/200`,
+      content: ai?.article || topic,
+      date: new Date().toISOString()
+    });
+  }
+
+  blogs = blogs.slice(0, 50);
 }
 
 // ---------- GENERATE NEWS ----------
@@ -159,7 +200,12 @@ async function generateNews() {
     });
   }
 
-  return result.slice(0, 150);
+  return result.slice(0, 200);
+}
+
+// ---------- TICKER ----------
+function updateTicker(news) {
+  ticker = "🚨 " + news.slice(0, 15).map(n => n.title_en).join(" • ");
 }
 
 // ---------- SAVE ----------
@@ -193,9 +239,12 @@ async function saveToGitHub(data) {
 async function run() {
   console.log("🔥 updating news...");
   const news = await generateNews();
+
   if (news.length) {
     articles = news;
+    updateTicker(news);
     await saveToGitHub(news);
+    await generateBlogs();
     console.log("✅ done");
   }
 }
@@ -203,72 +252,41 @@ async function run() {
 run();
 setInterval(run, 30 * 60 * 1000);
 
-// ---------- SEARCH ----------
-app.get("/search", (req, res) => {
-  const q = (req.query.q || "").toLowerCase();
-  let data = articles;
+// ---------- ADS ROTATION ----------
+setInterval(() => {
+  currentAdIndex = (currentAdIndex + 1) % adsList.length;
+}, 20000);
 
-  if (q) {
-    data = data.filter(a =>
-      a.title_en.toLowerCase().includes(q) ||
-      a.article_en.toLowerCase().includes(q)
-    );
-  }
-
-  res.json(data.slice(0, 20));
-});
-
-// ---------- BLOGS ----------
-app.post("/save-blog", (req, res) => {
-  blogs.unshift({
-    ...req.body,
-    id: Date.now(),
-    date: new Date().toISOString()
-  });
-  res.json({ success: true });
-});
-
+// ---------- ROUTES ----------
+app.get("/news", (req, res) => res.json(articles));
 app.get("/blogs", (req, res) => res.json(blogs));
-
-// ---------- TICKER ----------
-app.post("/save-ticker", (req, res) => {
-  ticker = req.body.text;
-  res.json({ success: true });
-});
-
 app.get("/ticker", (req, res) => res.json({ text: ticker }));
-
-// ---------- ADS ----------
-app.post("/save-ads", (req, res) => {
-  ads = req.body;
-  res.json({ success: true });
-});
-
-app.get("/ads", (req, res) => res.json(ads));
+app.get("/ads", (req, res) => res.json(adsList[currentAdIndex]));
 
 // ---------- ADMIN ----------
 app.post("/admin", (req, res) => {
   res.json({ success: req.body.password === ADMIN_PASSWORD });
 });
 
-// ---------- FRONTEND ROUTES ----------
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "index.html"));
+// ---------- ADD ADS ----------
+app.post("/save-ads", (req, res) => {
+  const { text, link, image, duration } = req.body;
+
+  adsList.push({
+    text,
+    link,
+    image,
+    duration: duration || 20000
+  });
+
+  res.json({ success: true });
 });
 
-app.get("/admin", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "admin.html"));
-});
-
-app.get("/blog", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "blog.html"));
-});
-
-app.get("/article", (req, res) => {
-  res.sendFile(path.join(__dirname, "..", "article.html"));
-});
+// ---------- FRONTEND ----------
+app.get("/", (req, res) => res.sendFile(path.join(__dirname, "..", "index.html")));
+app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "..", "admin.html")));
+app.get("/blog", (req, res) => res.sendFile(path.join(__dirname, "..", "blog.html")));
+app.get("/article", (req, res) => res.sendFile(path.join(__dirname, "..", "article.html")));
 
 // ---------- START ----------
-app.listen(PORT, () => {
-  console.log("🚀 Server running on port " + PORT);
-});
+app.listen(PORT, () => console.log("🚀 Server running on " + PORT));
