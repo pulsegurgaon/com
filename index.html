@@ -8,8 +8,8 @@
 <style>
 body{
 margin:0;
-font-family:Segoe UI,Arial;
-background:#f5f5f5;
+font-family:Arial;
+background:#f6f7fb;
 }
 
 /* TOP AD */
@@ -19,16 +19,20 @@ top:0;
 left:0;
 width:100%;
 height:20vh;
-background:#000;
 z-index:9999;
-display:flex;
-align-items:center;
-justify-content:center;
 }
-.topAd img{width:100%;height:100%;object-fit:cover}
+.topAd img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
 .closeAd{
-position:absolute;right:15px;top:10px;
-color:white;font-size:18px;cursor:pointer;
+position:absolute;
+right:15px;
+top:10px;
+color:white;
+font-size:20px;
+cursor:pointer;
 }
 
 /* HEADER */
@@ -39,16 +43,14 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 padding:12px 15px;
-position:sticky;
-top:0;
-z-index:1000;
 }
+
 .logo{font-size:20px;font-weight:bold}
 
 .search{
 padding:8px 12px;
-border:none;
 border-radius:20px;
+border:none;
 width:40%;
 }
 
@@ -61,39 +63,18 @@ background:white;
 border-bottom:1px solid #eee;
 overflow-x:auto;
 }
-.nav span{cursor:pointer;color:#555}
-
-/* FILTER */
-.filters{
-display:flex;
-gap:10px;
-padding:15px;
-background:white;
-flex-wrap:wrap;
-}
-.filters select,.filters button{
-padding:8px;
-border-radius:8px;
-border:1px solid #ddd;
-}
-.filters button{
-background:#e11d48;color:white;border:none;
+.nav span{
+cursor:pointer;
+font-size:14px;
 }
 
 /* BREAKING */
 .breaking{
 background:#e11d48;
 color:white;
-overflow:hidden;
 }
 .ticker{
-white-space:nowrap;
 padding:8px;
-animation:scroll 30s linear infinite;
-}
-@keyframes scroll{
-0%{transform:translateX(100%)}
-100%{transform:translateX(-100%)}
 }
 
 /* LAYOUT */
@@ -107,33 +88,40 @@ padding:15px;
 /* CARDS */
 .cards{
 display:grid;
-grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-gap:15px;
+grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+gap:20px;
 }
 
 .card{
 background:white;
-padding:15px;
 border-radius:12px;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
+overflow:hidden;
+box-shadow:0 4px 12px rgba(0,0,0,0.1);
 cursor:pointer;
-transition:0.2s;
 }
-.card:hover{transform:translateY(-5px)}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.cardText{
+padding:12px;
+}
 
 .badge{
-font-size:11px;
-background:#eee;
-padding:4px 8px;
+background:#e11d48;
+color:white;
+padding:3px 8px;
 border-radius:20px;
-display:inline-block;
-margin-bottom:8px;
+font-size:11px;
 }
 
 /* SIDEBAR */
 .sidebar{
 background:white;
-padding:10px;
+padding:12px;
 border-radius:10px;
 }
 
@@ -148,7 +136,6 @@ background:#111;
 color:white;
 text-align:center;
 padding:20px;
-margin-top:20px;
 }
 </style>
 </head>
@@ -172,29 +159,10 @@ margin-top:20px;
 <span>World</span>
 <span>Technology</span>
 <span>Finance</span>
-<span>General</span>
-</div>
-
-<div class="filters">
-<select id="categoryFilter">
-<option value="">Category</option>
-<option>India</option>
-<option>World</option>
-<option>Finance</option>
-<option>Technology</option>
-</select>
-
-<select id="dateFilter">
-<option value="">Date</option>
-<option value="1">24h</option>
-<option value="7">7 days</option>
-</select>
-
-<button onclick="applyFilters()">Search</button>
 </div>
 
 <div class="breaking">
-<div class="ticker" id="ticker">🔥 Breaking news loading...</div>
+<div class="ticker">🔥 Breaking news loading...</div>
 </div>
 
 <div class="container">
@@ -206,8 +174,6 @@ margin-top:20px;
 
 <div class="sidebar">
 <div id="adsBox">Ad</div>
-<h4>Trending Blogs</h4>
-<div id="blogs"></div>
 </div>
 
 </div>
@@ -216,50 +182,49 @@ margin-top:20px;
 
 <script>
 
-// CLOSE AD
+// AD CLOSE
 function closeAd(){
 document.getElementById("topAd").style.display="none";
 }
 
-// AUTO HIDE AFTER 2s
+// AUTO HIDE 2s
 setTimeout(()=>{
-const ad=document.getElementById("topAd");
-if(ad) ad.style.display="none";
+document.getElementById("topAd").style.display="none";
 },2000);
 
 // LOAD ADS
 fetch("/ads")
 .then(r=>r.json())
 .then(ad=>{
-document.getElementById("adImage").src=ad.image||"https://picsum.photos/1200/200";
+if(ad.image) document.getElementById("adImage").src=ad.image;
 });
 
-// NEWS
-let originalArticles=[],filteredArticles=[];
+// NEWS LOAD
+let articles=[];
 
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(data=>{
-originalArticles=data.articles||[];
-filteredArticles=[...originalArticles];
+articles=data.articles||[];
 render();
 });
 
 // RENDER
 function render(){
+
 const box=document.getElementById("news");
 box.innerHTML="";
 
-filteredArticles.slice(0,20).forEach((a,i)=>{
+articles.slice(0,20).forEach((a,i)=>{
 
-// AD CARD
+// INLINE AD
 if(i!==0 && i%4===0){
 box.innerHTML+=`
 <div class="card">
-<p style="text-align:center;font-size:12px;color:#999">ADVERTISEMENT</p>
-<img src="https://picsum.photos/300/200" style="width:100%">
-<br>
-<button style="background:#e11d48;color:white;border:none;padding:8px;border-radius:6px">Shop Now</button>
+<img src="https://picsum.photos/300/200">
+<div class="cardText">
+<b>ADVERTISEMENT</b>
+</div>
 </div>`;
 }
 
@@ -267,15 +232,18 @@ const card=document.createElement("div");
 card.className="card";
 
 card.innerHTML=`
+<img src="${a.image || 'https://picsum.photos/300'}">
+<div class="cardText">
 <span class="badge">${a.category}</span>
 <h3>${a.title_en}</h3>
-<p>${a.summary_points?.join(" • ")}</p>
+<p>${(a.summary_points||[]).join(" • ")}</p>
+</div>
 `;
 
 card.onclick=()=>{
 localStorage.setItem("currentArticle",JSON.stringify({
 title:a.title_en,
-summary:a.summary_points.join(" • "),
+summary:(a.summary_points||[]).join(" • "),
 article:a.article_en,
 image:a.image,
 timeline:a.timeline,
@@ -287,18 +255,6 @@ location.href="article.html";
 box.appendChild(card);
 
 });
-}
-
-// FILTER
-function applyFilters(){
-const cat=document.getElementById("categoryFilter").value;
-
-filteredArticles=originalArticles.filter(a=>{
-if(cat && a.category!==cat) return false;
-return true;
-});
-
-render();
 }
 
 </script>
