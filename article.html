@@ -5,56 +5,33 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Article - PulseGurgaon</title>
 
-<div id="google_translate_element" style="display:none;"></div>
-
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'hi'
-  }, 'google_translate_element');
-}
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <style>
-body { margin:0; font-family:Arial; background:#f4f4f6; line-height:1.7; }
-header {
-  padding:15px; background:white; display:flex; justify-content:space-between; align-items:center;
-  box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-.logo { font-weight:bold; color:#e11d48; font-size:20px; }
-.container { padding:15px; max-width:900px; margin:auto; }
+body{margin:0;font-family:Arial;background:#f4f4f6}
 
-img { width:100%; border-radius:12px; margin-bottom:15px; }
-.title { font-size:24px; margin:15px 0 12px 0; color:#222; }
+header{
+display:flex;justify-content:space-between;align-items:center;
+padding:12px 20px;background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.08)
+}
 
-.summary {
-  background:#fff3cd; padding:14px; border-radius:8px; margin-bottom:20px;
-}
-.article {
-  background:white; padding:18px; border-radius:10px; font-size:16.5px;
-}
-.article p { margin-bottom:18px; }
+.logo{font-size:20px;font-weight:bold;color:#e11d48}
 
-.timeline, .vocab {
-  margin-top:25px; background:white; padding:18px; border-radius:12px;
-}
-.timeline h3, .vocab h3 { margin-top:0; }
+.container{padding:15px;max-width:900px;margin:auto}
 
-.timeline-item {
-  display:flex; align-items:flex-start; margin-bottom:20px;
-}
-.dot {
-  width:32px; height:32px; background:#fff; border:3px solid #e11d48;
-  border-radius:50%; display:flex; align-items:center; justify-content:center;
-  margin-right:14px; font-size:15px; flex-shrink:0;
-}
-.vocab ul { padding-left:20px; }
+.hero img{width:100%;border-radius:10px}
 
-button {
-  padding:9px 14px; border:none; border-radius:20px; background:#111; color:white;
-  cursor:pointer; margin-left:8px;
+.title{font-size:22px;font-weight:bold;margin:10px 0}
+
+.section{
+background:white;padding:12px;border-radius:10px;margin-top:10px
+}
+
+.section h3{margin:0 0 8px 0}
+
+ul{padding-left:18px}
+
+footer{
+background:#111;color:white;text-align:center;padding:15px;margin-top:20px
 }
 </style>
 </head>
@@ -62,111 +39,72 @@ button {
 <body>
 
 <header>
-  <div class="logo">PulseGurgaon</div>
-  <div>
-    <button onclick="toggleLang()">🌐 EN / HI</button>
-    <button onclick="goBack()">← Back</button>
-  </div>
+<div class="logo">PulseGurgaon</div>
+<button onclick="history.back()">⬅ Back</button>
 </header>
 
 <div class="container">
 
-  <img id="image" alt="News Image">
+<div class="hero">
+<img id="image">
+</div>
 
-  <h1 class="title" id="title"></h1>
+<div class="title" id="title"></div>
 
-  <div class="summary" id="summary"></div>
+<div class="section">
+<h3>Summary</h3>
+<p id="summary"></p>
+</div>
 
-  <div class="article" id="article"></div>
+<div class="section">
+<h3>📍 Timeline</h3>
+<ul id="timeline"></ul>
+</div>
 
-  <!-- Timeline -->
-  <div class="timeline" id="timelineSection">
-    <h3>📍 Timeline</h3>
-    <div id="timelineList"></div>
-  </div>
+<div class="section">
+<h3>📘 Vocabulary</h3>
+<ul id="vocab"></ul>
+</div>
 
-  <!-- Vocabulary -->
-  <div class="vocab" id="vocabSection">
-    <h3>📘 Vocabulary</h3>
-    <ul id="vocabList"></ul>
-  </div>
+<div class="section">
+<h3>📰 Full Article</h3>
+<p id="article"></p>
+</div>
 
 </div>
 
+<footer>PulseGurgaon • AI Powered News</footer>
+
 <script>
-// Load data
+
+// GET DATA
 const data = JSON.parse(localStorage.getItem("currentArticle") || "{}");
 
-if (!data || !data.title) {
-  document.body.innerHTML = `<h2 style="text-align:center;margin-top:80px;color:#e11d48;">No article found. Please go back.</h2>`;
-  throw new Error("No data");
-}
+// DEBUG (important)
+console.log("ARTICLE DATA:", data);
 
-// Safe value
-function safe(val) { return val && val !== "undefined" && val !== "null" ? val : ""; }
+// SAFE FALLBACKS
+document.getElementById("image").src = data.image || "https://picsum.photos/800/400";
 
-// Image
-document.getElementById("image").src = safe(data.image) || "https://picsum.photos/800/450";
+document.getElementById("title").innerText = data.title || "No title";
 
-// Title
-document.getElementById("title").innerText = safe(data.title_en) || safe(data.title) || "No title";
+document.getElementById("summary").innerText = data.summary || "No summary";
 
-// Summary Points
-const summaryEl = document.getElementById("summary");
-if (data.summary_points && Array.isArray(data.summary_points) && data.summary_points.length) {
-  summaryEl.innerHTML = `<ul style="padding-left:20px;">\( {data.summary_points.map(p => `<li> \){p}</li>`).join("")}</ul>`;
-} else {
-  summaryEl.innerHTML = `<p>${safe(data.summary) || "Summary not available"}</p>`;
-}
+document.getElementById("article").innerText = data.article || "No article";
 
-// Full Article
-const articleEl = document.getElementById("article");
-let articleText = safe(data.article_en) || safe(data.article) || "";
+// TIMELINE
+const timeline = data.timeline || [];
+document.getElementById("timeline").innerHTML =
+  timeline.length
+    ? timeline.map(t => `<li>${t}</li>`).join("")
+    : "<li>No timeline available</li>";
 
-if (articleText.length > 100) {
-  articleText = articleText.replace(/please provide.*?/gi, "").replace(/here is.*?article/gi, "").trim();
-  const paragraphs = articleText.split(/\.\s+/).filter(p => p.length > 25);
-  articleEl.innerHTML = paragraphs.map(p => `<p>${p.trim()}.</p>`).join("");
-} else {
-  articleEl.innerHTML = "<p>Full article content is loading...</p>";
-}
-
-// Timeline
-const timelineSection = document.getElementById("timelineSection");
-const timelineList = document.getElementById("timelineList");
-if (data.timeline && Array.isArray(data.timeline) && data.timeline.length) {
-  timelineList.innerHTML = data.timeline.map((t, i) => `
-    <div class="timeline-item">
-      <div class="dot">${["🔥","⚠️","📊","🚨","📢","🧠"][i % 6]}</div>
-      <div>${t}</div>
-    </div>
-  `).join("");
-} else {
-  timelineSection.style.display = "none";
-}
-
-// Vocabulary
-const vocabSection = document.getElementById("vocabSection");
-const vocabList = document.getElementById("vocabList");
-if (data.vocab_en && Array.isArray(data.vocab_en) && data.vocab_en.length) {
-  vocabList.innerHTML = data.vocab_en.map(v => `<li>${v}</li>`).join("");
-} else {
-  vocabSection.style.display = "none";
-}
-
-// Language & Back
-let currentLang = "en";
-function toggleLang() {
-  const select = document.querySelector(".goog-te-combo");
-  if (!select) return alert("Translator still loading...");
-  select.value = currentLang === "en" ? "hi" : "en";
-  currentLang = currentLang === "en" ? "hi" : "en";
-  select.dispatchEvent(new Event("change"));
-}
-
-function goBack() {
-  window.history.back();
-}
+// VOCAB
+const vocab = data.vocab || [];
+document.getElementById("vocab").innerHTML =
+  vocab.length
+    ? vocab.map(v => `<li>${v}</li>`).join("")
+    : "<li>No vocab available</li>";
 
 </script>
 
