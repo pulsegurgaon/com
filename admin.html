@@ -1,136 +1,191 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Panel</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f6}
-
-header{
-padding:15px;background:#111;color:white;
-display:flex;justify-content:space-between
+body{
+font-family:Arial;
+background:#111;
+color:white;
+margin:0;
+padding:20px;
 }
 
-.container{
-padding:15px;max-width:900px;margin:auto
-}
+h2{margin-top:30px}
 
-.card{
-background:white;padding:15px;border-radius:10px;margin-bottom:20px
-}
-
-input,textarea{
-width:100%;padding:10px;margin:8px 0;
-border:1px solid #ddd;border-radius:6px
+input,textarea,button{
+width:100%;
+margin:8px 0;
+padding:10px;
+border:none;
+border-radius:6px;
 }
 
 button{
-padding:10px;border:none;border-radius:6px;
-background:#e11d48;color:white;cursor:pointer
+background:#e11d48;
+color:white;
+cursor:pointer;
 }
 
-.hidden{display:none}
+.card{
+background:#222;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-  <div>⚙️ PulseGurgaon Admin</div>
-</header>
+<h1>⚙️ Admin Panel</h1>
 
-<div class="container">
-
-<div id="loginBox" class="card">
-  <h3>Login</h3>
-  <input type="password" id="password" placeholder="Enter password">
-  <button onclick="login()">Login</button>
+<!-- LOGIN -->
+<div id="loginBox">
+<input type="password" id="pass" placeholder="Enter password">
+<button onclick="login()">Login</button>
 </div>
 
-<div id="dashboard" class="hidden">
+<div id="panel" style="display:none;">
 
-  <div class="card">
-    <h3>Add Blog</h3>
-    <input id="blogTitle" placeholder="Title">
-    <textarea id="blogContent" placeholder="Content"></textarea>
-    <input id="blogImage" placeholder="Image URL">
-    <button onclick="addBlog()">Publish Blog</button>
-  </div>
+<!-- TICKER -->
+<h2>🧵 Update Ticker</h2>
+<input id="tickerInput" placeholder="Enter ticker text">
+<button onclick="saveTicker()">Save Ticker</button>
 
-  <div class="card">
-    <h3>Breaking Ticker</h3>
-    <input id="tickerInput" placeholder="Ticker text">
-    <button onclick="saveTicker()">Save</button>
-  </div>
+<!-- ADS -->
+<h2>📢 Add Ad</h2>
+<input id="adText" placeholder="Ad Text">
+<input id="adLink" placeholder="Ad Link">
+<input id="adImage" placeholder="Image URL">
+<input id="adDuration" placeholder="Duration (ms)">
+<button onclick="saveAd()">Add Ad</button>
 
-  <div class="card">
-    <h3>Ads</h3>
-    <input id="adText" placeholder="Ad text">
-    <input id="adLink" placeholder="Ad link">
-    <button onclick="saveAds()">Save</button>
-  </div>
+<!-- BLOG -->
+<h2>✍️ Add Blog</h2>
+<input id="blogTitle" placeholder="Title">
+<textarea id="blogContent" placeholder="Content"></textarea>
+<button onclick="addBlog()">Add Blog</button>
 
-</div>
+<h2>📚 Blogs</h2>
+<div id="blogs"></div>
+
+<!-- ARTICLES -->
+<h2>📰 Articles</h2>
+<div id="articles"></div>
 
 </div>
 
 <script>
 
+// LOGIN
 function login(){
-  fetch("/admin",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      password:document.getElementById("password").value
-    })
-  })
-  .then(r=>r.json())
-  .then(d=>{
-    if(d.success){
-      document.getElementById("loginBox").style.display="none";
-      document.getElementById("dashboard").classList.remove("hidden");
-    }else{
-      alert("Wrong password");
-    }
-  });
+fetch("/admin",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({password:pass.value})
+})
+.then(r=>r.json())
+.then(d=>{
+if(d.success){
+loginBox.style.display="none";
+panel.style.display="block";
+loadData();
+}else{
+alert("Wrong password");
+}
+});
 }
 
+// LOAD DATA
+function loadData(){
+
+// BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
+blogs.innerHTML="";
+data.forEach(b=>{
+blogs.innerHTML+=`
+<div class="card">
+<b>${b.title}</b>
+<button onclick="deleteBlog(${b.id})">Delete</button>
+</div>`;
+});
+});
+
+// ARTICLES
+fetch("/news")
+.then(r=>r.json())
+.then(data=>{
+articles.innerHTML="";
+data.slice(0,20).forEach(a=>{
+articles.innerHTML+=`
+<div class="card">
+<b>${a.title_en}</b>
+<button onclick="deleteArticle(${a.id})">Delete</button>
+</div>`;
+});
+});
+
+}
+
+// DELETE BLOG
+function deleteBlog(id){
+fetch("/delete-blog",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({id})
+}).then(()=>loadData());
+}
+
+// DELETE ARTICLE
+function deleteArticle(id){
+fetch("/delete-article",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({id})
+}).then(()=>loadData());
+}
+
+// ADD BLOG
 function addBlog(){
-  fetch("/save-blog",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      title:blogTitle.value,
-      content:blogContent.value,
-      image:blogImage.value
-    })
-  });
-  alert("Blog added");
+fetch("/add-blog",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+title:blogTitle.value,
+content:blogContent.value
+})
+}).then(()=>{
+alert("Blog added");
+loadData();
+});
 }
 
+// SAVE TICKER
 function saveTicker(){
-  fetch("/save-ticker",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      text:tickerInput.value
-    })
-  });
-  alert("Ticker updated");
+fetch("/set-ticker",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({text:tickerInput.value})
+}).then(()=>alert("Ticker updated"));
 }
 
-function saveAds(){
-  fetch("/save-ads",{
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body:JSON.stringify({
-      text:adText.value,
-      link:adLink.value
-    })
-  });
-  alert("Ads updated");
+// SAVE AD
+function saveAd(){
+fetch("/save-ads",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+text:adText.value,
+link:adLink.value,
+image:adImage.value,
+duration:Number(adDuration.value)
+})
+}).then(()=>alert("Ad added"));
 }
 
 </script>
