@@ -268,7 +268,25 @@ app.get("/ads", (req, res) => res.json(adsList[currentAdIndex]));
 app.post("/admin", (req, res) => {
   res.json({ success: req.body.password === ADMIN_PASSWORD });
 });
+app.post("/add-blog", (req,res)=>{
+blogs.unshift({ id:Date.now(), ...req.body });
+res.json({success:true});
+});
 
+app.post("/delete-blog", (req,res)=>{
+blogs = blogs.filter(b=>b.id!==req.body.id);
+res.json({success:true});
+});
+
+app.post("/delete-article", (req,res)=>{
+articles = articles.filter(a=>a.id!==req.body.id);
+res.json({success:true});
+});
+
+app.post("/set-ticker", (req,res)=>{
+ticker = req.body.text;
+res.json({success:true});
+});
 // ---------- ADD ADS (IMAGE + LINK WORKING) ----------
 app.post("/save-ads", (req, res) => {
   const { text, link, image, duration } = req.body;
