@@ -5,52 +5,76 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
+<meta name="google" content="notranslate">
+
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    includedLanguages: 'hi',
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 <style>
 body{margin:0;font-family:Arial;background:#f5f6fa}
 
-/* COMMON */
-.badge{
+/* HEADER */
+header{
 background:#e11d48;color:white;
-padding:3px 6px;border-radius:20px;font-size:10px
+display:flex;justify-content:space-between;
+padding:10px 15px;align-items:center
 }
+.logo{font-weight:bold}
+.search{padding:6px;border-radius:10px;border:none}
+
+/* CATEGORY */
+.categories{
+display:flex;gap:15px;padding:10px;background:white;
+overflow-x:auto;border-bottom:1px solid #ddd
+}
+.categories span{cursor:pointer}
+
+/* BREAKING */
+.breaking{background:#e11d48;color:white}
+.ticker{padding:6px}
 
 /* MOBILE */
 .mobile{display:none}
-.mobile header{
-background:#e11d48;color:white;
-text-align:center;padding:15px;font-weight:bold;font-size:20px
-}
-.mobile .categories{
-display:flex;gap:15px;padding:10px;background:white;overflow-x:auto
-}
-.mobile .hero img{width:100%;height:250px;object-fit:cover}
-.mobile .content{padding:12px}
-.mobile .bottomBar{
-position:fixed;bottom:0;width:100%;
-display:flex;justify-content:space-around;
-background:white;padding:10px;border-top:1px solid #ddd
+.hero img{width:100%;height:250px;object-fit:cover}
+.mobileList{padding:10px}
+.mobileCard{
+background:white;border-radius:10px;margin-bottom:10px;padding:10px
 }
 
 /* DESKTOP */
 .desktop{display:none}
-.desktop header{
-background:#e11d48;color:white;
-display:flex;justify-content:space-between;padding:10px 20px
-}
-.desktop .container{
-display:grid;grid-template-columns:3fr 1fr;gap:20px;padding:20px
+.container{
+display:grid;grid-template-columns:3fr 1fr;
+gap:20px;padding:20px
 }
 .grid{
 display:grid;grid-template-columns:1fr 1fr;gap:15px
 }
 .card{
-background:white;border-radius:10px;overflow:hidden;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);cursor:pointer
+background:white;border-radius:10px;
+overflow:hidden;cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.1)
 }
-.card img{width:100%;height:160px;object-fit:cover}
+.card img{width:100%;height:150px;object-fit:cover}
 .cardText{padding:10px}
 
-/* RESPONSIVE SWITCH */
+/* SIDEBAR */
+.sidebar{background:white;padding:10px;border-radius:10px}
+
+/* PAGINATION */
+#pagination{text-align:center;margin:10px}
+button{cursor:pointer}
+
+/* RESPONSIVE */
 @media(max-width:768px){
 .mobile{display:block}
 }
@@ -62,58 +86,48 @@ box-shadow:0 4px 10px rgba(0,0,0,0.08);cursor:pointer
 
 <body>
 
-<!-- MOBILE UI -->
-<div class="mobile">
-
-<header>PULSE GURGAON</header>
+<header>
+<div class="logo">PulseGurgaon</div>
+<input id="searchInput" class="search" placeholder="Search">
+<button onclick="toggleLang()">EN/HI</button>
+</header>
 
 <div class="categories">
-<span>All</span>
-<span>India</span>
-<span>World</span>
-<span>Technology</span>
-<span>Finance</span>
+<span onclick="filter('All')">All</span>
+<span onclick="filter('India')">India</span>
+<span onclick="filter('World')">World</span>
+<span onclick="filter('Technology')">Technology</span>
+<span onclick="filter('Finance')">Finance</span>
 </div>
 
-<div class="hero" id="mobileHero"></div>
-
-<div class="content">
-<h2 id="mobileTitle"></h2>
-<p id="mobileSummary"></p>
+<div class="breaking">
+<div class="ticker" id="ticker">Loading...</div>
 </div>
 
-<div class="bottomBar">
-<div>🏠 Home</div>
-<div style="background:#e11d48;color:white;padding:8px 20px;border-radius:20px">BLOG</div>
-<div>⚙️ Admin</div>
-</div>
+<!-- MOBILE -->
+<div class="mobile">
+
+<div id="mobileHero"></div>
+<div class="mobileList" id="mobileList"></div>
 
 </div>
 
-<!-- DESKTOP UI -->
+<!-- DESKTOP -->
 <div class="desktop">
-
-<header>
-<div>PulseGurgaon</div>
-<input placeholder="Search news...">
-</header>
 
 <div class="container">
 
 <div>
 <h2>Latest News</h2>
-<div class="grid" id="desktopNews"></div>
+<div class="grid" id="news"></div>
+<div id="pagination"></div>
 </div>
 
-<div>
-<h3>Trending Blogs</h3>
+<div class="sidebar">
+<h3>Blogs</h3>
 <div id="blogs"></div>
-
-<div style="margin-top:20px;padding:20px;border:1px dashed red;border-radius:10px;text-align:center">
-ADVERTISEMENT<br>
-<button style="background:#e11d48;color:white;border:none;padding:8px 12px;border-radius:6px">Advertise</button>
-</div>
-
+<div id="adsBox">Ad</div>
+<button onclick="location.href='admin.html'">Admin</button>
 </div>
 
 </div>
@@ -122,59 +136,117 @@ ADVERTISEMENT<br>
 
 <script>
 
-// LOAD DATA
-let articles=[];
+// TRANSLATE
+function toggleLang(){
+const select=document.querySelector(".goog-te-combo");
+if(select){
+select.value=select.value==="hi"?"en":"hi";
+select.dispatchEvent(new Event("change"));
+}
+}
 
+// GLOBAL
+let articles=[],filtered=[];
+let page=1,perPage=6;
+
+// LOAD DATA
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
-.then(data=>{
-articles=data.articles||[];
-loadMobile();
-loadDesktop();
+.then(d=>{
+articles=d.articles||[];
+filtered=[...articles];
+render();
 });
 
+// TICKER
+fetch("/ticker")
+.then(r=>r.json())
+.then(d=>{
+document.getElementById("ticker").innerText=d.text;
+});
+
+// BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
+const box=document.getElementById("blogs");
+data.slice(0,5).forEach(b=>{
+box.innerHTML+=`<div>${b.title}</div>`;
+});
+});
+
+// ADS
+fetch("/ads")
+.then(r=>r.json())
+.then(ad=>{
+document.getElementById("adsBox").innerHTML=
+`<a href="${ad.link}">${ad.text}</a>`;
+});
+
+// SAFE
+function safe(a){
+return{
+title:a.title_en||"Breaking News",
+summary:(a.summary_points||[]).join(" • "),
+image:a.image||"https://picsum.photos/400"
+}
+}
+
+// RENDER
+function render(){
+
+renderMobile();
+renderDesktop();
+renderPagination();
+
+}
+
 // MOBILE
-function loadMobile(){
-if(!articles.length) return;
+function renderMobile(){
+const hero=document.getElementById("mobileHero");
+const list=document.getElementById("mobileList");
 
-const a=articles[0];
+if(!filtered.length)return;
 
-document.getElementById("mobileHero").innerHTML=
-`<img src="${a.image || 'https://picsum.photos/400'}">`;
+const first=safe(filtered[0]);
 
-document.getElementById("mobileTitle").innerText=
-a.title_en || "No title";
+hero.innerHTML=`
+<img src="${first.image}">
+<h2 style="padding:10px">${first.title}</h2>
+<p style="padding:10px">${first.summary}</p>
+`;
 
-document.getElementById("mobileSummary").innerText=
-(a.summary_points||[]).join(" • ");
+list.innerHTML="";
+
+filtered.slice(1,10).forEach(a=>{
+const d=safe(a);
+list.innerHTML+=`
+<div class="mobileCard">
+<h3>${d.title}</h3>
+<p>${d.summary}</p>
+</div>`;
+});
 }
 
 // DESKTOP
-function loadDesktop(){
-const box=document.getElementById("desktopNews");
-if(!box) return;
-
+function renderDesktop(){
+const box=document.getElementById("news");
 box.innerHTML="";
 
-articles.slice(0,10).forEach((a,i)=>{
+const start=(page-1)*perPage;
+const data=filtered.slice(start,start+perPage);
 
-// INLINE AD
-if(i===2){
-box.innerHTML+=`
-<div class="card" style="text-align:center;padding:20px">
-ADVERTISEMENT
-</div>`;
-}
+data.forEach((a,i)=>{
+const d=safe(a);
 
 const card=document.createElement("div");
 card.className="card";
 
 card.innerHTML=`
-<img src="${a.image || 'https://picsum.photos/400'}">
+<img src="${d.image}">
 <div class="cardText">
-<span class="badge">${a.category}</span>
-<h3>${a.title_en}</h3>
-<p>${(a.summary_points||[]).join(" • ")}</p>
+<h3>${d.title}</h3>
+<p>${d.summary}</p>
 </div>
 `;
 
@@ -187,6 +259,37 @@ box.appendChild(card);
 
 });
 }
+
+// PAGINATION
+function renderPagination(){
+const total=Math.ceil(filtered.length/perPage);
+const box=document.getElementById("pagination");
+box.innerHTML="";
+
+for(let i=1;i<=total;i++){
+box.innerHTML+=`<button onclick="go(${i})">${i}</button>`;
+}
+}
+
+function go(i){
+page=i;
+renderDesktop();
+}
+
+// FILTER
+function filter(cat){
+filtered=cat==="All"?[...articles]:articles.filter(a=>a.category===cat);
+render();
+}
+
+// SEARCH
+searchInput.addEventListener("input",function(){
+const q=this.value.toLowerCase();
+filtered=articles.filter(a=>
+(a.title_en||"").toLowerCase().includes(q)
+);
+render();
+});
 
 </script>
 
