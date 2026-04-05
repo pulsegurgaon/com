@@ -1,24 +1,45 @@
-body{
-margin:0;
-font-family:sans-serif;
-background:#f5f5f5;
-}
+body{margin:0;font-family:sans-serif;background:#f5f5f5;}
 
-/* HEADER */
-#header{
+.header{
 display:flex;
 justify-content:space-between;
-align-items:center;
 padding:10px;
 background:#e60023;
 color:white;
 }
 
-.logo{
-font-weight:bold;
+.categories{
+display:flex;
+overflow-x:auto;
+gap:10px;
+padding:10px;
+background:white;
 }
 
-/* TICKER */
+.card{
+background:white;
+margin:10px;
+padding:10px;
+border-radius:10px;
+box-shadow:0 3px 8px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{transform:scale(1.02);}
+
+.card img{width:100%;border-radius:10px;}
+
+.bottomNav{
+position:fixed;
+bottom:0;
+width:100%;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:10px;
+}
+
 .ticker{
 background:black;
 color:white;
@@ -34,113 +55,4 @@ padding-left:100%;
 @keyframes scroll{
 0%{transform:translateX(0);}
 100%{transform:translateX(-100%);}
-}
-
-/* CATEGORY */
-.categories{
-display:flex;
-overflow-x:auto;
-gap:15px;
-padding:10px;
-background:white;
-}
-
-.categories span{
-cursor:pointer;
-flex-shrink:0;
-}
-
-/* CARD */
-.card{
-background:white;
-margin:10px;
-padding:10px;
-border-radius:12px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
-cursor:pointer;
-transition:0.3s;
-}
-
-.card:hover{
-transform:scale(1.02);
-}
-
-.card img{
-width:100%;
-border-radius:10px;
-}
-
-/* ADS */
-.ad{
-background:#ddd;
-margin:10px;
-padding:20px;
-text-align:center;
-}
-
-/* SIDEBAR */
-#sidebar{
-padding:10px;
-}
-
-.adBox{
-border:2px dashed red;
-padding:20px;
-margin-top:20px;
-text-align:center;
-}
-
-/* BOTTOM NAV */
-.bottomNav{
-position:fixed;
-bottom:0;
-width:100%;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:10px;
-}
-
-/* ========================= */
-/* 📱 MOBILE */
-/* ========================= */
-@media(max-width:790px){
-
-#sidebar{
-display:none;
-}
-
-.right{
-display:none;
-}
-
-}
-
-/* ========================= */
-/* 💻 DESKTOP */
-/* ========================= */
-@media(min-width:790px){
-
-body{
-display:grid;
-grid-template-columns: 3fr 1fr;
-}
-
-#main{
-grid-column:1;
-}
-
-#sidebar{
-grid-column:2;
-background:#fafafa;
-}
-
-.bottomNav{
-display:none;
-}
-
-.categories{
-justify-content:center;
-}
-
 }
