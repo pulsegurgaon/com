@@ -1,0 +1,57 @@
+body{margin:0;font-family:sans-serif;background:#fafafa;}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+padding:10px;
+background:#e60023;
+color:white;
+}
+
+.layout{
+display:grid;
+grid-template-columns:3fr 1fr;
+gap:20px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:10px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+transition:.3s;
+}
+
+.card:hover{transform:scale(1.03);}
+
+.card img{width:100%;border-radius:10px;}
+
+.sidebar{
+background:white;
+padding:10px;
+border-radius:10px;
+}
+
+.adBox{
+margin-top:20px;
+padding:20px;
+border:2px dashed red;
+text-align:center;
+}
+
+.categories{
+display:flex;
+gap:20px;
+padding:10px;
+background:white;
+justify-content:center;
+}
+
+.ticker{
+background:black;
+color:white;
+overflow:hidden;
+white-space:nowrap;
+}
