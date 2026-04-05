@@ -5,261 +5,189 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 
-<div id="google_translate_element" style="display:none;"></div>
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'hi' }, 'google_translate_element');
-}
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family: Arial, sans-serif; background:#f8f9fa; }
+body{margin:0;font-family:Arial;background:#f5f6fa}
 
-/* ==================== MOBILE LAYOUT ==================== */
-.mobile-container { display: block; }
-
-.mobile-header {
-  background:#e11d48; color:white; padding:12px 15px; font-size:22px; font-weight:bold; text-align:center;
-}
-.mobile-breaking {
-  background:#111; color:white; padding:8px 15px; font-size:14px; overflow:hidden; white-space:nowrap;
-}
-.mobile-breaking span { animation:ticker 30s linear infinite; display:inline-block; }
-@keyframes ticker { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
-
-.mobile-tabs {
-  background:white; display:flex; overflow-x:auto; padding:10px 15px; gap:20px; border-bottom:1px solid #eee;
-}
-.mobile-tabs span { cursor:pointer; white-space:nowrap; font-size:15px; padding-bottom:4px; }
-.mobile-tabs span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
-
-.mobile-grid {
-  display:grid; gap:20px; padding:15px;
-}
-.mobile-card {
-  background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;
-}
-.mobile-card img { width:100%; height:200px; object-fit:cover; }
-.mobile-card .cardText { padding:12px; }
-.mobile-card .badge { font-size:11px; padding:4px 10px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
-.mobile-card h3 { font-size:17px; margin:8px 0; }
-.mobile-card p { font-size:14px; color:#555; }
-
-.mobile-ad {
-  background:#fff0f0; border:2px dashed #e11d48; padding:20px; text-align:center; border-radius:12px; font-weight:bold; color:#e11d48;
+/* COMMON */
+.badge{
+background:#e11d48;color:white;
+padding:3px 6px;border-radius:20px;font-size:10px
 }
 
-.mobile-bottom-nav {
-  position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #ddd;
-  display:flex; justify-content:space-around; padding:10px 0; z-index:1000;
+/* MOBILE */
+.mobile{display:none}
+.mobile header{
+background:#e11d48;color:white;
+text-align:center;padding:15px;font-weight:bold;font-size:20px
 }
-.mobile-bottom-nav div { text-align:center; font-size:12px; cursor:pointer; }
-.mobile-bottom-nav .blog-btn {
-  background:#e11d48; color:white; padding:8px 24px; border-radius:30px; font-weight:bold;
+.mobile .categories{
+display:flex;gap:15px;padding:10px;background:white;overflow-x:auto
+}
+.mobile .hero img{width:100%;height:250px;object-fit:cover}
+.mobile .content{padding:12px}
+.mobile .bottomBar{
+position:fixed;bottom:0;width:100%;
+display:flex;justify-content:space-around;
+background:white;padding:10px;border-top:1px solid #ddd
 }
 
-/* ==================== DESKTOP LAYOUT ==================== */
-.desktop-container { display: none; }
-
-@media (min-width: 769px) {
-  .mobile-container { display: none; }
-  .desktop-container { display: grid; }
+/* DESKTOP */
+.desktop{display:none}
+.desktop header{
+background:#e11d48;color:white;
+display:flex;justify-content:space-between;padding:10px 20px
 }
-
-/* Desktop styles (your previous good layout) */
-.desktop-container {
-  max-width: 1280px;
-  margin: 20px auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 7fr 3fr;
-  gap: 30px;
+.desktop .container{
+display:grid;grid-template-columns:3fr 1fr;gap:20px;padding:20px
 }
-.desktop-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
-.desktop-card {
-  background:white; border-radius:14px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.1); cursor:pointer;
+.grid{
+display:grid;grid-template-columns:1fr 1fr;gap:15px
 }
-.desktop-card img { width:100%; height:210px; object-fit:cover; }
-.desktop-card .cardText { padding:14px; }
-.desktop-card .badge { font-size:12px; padding:4px 12px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
-.desktop-card h3 { font-size:16.5px; margin:8px 0; line-height:1.4; }
-.desktop-card p { font-size:13.8px; color:#555; }
+.card{
+background:white;border-radius:10px;overflow:hidden;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);cursor:pointer
+}
+.card img{width:100%;height:160px;object-fit:cover}
+.cardText{padding:10px}
 
-.desktop-sidebar { background:white; padding:20px; border-radius:14px; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
-.desktop-long-ad {
-  margin-top:30px;
-  background:#fff0f0;
-  padding:50px 25px;
-  border-radius:14px;
-  text-align:center;
-  border:2px dashed #e11d48;
-  min-height:420px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+/* RESPONSIVE SWITCH */
+@media(max-width:768px){
+.mobile{display:block}
+}
+@media(min-width:769px){
+.desktop{display:block}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ==================== MOBILE LAYOUT ==================== -->
-<div class="mobile-container">
-  <div class="mobile-header">PULSE GURGAON</div>
+<!-- MOBILE UI -->
+<div class="mobile">
 
-  <div style="text-align:right;padding:5px 15px;font-size:14px;">
-    ENG | <span onclick="toggleLang()" style="color:#e11d48;cursor:pointer">हिन्दी</span>
-  </div>
+<header>PULSE GURGAON</header>
 
-  <div class="mobile-breaking">
-    <span id="mobileTicker">🔥 Loading breaking news...</span>
-  </div>
-
-  <div class="mobile-tabs">
-    <span onclick="filterCategory('All')" class="active">All</span>
-    <span onclick="filterCategory('India')">India</span>
-    <span onclick="filterCategory('World')">World</span>
-    <span onclick="filterCategory('Technology')">Technology</span>
-    <span onclick="filterCategory('Finance')">Finance</span>
-  </div>
-
-  <div class="mobile-grid" id="mobileGrid"></div>
-
-  <div class="mobile-bottom-nav">
-    <div onclick="location.href='index.html'">🏠<br>Home</div>
-    <div class="blog-btn" onclick="location.href='blogs.html'">BLOG</div>
-    <div onclick="location.href='admin.html'">⚙️<br>Admin</div>
-  </div>
+<div class="categories">
+<span>All</span>
+<span>India</span>
+<span>World</span>
+<span>Technology</span>
+<span>Finance</span>
 </div>
 
-<!-- ==================== DESKTOP LAYOUT ==================== -->
-<div class="desktop-container">
-  <div>
-    <h2>Latest News</h2>
-    <div class="desktop-grid" id="desktopGrid"></div>
-  </div>
+<div class="hero" id="mobileHero"></div>
 
-  <div class="desktop-sidebar">
-    <h4>🔥 Trending Blogs</h4>
-    <div id="desktopBlogPreview"></div>
+<div class="content">
+<h2 id="mobileTitle"></h2>
+<p id="mobileSummary"></p>
+</div>
 
-    <div class="desktop-long-ad">
-      <strong>ADVERTISEMENT</strong><br><br>
-      Boost Your Business with PulseGurgaon<br>
-      Reach thousands of readers daily<br><br>
-      <button style="background:#e11d48;color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;">Advertise Now</button>
-    </div>
-  </div>
+<div class="bottomBar">
+<div>🏠 Home</div>
+<div style="background:#e11d48;color:white;padding:8px 20px;border-radius:20px">BLOG</div>
+<div>⚙️ Admin</div>
+</div>
+
+</div>
+
+<!-- DESKTOP UI -->
+<div class="desktop">
+
+<header>
+<div>PulseGurgaon</div>
+<input placeholder="Search news...">
+</header>
+
+<div class="container">
+
+<div>
+<h2>Latest News</h2>
+<div class="grid" id="desktopNews"></div>
+</div>
+
+<div>
+<h3>Trending Blogs</h3>
+<div id="blogs"></div>
+
+<div style="margin-top:20px;padding:20px;border:1px dashed red;border-radius:10px;text-align:center">
+ADVERTISEMENT<br>
+<button style="background:#e11d48;color:white;border:none;padding:8px 12px;border-radius:6px">Advertise</button>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
-// Fetch articles
-let originalArticles = [];
 
-fetch("articles.json?v=" + Date.now())
-  .then(r => r.json())
-  .then(data => {
-    originalArticles = data.articles || [];
-    renderMobile();
-    renderDesktop();
-    generateMobileTicker();
-  });
+// LOAD DATA
+let articles=[];
 
-// Safe data
-function safe(a) {
-  return {
-    title: a.title_en || "No Title",
-    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0,140)+"...",
-    image: a.image || "https://picsum.photos/id/"+Math.floor(Math.random()*300)+"/700/400",
-    category: a.category || "General"
-  };
+fetch("articles.json?v="+Date.now())
+.then(r=>r.json())
+.then(data=>{
+articles=data.articles||[];
+loadMobile();
+loadDesktop();
+});
+
+// MOBILE
+function loadMobile(){
+if(!articles.length) return;
+
+const a=articles[0];
+
+document.getElementById("mobileHero").innerHTML=
+`<img src="${a.image || 'https://picsum.photos/400'}">`;
+
+document.getElementById("mobileTitle").innerText=
+a.title_en || "No title";
+
+document.getElementById("mobileSummary").innerText=
+(a.summary_points||[]).join(" • ");
 }
 
-// Mobile Render - Ad after first 2, then after every 4
-function renderMobile() {
-  const grid = document.getElementById("mobileGrid");
-  grid.innerHTML = "";
+// DESKTOP
+function loadDesktop(){
+const box=document.getElementById("desktopNews");
+if(!box) return;
 
-  originalArticles.slice(0, 20).forEach((article, i) => {
-    if (i === 2 || (i > 2 && (i - 2) % 4 === 0)) {
-      grid.innerHTML += `<div class="mobile-ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
-    }
+box.innerHTML="";
 
-    const d = safe(article);
-    const card = document.createElement("div");
-    card.className = "mobile-card";
-    card.innerHTML = `
-      <img src="${d.image}">
-      <div class="cardText">
-        <span class="badge">${d.category}</span>
-        <h3>${d.title}</h3>
-        <p>${d.summary}</p>
-      </div>
-    `;
-    card.onclick = () => {
-      localStorage.setItem("currentArticle", JSON.stringify(article));
-      window.location.href = "article.html";
-    };
-    grid.appendChild(card);
-  });
+articles.slice(0,10).forEach((a,i)=>{
+
+// INLINE AD
+if(i===2){
+box.innerHTML+=`
+<div class="card" style="text-align:center;padding:20px">
+ADVERTISEMENT
+</div>`;
 }
 
-// Desktop Render
-function renderDesktop() {
-  const grid = document.getElementById("desktopGrid");
-  grid.innerHTML = "";
+const card=document.createElement("div");
+card.className="card";
 
-  originalArticles.slice(0, 20).forEach((article, i) => {
-    const d = safe(article);
-    const card = document.createElement("div");
-    card.className = "desktop-card";
-    card.innerHTML = `
-      <img src="${d.image}">
-      <div class="cardText">
-        <span class="badge">${d.category}</span>
-        <h3>${d.title}</h3>
-        <p>${d.summary}</p>
-      </div>
-    `;
-    card.onclick = () => {
-      localStorage.setItem("currentArticle", JSON.stringify(article));
-      window.location.href = "article.html";
-    };
-    grid.appendChild(card);
-  });
+card.innerHTML=`
+<img src="${a.image || 'https://picsum.photos/400'}">
+<div class="cardText">
+<span class="badge">${a.category}</span>
+<h3>${a.title_en}</h3>
+<p>${(a.summary_points||[]).join(" • ")}</p>
+</div>
+`;
 
-  // Trending blogs in sidebar
-  const blogContainer = document.getElementById("desktopBlogPreview");
-  blogContainer.innerHTML = `
-    <div class="desktop-blog-item"><img src="https://picsum.photos/id/1015/85/60"><div class="text">Why AI will change Indian journalism forever</div></div>
-    <div class="desktop-blog-item"><img src="https://picsum.photos/id/201/85/60"><div class="text">The real story behind Gurgaon's startup boom</div></div>
-    <div class="desktop-blog-item"><img src="https://picsum.photos/id/301/85/60"><div class="text">How Delhi became India's EV capital</div></div>
-    <!-- Add more if needed -->
-  `;
+card.onclick=()=>{
+localStorage.setItem("currentArticle",JSON.stringify(a));
+location.href="article.html";
+};
+
+box.appendChild(card);
+
+});
 }
 
-// Mobile Ticker
-function generateMobileTicker() {
-  if (originalArticles.length === 0) return;
-  const text = originalArticles.slice(0,6).map(a => a.title_en || "Breaking").join(" | ");
-  document.getElementById("mobileTicker").innerHTML = text;
-}
-
-// Category filter (simple)
-function filterCategory(cat) {
-  alert("Filtered by " + cat);
-}
-
-// Translate
-function toggleLang() {
-  const select = document.querySelector(".goog-te-combo");
-  if (select) {
-    select.value = select.value === "hi" ? "en" : "hi";
-    select.dispatchEvent(new Event("change"));
-  }
-}
 </script>
 
 </body>
