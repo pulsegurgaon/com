@@ -4,158 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
-
-<meta name="google" content="notranslate">
-
-<div id="google_translate_element" style="display:none;"></div>
-<script>
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'hi',
-    autoDisplay: false
-  }, 'google_translate_element');
-}
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
-<style>
-body{margin:0;font-family:Arial;background:#f5f6fa}
-
-/* HEADER */
-header{
-background:#e11d48;color:white;
-display:flex;justify-content:space-between;
-padding:10px 15px;align-items:center
-}
-.logo{font-weight:bold}
-.search{padding:6px;border-radius:10px;border:none}
-
-/* CATEGORY */
-.categories{
-display:flex;gap:15px;padding:10px;background:white;
-overflow-x:auto;border-bottom:1px solid #ddd
-}
-.categories span{cursor:pointer}
-
-/* BREAKING */
-.breaking{background:#e11d48;color:white}
-.ticker{padding:6px}
-
-/* MOBILE */
-.mobile{display:none}
-.hero img{width:100%;height:250px;object-fit:cover}
-.mobileList{padding:10px}
-.mobileCard{
-background:white;border-radius:10px;margin-bottom:10px;padding:10px
-}
-
-/* DESKTOP */
-.desktop{display:none}
-.container{
-display:grid;grid-template-columns:3fr 1fr;
-gap:20px;padding:20px
-}
-.grid{
-display:grid;grid-template-columns:1fr 1fr;gap:15px
-}
-.card{
-background:white;border-radius:10px;
-overflow:hidden;cursor:pointer;
-box-shadow:0 4px 10px rgba(0,0,0,0.1)
-}
-.card img{width:100%;height:150px;object-fit:cover}
-.cardText{padding:10px}
-
-/* SIDEBAR */
-.sidebar{background:white;padding:10px;border-radius:10px}
-
-/* PAGINATION */
-#pagination{text-align:center;margin:10px}
-button{cursor:pointer}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-.mobile{display:block}
-}
-@media(min-width:769px){
-.desktop{display:block}
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-<div class="logo">PulseGurgaon</div>
-<input id="searchInput" class="search" placeholder="Search">
-<button onclick="toggleLang()">EN/HI</button>
+<div>☰</div>
+<div class="logo">PULSE GURGAON</div>
+<div>👤</div>
 </header>
 
-<div class="categories">
-<span onclick="filter('All')">All</span>
-<span onclick="filter('India')">India</span>
-<span onclick="filter('World')">World</span>
-<span onclick="filter('Technology')">Technology</span>
-<span onclick="filter('Finance')">Finance</span>
-</div>
-
-<div class="breaking">
-<div class="ticker" id="ticker">Loading...</div>
-</div>
+<div class="ticker" id="ticker">Loading breaking news...</div>
 
 <!-- MOBILE -->
-<div class="mobile">
+<div id="mobile">
 
-<div id="mobileHero"></div>
-<div class="mobileList" id="mobileList"></div>
+<div id="hero"></div>
+<div class="newsList" id="newsList"></div>
 
 </div>
 
 <!-- DESKTOP -->
-<div class="desktop">
-
-<div class="container">
+<div id="desktop" class="container" style="display:none;">
 
 <div>
-<h2>Latest News</h2>
-<div class="grid" id="news"></div>
-<div id="pagination"></div>
+<h2>NEWS</h2>
+<div class="grid" id="grid"></div>
 </div>
 
 <div class="sidebar">
-<h3>Blogs</h3>
+<h3>Trending</h3>
 <div id="blogs"></div>
-<div id="adsBox">Ad</div>
-<button onclick="location.href='admin.html'">Admin</button>
-</div>
-
 </div>
 
 </div>
 
 <script>
 
-// TRANSLATE
-function toggleLang(){
-const select=document.querySelector(".goog-te-combo");
-if(select){
-select.value=select.value==="hi"?"en":"hi";
-select.dispatchEvent(new Event("change"));
+// RESPONSIVE SWITCH
+function checkScreen(){
+if(window.innerWidth > 768){
+document.getElementById("mobile").style.display="none";
+document.getElementById("desktop").style.display="grid";
+renderDesktop();
+}else{
+document.getElementById("mobile").style.display="block";
+document.getElementById("desktop").style.display="none";
+renderMobile();
 }
 }
 
-// GLOBAL
-let articles=[],filtered=[];
-let page=1,perPage=6;
+window.onload=checkScreen;
+window.onresize=checkScreen;
 
-// LOAD DATA
+// DATA
+let articles=[];
+
+// FETCH NEWS
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(d=>{
 articles=d.articles||[];
-filtered=[...articles];
-render();
+renderMobile();
 });
 
 // TICKER
@@ -165,131 +76,76 @@ fetch("/ticker")
 document.getElementById("ticker").innerText=d.text;
 });
 
-// BLOGS
-fetch("/blogs")
-.then(r=>r.json())
-.then(data=>{
-const box=document.getElementById("blogs");
-data.slice(0,5).forEach(b=>{
-box.innerHTML+=`<div>${b.title}</div>`;
-});
-});
-
-// ADS
-fetch("/ads")
-.then(r=>r.json())
-.then(ad=>{
-document.getElementById("adsBox").innerHTML=
-`<a href="${ad.link}">${ad.text}</a>`;
-});
-
 // SAFE
 function safe(a){
 return{
-title:a.title_en||"Breaking News",
+title:a.title_en||"No title",
 summary:(a.summary_points||[]).join(" • "),
 image:a.image||"https://picsum.photos/400"
 }
 }
 
-// RENDER
-function render(){
-
-renderMobile();
-renderDesktop();
-renderPagination();
-
-}
-
-// MOBILE
+// MOBILE RENDER
 function renderMobile(){
-const hero=document.getElementById("mobileHero");
-const list=document.getElementById("mobileList");
 
-if(!filtered.length)return;
+if(!articles.length) return;
 
-const first=safe(filtered[0]);
+const first=safe(articles[0]);
 
-hero.innerHTML=`
+document.getElementById("hero").innerHTML=`
+<div class="hero">
 <img src="${first.image}">
-<h2 style="padding:10px">${first.title}</h2>
-<p style="padding:10px">${first.summary}</p>
+<div class="heroText">
+<h1>🔴 LIVE ${first.title}</h1>
+<p>${first.summary}</p>
+</div>
+</div>
 `;
 
-list.innerHTML="";
+let html="";
 
-filtered.slice(1,10).forEach(a=>{
+articles.slice(1,15).forEach(a=>{
 const d=safe(a);
-list.innerHTML+=`
-<div class="mobileCard">
+
+html+=`
+<div class="newsItem" onclick='openArticle(${JSON.stringify(a)})'>
+<img src="${d.image}">
+<div class="newsText">
 <h3>${d.title}</h3>
 <p>${d.summary}</p>
-</div>`;
+</div>
+</div>
+`;
 });
+
+document.getElementById("newsList").innerHTML=html;
 }
 
-// DESKTOP
+// DESKTOP RENDER
 function renderDesktop(){
-const box=document.getElementById("news");
-box.innerHTML="";
 
-const start=(page-1)*perPage;
-const data=filtered.slice(start,start+perPage);
+let html="";
 
-data.forEach((a,i)=>{
+articles.slice(0,10).forEach(a=>{
 const d=safe(a);
 
-const card=document.createElement("div");
-card.className="card";
-
-card.innerHTML=`
+html+=`
+<div class="card" onclick='openArticle(${JSON.stringify(a)})'>
 <img src="${d.image}">
-<div class="cardText">
 <h3>${d.title}</h3>
 <p>${d.summary}</p>
 </div>
 `;
+});
 
-card.onclick=()=>{
+document.getElementById("grid").innerHTML=html;
+}
+
+// OPEN
+function openArticle(a){
 localStorage.setItem("currentArticle",JSON.stringify(a));
 location.href="article.html";
-};
-
-box.appendChild(card);
-
-});
 }
-
-// PAGINATION
-function renderPagination(){
-const total=Math.ceil(filtered.length/perPage);
-const box=document.getElementById("pagination");
-box.innerHTML="";
-
-for(let i=1;i<=total;i++){
-box.innerHTML+=`<button onclick="go(${i})">${i}</button>`;
-}
-}
-
-function go(i){
-page=i;
-renderDesktop();
-}
-
-// FILTER
-function filter(cat){
-filtered=cat==="All"?[...articles]:articles.filter(a=>a.category===cat);
-render();
-}
-
-// SEARCH
-searchInput.addEventListener("input",function(){
-const q=this.value.toLowerCase();
-filtered=articles.filter(a=>
-(a.title_en||"").toLowerCase().includes(q)
-);
-render();
-});
 
 </script>
 
