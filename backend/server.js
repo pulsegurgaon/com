@@ -78,7 +78,6 @@ Return ONLY JSON:
 "title":"",
 "summary":["","",""],
 "article":"",
-"timeline":["","","","","",""],
 "vocab":["","","",""]
 }
 News:
@@ -192,7 +191,6 @@ async function generateNews() {
         text.slice(160, 240)
       ],
       article_en: ai?.article || text,
-      timeline: ai?.timeline || ["Start", "Update", "Escalation", "Reaction", "Current", "Next"],
       vocab_en: ai?.vocab || ["event", "impact", "report", "source"],
       image: a.image,
       category: category(text),
@@ -203,36 +201,40 @@ async function generateNews() {
   return result.slice(0, 200);
 }
 
+// ---------- SEARCH ----------
+app.get("/search", async (req, res) => {
+  const q = (req.query.q || "").toLowerCase();
+
+  const results = articles.filter(a =>
+    a.title_en.toLowerCase().includes(q) ||
+    a.article_en.toLowerCase().includes(q) ||
+    a.category.toLowerCase().includes(q)
+  );
+
+  if (results.length > 0) {
+    return res.json({ type: "articles", data: results.slice(0, 20) });
+  }
+
+  try {
+    const groq = new Groq({ apiKey: getGroqKey() });
+
+    const aiRes = await groq.chat.completions.create({
+      messages: [{ role: "user", content: `Explain briefly: ${q}` }],
+      model: "llama3-8b-8192"
+    });
+
+    return res.json({
+      type: "ai",
+      answer: aiRes.choices[0]?.message?.content || "No answer"
+    });
+  } catch {
+    return res.json({ type: "none", answer: "No results" });
+  }
+});
+
 // ---------- TICKER ----------
 function updateTicker(news) {
   ticker = "🚨 " + news.slice(0, 15).map(n => n.title_en).join(" • ");
-}
-
-// ---------- SAVE ----------
-async function saveToGitHub(data) {
-  const url = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
-  let sha = null;
-
-  try {
-    const res = await fetch(url, {
-      headers: { Authorization: `token ${GITHUB_TOKEN}` }
-    });
-    const d = await res.json();
-    if (d.sha) sha = d.sha;
-  } catch {}
-
-  await fetch(url, {
-    method: "PUT",
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      message: "update",
-      content: Buffer.from(JSON.stringify({ articles: data }, null, 2)).toString("base64"),
-      ...(sha && { sha })
-    })
-  });
 }
 
 // ---------- RUN ----------
@@ -243,7 +245,6 @@ async function run() {
   if (news.length) {
     articles = news;
     updateTicker(news);
-    await saveToGitHub(news);
     await generateBlogs();
     console.log("✅ done");
   }
@@ -268,7 +269,7 @@ app.post("/admin", (req, res) => {
   res.json({ success: req.body.password === ADMIN_PASSWORD });
 });
 
-// ---------- ADD ADS ----------
+// ---------- ADD ADS (IMAGE + LINK WORKING) ----------
 app.post("/save-ads", (req, res) => {
   const { text, link, image, duration } = req.body;
 
