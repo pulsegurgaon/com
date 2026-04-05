@@ -1,0 +1,108 @@
+body{
+margin:0;
+font-family:Georgia, serif;
+background:#fff;
+color:#111;
+}
+
+/* HEADER */
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 15px;
+border-bottom:1px solid #ddd;
+}
+
+.logo{
+font-weight:bold;
+font-size:20px;
+letter-spacing:2px;
+}
+
+/* TICKER */
+.ticker{
+background:#b80000;
+color:white;
+padding:8px;
+font-size:14px;
+overflow:hidden;
+white-space:nowrap;
+}
+
+/* HERO */
+.hero img{
+width:100%;
+height:auto;
+}
+
+.heroText{
+padding:15px;
+}
+
+.heroText h1{
+font-size:24px;
+margin-bottom:10px;
+}
+
+/* NEWS LIST */
+.newsList{
+padding:10px;
+}
+
+.newsItem{
+display:flex;
+gap:10px;
+padding:12px 0;
+border-bottom:1px solid #eee;
+cursor:pointer;
+}
+
+.newsItem img{
+width:110px;
+height:70px;
+object-fit:cover;
+}
+
+.newsText{
+flex:1;
+}
+
+.newsText h3{
+margin:0;
+font-size:16px;
+}
+
+/* DESKTOP */
+@media(min-width:768px){
+
+.container{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+padding:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+}
+
+.card{
+border-bottom:1px solid #eee;
+padding-bottom:10px;
+}
+
+.sidebar{
+border-left:1px solid #eee;
+padding-left:15px;
+}
+
+}
