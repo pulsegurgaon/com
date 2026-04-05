@@ -17,6 +17,40 @@ function googleTranslateElementInit() {
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
+/* ==================== MOBILE LAYOUT (Default for phones) ==================== */
+.mobile-header {
+  background:#e11d48; color:white; padding:12px 15px; font-size:22px; font-weight:bold; text-align:center;
+}
+.mobile-breaking {
+  background:#111; color:white; padding:8px 15px; font-size:14px; overflow:hidden; white-space:nowrap;
+}
+.mobile-breaking span { animation:ticker 30s linear infinite; display:inline-block; }
+@keyframes ticker { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+
+.mobile-tabs {
+  background:white; display:flex; overflow-x:auto; padding:10px 15px; gap:20px; border-bottom:1px solid #eee;
+}
+.mobile-tabs span { cursor:pointer; white-space:nowrap; font-size:15px; padding-bottom:4px; }
+.mobile-tabs span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
+
+.mobile-hero { position:relative; }
+.mobile-hero img { width:100%; height:260px; object-fit:cover; }
+.mobile-live {
+  position:absolute; top:15px; left:15px; background:#e11d48; color:white;
+  padding:4px 12px; border-radius:20px; font-size:13px; font-weight:bold;
+}
+.mobile-headline { font-size:22px; font-weight:bold; padding:15px; line-height:1.3; }
+.mobile-summary { padding:0 15px 20px; font-size:15px; color:#333; line-height:1.5; }
+
+.mobile-bottom-nav {
+  position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #ddd;
+  display:flex; justify-content:space-around; padding:10px 0; z-index:1000;
+}
+.mobile-bottom-nav div { text-align:center; font-size:12px; cursor:pointer; }
+.mobile-bottom-nav .blog-btn {
+  background:#e11d48; color:white; padding:8px 24px; border-radius:30px; font-weight:bold;
+}
+
 /* ==================== DESKTOP LAYOUT ==================== */
 .desktop-container {
   max-width: 1280px;
@@ -36,111 +70,53 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 .desktop-card h3 { font-size:16.5px; margin:8px 0; line-height:1.4; }
 .desktop-card p { font-size:13.8px; color:#555; }
 
-/* Desktop Sidebar */
-.desktop-sidebar { background:white; padding:20px; border-radius:14px; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
-.desktop-blog-item { display:flex; gap:12px; margin-bottom:16px; cursor:pointer; }
-.desktop-blog-item img { width:85px; height:60px; object-fit:cover; border-radius:8px; }
-.desktop-blog-item .text { font-size:14.5px; line-height:1.4; }
-.desktop-long-ad {
-  margin-top:30px; background:#fff0f0; padding:50px 25px; border-radius:14px; text-align:center;
-  border:2px dashed #e11d48; min-height:420px; display:flex; flex-direction:column; justify-content:center;
-}
+/* Hide mobile on large screen, hide desktop on small screen */
+.mobile-container { display:block; }
+.desktop-container { display:none; }
 
-/* ==================== MOBILE LAYOUT (Exact as your screenshot) ==================== */
-.mobile-header {
-  background:#e11d48; color:white; padding:12px 15px; font-size:22px; font-weight:bold; text-align:center;
-}
-.mobile-breaking {
-  background:#111; color:white; padding:8px 15px; font-size:14px; overflow:hidden; white-space:nowrap;
-}
-.mobile-breaking span { animation:ticker 30s linear infinite; display:inline-block; }
-@keyframes ticker { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
-
-.mobile-tabs {
-  background:white; display:flex; overflow-x:auto; padding:10px 15px; gap:20px; border-bottom:1px solid #eee;
-}
-.mobile-tabs span { cursor:pointer; white-space:nowrap; font-size:15px; padding-bottom:4px; }
-.mobile-tabs span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
-
-.mobile-hero {
-  position:relative;
-}
-.mobile-hero img { width:100%; height:260px; object-fit:cover; }
-.mobile-live {
-  position:absolute; top:15px; left:15px; background:#e11d48; color:white; padding:4px 12px; border-radius:20px;
-  font-size:13px; font-weight:bold;
-}
-.mobile-headline {
-  font-size:22px; font-weight:bold; padding:15px; line-height:1.3;
-}
-.mobile-summary {
-  padding:0 15px 15px; font-size:15px; color:#333; line-height:1.5;
-}
-
-.mobile-bottom-nav {
-  position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #ddd;
-  display:flex; justify-content:space-around; padding:10px 0; z-index:1000;
-}
-.mobile-bottom-nav div { text-align:center; font-size:12px; cursor:pointer; }
-.mobile-bottom-nav .blog-btn {
-  background:#e11d48; color:white; padding:8px 24px; border-radius:30px; font-weight:bold;
-}
-
-/* Hide one layout on the other screen size */
-.desktop-container { display:grid; }
-.mobile-container { display:none; }
-
-@media (max-width: 768px) {
-  .desktop-container { display:none; }
-  .mobile-container { display:block; }
+@media (min-width: 769px) {
+  .mobile-container { display:none; }
+  .desktop-container { display:grid; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ==================== DESKTOP VERSION ==================== -->
-<div class="desktop-container">
-  <!-- Your previous desktop layout code remains here (I kept it short for space) -->
-  <!-- ... (same as last version) ... -->
-</div>
-
-<!-- ==================== MOBILE VERSION (Exact as your photo) ==================== -->
+<!-- ==================== MOBILE LAYOUT ==================== -->
 <div class="mobile-container">
 
-  <!-- Header -->
   <div class="mobile-header">PULSE GURGAON</div>
 
-  <!-- Language -->
   <div style="text-align:right;padding:5px 15px;font-size:14px;">
-    ENG | <span style="color:#e11d48">हिन्दी</span>
+    ENG | <span onclick="toggleLang()" style="color:#e11d48;cursor:pointer">हिन्दी</span>
   </div>
 
-  <!-- Breaking Bar -->
   <div class="mobile-breaking">
-    <span id="mobileTicker">🔥 Breaking: F-15 crash investigation continues | Iran tensions rise...</span>
+    <span id="mobileTicker">🔥 Loading breaking news...</span>
   </div>
 
-  <!-- Tabs -->
   <div class="mobile-tabs">
     <span onclick="filterCategory('All')" class="active">All</span>
-    <span onclick="filterCategory('News')">News</span>
-    <span onclick="filterCategory('Business')">Business</span>
+    <span onclick="filterCategory('India')">India</span>
+    <span onclick="filterCategory('World')">World</span>
     <span onclick="filterCategory('Technology')">Technology</span>
-    <span onclick="filterCategory('Health')">Health</span>
+    <span onclick="filterCategory('Finance')">Finance</span>
   </div>
 
-  <!-- Hero Section -->
-  <div class="mobile-hero" id="mobileHero">
-    <!-- Filled by JavaScript -->
-  </div>
+  <div class="mobile-hero" id="mobileHero"></div>
 
-  <!-- Bottom Navigation -->
   <div class="mobile-bottom-nav">
-    <div onclick="location.href='index.html'"><span style="font-size:24px">🏠</span><br>Home</div>
+    <div onclick="location.href='index.html'">🏠<br>Home</div>
     <div class="blog-btn" onclick="location.href='blogs.html'">BLOG</div>
-    <div onclick="location.href='admin.html'"><span style="font-size:24px">⚙️</span><br>Admin</div>
+    <div onclick="location.href='admin.html'">⚙️<br>Admin</div>
   </div>
+</div>
+
+<!-- ==================== DESKTOP LAYOUT ==================== -->
+<div class="desktop-container">
+  <!-- Your previous desktop layout will go here if needed. For now it's hidden on mobile -->
+  <p style="text-align:center;padding:40px;color:#666;">Desktop layout active</p>
 </div>
 
 <script>
@@ -155,21 +131,21 @@ fetch("articles.json?v=" + Date.now())
     generateMobileTicker();
   });
 
-// Mobile Hero (first article as big hero)
+// Mobile Hero
 function renderMobileHero() {
   if (originalArticles.length === 0) return;
-  const article = originalArticles[0];
-  const heroHTML = `
-    <img src="${article.image || 'https://picsum.photos/800/500'}" alt="">
+  const a = originalArticles[0];
+  const html = `
+    <img src="${a.image || 'https://picsum.photos/800/500'}" alt="">
     <div class="mobile-live">● LIVE</div>
-    <div class="mobile-headline">${article.title_en || "No title"}</div>
+    <div class="mobile-headline">${a.title_en || "No title"}</div>
     <div class="mobile-summary">
-      ${article.summary_points ? article.summary_points.join(" • ") : (article.article_en || "").substring(0,160)+"..."}
+      ${a.summary_points ? a.summary_points.join(" • ") : (a.article_en || "").substring(0,160)+"..."}
     </div>
   `;
-  document.getElementById("mobileHero").innerHTML = heroHTML;
+  document.getElementById("mobileHero").innerHTML = html;
   document.getElementById("mobileHero").onclick = () => {
-    localStorage.setItem("currentArticle", JSON.stringify(article));
+    localStorage.setItem("currentArticle", JSON.stringify(a));
     window.location.href = "article.html";
   };
 }
@@ -181,10 +157,9 @@ function generateMobileTicker() {
   document.getElementById("mobileTicker").innerHTML = text;
 }
 
-// Category filter (for mobile tabs)
+// Simple category filter
 function filterCategory(cat) {
-  // You can extend this later
-  alert("Filtered by " + cat);
+  alert("Filtered by " + cat + " (you can expand this later)");
 }
 
 // Translate
