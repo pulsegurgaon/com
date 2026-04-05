@@ -4,90 +4,66 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 <link rel="stylesheet" href="style.css">
+
+<script>
+if(window.innerWidth > 790){
+location.href="desktop.html";
+}
+</script>
 </head>
 
 <body>
 
-<!-- HEADER -->
-<header id="header">
-<div class="left">☰</div>
+<header class="header">
+<div>☰</div>
 <div class="logo">PulseGurgaon</div>
-<div class="right">
-<button onclick="showBlogs()">Blogs</button>
-<button onclick="toggleLang()">EN/HI</button>
-<button onclick="admin()">Admin</button>
-</div>
+<div id="google_translate_element"></div>
 </header>
 
-<!-- TICKER -->
-<div class="ticker">
-<div id="tickerText"></div>
-</div>
+<div class="ticker"><div id="tickerText"></div></div>
 
-<!-- CATEGORIES -->
 <div class="categories" id="categories"></div>
 
-<!-- MAIN -->
 <div id="main"></div>
 
-<!-- SIDEBAR (DESKTOP ONLY) -->
-<div id="sidebar"></div>
-
-<!-- BOTTOM NAV (MOBILE ONLY) -->
 <div class="bottomNav">
-<div onclick="render()">🏠 Home</div>
-<div onclick="showBlogs()">BLOG</div>
-<div onclick="admin()">⚙️ Admin</div>
+<div onclick="loadHome()">🏠 Home</div>
+<div onclick="loadBlogs()">BLOG</div>
+<div onclick="alert('Admin')">⚙️ Admin</div>
 </div>
 
 <script>
 
-// DATA (REAL STRUCTURE)
-let articles = [
-{
-title:"LIVE India Political Clash",
-category:"India",
-img:"https://picsum.photos/500/300?1",
-desc:"Major political war happening now"
-},
-{
-title:"AI Revolution Changing Future",
-category:"Technology",
-img:"https://picsum.photos/500/300?2",
-desc:"AI taking over jobs rapidly"
-},
-{
-title:"Stock Market Crash Warning",
-category:"Finance",
-img:"https://picsum.photos/500/300?3",
-desc:"Experts predict big fall"
-},
-{
-title:"Global War Tension Rising",
-category:"World",
-img:"https://picsum.photos/500/300?4",
-desc:"Countries preparing defenses"
-}
+// DATA
+let articles=[
+{id:1,title:"LIVE Political War",cat:"India",img:"https://picsum.photos/400/300?1",desc:"Big clash happening"},
+{id:2,title:"AI Boom Future",cat:"Technology",img:"https://picsum.photos/400/300?2",desc:"AI revolution"},
+{id:3,title:"Market Crash Alert",cat:"Finance",img:"https://picsum.photos/400/300?3",desc:"Stocks falling"},
+{id:4,title:"World War Risk",cat:"World",img:"https://picsum.photos/400/300?4",desc:"Tension rising"}
 ];
 
-// DEVICE CHECK
-function isMobile(){
-return window.innerWidth < 790;
+let blogs=[
+{title:"Future of AI"},
+{title:"Startup Growth"},
+{title:"India Economy"}
+];
+
+// CATEGORY LOAD
+function loadCategories(){
+let cats=["All","India","World","Technology","Finance"];
+let html="";
+cats.forEach(c=>{
+html+=`<span onclick="filter('${c}')">${c}</span>`;
+});
+document.getElementById("categories").innerHTML=html;
 }
 
-// RENDER
+// RENDER ARTICLES
 function render(list=articles){
-
-let main=document.getElementById("main");
-let sidebar=document.getElementById("sidebar");
-
 let html="";
-
-// MAIN ARTICLES
 list.forEach((a,i)=>{
-
 html+=`
-<div class="card" onclick="openArticle(${i})">
+<div class="card" onclick="openArticle(${a.id})">
 <img src="${a.img}">
 <h2>${a.title}</h2>
 <p>${a.desc}</p>
@@ -97,85 +73,56 @@ html+=`
 if(i==2 || i==4){
 html+=`<div class="ad">ADVERTISEMENT</div>`;
 }
-
 });
-
-main.innerHTML=html;
-
-// DESKTOP SIDEBAR
-if(!isMobile()){
-sidebar.innerHTML=`
-<h3>🔥 Trending</h3>
-<p>Tech Boom</p>
-<p>Startup Growth</p>
-
-<div class="adBox">
-ADVERTISE HERE
-</div>
-`;
-}else{
-sidebar.innerHTML="";
-}
-
+document.getElementById("main").innerHTML=html;
 }
 
 // FILTER
-function loadCategories(){
-let cats=["All","India","World","Technology","Finance"];
-
-let html="";
-cats.forEach(c=>{
-html+=`<span onclick="filter('${c}')">${c}</span>`;
-});
-
-document.getElementById("categories").innerHTML=html;
-}
-
 function filter(cat){
 if(cat=="All"){render();return;}
-render(articles.filter(a=>a.category==cat));
+render(articles.filter(a=>a.cat==cat));
 }
 
-// CLICK FIX (your bug solved here)
-function openArticle(i){
-let article=articles[i];
-alert(article.title);
-}
-
-// BLOGS
-function showBlogs(){
+// FIXED CLICK
+function openArticle(id){
+let a=articles.find(x=>x.id==id);
 document.getElementById("main").innerHTML=`
-<div class="card">🔥 Blog 1</div>
-<div class="card">🔥 Blog 2</div>
-<div class="card">🔥 Blog 3</div>
+<div class="articleView">
+<h1>${a.title}</h1>
+<img src="${a.img}">
+<p>${a.desc}</p>
+<button onclick="loadHome()">⬅ Back</button>
+</div>
 `;
 }
 
-// ADMIN
-function admin(){
-alert("Admin Panel");
+// BLOG LIST
+function loadBlogs(){
+let html="<h2>Blogs</h2>";
+blogs.forEach(b=>{
+html+=`<div class="card">${b.title}</div>`;
+});
+document.getElementById("main").innerHTML=html;
 }
 
-// LANGUAGE
-function toggleLang(){
-alert("Language toggled");
-}
+function loadHome(){render();}
 
 // TICKER
 let t=document.getElementById("tickerText");
-t.innerText="🔥 Breaking News • Tech • India • World Updates • PulseGurgaon Live";
-t.style.animation="scroll 20s linear infinite";
+t.innerText="🔥 Breaking • India • Tech • Finance • World • PulseGurgaon Live";
+t.style.animation="scroll 25s linear infinite";
 
-// INIT
+// GOOGLE TRANSLATE
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+}
+
 loadCategories();
 render();
 
-// RESIZE LIVE SWITCH 🔥
-window.addEventListener("resize",()=>{
-render();
-});
-
 </script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
