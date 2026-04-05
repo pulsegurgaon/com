@@ -4,27 +4,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 <link rel="stylesheet" href="style.css">
-
-<div id="google_translate_element" style="display:none;"></div>
-<script>
-function googleTranslateElementInit() {
-new google.translate.TranslateElement({
-pageLanguage: 'en',
-includedLanguages: 'hi'
-}, 'google_translate_element');
-}
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </head>
 
 <body>
 
 <!-- HEADER -->
-<header>
-<div>☰</div>
-<div class="logo">PULSE GURGAON</div>
-<button onclick="toggleLang()">ENG | हिंदी</button>
+<header class="topBar">
+<div class="left">☰ PulseGurgaon</div>
+<input type="text" placeholder="Search news...">
+<div class="right">
+<button onclick="goBlogs()">Blogs</button>
+<button onclick="toggleLang()">EN / HI</button>
+<button onclick="location.href='admin.html'">ADMIN</button>
+</div>
 </header>
 
 <!-- CATEGORY -->
@@ -32,40 +24,25 @@ includedLanguages: 'hi'
 <span onclick="filter('All')">All</span>
 <span onclick="filter('India')">India</span>
 <span onclick="filter('World')">World</span>
-<span onclick="filter('Tech')">Tech</span>
+<span onclick="filter('Technology')">Technology</span>
 <span onclick="filter('Finance')">Finance</span>
+<span onclick="goBlogs()">Blogs</span>
 </div>
 
 <!-- TICKER -->
 <div class="ticker">
-<div id="tickerText">Loading...</div>
+<div id="tickerText">Loading news...</div>
 </div>
 
-<!-- HERO -->
-<div id="hero"></div>
-
-<!-- NEWS -->
-<div id="newsList"></div>
-
-<!-- ADS -->
-<div class="ads">ADVERTISEMENT</div>
-
-<!-- BLOG -->
-<div class="blogs" id="blogs"></div>
-
-<!-- BOTTOM NAV -->
-<div class="bottomNav">
-<div onclick="location.href='index.html'">🏠 Home</div>
-<div onclick="location.href='blog.html'" class="center">BLOG</div>
-<div onclick="location.href='admin.html'">⚙️ Admin</div>
-</div>
+<!-- MAIN -->
+<div id="app"></div>
 
 <script>
 
 let articles=[];
 let filtered=[];
 
-// FETCH
+// FETCH NEWS
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(d=>{
@@ -74,87 +51,224 @@ filtered=[...articles];
 render();
 });
 
-// TICKER
+// FETCH TICKER
 fetch("/ticker")
 .then(r=>r.json())
 .then(d=>{
-document.getElementById("tickerText").innerText=d.text;
+const text=d.text;
+const el=document.getElementById("tickerText");
+
+el.innerText=text;
+el.style.animation=`scroll ${text.length/5}s linear infinite`;
 });
 
-// BLOGS
-fetch("/blogs")
-.then(r=>r.json())
-.then(data=>{
-let html="";
-data.slice(0,5).forEach(b=>{
-html+=`<div class="blogItem">${b.title}</div>`;
-});
-document.getElementById("blogs").innerHTML=html;
-});
-
-// SAFE
+// SAFE DATA
 function safe(a){
 return{
 title:a.title_en||"No title",
 summary:(a.summary_points||[]).join(" • "),
 image:a.image||"https://picsum.photos/400"
-}
+};
 }
 
-// RENDER
+// MAIN RENDER (IF BASED)
 function render(){
+
+if(window.innerWidth > 900){
+renderDesktop();
+}else{
+renderMobile();
+}
+
+}
+
+// MOBILE UI
+function renderMobile(){
+
+let html="";
 
 // HERO
 const first=safe(filtered[0]);
 
-document.getElementById("hero").innerHTML=`
+html+=`
+<div class="hero">
 <img src="${first.image}">
 <h2>🔴 LIVE ${first.title}</h2>
 <p>${first.summary}</p>
+</div>
 `;
 
-// LIST
-let html="";
-
-filtered.slice(1,15).forEach((a,i)=>{
+// NEWS
+filtered.slice(1,20).forEach((a,i)=>{
 const d=safe(a);
 
 html+=`
-<div class="newsItem" onclick="openArticle(${i})">
+<div class="newsItem" onclick="openArticle('${a.id}')">
 <img src="${d.image}">
 <div>
 <h3>${d.title}</h3>
 <p>${d.summary}</p>
 </div>
-</div>`;
+</div>
+`;
+
+// ADS LOGIC
+if(i===2 || i===4 || i===6){
+html+=`<div class="ads">ADVERTISEMENT</div>`;
+}
+
 });
 
-document.getElementById("newsList").innerHTML=html;
+html+=`
+<div class="bottomNav">
+<div onclick="location.href='index.html'">🏠 Home</div>
+<div class="center" onclick="goBlogs()">BLOG</div>
+<div onclick="location.href='admin.html'">⚙️ Admin</div>
+</div>
+`;
+
+document.getElementById("app").innerHTML=html;
+}
+
+// DESKTOP UI (BBC STYLE)
+function renderDesktop(){
+
+let html="";
+
+html+=`<div class="desktop">`;
+
+// LEFT MAIN
+html+=`<div class="main">`;
+
+// TOP HERO + SIDE
+const first=safe(filtered[0]);
+const second=safe(filtered[1]);
+
+html+=`
+<div class="topGrid">
+
+<div class="big">
+<img src="${first.image}">
+<h2>🔴 LIVE ${first.title}</h2>
+<p>${first.summary}</p>
+</div>
+
+<div class="side">
+<img src="${second.image}">
+<h3>${second.title}</h3>
+<p>${second.summary}</p>
+</div>
+
+</div>
+`;
+
+// GRID NEWS
+html+=`<div class="grid">`;
+
+filtered.slice(2,10).forEach(a=>{
+const d=safe(a);
+
+html+=`
+<div class="card" onclick="openArticle('${a.id}')">
+<img src="${d.image}">
+<h4>${d.title}</h4>
+<p>${d.summary}</p>
+</div>
+`;
+});
+
+html+=`</div>`;
+
+// AD
+html+=`<div class="ads large">ADVERTISEMENT</div>`;
+
+// MORE NEWS
+html+=`<div class="grid">`;
+
+filtered.slice(10,20).forEach(a=>{
+const d=safe(a);
+
+html+=`
+<div class="card" onclick="openArticle('${a.id}')">
+<img src="${d.image}">
+<h4>${d.title}</h4>
+<p>${d.summary}</p>
+</div>
+`;
+});
+
+html+=`</div>`;
+
+html+=`</div>`; // main
+
+// RIGHT SIDEBAR
+html+=`<div class="sidebar">`;
+
+html+=`<h3>🔥 Trending Blogs</h3>`;
+
+html+=`<div id="blogList"></div>`;
+
+html+=`
+<div class="adsBox">
+<h4>ADVERTISEMENT</h4>
+<p>Boost your business with PulseGurgaon</p>
+<button>Advertise Now</button>
+</div>
+`;
+
+html+=`</div>`;
+
+// END
+html+=`</div>`;
+
+document.getElementById("app").innerHTML=html;
+
+// LOAD BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
+let blogHTML="";
+data.slice(0,5).forEach(b=>{
+blogHTML+=`<p>${b.title}</p>`;
+});
+document.getElementById("blogList").innerHTML=blogHTML;
+});
+
 }
 
 // OPEN ARTICLE
-function openArticle(i){
-localStorage.setItem("currentArticle",JSON.stringify(filtered[i]));
+function openArticle(id){
+const article = articles.find(a=>a.id==id);
+localStorage.setItem("currentArticle", JSON.stringify(article));
 location.href="article.html";
 }
 
 // FILTER
 function filter(cat){
-filtered = cat==="All"
-?[...articles]
-:articles.filter(a=>a.category===cat);
+
+if(cat==="All"){
+filtered=[...articles];
+}else{
+filtered=articles.filter(a=>
+(a.category||"").toLowerCase().includes(cat.toLowerCase())
+);
+}
 
 render();
 }
 
-// TRANSLATE
+// BLOG NAV
+function goBlogs(){
+location.href="blog.html";
+}
+
+// LANG
 function toggleLang(){
-const select=document.querySelector(".goog-te-combo");
-if(select){
-select.value=select.value==="hi"?"en":"hi";
-select.dispatchEvent(new Event("change"));
+alert("Language toggle working (connect API later)");
 }
-}
+
+// RESPONSIVE
+window.onresize=render;
 
 </script>
 
