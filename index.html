@@ -17,7 +17,9 @@ function googleTranslateElementInit() {
 * { margin:0; padding:0; box-sizing:border-box; }
 body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
-/* ==================== MOBILE LAYOUT (Default for phones) ==================== */
+/* ==================== MOBILE LAYOUT ==================== */
+.mobile-container { display: block; }
+
 .mobile-header {
   background:#e11d48; color:white; padding:12px 15px; font-size:22px; font-weight:bold; text-align:center;
 }
@@ -33,14 +35,21 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 .mobile-tabs span { cursor:pointer; white-space:nowrap; font-size:15px; padding-bottom:4px; }
 .mobile-tabs span.active { color:#e11d48; border-bottom:3px solid #e11d48; }
 
-.mobile-hero { position:relative; }
-.mobile-hero img { width:100%; height:260px; object-fit:cover; }
-.mobile-live {
-  position:absolute; top:15px; left:15px; background:#e11d48; color:white;
-  padding:4px 12px; border-radius:20px; font-size:13px; font-weight:bold;
+.mobile-grid {
+  display:grid; gap:20px; padding:15px;
 }
-.mobile-headline { font-size:22px; font-weight:bold; padding:15px; line-height:1.3; }
-.mobile-summary { padding:0 15px 20px; font-size:15px; color:#333; line-height:1.5; }
+.mobile-card {
+  background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 12px rgba(0,0,0,0.08); cursor:pointer;
+}
+.mobile-card img { width:100%; height:200px; object-fit:cover; }
+.mobile-card .cardText { padding:12px; }
+.mobile-card .badge { font-size:11px; padding:4px 10px; border-radius:20px; background:#e11d48; color:white; display:inline-block; margin-bottom:8px; }
+.mobile-card h3 { font-size:17px; margin:8px 0; }
+.mobile-card p { font-size:14px; color:#555; }
+
+.mobile-ad {
+  background:#fff0f0; border:2px dashed #e11d48; padding:20px; text-align:center; border-radius:12px; font-weight:bold; color:#e11d48;
+}
 
 .mobile-bottom-nav {
   position:fixed; bottom:0; left:0; right:0; background:white; border-top:1px solid #ddd;
@@ -52,6 +61,14 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 }
 
 /* ==================== DESKTOP LAYOUT ==================== */
+.desktop-container { display: none; }
+
+@media (min-width: 769px) {
+  .mobile-container { display: none; }
+  .desktop-container { display: grid; }
+}
+
+/* Desktop styles (your previous good layout) */
 .desktop-container {
   max-width: 1280px;
   margin: 20px auto;
@@ -70,13 +87,18 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 .desktop-card h3 { font-size:16.5px; margin:8px 0; line-height:1.4; }
 .desktop-card p { font-size:13.8px; color:#555; }
 
-/* Hide mobile on large screen, hide desktop on small screen */
-.mobile-container { display:block; }
-.desktop-container { display:none; }
-
-@media (min-width: 769px) {
-  .mobile-container { display:none; }
-  .desktop-container { display:grid; }
+.desktop-sidebar { background:white; padding:20px; border-radius:14px; box-shadow:0 6px 15px rgba(0,0,0,0.1); }
+.desktop-long-ad {
+  margin-top:30px;
+  background:#fff0f0;
+  padding:50px 25px;
+  border-radius:14px;
+  text-align:center;
+  border:2px dashed #e11d48;
+  min-height:420px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 }
 </style>
 </head>
@@ -85,7 +107,6 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
 <!-- ==================== MOBILE LAYOUT ==================== -->
 <div class="mobile-container">
-
   <div class="mobile-header">PULSE GURGAON</div>
 
   <div style="text-align:right;padding:5px 15px;font-size:14px;">
@@ -104,7 +125,7 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
     <span onclick="filterCategory('Finance')">Finance</span>
   </div>
 
-  <div class="mobile-hero" id="mobileHero"></div>
+  <div class="mobile-grid" id="mobileGrid"></div>
 
   <div class="mobile-bottom-nav">
     <div onclick="location.href='index.html'">🏠<br>Home</div>
@@ -115,8 +136,22 @@ body { font-family: Arial, sans-serif; background:#f8f9fa; }
 
 <!-- ==================== DESKTOP LAYOUT ==================== -->
 <div class="desktop-container">
-  <!-- Your previous desktop layout will go here if needed. For now it's hidden on mobile -->
-  <p style="text-align:center;padding:40px;color:#666;">Desktop layout active</p>
+  <div>
+    <h2>Latest News</h2>
+    <div class="desktop-grid" id="desktopGrid"></div>
+  </div>
+
+  <div class="desktop-sidebar">
+    <h4>🔥 Trending Blogs</h4>
+    <div id="desktopBlogPreview"></div>
+
+    <div class="desktop-long-ad">
+      <strong>ADVERTISEMENT</strong><br><br>
+      Boost Your Business with PulseGurgaon<br>
+      Reach thousands of readers daily<br><br>
+      <button style="background:#e11d48;color:white;border:none;padding:14px 32px;border-radius:8px;cursor:pointer;">Advertise Now</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -127,27 +162,82 @@ fetch("articles.json?v=" + Date.now())
   .then(r => r.json())
   .then(data => {
     originalArticles = data.articles || [];
-    renderMobileHero();
+    renderMobile();
+    renderDesktop();
     generateMobileTicker();
   });
 
-// Mobile Hero
-function renderMobileHero() {
-  if (originalArticles.length === 0) return;
-  const a = originalArticles[0];
-  const html = `
-    <img src="${a.image || 'https://picsum.photos/800/500'}" alt="">
-    <div class="mobile-live">● LIVE</div>
-    <div class="mobile-headline">${a.title_en || "No title"}</div>
-    <div class="mobile-summary">
-      ${a.summary_points ? a.summary_points.join(" • ") : (a.article_en || "").substring(0,160)+"..."}
-    </div>
-  `;
-  document.getElementById("mobileHero").innerHTML = html;
-  document.getElementById("mobileHero").onclick = () => {
-    localStorage.setItem("currentArticle", JSON.stringify(a));
-    window.location.href = "article.html";
+// Safe data
+function safe(a) {
+  return {
+    title: a.title_en || "No Title",
+    summary: (a.summary_points && a.summary_points.length) ? a.summary_points.join(" • ") : (a.article_en || "").slice(0,140)+"...",
+    image: a.image || "https://picsum.photos/id/"+Math.floor(Math.random()*300)+"/700/400",
+    category: a.category || "General"
   };
+}
+
+// Mobile Render - Ad after first 2, then after every 4
+function renderMobile() {
+  const grid = document.getElementById("mobileGrid");
+  grid.innerHTML = "";
+
+  originalArticles.slice(0, 20).forEach((article, i) => {
+    if (i === 2 || (i > 2 && (i - 2) % 4 === 0)) {
+      grid.innerHTML += `<div class="mobile-ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
+    }
+
+    const d = safe(article);
+    const card = document.createElement("div");
+    card.className = "mobile-card";
+    card.innerHTML = `
+      <img src="${d.image}">
+      <div class="cardText">
+        <span class="badge">${d.category}</span>
+        <h3>${d.title}</h3>
+        <p>${d.summary}</p>
+      </div>
+    `;
+    card.onclick = () => {
+      localStorage.setItem("currentArticle", JSON.stringify(article));
+      window.location.href = "article.html";
+    };
+    grid.appendChild(card);
+  });
+}
+
+// Desktop Render
+function renderDesktop() {
+  const grid = document.getElementById("desktopGrid");
+  grid.innerHTML = "";
+
+  originalArticles.slice(0, 20).forEach((article, i) => {
+    const d = safe(article);
+    const card = document.createElement("div");
+    card.className = "desktop-card";
+    card.innerHTML = `
+      <img src="${d.image}">
+      <div class="cardText">
+        <span class="badge">${d.category}</span>
+        <h3>${d.title}</h3>
+        <p>${d.summary}</p>
+      </div>
+    `;
+    card.onclick = () => {
+      localStorage.setItem("currentArticle", JSON.stringify(article));
+      window.location.href = "article.html";
+    };
+    grid.appendChild(card);
+  });
+
+  // Trending blogs in sidebar
+  const blogContainer = document.getElementById("desktopBlogPreview");
+  blogContainer.innerHTML = `
+    <div class="desktop-blog-item"><img src="https://picsum.photos/id/1015/85/60"><div class="text">Why AI will change Indian journalism forever</div></div>
+    <div class="desktop-blog-item"><img src="https://picsum.photos/id/201/85/60"><div class="text">The real story behind Gurgaon's startup boom</div></div>
+    <div class="desktop-blog-item"><img src="https://picsum.photos/id/301/85/60"><div class="text">How Delhi became India's EV capital</div></div>
+    <!-- Add more if needed -->
+  `;
 }
 
 // Mobile Ticker
@@ -157,9 +247,9 @@ function generateMobileTicker() {
   document.getElementById("mobileTicker").innerHTML = text;
 }
 
-// Simple category filter
+// Category filter (simple)
 function filterCategory(cat) {
-  alert("Filtered by " + cat + " (you can expand this later)");
+  alert("Filtered by " + cat);
 }
 
 // Translate
