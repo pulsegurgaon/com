@@ -1,79 +1,95 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 <link rel="stylesheet" href="style.css">
+
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+function googleTranslateElementInit() {
+new google.translate.TranslateElement({
+pageLanguage: 'en',
+includedLanguages: 'hi'
+}, 'google_translate_element');
+}
+</script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
 <div>☰</div>
 <div class="logo">PULSE GURGAON</div>
-<div>👤</div>
+<button onclick="toggleLang()">ENG | हिंदी</button>
 </header>
 
-<div class="ticker" id="ticker">Loading breaking news...</div>
+<!-- CATEGORY -->
+<div class="categories">
+<span onclick="filter('All')">All</span>
+<span onclick="filter('India')">India</span>
+<span onclick="filter('World')">World</span>
+<span onclick="filter('Tech')">Tech</span>
+<span onclick="filter('Finance')">Finance</span>
+</div>
 
-<!-- MOBILE -->
-<div id="mobile">
+<!-- TICKER -->
+<div class="ticker">
+<div id="tickerText">Loading...</div>
+</div>
 
+<!-- HERO -->
 <div id="hero"></div>
-<div class="newsList" id="newsList"></div>
 
-</div>
+<!-- NEWS -->
+<div id="newsList"></div>
 
-<!-- DESKTOP -->
-<div id="desktop" class="container" style="display:none;">
+<!-- ADS -->
+<div class="ads">ADVERTISEMENT</div>
 
-<div>
-<h2>NEWS</h2>
-<div class="grid" id="grid"></div>
-</div>
+<!-- BLOG -->
+<div class="blogs" id="blogs"></div>
 
-<div class="sidebar">
-<h3>Trending</h3>
-<div id="blogs"></div>
-</div>
-
+<!-- BOTTOM NAV -->
+<div class="bottomNav">
+<div onclick="location.href='index.html'">🏠 Home</div>
+<div onclick="location.href='blog.html'" class="center">BLOG</div>
+<div onclick="location.href='admin.html'">⚙️ Admin</div>
 </div>
 
 <script>
 
-// RESPONSIVE SWITCH
-function checkScreen(){
-if(window.innerWidth > 768){
-document.getElementById("mobile").style.display="none";
-document.getElementById("desktop").style.display="grid";
-renderDesktop();
-}else{
-document.getElementById("mobile").style.display="block";
-document.getElementById("desktop").style.display="none";
-renderMobile();
-}
-}
-
-window.onload=checkScreen;
-window.onresize=checkScreen;
-
-// DATA
 let articles=[];
+let filtered=[];
 
-// FETCH NEWS
+// FETCH
 fetch("articles.json?v="+Date.now())
 .then(r=>r.json())
 .then(d=>{
 articles=d.articles||[];
-renderMobile();
+filtered=[...articles];
+render();
 });
 
 // TICKER
 fetch("/ticker")
 .then(r=>r.json())
 .then(d=>{
-document.getElementById("ticker").innerText=d.text;
+document.getElementById("tickerText").innerText=d.text;
+});
+
+// BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
+let html="";
+data.slice(0,5).forEach(b=>{
+html+=`<div class="blogItem">${b.title}</div>`;
+});
+document.getElementById("blogs").innerHTML=html;
 });
 
 // SAFE
@@ -85,66 +101,59 @@ image:a.image||"https://picsum.photos/400"
 }
 }
 
-// MOBILE RENDER
-function renderMobile(){
+// RENDER
+function render(){
 
-if(!articles.length) return;
-
-const first=safe(articles[0]);
+// HERO
+const first=safe(filtered[0]);
 
 document.getElementById("hero").innerHTML=`
-<div class="hero">
 <img src="${first.image}">
-<div class="heroText">
-<h1>🔴 LIVE ${first.title}</h1>
+<h2>🔴 LIVE ${first.title}</h2>
 <p>${first.summary}</p>
-</div>
-</div>
 `;
 
+// LIST
 let html="";
 
-articles.slice(1,15).forEach(a=>{
+filtered.slice(1,15).forEach((a,i)=>{
 const d=safe(a);
 
 html+=`
-<div class="newsItem" onclick='openArticle(${JSON.stringify(a)})'>
+<div class="newsItem" onclick="openArticle(${i})">
 <img src="${d.image}">
-<div class="newsText">
+<div>
 <h3>${d.title}</h3>
 <p>${d.summary}</p>
 </div>
-</div>
-`;
+</div>`;
 });
 
 document.getElementById("newsList").innerHTML=html;
 }
 
-// DESKTOP RENDER
-function renderDesktop(){
-
-let html="";
-
-articles.slice(0,10).forEach(a=>{
-const d=safe(a);
-
-html+=`
-<div class="card" onclick='openArticle(${JSON.stringify(a)})'>
-<img src="${d.image}">
-<h3>${d.title}</h3>
-<p>${d.summary}</p>
-</div>
-`;
-});
-
-document.getElementById("grid").innerHTML=html;
+// OPEN ARTICLE
+function openArticle(i){
+localStorage.setItem("currentArticle",JSON.stringify(filtered[i]));
+location.href="article.html";
 }
 
-// OPEN
-function openArticle(a){
-localStorage.setItem("currentArticle",JSON.stringify(a));
-location.href="article.html";
+// FILTER
+function filter(cat){
+filtered = cat==="All"
+?[...articles]
+:articles.filter(a=>a.category===cat);
+
+render();
+}
+
+// TRANSLATE
+function toggleLang(){
+const select=document.querySelector(".goog-te-combo");
+if(select){
+select.value=select.value==="hi"?"en":"hi";
+select.dispatchEvent(new Event("change"));
+}
 }
 
 </script>
