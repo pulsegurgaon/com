@@ -10,15 +10,12 @@ app.use(express.json());
 
 const PORT = process.env.PORT || 10000;
 
-// ---------- PATH ----------
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 app.use(express.static(path.join(__dirname, "..")));
 
-// ---------- ENV ----------
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-// ---------- GROQ ----------
 const GROQ_KEYS = [
   process.env.GROQ_KEY_1,
   process.env.GROQ_KEY_2,
@@ -31,11 +28,6 @@ const GROQ_KEYS = [
 let keyIndex = 0;
 const getGroqKey = () => GROQ_KEYS[keyIndex++ % GROQ_KEYS.length];
 
-// ---------- GITHUB ----------
-const REPO = "pulsegurgaon/com";
-const FILE = "articles.json";
-
-// ---------- MEMORY ----------
 let articles = [];
 let blogs = [];
 
@@ -52,7 +44,6 @@ let adsList = [
 
 let currentAdIndex = 0;
 
-// ---------- HELPERS ----------
 const clean = t => (t || "").replace(/<[^>]*>/g, "").trim();
 
 const getImage = item =>
@@ -70,16 +61,23 @@ const category = t => {
   return "General";
 };
 
-// ---------- AI ----------
 async function aiGenerate(text) {
   const prompt = `
-Return ONLY JSON:
+Return ONLY valid JSON:
+
 {
 "title":"",
-"summary":["","",""],
-"article":"",
-"vocab":["","","",""]
+"summary":["point 1","point 2","point 3"],
+"article":"Write a detailed 400-600 word news article in clean paragraphs.",
+"vocab":["word1","word2","word3","word4"]
 }
+
+Rules:
+- No markdown
+- No short output
+- Proper paragraphs
+- Minimum 400 words
+
 News:
 ${text}
 `;
@@ -95,14 +93,18 @@ ${text}
 
       let out = res.choices[0]?.message?.content || "";
       out = out.replace(/```json|```/g, "").trim();
-      return JSON.parse(out);
+
+      const parsed = JSON.parse(out);
+
+      if (!parsed.article || parsed.article.length < 300) throw "bad";
+
+      return parsed;
     } catch {}
   }
 
   return null;
 }
 
-// ---------- RSS ----------
 async function fetchRSS(url) {
   try {
     const res = await fetch(url);
@@ -121,41 +123,37 @@ async function fetchRSS(url) {
   }
 }
 
-// ---------- TRENDING TOPICS ----------
 async function getTrendingTopics() {
   try {
     const res = await fetch("https://trends.google.com/trends/trendingsearches/daily/rss?geo=IN");
     const xml = await res.text();
     const parsed = await parseStringPromise(xml);
-
     return parsed?.rss?.channel?.[0]?.item?.map(i => i.title[0]) || [];
   } catch {
     return ["AI", "Startup", "India", "Stock Market", "Technology"];
   }
 }
 
-// ---------- GENERATE BLOGS ----------
 async function generateBlogs() {
   const topics = await getTrendingTopics();
 
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 15; i++) {
     const topic = topics[i % topics.length];
 
-    const ai = await aiGenerate(`Write a short trending blog on ${topic}`);
+    const ai = await aiGenerate(`Write a detailed blog about ${topic}`);
 
     blogs.unshift({
       id: Date.now() + Math.random(),
       title: ai?.title || topic,
-      image: `https://picsum.photos/seed/${Math.random()}/200`,
+      image: `https://picsum.photos/seed/${topic}/400/200`,
       content: ai?.article || topic,
       date: new Date().toISOString()
     });
   }
 
-  blogs = blogs.slice(0, 50);
+  blogs = blogs.slice(0, 40);
 }
 
-// ---------- GENERATE NEWS ----------
 async function generateNews() {
   const feeds = [
     "https://timesofindia.indiatimes.com/rssfeedstopstories.cms",
@@ -198,10 +196,9 @@ async function generateNews() {
     });
   }
 
-  return result.slice(0, 200);
+  return result.slice(0, 150);
 }
 
-// ---------- SEARCH ----------
 app.get("/search", async (req, res) => {
   const q = (req.query.q || "").toLowerCase();
 
@@ -232,12 +229,10 @@ app.get("/search", async (req, res) => {
   }
 });
 
-// ---------- TICKER ----------
 function updateTicker(news) {
   ticker = "🚨 " + news.slice(0, 15).map(n => n.title_en).join(" • ");
 }
 
-// ---------- RUN ----------
 async function run() {
   console.log("🔥 updating news...");
   const news = await generateNews();
@@ -253,21 +248,19 @@ async function run() {
 run();
 setInterval(run, 30 * 60 * 1000);
 
-// ---------- ADS ROTATION ----------
 setInterval(() => {
   currentAdIndex = (currentAdIndex + 1) % adsList.length;
 }, 20000);
 
-// ---------- ROUTES ----------
 app.get("/news", (req, res) => res.json(articles));
 app.get("/blogs", (req, res) => res.json(blogs));
 app.get("/ticker", (req, res) => res.json({ text: ticker }));
 app.get("/ads", (req, res) => res.json(adsList[currentAdIndex]));
 
-// ---------- ADMIN ----------
 app.post("/admin", (req, res) => {
   res.json({ success: req.body.password === ADMIN_PASSWORD });
 });
+
 app.post("/add-blog", (req,res)=>{
 blogs.unshift({ id:Date.now(), ...req.body });
 res.json({success:true});
@@ -287,7 +280,7 @@ app.post("/set-ticker", (req,res)=>{
 ticker = req.body.text;
 res.json({success:true});
 });
-// ---------- ADD ADS (IMAGE + LINK WORKING) ----------
+
 app.post("/save-ads", (req, res) => {
   const { text, link, image, duration } = req.body;
 
@@ -301,11 +294,9 @@ app.post("/save-ads", (req, res) => {
   res.json({ success: true });
 });
 
-// ---------- FRONTEND ----------
 app.get("/", (req, res) => res.sendFile(path.join(__dirname, "..", "index.html")));
 app.get("/admin", (req, res) => res.sendFile(path.join(__dirname, "..", "admin.html")));
 app.get("/blog", (req, res) => res.sendFile(path.join(__dirname, "..", "blog.html")));
 app.get("/article", (req, res) => res.sendFile(path.join(__dirname, "..", "article.html")));
 
-// ---------- START ----------
 app.listen(PORT, () => console.log("🚀 Server running on " + PORT));
