@@ -1,89 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 <link rel="stylesheet" href="desktop.css">
 </head>
-
 <body>
 
-<script>
-if(window.innerWidth < 790){
-window.location.href="/index.html";
-}
-</script>
-
 <header>
-PulseGurgaon
-<input id="search" placeholder="Search news...">
+  <div class="logo">PulseGurgaon</div>
+  <input id="searchInput" class="search" placeholder="Search news...">
+  <div class="nav">
+    <button onclick="location.href='blogs.html'">Blogs</button>
+    <button onclick="toggleLang()">EN / HI</button>
+    <button onclick="location.href='admin.html'">ADMIN</button>
+  </div>
 </header>
 
-<div class="layout">
-
-<div class="main" id="news"></div>
-
-<div class="sidebar">
-<h3>Trending Blogs</h3>
-<div id="blogs"></div>
-
-<div class="side-ad" id="sideAd"></div>
+<div class="ticker" id="ticker">
+  <span id="tickerText">🔥 Loading breaking news...</span>
 </div>
 
+<div class="categories" id="categoryTabs">
+  <span onclick="filterCategory('All')" class="active">All</span>
+  <span onclick="filterCategory('India')">India</span>
+  <span onclick="filterCategory('World')">World</span>
+  <span onclick="filterCategory('Technology')">Technology</span>
+  <span onclick="filterCategory('Finance')">Finance</span>
+  <span onclick="filterCategory('General')">General</span>
+</div>
+
+<div class="container">
+  <div>
+    <h2>Latest News</h2>
+    <div class="grid" id="newsGrid"></div>
+  </div>
+
+  <div class="sidebar">
+    <h4>🔥 Trending Blogs</h4>
+    <div id="blogPreview"></div>
+
+    <div class="long-ad">
+      <strong>ADVERTISEMENT</strong><br><br>
+      Boost Your Business with PulseGurgaon<br>
+      Reach thousands of readers daily<br><br>
+      <button>Advertise Now</button>
+    </div>
+  </div>
 </div>
 
 <script>
+// Fetch articles
+fetch("articles.json?v=" + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    const articles = data.articles || [];
+    renderDesktop(articles);
+    generateTicker(articles);
+  });
 
-let allNews=[];
+function renderDesktop(articles) {
+  const grid = document.getElementById("newsGrid");
+  grid.innerHTML = "";
 
-fetch("/news").then(r=>r.json()).then(d=>{
-allNews=d;
-render(d);
-});
-
-fetch("/blogs").then(r=>r.json()).then(d=>{
-let html="";
-d.slice(0,6).forEach(b=>{
-html+=`<div class="blog">${b.title}</div>`;
-});
-document.getElementById("blogs").innerHTML=html;
-});
-
-function render(data){
-let html="";
-data.forEach((n,i)=>{
-html+=`
-<div class="card" onclick="openArticle(${i})">
-<img src="${n.image}">
-<h3>${n.title_en}</h3>
-</div>
-`;
-
-if(i===2){
-html+=`<div class="ad-banner" id="banner"></div>`;
-loadBanner();
-}
-});
-document.getElementById("news").innerHTML=html;
-}
-
-function loadBanner(){
-fetch("/ads").then(r=>r.json()).then(ad=>{
-document.getElementById("banner").innerHTML=
-`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
-});
+  articles.slice(0, 20).forEach((a, i) => {
+    if (i % 3 === 0 && i !== 0) {
+      grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
+    }
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <img src="${a.image || 'https://picsum.photos/600/400'}">
+      <div class="cardText">
+        <span class="badge">${a.category || 'General'}</span>
+        <h3>${a.title_en || 'No title'}</h3>
+        <p>${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0,140)+"..."}</p>
+      </div>
+    `;
+    card.onclick = () => {
+      localStorage.setItem("currentArticle", JSON.stringify(a));
+      window.location.href = "article.html";
+    };
+    grid.appendChild(card);
+  });
 }
 
-fetch("/ads").then(r=>r.json()).then(ad=>{
-document.getElementById("sideAd").innerHTML=
-`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
-});
-
-function openArticle(i){
-localStorage.setItem("article",JSON.stringify(allNews[i]));
-window.location="/article.html";
+function generateTicker(articles) {
+  const text = articles.slice(0,8).map(a => a.title_en || "Breaking").join("   🔥   ");
+  document.getElementById("tickerText").innerHTML = text;
 }
 
+function filterCategory(cat) {
+  alert("Filtered by " + cat);
+}
+
+function toggleLang() {
+  alert("Language changed");
+}
 </script>
 
 </body>
