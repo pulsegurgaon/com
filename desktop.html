@@ -10,19 +10,25 @@
 
 <header>
   <div class="logo">PulseGurgaon</div>
-  <input id="searchInput" class="search" placeholder="Search news...">
-  <div class="nav">
-    <button onclick="location.href='blogs.html'">Blogs</button>
+  <nav>
+    <a href="#" class="active">News</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="blogs.html">Blogs</a>
+  </nav>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search news...">
+  </div>
+  <div class="right-header">
     <button onclick="toggleLang()">EN / HI</button>
     <button onclick="location.href='admin.html'">ADMIN</button>
   </div>
 </header>
 
-<div class="ticker" id="ticker">
-  <span id="tickerText">🔥 Loading breaking news...</span>
+<div class="breaking">
+  <span id="ticker">🔥 Breaking News: Loading latest updates...</span>
 </div>
 
-<div class="categories" id="categoryTabs">
+<div class="top-tabs">
   <span onclick="filterCategory('All')" class="active">All</span>
   <span onclick="filterCategory('India')">India</span>
   <span onclick="filterCategory('World')">World</span>
@@ -31,36 +37,38 @@
   <span onclick="filterCategory('General')">General</span>
 </div>
 
-<div class="container">
-  <div>
+<div class="main-container">
+  <!-- Left - Latest News -->
+  <div class="latest-news">
     <h2>Latest News</h2>
-    <div class="grid" id="newsGrid"></div>
+    <div class="news-grid" id="newsGrid"></div>
   </div>
 
+  <!-- Right Sidebar -->
   <div class="sidebar">
-    <h4>🔥 Trending Blogs</h4>
+    <h3>Trending Blogs</h3>
     <div id="blogPreview"></div>
 
-    <div class="long-ad">
-      <strong>ADVERTISEMENT</strong><br><br>
-      Boost Your Business with PulseGurgaon<br>
-      Reach thousands of readers daily<br><br>
+    <div class="ad-box">
+      <strong>Boost Your Business</strong><br>
+      Promote your products or services to thousands in Gurgaon.<br>
       <button>Advertise Now</button>
     </div>
   </div>
 </div>
 
 <script>
-// Fetch articles
+// Fetch articles.json
 fetch("articles.json?v=" + Date.now())
   .then(r => r.json())
   .then(data => {
     const articles = data.articles || [];
-    renderDesktop(articles);
+    renderNews(articles);
     generateTicker(articles);
+    renderTrendingBlogs();
   });
 
-function renderDesktop(articles) {
+function renderNews(articles) {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
 
@@ -72,10 +80,10 @@ function renderDesktop(articles) {
     card.className = "card";
     card.innerHTML = `
       <img src="${a.image || 'https://picsum.photos/600/400'}">
-      <div class="cardText">
+      <div class="card-content">
         <span class="badge">${a.category || 'General'}</span>
         <h3>${a.title_en || 'No title'}</h3>
-        <p>${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0,140)+"..."}</p>
+        <p>${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0, 140) + "..."}</p>
       </div>
     `;
     card.onclick = () => {
@@ -87,8 +95,18 @@ function renderDesktop(articles) {
 }
 
 function generateTicker(articles) {
-  const text = articles.slice(0,8).map(a => a.title_en || "Breaking").join("   🔥   ");
-  document.getElementById("tickerText").innerHTML = text;
+  const text = articles.slice(0, 8).map(a => a.title_en).join(" 🔥 ");
+  document.getElementById("ticker").innerHTML = text;
+}
+
+function renderTrendingBlogs() {
+  const container = document.getElementById("blogPreview");
+  container.innerHTML = `
+    <div class="blog-item">10 Mouth-Watering Street Foods You Must Try in Delhi</div>
+    <div class="blog-item">Top 5 Weekend Getaways Near Gurgaon</div>
+    <div class="blog-item">Sloch Market Today: Tips for Smart Investing</div>
+    <div class="blog-item">A Look at Gurgaon's Rapidly Changing Skyline</div>
+  `;
 }
 
 function filterCategory(cat) {
@@ -96,7 +114,7 @@ function filterCategory(cat) {
 }
 
 function toggleLang() {
-  alert("Language changed");
+  alert("Language switched");
 }
 </script>
 
