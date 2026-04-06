@@ -1,50 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blog</title>
+<title>Blogs</title>
 
 <style>
-body{margin:0;font-family:Arial;background:#f4f4f6}
+body{
+font-family:Arial;
+margin:0;
+background:#f4f4f6;
+}
 
 header{
 padding:15px;
-background:white;
+background:#e11d48;
+color:white;
+font-weight:bold;
 display:flex;
 justify-content:space-between;
-box-shadow:0 2px 10px rgba(0,0,0,0.08)
 }
 
 .container{
-max-width:900px;
-margin:auto;
 padding:15px;
 }
 
-img{
-width:100%;
-border-radius:12px;
-}
-
-h1{
-margin-top:15px;
-}
-
-.content{
+.card{
 background:white;
-padding:15px;
+padding:12px;
 border-radius:10px;
-line-height:1.6;
+margin-bottom:12px;
+cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+transition:0.2s;
 }
 
-button{
-padding:8px 12px;
-border:none;
-border-radius:20px;
-background:#111;
-color:white;
-cursor:pointer;
+.card:hover{
+transform:scale(1.02);
+}
+
+.card img{
+width:100%;
+border-radius:8px;
+margin-bottom:8px;
+}
+
+.title{
+font-size:18px;
+font-weight:bold;
+margin-bottom:5px;
+}
+
+.preview{
+color:#555;
+font-size:14px;
 }
 </style>
 </head>
@@ -52,32 +60,46 @@ cursor:pointer;
 <body>
 
 <header>
-  <div><b>PulseGurgaon Blog</b></div>
-  <button onclick="history.back()">← Back</button>
+<div>PulseGurgaon Blogs</div>
+<button onclick="goHome()">Home</button>
 </header>
 
-<div class="container">
-
-<img id="image">
-
-<h1 id="title"></h1>
-
-<div class="content" id="content"></div>
-
+<div class="container" id="blogList">
+Loading blogs...
 </div>
 
 <script>
 
-const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
+// FETCH BLOGS
+fetch("/blogs")
+.then(r=>r.json())
+.then(data=>{
 
-document.getElementById("image").src =
-  blog.image || "https://picsum.photos/800/400";
+let html="";
 
-document.getElementById("title").innerText =
-  blog.title || "No title";
+data.forEach(b=>{
+html+=`
+<div class="card" onclick='openBlog(${JSON.stringify(b)})'>
+<img src="${b.image}">
+<div class="title">${b.title}</div>
+<div class="preview">${b.content.slice(0,100)}...</div>
+</div>
+`;
+});
 
-document.getElementById("content").innerText =
-  blog.content || "No content";
+document.getElementById("blogList").innerHTML=html;
+
+});
+
+// OPEN BLOG
+function openBlog(blog){
+localStorage.setItem("currentBlog", JSON.stringify(blog));
+window.location.href="blog-view.html";
+}
+
+function goHome(){
+window.location.href="/";
+}
 
 </script>
 
