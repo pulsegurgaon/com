@@ -2,112 +2,89 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseGurgaon</title>
 <link rel="stylesheet" href="desktop.css">
-
-<script>
-if(window.innerWidth <= 790){
-location.href="index.html";
-}
-</script>
 </head>
 
 <body>
 
-<header class="topbar">
-<div class="logo">PulseGurgaon</div>
-<input placeholder="Search news...">
-<div id="google_translate_element"></div>
+<script>
+if(window.innerWidth < 790){
+window.location.href="/index.html";
+}
+</script>
+
+<header>
+PulseGurgaon
+<input id="search" placeholder="Search news...">
 </header>
-
-<div class="categories" id="categories"></div>
-
-<div class="ticker"><div id="tickerText"></div></div>
 
 <div class="layout">
 
-<div class="main" id="main"></div>
+<div class="main" id="news"></div>
 
 <div class="sidebar">
-<h3>🔥 Trending Blogs</h3>
+<h3>Trending Blogs</h3>
 <div id="blogs"></div>
 
-<div class="adBox">
-ADVERTISEMENT
-</div>
+<div class="side-ad" id="sideAd"></div>
 </div>
 
 </div>
 
 <script>
 
-let articles=[
-{id:1,title:"LIVE Political War",cat:"India",img:"https://picsum.photos/500/300?1",desc:"Major clash"},
-{id:2,title:"AI Future",cat:"Technology",img:"https://picsum.photos/500/300?2",desc:"AI rising"},
-{id:3,title:"Market Crash",cat:"Finance",img:"https://picsum.photos/500/300?3",desc:"Stocks falling"},
-{id:4,title:"World Conflict",cat:"World",img:"https://picsum.photos/500/300?4",desc:"Global tension"}
-];
+let allNews=[];
 
-let blogs=[
-"AI Future","Startup Boom","India Growth","Tech Trends"
-];
+fetch("/news").then(r=>r.json()).then(d=>{
+allNews=d;
+render(d);
+});
 
-function render(list=articles){
+fetch("/blogs").then(r=>r.json()).then(d=>{
 let html="";
-list.forEach((a,i)=>{
+d.slice(0,6).forEach(b=>{
+html+=`<div class="blog">${b.title}</div>`;
+});
+document.getElementById("blogs").innerHTML=html;
+});
+
+function render(data){
+let html="";
+data.forEach((n,i)=>{
 html+=`
-<div class="card" onclick="openArticle(${a.id})">
-<img src="${a.img}">
-<h2>${a.title}</h2>
-<p>${a.desc}</p>
+<div class="card" onclick="openArticle(${i})">
+<img src="${n.image}">
+<h3>${n.title_en}</h3>
 </div>
 `;
 
-if(i==2 || i==4){
-html+=`<div class="adWide">ADVERTISEMENT</div>`;
+if(i===2){
+html+=`<div class="ad-banner" id="banner"></div>`;
+loadBanner();
 }
 });
-document.getElementById("main").innerHTML=html;
-
-document.getElementById("blogs").innerHTML=
-blogs.map(b=>`<p>${b}</p>`).join("");
+document.getElementById("news").innerHTML=html;
 }
 
-function filter(cat){
-if(cat=="All"){render();return;}
-render(articles.filter(a=>a.cat==cat));
+function loadBanner(){
+fetch("/ads").then(r=>r.json()).then(ad=>{
+document.getElementById("banner").innerHTML=
+`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
+});
 }
 
-function loadCategories(){
-let cats=["All","India","World","Technology","Finance"];
-document.getElementById("categories").innerHTML=
-cats.map(c=>`<span onclick="filter('${c}')">${c}</span>`).join("");
+fetch("/ads").then(r=>r.json()).then(ad=>{
+document.getElementById("sideAd").innerHTML=
+`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
+});
+
+function openArticle(i){
+localStorage.setItem("article",JSON.stringify(allNews[i]));
+window.location="/article.html";
 }
-
-function openArticle(id){
-let a=articles.find(x=>x.id==id);
-document.getElementById("main").innerHTML=`
-<h1>${a.title}</h1>
-<img src="${a.img}">
-<p>${a.desc}</p>
-<button onclick="render()">Back</button>
-`;
-}
-
-// ticker
-let t=document.getElementById("tickerText");
-t.innerText="🔥 PulseGurgaon Desktop Live • India • Tech • Finance";
-t.style.animation="scroll 30s linear infinite";
-
-function googleTranslateElementInit() {
-new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
-}
-
-loadCategories();
-render();
 
 </script>
-
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 </body>
 </html>
