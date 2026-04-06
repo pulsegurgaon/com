@@ -1,92 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PulseGurgaon</title>
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="top">
-☰ PulseGurgaon
-<input id="search" placeholder="Search news...">
-<button onclick="toggleLang()">EN/HI</button>
+<header>
+  <div class="logo">PulseGurgaon</div>
+  <input type="text" class="search" placeholder="Search news...">
+  <div class="lang">EN / HI</div>
+</header>
+
+<div class="breaking">
+  <span id="ticker">🔥 '3 passports, foreign properties': Cong attacks Himanta, wife; CM threatens defamation suit</span>
 </div>
 
-<div class="categories">
-<span onclick="filter('All')">All</span>
-<span onclick="filter('India')">India</span>
-<span onclick="filter('World')">World</span>
-<span onclick="filter('Technology')">Technology</span>
-<span onclick="filter('Finance')">Finance</span>
+<div class="tabs">
+  <span class="active">All</span>
+  <span>India</span>
+  <span>World</span>
+  <span>Technology</span>
+  <span>Finance</span>
+  <span>Blogs</span>
 </div>
 
-<div class="ticker" id="ticker"></div>
+<!-- Hero Section -->
+<div class="hero" id="hero">
+  <!-- Filled by JavaScript -->
+</div>
 
-<div id="news"></div>
+<!-- News Grid -->
+<div class="news-grid" id="newsGrid"></div>
 
-<div class="bottom">
-<div onclick="goHome()">🏠 Home</div>
-<div class="active" onclick="goBlogs()">BLOG</div>
-<div onclick="goAdmin()">⚙️ Admin</div>
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+  <div onclick="location.href='index.html'">🏠<br>Home</div>
+  <div class="blog-btn" onclick="location.href='blogs.html'">BLOG</div>
+  <div onclick="location.href='admin.html'">⚙️<br>Admin</div>
 </div>
 
 <script>
-if(window.innerWidth > 790){
-window.location.href = "/desktop.html";
+// Fetch articles
+fetch("articles.json?v=" + Date.now())
+  .then(r => r.json())
+  .then(data => {
+    const articles = data.articles || [];
+    renderHero(articles);
+    renderNewsGrid(articles);
+    generateTicker(articles);
+  });
+
+// Hero Section (first article)
+function renderHero(articles) {
+  if (articles.length === 0) return;
+  const a = articles[0];
+  document.getElementById("hero").innerHTML = `
+    <img src="${a.image || 'https://picsum.photos/800/500'}" alt="">
+    <div class="live-badge">● LIVE</div>
+    <div class="headline">${a.title_en || 'No title'}</div>
+    <div class="summary">
+      ${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0, 160) + "..."}
+    </div>
+  `;
+  document.getElementById("hero").onclick = () => {
+    localStorage.setItem("currentArticle", JSON.stringify(a));
+    window.location.href = "article.html";
+  };
 }
 
-let allNews=[];
+// News Grid - 2 articles → ad → 2 articles → ad ...
+function renderNewsGrid(articles) {
+  const grid = document.getElementById("newsGrid");
+  grid.innerHTML = "";
 
-fetch("/news").then(r=>r.json()).then(d=>{
-allNews=d;
-render(d);
-});
+  articles.slice(0, 12).forEach((a, i) => {
+    if (i === 2 || i === 6 || i === 10) {
+      grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
+    }
 
-fetch("/ticker").then(r=>r.json()).then(d=>{
-document.getElementById("ticker").innerText=d.text;
-});
-
-function render(data){
-let html="";
-data.forEach((n,i)=>{
-html+=`
-<div class="card" onclick="openArticle(${i})">
-<img src="${n.image}">
-<h3>${n.title_en}</h3>
-</div>
-`;
-
-if(i===2 || i===4 || i===6){
-html+=`<div class="ad" id="ad${i}"></div>`;
-loadAd(i);
-}
-});
-document.getElementById("news").innerHTML=html;
-}
-
-function loadAd(i){
-fetch("/ads").then(r=>r.json()).then(ad=>{
-document.getElementById("ad"+i).innerHTML=
-`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
-});
+    const card = document.createElement("div");
+    card.className = "news-card";
+    card.innerHTML = `
+      <img src="${a.image || 'https://picsum.photos/600/400'}">
+      <div class="cardText">
+        <span class="badge">${a.category || 'General'}</span>
+        <h3>${a.title_en || 'No title'}</h3>
+        <p>${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0, 120) + "..."}</p>
+      </div>
+    `;
+    card.onclick = () => {
+      localStorage.setItem("currentArticle", JSON.stringify(a));
+      window.location.href = "article.html";
+    };
+    grid.appendChild(card);
+  });
 }
 
-function openArticle(i){
-localStorage.setItem("article",JSON.stringify(allNews[i]));
-window.location="/article.html";
+// Ticker
+function generateTicker(articles) {
+  const text = articles.slice(0, 6).map(a => a.title_en || "Breaking").join("   🔥   ");
+  document.getElementById("ticker").innerHTML = text;
 }
-
-function filter(cat){
-if(cat==="All") return render(allNews);
-render(allNews.filter(n=>n.category===cat));
-}
-
-function goHome(){location.reload();}
-function goBlogs(){location="/blog-preview.html";}
-function goAdmin(){location="/admin.html";}
-function toggleLang(){alert("Connect API later")}
 </script>
 
 </body>
