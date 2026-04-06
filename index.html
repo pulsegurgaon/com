@@ -10,27 +10,24 @@
 
 <header>
   <div class="logo">PulseGurgaon</div>
-  <input type="text" class="search" placeholder="Search news...">
+  <input id="searchInput" class="search" placeholder="Search news...">
   <div class="lang">EN / HI</div>
 </header>
 
 <div class="breaking">
-  <span id="ticker">🔥 '3 passports, foreign properties': Cong attacks Himanta, wife; CM threatens defamation suit</span>
+  <span id="ticker">🔥 Loading breaking news...</span>
 </div>
 
 <div class="tabs">
-  <span class="active">All</span>
-  <span>India</span>
-  <span>World</span>
-  <span>Technology</span>
-  <span>Finance</span>
-  <span>Blogs</span>
+  <span class="active" onclick="filterCategory('All')">All</span>
+  <span onclick="filterCategory('India')">India</span>
+  <span onclick="filterCategory('World')">World</span>
+  <span onclick="filterCategory('Technology')">Technology</span>
+  <span onclick="filterCategory('Finance')">Finance</span>
 </div>
 
-<!-- Hero Section -->
-<div class="hero" id="hero">
-  <!-- Filled by JavaScript -->
-</div>
+<!-- Hero -->
+<div class="hero" id="heroSection"></div>
 
 <!-- News Grid -->
 <div class="news-grid" id="newsGrid"></div>
@@ -43,7 +40,7 @@
 </div>
 
 <script>
-// Fetch articles
+// Fetch news from articles.json
 fetch("articles.json?v=" + Date.now())
   .then(r => r.json())
   .then(data => {
@@ -53,11 +50,12 @@ fetch("articles.json?v=" + Date.now())
     generateTicker(articles);
   });
 
-// Hero Section (first article)
+// Render Hero (first article)
 function renderHero(articles) {
   if (articles.length === 0) return;
   const a = articles[0];
-  document.getElementById("hero").innerHTML = `
+
+  document.getElementById("heroSection").innerHTML = `
     <img src="${a.image || 'https://picsum.photos/800/500'}" alt="">
     <div class="live-badge">● LIVE</div>
     <div class="headline">${a.title_en || 'No title'}</div>
@@ -65,19 +63,22 @@ function renderHero(articles) {
       ${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0, 160) + "..."}
     </div>
   `;
-  document.getElementById("hero").onclick = () => {
+
+  // Click hero to open article
+  document.getElementById("heroSection").onclick = () => {
     localStorage.setItem("currentArticle", JSON.stringify(a));
     window.location.href = "article.html";
   };
 }
 
-// News Grid - 2 articles → ad → 2 articles → ad ...
+// Render News Grid - After first 2 articles → ad, then after every 2 articles → ad
 function renderNewsGrid(articles) {
   const grid = document.getElementById("newsGrid");
   grid.innerHTML = "";
 
-  articles.slice(0, 12).forEach((a, i) => {
-    if (i === 2 || i === 6 || i === 10) {
+  articles.slice(0, 20).forEach((a, i) => {
+    // Ad pattern: after first 2, then after every 2 more
+    if (i === 2 || (i > 2 && (i - 2) % 2 === 0)) {
       grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
     }
 
@@ -101,8 +102,14 @@ function renderNewsGrid(articles) {
 
 // Ticker
 function generateTicker(articles) {
+  if (articles.length === 0) return;
   const text = articles.slice(0, 6).map(a => a.title_en || "Breaking").join("   🔥   ");
   document.getElementById("ticker").innerHTML = text;
+}
+
+// Simple filter
+function filterCategory(cat) {
+  alert("Filtered by " + cat);
 }
 </script>
 
