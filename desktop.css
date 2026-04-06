@@ -1,11 +1,17 @@
-body{margin:0;font-family:sans-serif;background:#fafafa;}
+body{margin:0;font-family:Arial;background:#f4f4f6;}
 
-.topbar{
+header{
 display:flex;
 justify-content:space-between;
-padding:10px;
-background:#e60023;
+padding:15px;
+background:#e11d48;
 color:white;
+}
+
+header input{
+padding:6px;
+border-radius:6px;
+border:none;
 }
 
 .layout{
@@ -17,41 +23,38 @@ padding:20px;
 
 .card{
 background:white;
-padding:10px;
 border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+overflow:hidden;
+margin-bottom:15px;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
 cursor:pointer;
-transition:.3s;
 }
 
-.card:hover{transform:scale(1.03);}
+.card img{
+width:100%;
+height:200px;
+object-fit:cover;
+}
 
-.card img{width:100%;border-radius:10px;}
+.card h3{
+padding:10px;
+}
 
 .sidebar{
-background:white;
+background:#fafafa;
 padding:10px;
 border-radius:10px;
 }
 
-.adBox{
-margin-top:20px;
-padding:20px;
-border:2px dashed red;
-text-align:center;
+.blog{
+padding:8px;
+border-bottom:1px solid #ddd;
+cursor:pointer;
 }
 
-.categories{
-display:flex;
-gap:20px;
-padding:10px;
-background:white;
-justify-content:center;
-}
-
-.ticker{
-background:black;
-color:white;
-overflow:hidden;
-white-space:nowrap;
+.ad-banner img,
+.side-ad img{
+width:100%;
+border-radius:10px;
+margin:10px 0;
 }
