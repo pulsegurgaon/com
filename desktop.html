@@ -1,122 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PulseGurgaon</title>
-<link rel="stylesheet" href="desktop.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseGurgaon - Latest News from India & Gurgaon</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="desktop.css">
+    <script src="article.js" defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;600&display=swap');
+        
+        :root {
+            --phone-max-width: 768px;
+        }
+        
+        * { font-family: 'Inter', system-ui, sans-serif; }
+        .header-font { font-family: 'Roboto', sans-serif; }
+        
+        .red-header {
+            background: linear-gradient(90deg, #dc2626 0%, #b91c1c 100%);
+        }
+        
+        .news-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 
+                        0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .tag-technology { background-color: #dc2626; }
+        .tag-india { background-color: #f97316; }
+        
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        /* Desktop specific overrides */
+        @media (min-width: 769px) {
+            .main-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 </head>
-<body>
+<body class="bg-gray-50">
 
-<header>
-  <div class="logo">PulseGurgaon</div>
-  <nav>
-    <a href="#" class="active">News</a>
-    <a href="blogs.html">Blogs</a>
-    <a href="blogs.html">Blogs</a>
-  </nav>
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search news...">
-  </div>
-  <div class="right-header">
-    <button onclick="toggleLang()">EN / HI</button>
-    <button onclick="location.href='admin.html'">ADMIN</button>
-  </div>
-</header>
+    <!-- SCREEN WIDTH AUTO-SWITCH LOGIC -->
+    <script>
+        const PHONE_MAX_WIDTH = 768;
+        
+        function handleScreenSize() {
+            if (window.innerWidth <= PHONE_MAX_WIDTH) {
+                console.log('%c📱 Phone detected → Redirecting to mobile (index.html)', 'color:#dc2626;font-weight:700');
+                window.location.href = 'index.html';
+            }
+        }
+        
+        window.addEventListener('load', handleScreenSize);
+        window.addEventListener('resize', handleScreenSize);
+        console.log('%c✅ Desktop.html loaded - Desktop layout active (> ' + PHONE_MAX_WIDTH + 'px)', 'color:#16a34a;font-weight:700');
+    </script>
 
-<div class="breaking">
-  <span id="ticker">🔥 Breaking News: Loading latest updates...</span>
-</div>
+    <!-- TOP RED HEADER -->
+    <header class="red-header text-white py-3 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-x-3">
+                <div class="w-9 h-9 bg-white text-red-600 rounded-2xl flex items-center justify-center text-3xl font-bold leading-none pt-0.5">P</div>
+                <div class="header-font text-3xl font-semibold tracking-[-0.5px]">PulseGurgaon</div>
+            </div>
 
-<div class="top-tabs">
-  <span onclick="filterCategory('All')" class="active">All</span>
-  <span onclick="filterCategory('India')">India</span>
-  <span onclick="filterCategory('World')">World</span>
-  <span onclick="filterCategory('Technology')">Technology</span>
-  <span onclick="filterCategory('Finance')">Finance</span>
-  <span onclick="filterCategory('General')">General</span>
-</div>
+            <!-- Nav -->
+            <nav class="flex items-center gap-x-8 text-lg font-medium">
+                <a href="index.html" class="hover:text-white/90 transition-colors border-b-2 border-white pb-1">News</a>
+                <a href="blog.html" class="hover:text-white/90 transition-colors">Blogs</a>
+            </nav>
 
-<div class="main-container">
-  <!-- Left - Latest News -->
-  <div class="latest-news">
-    <h2>Latest News</h2>
-    <div class="news-grid" id="newsGrid"></div>
-  </div>
+            <!-- Breaking News -->
+            <div class="hidden lg:flex items-center text-sm max-w-md leading-tight font-medium">
+                Breaking News. Keep up with PulseGurgaon for the latest updates from India and around the world.
+            </div>
 
-  <!-- Right Sidebar -->
-  <div class="sidebar">
-    <h3>Trending Blogs</h3>
-    <div id="blogPreview"></div>
+            <!-- Right side -->
+            <div class="flex items-center gap-x-4">
+                <button onclick="toggleDarkMode()" class="w-9 h-9 flex items-center justify-center hover:bg-white/20 rounded-2xl transition-colors text-xl">🌙</button>
+                <a href="admin.html" class="text-sm font-medium px-6 py-2.5 bg-white text-red-600 rounded-3xl hover:shadow-md transition-all flex items-center gap-x-2">
+                    Admin
+                </a>
+            </div>
+        </div>
+    </header>
 
-    <div class="ad-box">
-      <strong>Boost Your Business</strong><br>
-      Promote your products or services to thousands in Gurgaon.<br>
-      <button>Advertise Now</button>
+    <!-- SECOND NAV - CATEGORIES -->
+    <div class="bg-white border-b sticky top-[57px] z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex items-center justify-between py-3">
+                <div class="flex items-center gap-x-8 text-sm font-medium">
+                    <a onclick="filterByCategory('all')" id="cat-all" class="category-tab active flex items-center gap-x-1 hover:text-red-600 transition-colors">All</a>
+                    <a onclick="filterByCategory('india')" id="cat-india" class="category-tab flex items-center gap-x-1 hover:text-red-600 transition-colors">India</a>
+                    <a onclick="filterByCategory('world')" id="cat-world" class="category-tab flex items-center gap-x-1 hover:text-red-600 transition-colors">World</a>
+                    <a onclick="filterByCategory('technology')" id="cat-technology" class="category-tab flex items-center gap-x-1 hover:text-red-600 transition-colors">Technology</a>
+                    <a onclick="filterByCategory('finance')" id="cat-finance" class="category-tab flex items-center gap-x-1 hover:text-red-600 transition-colors">Finance</a>
+                    <a onclick="filterByCategory('general')" id="cat-general" class="category-tab flex items-center gap-x-1 hover:text-red-600 transition-colors">General</a>
+                </div>
+
+                <!-- Search -->
+                <div class="flex items-center gap-x-3">
+                    <div class="relative">
+                        <input id="search-input" 
+                               type="text" 
+                               placeholder="Filter news..." 
+                               onkeyup="if(event.keyCode===13) performSearch()"
+                               class="bg-gray-100 border border-gray-200 focus:border-red-300 w-72 pl-4 pr-12 py-3 rounded-3xl text-sm outline-none transition-all">
+                        <button onclick="performSearch()" class="absolute right-4 top-1/2 -translate-y-1/2 text-red-600">🔎</button>
+                    </div>
+                    <div onclick="showUserMenu()" class="w-9 h-9 bg-gray-200 hover:bg-gray-300 rounded-2xl flex items-center justify-center cursor-pointer text-xl">👤</div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
-<script>
-// Fetch articles.json
-fetch("articles.json?v=" + Date.now())
-  .then(r => r.json())
-  .then(data => {
-    const articles = data.articles || [];
-    renderNews(articles);
-    generateTicker(articles);
-    renderTrendingBlogs();
-  });
+    <!-- MAIN CONTENT -->
+    <div class="max-w-7xl mx-auto px-6 pt-8">
+        <div class="flex items-end justify-between mb-6">
+            <div class="flex items-center gap-x-3">
+                <h1 class="text-4xl font-semibold text-gray-900">Latest News</h1>
+                <div class="px-4 py-1 text-xs font-medium bg-red-100 text-red-600 rounded-3xl">LIVE</div>
+            </div>
 
-function renderNews(articles) {
-  const grid = document.getElementById("newsGrid");
-  grid.innerHTML = "";
+            <div class="flex items-center gap-x-4">
+                <div onclick="showDatePicker()" class="flex items-center gap-x-2 bg-white border border-gray-200 rounded-3xl px-6 py-3 text-sm cursor-pointer hover:border-gray-300">
+                    <span id="date-range-text">Date Range</span>
+                    <span class="text-gray-400">▼</span>
+                </div>
+                <div onclick="showCategoryPicker()" class="flex items-center gap-x-2 bg-white border border-gray-200 rounded-3xl px-6 py-3 text-sm cursor-pointer hover:border-gray-300">
+                    <span id="category-filter-text">Category</span>
+                    <span class="text-gray-400">▼</span>
+                </div>
+                <button onclick="performSearch()" class="bg-red-600 hover:bg-red-700 text-white px-8 py-3 rounded-3xl font-medium text-sm flex items-center gap-x-2 transition-all">
+                    Search <span class="text-xl">→</span>
+                </button>
+            </div>
+        </div>
 
-  articles.slice(0, 20).forEach((a, i) => {
-    if (i % 3 === 0 && i !== 0) {
-      grid.innerHTML += `<div class="ad">ADVERTISEMENT • Boost Your Business with PulseGurgaon</div>`;
-    }
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${a.image || 'https://picsum.photos/600/400'}">
-      <div class="card-content">
-        <span class="badge">${a.category || 'General'}</span>
-        <h3>${a.title_en || 'No title'}</h3>
-        <p>${(a.summary_points || []).join(" • ") || (a.article_en || '').substring(0, 140) + "..."}</p>
-      </div>
-    `;
-    card.onclick = () => {
-      localStorage.setItem("currentArticle", JSON.stringify(a));
-      window.location.href = "article.html";
-    };
-    grid.appendChild(card);
-  });
-}
+        <!-- SUB TAGS -->
+        <div class="flex gap-x-3 mb-8 overflow-x-auto scrollbar-hide pb-2">
+            <div onclick="filterByTag('technology')" class="tag-technology text-white text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer">📡 Technology</div>
+            <div onclick="filterByTag('moda')" class="bg-white border border-gray-200 text-gray-700 text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer hover:bg-gray-50">→ Moda</div>
+            <div onclick="filterByTag('molok')" class="bg-blue-500 text-white text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer">🔷 Molok</div>
+            <div onclick="filterByTag('mech')" class="bg-yellow-500 text-white text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer">⚙️ Mech</div>
+            <div onclick="filterByTag('finance')" class="bg-green-500 text-white text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer">💰 Finance</div>
+            <div onclick="filterByTag('general')" class="bg-gray-700 text-white text-xs font-semibold px-6 py-2 rounded-3xl flex items-center gap-x-2 whitespace-nowrap cursor-pointer">General</div>
+        </div>
 
-function generateTicker(articles) {
-  const text = articles.slice(0, 8).map(a => a.title_en).join(" 🔥 ");
-  document.getElementById("ticker").innerHTML = text;
-}
+        <!-- ARTICLES GRID (loaded from articles.json) -->
+        <div id="main-articles" class="grid main-grid gap-8">
+            <!-- Populated dynamically by JS from articles.json -->
+        </div>
+    </div>
 
-function renderTrendingBlogs() {
-  const container = document.getElementById("blogPreview");
-  container.innerHTML = `
-    <div class="blog-item">10 Mouth-Watering Street Foods You Must Try in Delhi</div>
-    <div class="blog-item">Top 5 Weekend Getaways Near Gurgaon</div>
-    <div class="blog-item">Sloch Market Today: Tips for Smart Investing</div>
-    <div class="blog-item">A Look at Gurgaon's Rapidly Changing Skyline</div>
-  `;
-}
+    <!-- BOOST YOUR BUSINESS FULL-WIDTH AD -->
+    <div onclick="goToAdmin()" class="max-w-7xl mx-auto px-6 mt-12 mb-12 cursor-pointer">
+        <div class="bg-gradient-to-r from-pink-100 via-rose-100 to-pink-50 border border-pink-200 rounded-3xl p-8 flex items-center justify-between hover:shadow-2xl transition-all">
+            <div class="max-w-md">
+                <div class="flex items-center gap-x-3 mb-3">
+                    <h2 class="text-4xl font-semibold text-pink-900">Boost Your Business</h2>
+                    <span class="text-4xl">🚀</span>
+                </div>
+                <p class="text-pink-800 text-lg">Promote your products or services to thousands in Gurgaon. Advertise on PulseGurgaon</p>
+                <button onclick="event.stopImmediatePropagation(); goToAdmin()" class="mt-8 bg-yellow-400 hover:bg-yellow-300 text-pink-900 px-10 py-4 rounded-3xl font-semibold flex items-center transition-colors">
+                    Advertise Now →
+                </button>
+            </div>
+            <img src="https://picsum.photos/id/1011/420/240" alt="Phone with charts" class="hidden lg:block w-80 rounded-3xl shadow-2xl">
+        </div>
+    </div>
 
-function filterCategory(cat) {
-  alert("Filtered by " + cat);
-}
+    <!-- RIGHT SIDEBAR (Trending + Ads) - Desktop only -->
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12">
+        <div class="lg:col-span-8"></div>
+        <div class="lg:col-span-4 space-y-8">
+            
+            <!-- Trending Blogs (loaded from blogs.json) -->
+            <div>
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-semibold">Trending Blogs</h2>
+                    <a href="blog.html" class="text-red-600 text-sm font-medium flex items-center gap-x-1 hover:underline">View all →</a>
+                </div>
+                <div id="trending-blogs" class="space-y-4">
+                    <!-- Populated by JS from blogs.json -->
+                </div>
+            </div>
 
-function toggleLang() {
-  alert("Language switched");
-}
-</script>
+            <!-- Want More Traffic? Ad -->
+            <div onclick="goToAdmin()" class="bg-gradient-to-br from-purple-600 to-pink-600 text-white rounded-3xl p-6 cursor-pointer hover:scale-[1.02] transition-all">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <div class="flex items-center gap-x-2 text-sm font-medium mb-2">Want More Traffic? 📈</div>
+                        <p class="text-xl font-semibold leading-tight">Boost your website traffic with ads on PulseGurgaon.</p>
+                        <button onclick="event.stopImmediatePropagation(); goToAdmin()" class="mt-6 bg-white text-purple-700 px-8 py-3 rounded-3xl font-semibold flex items-center gap-x-2">Advertise Now →</button>
+                    </div>
+                    <img src="https://picsum.photos/id/1009/140/140" alt="" class="w-28 h-28 rounded-3xl object-cover">
+                </div>
+            </div>
 
-</body>
-</html>
+            <!-- AzofarMedia Ad -->
+            <div onclick="goToAdmin()" class="border border-dashed border-gray-300 bg-white rounded-3xl p-6 text-center cursor-pointer hover:border-red-300">
+                <div class="text-xs text-gray-500 mb-1">AzofarMedia</div>
+                <div class="text-2xl font-semibold text-gray-900 mb-3">Want More Traffic?</div>
+                <p class="text-gray-600 text-sm mb-6">Boost your website traffic with ads on PulseGurgaon.</p>
+                <button onclick="event.stopImmediatePropagation(); goToAdmin()" class="w-full bg-gradient-to-r from-pink-500 to-red-500 text-white py-4 rounded-3xl font-semibold flex items-center justify-center gap-x-2">Advertise Now 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global articles cache
+        let allArticles = [];
+        let allBlogs = [];
+
+        // Load articles.json + blogs.json
+        async function loadData() {
+            try {
+                // Load news from your articles.json
+                const articlesRes = await fetch('./articles.json');
+                allArticles = await articlesRes.json();
+                
+                // Load trending blogs from your blogs.json
+                const blogsRes = await fetch('./blogs.json');
+                allBlogs = await blogsRes.json();
+            } catch (e) {
+                console.warn('⚠️ Could not load JSON files. Using fallback data from screenshot.');
+                // Fallback data matching your screenshot exactly
+                allArticles = [
+                    {
+                        id: 1,
+                        tag: "Technology",
+                        tagColor: "bg-red-600",
+                        image: "https://picsum.photos/id/1015/600/340",
+                        title: "LPG and fuel crisis LIVE: Jet fuel prices more than doubled to 12.07 lakh/kl...",
+                        subtitle: "• Jet fuel price more than doubled in these hikes, causing concern among airlines and tr...",
+                        source: "The Hindu",
+                        date: "Apr 1",
+                        category: "technology"
+                    },
+                    {
+                        id: 2,
+                        tag: "India",
+                        tagColor: "bg-orange-500",
+                        image: "https://picsum.photos/id/1005/600/340",
+                        title: "Kerala Assembly polls: Pinarayi Vijayan swears Congress-BJP...",
+                        subtitle: "• Kerala CM Vijayan alleges secret pact between Congress and BJP as he address.<br>• Interted teary more sccegesj same wat...",
+                        source: "The Hindu",
+                        date: "Apr 1",
+                        category: "india"
+                    },
+                    {
+                        id: 3,
+                        tag: "India",
+                        tagColor: "bg-red-600",
+                        image: "https://picsum.photos/id/1016/600/340",
+                        title: "Parliament Budget Session LIVE: Lok Sabha passes bill to declare...",
+                        subtitle: "• Lok Sabha passes bill for Amaravati capital amid opposition uproar and heated debate",
+                        source: "The Hindu",
+                        date: "Apr 3",
+                        category: "india"
+                    },
+                    {
+                        id: 4,
+                        tag: "India",
+                        tagColor: "bg-orange-500",
+                        image: "https://picsum.photos/id/1009/600/340",
+                        title: "How one undisclosed meeting upended the Maharashtra government...",
+                        subtitle: "• Details emerge of a secret meeting that played a key role in the political turmoil in...",
+                        source: "The Hindu",
+                        date: "Apr 1",
+                        category: "india"
+                    }
+                ];
+                
+                allBlogs = [
+                    { id: 1, title: "10 Mouth-Watering Street Foods You Must Try in Delhi", time: "2 hours ago", img: "https://picsum.photos/id/1015/120/120" },
+                    { id: 2, title: "Top 5 Weekend Getaways Near Gurgaon", time: "3 hours ago", img: "https://picsum.photos/id/1016/120/120" },
+                    { id: 3, title: "Sloch Market Today: Tips for Smart Investing", time: "3 hours ago", img: "https://picsum.photos/id/1018/120/120" },
+                    { id: 4, title: "A Look at Gurgaon's Rapidly Changing Skyline", time: "1 day ago", img: "https://picsum.photos/id/1005/120/120" }
+                ];
+            }
+            
+            renderArticles(allArticles);
+            renderTrendingBlogs();
+        }
+
+        // Render main news articles
+        function renderArticles(articles) {
+            const container = document.getElementById('main-articles');
+            let html = `<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">`;
+            
+            articles.forEach(article => {
+                html += `
+                <div onclick="openArticle(${article.id})" class="news-card bg-white rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="relative">
+                        <div class="\( {article.tagColor} text-white text-xs font-bold px-4 py-1 absolute top-4 left-4 rounded-3xl z-10"> \){article.tag}</div>
+                        <img src="${article.image}" alt="" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-semibold text-xl leading-tight mb-3">${article.title}</h3>
+                        <p class="text-gray-600 text-sm mb-6">${article.subtitle}</p>
+                        <div class="flex justify-between text-xs">
+                            <span class="font-medium">${article.source}</span>
+                            <span class="text-gray-400">${article.date}</span>
+                        </div>
+                    </div>
+                </div>`;
+            });
+            
+            html += `</div>`;
+            
+            // Extra featured full-width card (matches your screenshot bottom card)
+            if (articles.length > 0) {
+                const featured = articles[3] || articles[0];
+                html += `
+                <div onclick="openArticle(${featured.id})" class="mt-8 bg-white rounded-3xl overflow-hidden cursor-pointer news-card">
+                    <div class="flex flex-col lg:flex-row">
+                        <div class="lg:w-2/5">
+                            <img src="${featured.image}" class="w-full h-full object-cover" alt="">
+                        </div>
+                        <div class="p-8 lg:w-3/5">
+                            <div class="\( {featured.tagColor} text-white text-xs font-bold px-4 py-1 inline-block rounded-3xl mb-4"> \){featured.tag}</div>
+                            <h3 class="font-semibold text-2xl leading-tight mb-4">${featured.title}</h3>
+                            <p class="text-gray-600">${featured.subtitle}</p>
+                            <div class="flex justify-between mt-8 text-xs">
+                                <span class="font-medium">${featured.source}</span>
+                                <span class="text-gray-400">${featured.date}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        // Render trending blogs
+        function renderTrendingBlogs() {
+            const container = document.getElementById('trending-blogs');
+            let html = '';
+            
+            allBlogs.forEach(blog => {
+                html += `
+                <div onclick="goToBlog(${blog.id})" class="group flex gap-4 bg-white p-4 rounded-3xl cursor-pointer hover:shadow-md news-card">
+                    <img src="${blog.img
