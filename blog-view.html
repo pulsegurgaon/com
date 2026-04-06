@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f6;
+}
+
+header{
+padding:15px;
+background:white;
+display:flex;
+justify-content:space-between;
+box-shadow:0 2px 10px rgba(0,0,0,0.08);
+}
+
+.container{
+padding:15px;
+max-width:800px;
+margin:auto;
+}
+
+img{
+width:100%;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+h1{
+margin-bottom:10px;
+}
+
+.content{
+line-height:1.7;
+background:white;
+padding:15px;
+border-radius:10px;
+}
+
+.date{
+font-size:12px;
+color:#777;
+margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div>PulseGurgaon</div>
+<button onclick="goBack()">← Back</button>
+</header>
+
+<div class="container">
+
+<img id="image">
+
+<h1 id="title"></h1>
+
+<div class="date" id="date"></div>
+
+<div class="content" id="content"></div>
+
+</div>
+
+<script>
+
+// LOAD BLOG
+const blog = JSON.parse(localStorage.getItem("currentBlog") || "{}");
+
+document.getElementById("image").src = blog.image || "";
+document.getElementById("title").innerText = blog.title || "No title";
+document.getElementById("content").innerText = blog.content || "No content";
+document.getElementById("date").innerText = blog.date || "";
+
+// BACK
+function goBack(){
+window.history.back();
+}
+
+</script>
+
+</body>
+</html>
