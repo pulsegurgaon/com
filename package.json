@@ -6,7 +6,7 @@
     "node": ">=18"
   },
   "scripts": {
-    "install:all": "npm --prefix backend install && npm --prefix pulse-gurgaon-stream install",
+    "install:all": "sh -c \"if [ -f backend/package.json ]; then npm --prefix backend install; else echo 'no backend'; fi; if [ -f pulse-gurgaon-stream/package.json ]; then npm --prefix pulse-gurgaon-stream install; else echo 'no frontend'; fi\"",
     "postinstall": "npm run install:all",
     "build:frontend": "npm --prefix pulse-gurgaon-stream run build",
     "build": "npm run install:all && npm run build:frontend",
