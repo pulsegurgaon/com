@@ -7,7 +7,7 @@
   },
   "scripts": {
     "install:all": "sh -c \"if [ -f backend/package.json ]; then npm --prefix backend install; else echo 'no backend'; fi; if [ -f pulse-gurgaon-stream/package.json ]; then npm --prefix pulse-gurgaon-stream install; else echo 'no frontend'; fi\"",
-    "postinstall": "npm run install:all",
+    "postinstall": "sh -c \"npm run install:all && if [ -f pulse-gurgaon-stream/package.json ]; then npm run build:frontend; else echo 'no frontend build'; fi\"",
     "build:frontend": "npm --prefix pulse-gurgaon-stream run build",
     "build": "npm run install:all && npm run build:frontend",
     "start:backend": "node backend/server.js",
