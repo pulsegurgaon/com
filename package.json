@@ -1,0 +1,16 @@
+{
+  "name": "com-root",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "install:all": "npm install --prefix backend && npm install --prefix pulse-gurgaon-stream",
+    "postinstall": "npm run install:all && npm run build:frontend",
+    "build:frontend": "npm run build --prefix pulse-gurgaon-stream",
+    "build": "npm run build:frontend",
+    "start:backend": "node backend/server.js",
+    "start": "npm run start:backend"
+  }
+}

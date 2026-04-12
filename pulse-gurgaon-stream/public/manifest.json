@@ -1,0 +1,17 @@
+{
+  "name": "PulseGurgaon Stream",
+  "short_name": "PulseGurgaon",
+  "description": "Live News and Blogs from Gurgaon",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#e11d48",
+  "icons": [
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
