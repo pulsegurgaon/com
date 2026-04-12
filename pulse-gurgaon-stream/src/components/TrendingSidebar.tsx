@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchBlogs, fetchAds } from "@/lib/api";
+import { fetchNews, fetchAds } from "@/lib/api";
 import { useTheme } from "@/contexts/ThemeContext";
 
 export function TrendingSidebar() {
   const { t } = useTheme();
 
-  const { data: blogs, isLoading: blogsLoading } = useQuery({
-    queryKey: ["blogs"],
-    queryFn: fetchBlogs,
+  const { data: articles, isLoading: articlesLoading } = useQuery({
+    queryKey: ["news"],
+    queryFn: fetchNews,
   });
 
   const { data: adsData, isLoading: adLoading } = useQuery({
@@ -21,16 +21,16 @@ export function TrendingSidebar() {
     <aside className="hidden lg:block w-80 flex-shrink-0">
       <div className="sticky top-24">
         <h3 className="text-lg font-bold mb-4 text-foreground">
-          {t("Trending Blogs", "ट्रेंडिंग ब्लॉग")}
+          {t("Trending", "ट्रेंडिंग")}
         </h3>
         <div className="space-y-4">
-          {(blogsLoading || !blogs) ? (
-            <p className="text-sm text-muted-foreground">Loading blogs...</p>
+          {(articlesLoading || !articles) ? (
+            <p className="text-sm text-muted-foreground">Loading...</p>
           ) : (
-            blogs.slice(0, 4).map((blog: any, i: number) => (
+            articles.slice(0, 4).map((a: any, i: number) => (
               <Link
-                key={blog.id}
-                to={`/blogs`}
+                key={a.id}
+                to={`/article/${a.id}`}
                 className="flex items-start gap-3 group transition-all duration-200 hover:bg-muted p-2 rounded-lg -mx-2"
               >
                 <span className="text-2xl font-black text-muted-foreground/30 w-8 flex-shrink-0">
@@ -38,15 +38,10 @@ export function TrendingSidebar() {
                 </span>
                 <div className="flex-1 min-w-0">
                   <h4 className="text-sm font-semibold leading-snug text-card-foreground group-hover:text-primary transition-colors duration-200 line-clamp-2">
-                    {blog.title}
+                    {a.title}
                   </h4>
                   <div className="flex items-center gap-2 mt-1">
-                    <img
-                      src={blog.authorAvatar}
-                      alt={blog.author}
-                      className="w-5 h-5 rounded-full object-cover"
-                    />
-                    <span className="text-xs text-muted-foreground">{blog.author}</span>
+                    <span className="text-xs text-muted-foreground">{a.author}</span>
                   </div>
                 </div>
               </Link>

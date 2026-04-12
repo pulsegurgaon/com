@@ -9,7 +9,7 @@ import { BreakingTicker } from "@/components/BreakingTicker";
 import { BottomNav } from "@/components/BottomNav";
 import Index from "./pages/Index";
 import ArticleDetail from "./pages/ArticleDetail";
-import Blogs from "./pages/Blogs";
+import SearchResults from "./pages/SearchResults";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -37,7 +37,7 @@ const App = () => (
             <Route path="/admin" element={<Admin />} />
             <Route path="/" element={<PublicLayout><Index /></PublicLayout>} />
             <Route path="/article/:id" element={<PublicLayout><ArticleDetail /></PublicLayout>} />
-            <Route path="/blogs" element={<PublicLayout><Blogs /></PublicLayout>} />
+            <Route path="/search" element={<PublicLayout><SearchResults /></PublicLayout>} />
             <Route path="*" element={<PublicLayout><NotFound /></PublicLayout>} />
           </Routes>
         </BrowserRouter>

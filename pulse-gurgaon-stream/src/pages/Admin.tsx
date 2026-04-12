@@ -8,17 +8,15 @@ import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { 
-  fetchNews, fetchBlogs, fetchAds, fetchTicker, 
+  fetchNews, fetchAds, fetchTicker, 
   addArticle, editArticle, deleteArticle,
-  addBlog, editBlog, deleteBlog,
   setTicker, saveAds 
 } from "@/lib/api";
 
-type Tab = "articles" | "blogs" | "ads" | "ticker";
+type Tab = "articles" | "ads" | "ticker";
 
 const tabIcons: Record<Tab, any> = {
   articles: Newspaper,
-  blogs: PenLine,
   ads: ImageIcon,
   ticker: Radio,
 };
@@ -40,7 +38,6 @@ export default function Admin() {
   const [formSlot, setFormSlot] = useState<string>("top");
 
   const { data: articles } = useQuery({ queryKey: ["news"], queryFn: fetchNews, enabled: isLoggedIn });
-  const { data: blogs } = useQuery({ queryKey: ["blogs"], queryFn: fetchBlogs, enabled: isLoggedIn });
   const { data: ads } = useQuery({ queryKey: ["ads"], queryFn: fetchAds, enabled: isLoggedIn });
   const { data: ticker } = useQuery({ queryKey: ["ticker"], queryFn: fetchTicker, enabled: isLoggedIn });
 
@@ -66,7 +63,6 @@ export default function Admin() {
   const mutationOptions = {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["news"] });
-      queryClient.invalidateQueries({ queryKey: ["blogs"] });
       queryClient.invalidateQueries({ queryKey: ["ads"] });
       queryClient.invalidateQueries({ queryKey: ["ticker"] });
       setShowModal(false);
@@ -81,9 +77,7 @@ export default function Admin() {
   const articleEditMutation = useMutation({ mutationFn: editArticle, ...mutationOptions });
   const articleDeleteMutation = useMutation({ mutationFn: deleteArticle, ...mutationOptions });
 
-  const blogAddMutation = useMutation({ mutationFn: addBlog, ...mutationOptions });
-  const blogEditMutation = useMutation({ mutationFn: editBlog, ...mutationOptions });
-  const blogDeleteMutation = useMutation({ mutationFn: deleteBlog, ...mutationOptions });
+  // blogs removed
 
   const adSaveMutation = useMutation({ mutationFn: saveAds, ...mutationOptions });
   const tickerSaveMutation = useMutation({ mutationFn: setTicker, ...mutationOptions });
@@ -125,10 +119,6 @@ export default function Admin() {
       const data = { title: formTitle, content: formContent, image: formImage, category: formCategory };
       if (editingItem) articleEditMutation.mutate({ ...data, id: parseFloat(editingItem.id) });
       else articleAddMutation.mutate(data);
-    } else if (activeTab === "blogs") {
-      const data = { title: formTitle, content: formContent, image: formImage };
-      if (editingItem) blogEditMutation.mutate({ ...data, id: parseFloat(editingItem.id) });
-      else blogAddMutation.mutate(data);
     } else if (activeTab === "ads") {
       adSaveMutation.mutate({ slot: formSlot, text: formTitle, link: formLink, image: formImage });
     } else if (activeTab === "ticker") {
@@ -157,7 +147,6 @@ export default function Admin() {
 
   const getEntries = () => {
     if (activeTab === "articles") return articles?.map((a: any) => ({ ...a, status: "Live" })) || [];
-    if (activeTab === "blogs") return blogs?.map((b: any) => ({ ...b, status: "Published" })) || [];
     if (activeTab === "ads") return Object.entries(ads || {}).map(([slot, ad]: [string, any]) => ({ id: slot, title: `${slot.toUpperCase()}: ${ad.text}`, status: "Active", link: ad.link, image: ad.image, slot }));
     if (activeTab === "ticker") return ticker ? [{ id: "ticker", title: ticker[0], status: "Active" }] : [];
     return [];
@@ -210,8 +199,8 @@ export default function Admin() {
                     <td className="px-4 py-3"><span className="bg-accent text-accent-foreground px-2 py-0.5 rounded-full text-[10px] uppercase font-bold">{entry.status}</span></td>
                     <td className="px-4 py-3 text-right flex justify-end gap-2">
                       <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(entry)}><Pencil className="h-3.5 w-3.5" /></Button>
-                      {(activeTab === "articles" || activeTab === "blogs") && (
-                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => activeTab === "articles" ? articleDeleteMutation.mutate(parseFloat(entry.id)) : blogDeleteMutation.mutate(parseFloat(entry.id))}><Trash2 className="h-3.5 w-3.5" /></Button>
+                      {activeTab === "articles" && (
+                        <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive" onClick={() => articleDeleteMutation.mutate(parseFloat(entry.id))}><Trash2 className="h-3.5 w-3.5" /></Button>
                       )}
                     </td>
                   </tr>
@@ -268,7 +257,7 @@ export default function Admin() {
 
               <div className="flex gap-2 justify-end mt-6">
                 <Button variant="outline" onClick={() => setShowModal(false)}>Cancel</Button>
-                <Button onClick={handleSave} disabled={articleAddMutation.isPending || blogAddMutation.isPending || adSaveMutation.isPending}>
+                <Button onClick={handleSave} disabled={articleAddMutation.isPending || adSaveMutation.isPending}>
                   <Save className="h-4 w-4 mr-2" /> Save Changes
                 </Button>
               </div>

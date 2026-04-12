@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Search, Moon, Sun, X } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { categories } from "@/lib/mockData";
@@ -10,6 +10,7 @@ export function Navbar() {
   const { theme, toggleTheme, language, toggleLanguage, t } = useTheme();
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
   const location = useLocation();
 
   const navCategories = categories.filter((c) => c.key !== "blogs");
@@ -34,31 +35,15 @@ export function Navbar() {
                 ? location.pathname === "/" && !location.search
                 : location.search.includes(cat.key);
             return (
-              <Link
-                key={cat.key}
-                to={to}
-                className={cn(
-                  "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ease-in-out",
-                  isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
-                )}
-              >
+              <Link key={cat.key} to={to} className={cn(
+                "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ease-in-out",
+                isActive ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
+              )}>
                 {language === "en" ? cat.en : cat.hi}
               </Link>
             );
           })}
-          <Link
-            to="/blogs"
-            className={cn(
-              "px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 ease-in-out",
-              location.pathname === "/blogs"
-                ? "bg-primary text-primary-foreground"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted"
-            )}
-          >
-            {t("Blogs", "ब्लॉग")}
-          </Link>
+          {/* Blogs removed intentionally */}
         </nav>
 
         {/* Right side */}
@@ -78,6 +63,15 @@ export function Navbar() {
                   placeholder={t("Search news...", "समाचार खोजें...")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      const q = searchQuery.trim();
+                      if (q) {
+                        navigate(`/search?q=${encodeURIComponent(q)}`);
+                        setSearchOpen(false);
+                      }
+                    }
+                  }}
                   className="w-full h-9 px-3 rounded-full bg-muted text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
                   autoFocus
                 />

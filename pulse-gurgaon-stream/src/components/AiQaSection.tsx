@@ -59,8 +59,34 @@ export function AiQaSection({ articleTitle, articleContent }: AiQaSectionProps) 
         }),
       });
 
-      if (!resp.ok || !resp.body) {
-        throw new Error("Failed to get AI response");
+      if (!resp.ok) {
+        let text = "";
+        try {
+          const bodyText = await resp.text();
+          const parsed = JSON.parse(bodyText);
+          text = parsed.error || bodyText;
+        } catch (e) {
+          text = resp.statusText || "Failed to get AI response";
+        }
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: `Error: ${text}` },
+        ]);
+        setIsLoading(false);
+        return;
+      }
+
+      if (!resp.body) {
+        // Backend returned non-stream JSON (fallback)
+        try {
+          const j = await resp.json();
+          setMessages((prev) => [...prev, { role: "assistant", content: j.answer || JSON.stringify(j) }]);
+        } catch (e) {
+          setMessages((prev) => [...prev, { role: "assistant", content: "Sorry, I couldn't process your question. Please try again." }]);
+        }
+        setIsLoading(false);
+        setQuestionsLeft((prev) => prev - 1);
+        return;
       }
 
       const reader = resp.body.getReader();

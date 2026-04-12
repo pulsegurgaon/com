@@ -4,9 +4,8 @@ import { cn } from "@/lib/utils";
 
 const items = [
   { to: "/", icon: Home, label: "Home" },
-  { to: "/blogs", icon: PenLine, label: "Blogs" },
   { to: "/admin", icon: Shield, label: "Admin" },
-  { to: "/?search=1", icon: Search, label: "Search" },
+  { to: "/search", icon: Search, label: "Search" },
 ];
 
 export function BottomNav() {
