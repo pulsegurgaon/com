@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Article</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#f4f4f6;
+color:#111;
+transition:0.3s;
+}
+
+.dark{
+background:#0d0d0f;
+color:#eee;
+}
+
+header{
+display:flex;
+justify-content:space-between;
+padding:15px;
+background:#e11d48;
+color:white;
+font-weight:bold;
+}
+
+.container{
+max-width:900px;
+margin:auto;
+padding:15px;
+}
+
+img{
+width:100%;
+border-radius:12px;
+margin-bottom:15px;
+}
+
+h1{
+margin:10px 0;
+}
+
+.meta{
+color:#777;
+font-size:13px;
+margin-bottom:15px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:15px;
+}
+
+.box{
+background:white;
+padding:12px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.dark .box{
+background:#1a1a1d;
+}
+
+.ad{
+margin-top:15px;
+text-align:center;
+padding:10px;
+border-radius:10px;
+background:#fff;
+}
+
+.dark .ad{
+background:#1a1a1d;
+}
+
+button{
+padding:8px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+background:#e11d48;
+color:white;
+}
+
+.toggle{
+background:black;
+color:white;
+}
+
+.dark .toggle{
+background:white;
+color:black;
+}
+
+@media(max-width:790px){
+.grid{
+grid-template-columns:1fr;
+}
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<div>PulseGurgaon</div>
+<div>
+<button onclick="goBack()">← Back</button>
+<button class="toggle" onclick="toggleTheme()">🌙</button>
+</div>
+</header>
+
+<div class="container">
+
+<img id="image">
+
+<h1 id="title"></h1>
+
+<div class="meta" id="date"></div>
+
+<div class="grid">
+
+<div class="box">
+<h3>Key Highlights</h3>
+<ul id="summary"></ul>
+</div>
+
+<div class="box">
+<h3>Vocabulary</h3>
+<ul id="vocab"></ul>
+</div>
+
+</div>
+
+<div class="box" id="article"></div>
+
+<div class="ad" id="adBox">
+<img id="adImage" style="width:100%;border-radius:10px;cursor:pointer;">
+</div>
+
+</div>
+
+<script>
+
+const data = JSON.parse(localStorage.getItem("article") || "{}");
+
+document.getElementById("image").src = data.image || "";
+document.getElementById("title").innerText = data.title_en || "No Title";
+document.getElementById("date").innerText = data.publishedAt || "";
+
+let sum="";
+(data.summary_points || []).forEach(s=>{
+sum += `<li>${s}</li>`;
+});
+document.getElementById("summary").innerHTML = sum;
+
+let voc="";
+(data.vocab_en || []).forEach(v=>{
+voc += `<li>${v}</li>`;
+});
+document.getElementById("vocab").innerHTML = voc;
+
+document.getElementById("article").innerText = data.article_en || "";
+
+fetch("/ads")
+.then(r=>r.json())
+.then(ad=>{
+document.getElementById("adImage").src = ad.image;
+document.getElementById("adImage").onclick = ()=>window.open(ad.link);
+});
+
+function goBack(){
+window.history.back();
+}
+
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
+
+</script>
+
+</body>
+</html>

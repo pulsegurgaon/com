@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseGurgaon</title>
+<link rel="stylesheet" href="desktop.css">
+</head>
+
+<body>
+
+<script>
+if(window.innerWidth < 790){
+window.location.href="/index.html";
+}
+</script>
+
+<header class="topbar">
+<div class="logo">PulseGurgaon</div>
+
+<div class="nav">
+<span onclick="filterNews('All')">All</span>
+<span onclick="filterNews('India')">India</span>
+<span onclick="filterNews('World')">World</span>
+<span onclick="filterNews('Technology')">Technology</span>
+<span onclick="filterNews('Finance')">Finance</span>
+</div>
+
+<div class="searchBox">
+<input id="search" placeholder="Filter news...">
+<button onclick="runSearch()">Search</button>
+</div>
+</header>
+
+<div class="container">
+
+<div class="left">
+
+<h2>Latest News</h2>
+
+<div id="newsGrid"></div>
+
+</div>
+
+<div class="right">
+
+<h3>Trending Blogs</h3>
+<div id="blogs"></div>
+
+<div class="sideAd" id="sideAd"></div>
+
+</div>
+
+</div>
+
+<script>
+
+let allNews=[];
+
+fetch("/news").then(r=>r.json()).then(data=>{
+allNews=data;
+renderNews(data);
+});
+
+fetch("/blogs").then(r=>r.json()).then(data=>{
+let html="";
+data.slice(0,5).forEach(b=>{
+html+=`
+<div class="blogItem" onclick="openBlog('${b.id}')">
+<img src="${b.image}">
+<div>
+<p>${b.title}</p>
+<small>${new Date(b.date).toLocaleDateString()}</small>
+</div>
+</div>
+`;
+});
+document.getElementById("blogs").innerHTML=html;
+});
+
+function renderNews(data){
+let html="";
+
+data.forEach((n,i)=>{
+
+html+=`
+<div class="card" onclick="openArticle(${i})">
+<img src="${n.image}">
+<div class="info">
+<span class="tag">${n.category}</span>
+<h3>${n.title_en}</h3>
+<p>${(n.summary_points||[])[0] || ""}</p>
+</div>
+</div>
+`;
+
+if(i===1){
+html+=`<div class="bannerAd" id="banner"></div>`;
+loadBanner();
+}
+
+});
+
+document.getElementById("newsGrid").innerHTML=html;
+}
+
+function loadBanner(){
+fetch("/ads").then(r=>r.json()).then(ad=>{
+document.getElementById("banner").innerHTML=
+`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
+});
+}
+
+fetch("/ads").then(r=>r.json()).then(ad=>{
+document.getElementById("sideAd").innerHTML=
+`<img src="${ad.image}" onclick="window.open('${ad.link}')">`;
+});
+
+function openArticle(i){
+localStorage.setItem("article",JSON.stringify(allNews[i]));
+window.location="/article.html";
+}
+
+function openBlog(id){
+window.location="/blog.html?id="+id;
+}
+
+function filterNews(cat){
+if(cat==="All") return renderNews(allNews);
+renderNews(allNews.filter(n=>n.category===cat));
+}
+
+function runSearch(){
+let val=document.getElementById("search").value.toLowerCase();
+let filtered=allNews.filter(n=>n.title_en.toLowerCase().includes(val));
+renderNews(filtered);
+}
+
+</script>
+
+</body>
+</html>
